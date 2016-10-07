@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Alles online</title>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="/static/first/bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/first/nerostyle.css" rel="stylesheet">
+    <script src=
+    "https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js">
+    </script>
+    <script src="/static/first/bootstrap-3.3.6-dist/js/bootstrap.min.js">
+    </script>
+    <script src="/static/first/custom.js">
+    </script>
+	<script type="text/javascript"> 
+	   var categories = {{someJsVar|safe}};
+		alert(categories.toString()); 
+	</script>
+</head>
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#"><img alt="doughroll" height="30" width="30" src="images/logo.png"></a>
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#">Mijn bestellingen <span class="badge">2</span></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="jumbotron">
+            <h1>Bakker Nerooke</h1>
+            <p>Damse Vaart zuid 14 8310 Brugge</p>
+        </div>
+        <ul class="nav nav-tabs" id="tabsList">
+            <li class="dropdown" role="presentation">
+                <a aria-expanded="false" aria-haspopup="true" class=
+                "dropdown-toggle" data-toggle="dropdown" href="#" role=
+                "button">Eerdere bestellingen <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="#">Zaterdag 7 juni - 2 weken geleden</a>
+                    </li>
+                    <li>
+                        <a href="#">Zaterdag 30 mei - 3 weken geleden</a>
+                    </li>
+                    <li>
+                        <a href="#">Zondag 24 mei - 4 weken geleden</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <form class="navbar-form navbar-right" role="search">
+                  <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search">
+                  </div>
+                </form>
+            </li>   
+        </ul>
+        <div class="tab-content" id="tabsContent">
+            <div class="tab-pane fade" id="searchResult">
+                
+                <p class="text-danger">No results</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

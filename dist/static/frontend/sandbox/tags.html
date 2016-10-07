@@ -1,0 +1,46 @@
+<html>
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script> 
+    <script src="js/typeahead.bundle.js"></script>
+    <script src="js/bootstrap-tagsinput-latest/src/bootstrap-tagsinput.js"></script>
+    <link href="js/bootstrap-tagsinput-latest/src/bootstrap-tagsinput.css" rel="stylesheet">
+    
+    <body>
+        <div class="container">
+            <div>input</div>
+            <input id="test" type="text" class="typeahead" data-role="tagsinput">
+        </div>
+        <script>
+        
+        var citynames = new Bloodhound({
+          datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+          queryTokenizer: Bloodhound.tokenizers.whitespace,
+          prefetch: {
+            url: 'data/citynames.json',
+            filter: function(list) {
+              return $.map(list, function(cityname) {
+                return { name: cityname }; });
+            }
+          }
+        });
+        citynames.initialize();
+
+        $('input').tagsinput({
+          typeaheadjs: {
+            name: 'citynames',
+            displayKey: 'name',
+            valueKey: 'name',
+            source: citynames.ttAdapter()
+          }
+        });
+        
+        /*$('#test').tagsinput({
+            typeahead: {
+                source: ['Amsterdam', 'Washington', 'Sydney', 'Beijing', 'Cairo']
+            }
+        });*/
+        
+    </script>
+    </body>
+</html>

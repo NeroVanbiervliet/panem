@@ -1,0 +1,43 @@
+<html>
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="js/panem_custom.css" rel="stylesheet">
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script> 
+    <script src="js/typeahead.bundle.js"></script>
+    <script src="js/bootstrap-tagsinput-latest/src/bootstrap-tagsinput.js"></script>
+    <link href="js/bootstrap-tagsinput-latest/src/bootstrap-tagsinput.css" rel="stylesheet">
+    
+    <body>
+        <div class="container">
+            <div id="prefetch">
+                <input class="typeahead" value="melk,bloem" type="text" placeholder="ingredienten" size="500" disabled>
+            </div>
+        </div>
+        <script>
+        
+        var countries = new Bloodhound({
+          datumTokenizer: Bloodhound.tokenizers.whitespace,
+          queryTokenizer: Bloodhound.tokenizers.whitespace,
+          prefetch: 'data/ingredients.json'
+        });
+
+        $('input').tagsinput({
+          typeaheadjs: [{
+          hint: true,
+          highlight: true,
+          minLength: 1
+        },{
+          name: 'countries',
+          source: countries
+        }]
+        });
+        
+        /*$('#test').tagsinput({
+            typeahead: {
+                source: ['Amsterdam', 'Washington', 'Sydney', 'Beijing', 'Cairo']
+            }
+        });*/
+        
+    </script>
+    </body>
+</html>

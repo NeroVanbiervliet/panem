@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Alles online</title>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="panem_custom.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
+    <script src="vocabulary.js"></script> 
+    <script src="panem_custom.js"></script>
+    
+    
+    <script src="datepicker/js/bootstrap-datepicker.min.js"></script>
+    <script src="datepicker/locales/bootstrap-datepicker.nl-BE.min.js"></script>
+    <link href="datepicker/css/bootstrap-datepicker3.standalone.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand navbar-img" href="#">
+                    <img alt="doughroll" height="auto" width="110" src="images/logo.png">
+                </a>
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Nero Vanbiervliet<span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Another action</a></li>
+                    <li><a href="#">Something else here</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#">Separated link</a></li>
+                  </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        
+        <div class="row">
+            <div class="col-md-2">
+                <div class="box" style="background-image: url(&quot;images/croissant.jpg&quot;);">
+                    <div class="overlay" data-productid="3" onclick="updateOrderedProducts(this)">
+                        <span class="glyphicon glyphicon-plus product-plus" aria-hidden="true"></span>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <p class="label label-default">croissant</p>
+                    <span class="badge">€4</span>
+                </div>
+            </div>
+            
+            <div class="col-md-2">
+                <div class="text-center">
+                    <button type="button" class="btn btn-default btn-xs">
+                        <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+                    </button>
+                    <div><strong>6</strong></div>
+                    <button type="button" class="btn btn-default btn-xs">
+                        <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                    </button>
+                </div>
+                    
+                <div class="box" style="background-image: url(&quot;images/croissant.jpg&quot;);">
+                    <div class="overlay" data-productid="3" onclick="updateOrderedProducts(this)">
+                        <span class="glyphicon glyphicon-plus product-plus" aria-hidden="true"></span>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <p class="label label-default">croissant</p>
+                    <span class="badge">€4</span>
+                </div>
+            </div>
+            
+            <div class="col-md-3">
+                <div class="row row-border">
+                    
+                    <div class="col-xs-4 vcenter"> 
+                        <div class="box-mini" style="background-image: url(&quot;images/chocoladekoek.jpg&quot;);">
+                            <div class="overlay-mini" data-productid="3" onclick="updateOrderedProducts(this)">
+                                <span class="glyphicon glyphicon-remove product-remove" aria-hidden="true"></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-xs-3 vcenter">
+                        <div class="text-left">
+                            <p class="label label-default">croissant</p>
+                            <span class="badge">€4</span>
+                        </div>
+                    </div>
+                    
+                    <div class="col-xs-1 vcenter">
+                        <span class="badge">6</span>
+                    </div>
+                    
+                    <div class="col-xs-3 vcenter">
+                        <button type="button" class="btn btn-default btn-xs">
+                            <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+                        </button>
+                        <button type="button" class="btn btn-default btn-xs">
+                            <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                        </button>
+                    </div>
+                    
+                </div>
+            </div>           
+            
+        </div> 
+        
+        <div class="row">
+            <p data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?">
+                <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                openingsuren
+            </p>
+        </div>
+    </div>
+</body>
+</html>

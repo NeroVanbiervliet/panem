@@ -1,0 +1,44 @@
+/* tweede versie van image hover */
+
+.box{  
+	width:100px;
+	height:100px;
+	/*box-shadow:inset 1px 1px 20px 0 rgba(0,0,0,.45); */
+	border-bottom:2px solid #fff;
+	border-right:2px solid #fff;
+	margin:5% auto 0 auto; 
+	background-size:cover;
+	/*border-radius:10px;	*/
+	overflow:hidden;
+}
+
+.overlay    {  
+	background:rgba(0,0,0,.65); /* black, slightly transparant */
+	text-align:center;
+	padding:20px 0 66px 0;
+	opacity:0;
+	-webkit-transition: opacity .25s ease;
+	-moz-transition: opacity .25s ease;
+	/*border-radius:10px;	*/
+}
+
+.box:hover .overlay { /* @ event hover van box -> doe deze layout op overlay */
+	opacity:1;
+}
+
+.plus       {  
+	font-family:Helvetica Neue;
+	font-weight:100;
+	color:rgba(255,255,255,.85);
+	font-size:40px;
+}
+
+/* bootstrap fixes */
+.colPad:not(:first-child),.col:not(:last-child) {
+  padding-right:60px;
+  padding-left:60px;
+}
+
+.spacer { /* to create some whitespace */
+    margin-top: 40px; 
+}

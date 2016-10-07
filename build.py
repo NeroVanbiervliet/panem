@@ -67,10 +67,22 @@ def replaceCodeInFile(filePath, toReplace, newText):
 	# move new file
 	shutil.move(absPath, filePath)
 
+# auxiliary function
+# replaces the first line of 
+def replaceFirstLineOfFile(filePath, newText):
+	with open(filePath) as currentFile:
+		lines = currentFile.readlines()
+	lines[0] = newText
+
+	with open(filePath, 'w') as currentFile:
+		for line in lines:
+		    currentFile.write(line)
+
 # relative path to src and dist directory
 srcPath = 'src/'
 distPath = 'dist/'
 serverIp = '146.185.179.39'
+serverEnvPath = '/home/sysadmin/panem/dist/panem_env/'
 
 # obtain version number from command line arguments
 versionNumber = sys.argv[1]
@@ -99,6 +111,13 @@ print 'replacing server specific script entries'
 # TODO netter maken door bvb op zoek te gaan naar // build replace (localhost) to (146.185.179.39)? 
 replaceCodeInFile(distPath + 'static/frontend/js/config.js', 'localhost',serverIp)
 
+# TODO mss virtual env steeds van scratch terug herinstalleren en ook pip libraries automatishc herinstalleren (zie asana voor meer info)
+print 'replacing first line of env files'
+filesToModify = ['bin/django-admin','bin/django-admin.py', 'bin/f2py','bin/gunicorn','bin/gunicorn_django','bin/gunicorn_paster']
+newText = '#!' + serverEnvPath + 'bin/python \n'
+for i in range(len(filesToModify)): 
+	currentFilePath = 'dist/panem_env/' + filesToModify[i]
+	replaceFirstLineOfFile(currentFilePath, newText)
 
 print 'build completed'
 

@@ -1,0 +1,7 @@
+packages to download on server:
+
+numpy 
+django
+geopy
+bcrypt
+cross-site-access: pip install django-cors-headers
