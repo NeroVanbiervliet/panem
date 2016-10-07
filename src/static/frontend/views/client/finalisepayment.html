@@ -1,0 +1,22 @@
+<div class="container" ng-switch="status">
+    <div ng-switch-when="loading" class="loader">
+    </div>
+    <div ng-switch-when="cancelled">
+        <h4>payment cancelled by user</h4>
+    </div>
+    <div ng-switch-when="refused">
+        <h4>payment refused by adyen</h4>
+    </div>
+    <div ng-switch-when="pending">
+        <h4>payment pending...</h4>
+    </div>
+    <div ng-switch-when="adyenerror">
+        <h4>adyen error</h4>
+    </div>
+    <div ng-switch-when="backenderror">
+        <h4>backend error</h4>
+    </div>
+    <div ng-switch-when="success">
+        <h4>Payment accepted</h4>
+    </div>
+</div>

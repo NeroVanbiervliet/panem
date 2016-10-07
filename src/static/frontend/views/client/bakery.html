@@ -1,0 +1,177 @@
+<div class="container">
+    <div class="row"> <!-- bakery info -->
+        <div class="col-md-4"> <!-- image -->
+            <img src="images/winkel.jpg" class="img-responsive img-rounded" alt="winkel image">
+        </div>
+        <div class="col-md-8"> <!-- text info -->
+            <h1>{{pyBakeryInfo.name}}</h1>
+            <p> <!-- adress --> 
+                <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+                {{pyBakeryInfo.adress}}
+            </p>
+            <!-- website --> 
+            <p ng-if="pyBakeryInfo.website"> <!-- empty string is evaluated as false -->
+                <span class="glyphicon glyphicon-globe" aria-hidden="true"></span>
+                <a href="http://{{pyBakeryInfo.website}}" target="_blank">{{pyBakeryInfo.website}}</a>
+            </p>
+            
+            <button type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="bottom" data-content="{{pyBakeryInfo.openingHours}}">
+              <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                {{dict.bakeryDescription.openingHours}}
+            </button>
+        </div>
+    </div> <!-- row -->
+    
+    <div class="row spacer">
+        <!-- BAKERY SUPPLY -->
+        <div class="col-sm-8 col-supply">
+            
+            <!-- TAB NAVIGATION BAR -->
+            <ul class="nav nav-tabs">
+                <li ng-repeat="cat in pyCategories" ng-class="{active:$first}">
+                    <a data-toggle="tab" href="#content{{$index}}" show-tab>{{cat.name}}</a>
+                </li>
+            </ul>                      
+            
+            <!-- TAB CONTENT --> 
+            <div class="row tab-content" id="tabsContent">                 
+                <div class="tab-pane fade" ng-repeat="cat in pyCategories" id="content{{$index}}" ng-class="{'in active':$first}">
+                    <div class="col-sm-3 col-xs-3" ng-repeat="product in cat.products">
+                        <!-- NEED deze terug aan <div class="box"style="background-image: url('{{PRODUCT_IMAGE_SOURCE + product.id + PRODUCT_IMAGE_EXTENSION}}');"> -->
+                        <div ng-class="{true: 'box-xs', false: 'box'}[smallDevices]" style="background-image: url('{{PRODUCT_IMAGE_SOURCE + 0 + PRODUCT_IMAGE_EXTENSION}}');">
+                            <div ng-class="{true: 'overlay-xs', false: 'overlay'}[smallDevices]" ng-click="addProductToOrder(product)">
+                                <span aria-hidden="true" class="glyphicon glyphicon-plus" ng-class="{true: 'product-plus-xs', false: 'product-plus'}[smallDevices]"></span>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <p class="label label-default">{{product.name}}</p>
+                            <span class="badge price-euro">{{product.price | moneyFilter}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row spacer-small" ng-show="!pyCategories.length">
+                <div class="col-md-11 col-md-offset-1">{{dict.bakeryDescription.noProducts}}</div>
+            </div>
+            
+        </div> <!-- col-sm-8 -->
+        
+        <!-- CURRENT ORDER -->
+        <div class="col-sm-4 col-order col-order-border" ng-class="{true: 'spacer-extended', false: ''}[smallDevices]">                
+            <div class="row"> <!-- order summary-->
+                <h3 id="labelOrder">{{dict.label.order}}</h3>
+
+                {{dict.orderLabels.previousOrders}}
+                <!-- previous orders dropdown -->
+                <select class="form-control" ng-model="order.selectedOrderId" ng-change="loadOrder()">
+                    <!-- default option, dropdown title -->
+                    <option selected="selected" value="-1">{{dict.orderLabels.currentOrder}}</option>
+
+                    <!-- previous orders options -->
+                    <option ng-repeat="prevOrder in pyPreviousOrders" value="{{prevOrder.id}}">{{prevOrder.dropDownText}}</option>
+                </select>
+
+                <h2 id="totalPrice" class="price-euro">{{totalPrice | moneyFilter}}</h2> <!-- NEED formatting & dynamisch -->
+            </div><!-- row order summary-->
+
+
+            <div class="row row-border" ng-repeat="product in order.products" ng-class="{'spacer-small':!$first}" id="{{product.productData.id}}">
+
+                <!-- thumbnail -->
+                <div class="col-xs-4 vcenter">
+                    <!-- <div class="box-mini" style="background-image: url('{{PRODUCT_IMAGE_SOURCE + product.productData.id + PRODUCT_IMAGE_EXTENSION}}');">  NEED deze terugplaatsen -->
+                    <div class="box-mini" style="background-image: url('{{PRODUCT_IMAGE_SOURCE + 0 + PRODUCT_IMAGE_EXTENSION}}');">
+                        <div class="overlay-mini" data-productid="{{product.productData.id}}" ng-click="removeProductFromOrder(product.productData)">
+                            <span class="glyphicon glyphicon-remove product-remove" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- name and price -->
+                <div class="col-xs-3 vcenter">
+                    <div class="text-left">
+                        <p class="label label-default">{{product.productData.name}}</p>
+                        <span class="badge price-euro">{{product.productData.price | moneyFilter}}</span>
+                    </div>
+                </div>
+
+                <!-- amount -->
+                <div class="col-xs-1 vcenter">
+                    <span class="badge">{{product.amount}}</span>
+                </div>
+
+                <!-- buttons to increase/decrease amount -->
+                <div class="col-xs-3 vcenter">
+                    <button type="button" class="btn btn-default btn-xs" ng-click="increaseAmount(product)">
+                        <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+                    </button>
+                    <button type="button" class="btn btn-default btn-xs" ng-click="decreaseAmount(product)">
+                        <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                    </button>
+                </div>
+
+            </div>
+
+            <div class="row"> <!-- calendar -->
+                    <h3>{{dict.label.pickupDate}}</h3>
+
+                    <!-- buttons for quickselect tomorrow/day after tomorrow -->   
+                    <div class="spacer-small btn-toolbar">
+
+                        <!-- tomorrow disabled -->
+                        <button ng-if="(disabledDatesInt.indexOf(1) > -1)" ng-click="setCalenderDivDate(1)" class="btn btn-danger btn-sm cursor-not-allowed" data-toggle="tooltip" data-placement="top" title="{{dict.orderLabels.bakeryIsClosed}}" tooltip>
+                            {{dict.nextDays[1]}}
+                        </button>
+                        
+                        <!-- tomorrow is not disabled -->
+                        <button class="btn btn-primary btn-sm" ng-if="!(disabledDatesInt.indexOf(1) > -1)" ng-click="setCalenderDivDate(1)">
+                            {{dict.nextDays[1]}}
+                        </button>
+                        
+                        <!-- date is disabled -->
+                        <button ng-repeat-start="moreDays in [2,3,4]" ng-if="(disabledDatesInt.indexOf(moreDays) > -1)" class="btn btn-danger btn-sm cursor-not-allowed" data-toggle="tooltip" data-placement="top" title="{{dict.orderLabels.bakeryIsClosed}}" tooltip> 
+                            {{getDateName(moreDays)}}
+                        </button>
+
+                        <!-- date is not disabled -->
+                        <button ng-if="!(disabledDatesInt.indexOf(moreDays) > -1)" class="btn btn-default btn-sm" ng-click="setCalenderDivDate(moreDays)" ng-repeat-end>
+                            {{getDateName(moreDays)}}
+                        </button>
+
+                    </div>
+
+                    <!-- input box with calendar -->
+                    <div class="spacer-small device-lg visible-lg device-md visible-lg device-sm visible-sm">
+                        <div class="input-group date" id="calendarDiv">
+                            <input type="text" class="form-control">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                        </div>
+                        <input type="hidden" id="dateDelivery" value="{{$('#calendarDiv').datepicker('getDate').toString()}}">
+                    </div>
+
+                    <!-- mobile input box with calendar -->
+                    <div class="spacer-small device-xs visible-xs">
+                        <input type="date">
+                    </div>
+
+            </div>
+
+            <!-- remarks --> 
+            <div class="row spacer-small">
+                <!--<label id="labelRemarks" for="orderRemarks">{{dict.orderLabels.remarks}}</label> -->
+                <textarea class="form-control" rows="2" ng-model="remarks" placeholder="{{dict.orderLabels.remarks}}"></textarea>
+            </div>
+
+            <!-- submit button -->
+            <div class="row spacer-medium">
+                <button type="submit" class="btn btn-default" id="labelSubmitOrder" ng-click="proceedToConfirmOrder()" ng-disabled="order.products.length == 0">
+                    {{dict.orderLabels.continue}}
+                    <span class="glyphicon glyphicon-arrow-right"></span>
+                </button>
+            </div>
+
+        </div> <!-- col-sm-4 -->
+    </div> <!-- row -->              
+    
+</div> <!-- container -->

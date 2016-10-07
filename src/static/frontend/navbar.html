@@ -1,0 +1,42 @@
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand navbar-img" href="#">
+                <img alt="doughroll" height="auto" width="110" src="images/logo.png">
+            </a>
+        </div>
+        <div class="navbar-header pull-right" ng-switch="userInfo.type">   
+            <!-- content if not logged in -->
+                <!-- register button -->
+                <button type="button" ng-show="!loggedIn" class="btn btn-default navbar-btn" ng-click="navigate('#/client/register?source='+urlPath)">
+                    {{dict.register}}
+                </button>
+
+                <!-- log in buton -->
+                <button type="button" ng-show="!loggedIn" class="btn btn-primary navbar-btn" ng-click="navigate('#/client/login?source='+urlPath)">
+                    {{dict.login}}
+                </button> 
+
+            <!-- content if logged in -->
+                <!-- client myaccount button -->
+                <button class="btn btn-default navbar-btn" ng-click="navigate('#/client/myaccount')" ng-show="loggedIn" ng-switch-when="normal">
+                    {{userInfo.firstName + ' ' + userInfo.lastName}}
+                </button>
+            
+                <!-- bakery mybakery button -->
+                <button class="btn btn-default navbar-btn" ng-click="navigate('#/baker/modifyproducts')" ng-show="loggedIn" ng-switch-when="baker">
+                    {{userInfo.bakeryName}}
+                </button>
+
+                <!-- logout button -->
+                <button class="btn btn-danger navbar-btn" ng-click="logout()" ng-show="loggedIn">
+                    <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+                </button>
+        </div>   
+    </div>
+</nav>
+
+
+
+
+

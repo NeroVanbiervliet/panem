@@ -1,0 +1,28 @@
+<div class="container" ng-switch on="confirmStatus">
+    <div class="col-sm-offset-2 col-sm-4 text-center" ng-switch-default>
+        <img src="../../images/panem_groot.png" width="250">
+        <h2>{{dict.noCorrectCodeOrEmail.heading}}</h2>
+        <p>We kunnen uw account niet bevestigen. Gelieve contact op te nemen met onze <a href="#/client/contact/">hulpdienst</a>.</p>
+    </div>
+    <div class="col-sm-offset-2 col-sm-4 text-center" ng-switch-when="success">
+        <img src="../../images/panem_groot.png" width="250">
+        <h1>{{dict.confirmed.heading}}</h1>
+        <p>{{dict.confirmed.description}}</p>
+        <a href="#/client/home">
+            <button class="btn btn-primary">{{dict.confirmed.buttonText}}</button>
+        </a>
+    </div>
+    <div class="col-sm-offset-2 col-sm-4 text-center" ng-switch-when="alreadyverified">
+        <img src="../../images/panem_groot.png" width="250"> <!-- NEED veranderen naar logo_large of zo -->
+        <h2>{{dict.wasAlreadyConfirmed.heading}}</h2>
+        <p>{{dict.wasAlreadyConfirmed.description + ' ' + dict.confirmed.description}}</p>
+        <a href="#/client/home">
+            <button class="btn btn-primary">{{dict.confirmed.buttonText}}</button>
+        </a>
+    </div>
+    <div class="col-sm-offset-2 col-sm-4 text-center" ng-switch-when="backenderror">
+        <img src="../../images/panem_groot.png" width="250">
+        <h2>{{dict.backendRequestFail.heading}}</h2>
+        <p>{{dict.backendRequestFail.description}}</p>
+    </div>
+</div>
