@@ -1,14 +1,19 @@
-panemApp.controller('clConfirmOrderCtrl', function($scope, $rootScope, $window, dictionary, processDate, tokenManager, $http) {
+panemApp.controller('clConfirmOrderCtrl', function($scope, $rootScope, $window, dictionary, processDate, tokenManager, $http, requestWrapper) {
     
     // variables 
     $scope.pyOrder; 
     $scope.pyCreditBill; 
     
+    // initialise dictionary
+    $scope.dict = dictionary.fillClConfirmOrder("nl");
+    
     $scope.extraCredit = 0; // NEED ambetant want als je het op nul initialiseert toont hij placeholder niet meer, maar anders flipt de GET omdat extraCredit mogelijks niet bestaat => dan op nul zetten? 
     
     // constants 
-    $scope.PRODUCT_IMAGE_SOURCE = "images/products_id/"; // NEED veranderen
-    $scope.PRODUCT_IMAGE_EXTENSION = ".jpg";
+    $scope.PRODUCT_IMAGE_SOURCE = "images/products/50/";
+    $scope.PRODUCT_IMAGE_EXTENSION = ".png";
+    $scope.SHOP_IMAGE_SOURCE = "images/shops/800x500/"; // TODO larger image for bakery page? 
+    $scope.IMAGE_EXTENSION = ".png";
     
     // FUNCTIONS
     
@@ -46,52 +51,53 @@ panemApp.controller('clConfirmOrderCtrl', function($scope, $rootScope, $window, 
         loadCurrentOrder(newToken); 
         loadCreditBill(newToken);
     });
-    
-    // initialise dictionary
-    $scope.dict = dictionary.fillClConfirmOrder("nl");
 
     // set up date processing
     processDate.setLang("nl");
     $scope.getQualitative = processDate.getWordDate; 
     
-    $scope.returnToEditOrder = function() {
-        $window.location.href = "#/client/bakery?bakeryId="+$scope.pyOrder.bakeryId;
-    }
-    
-    $scope.proceedPayment = function() {
+    // proceed to adyen payment
+    $scope.proceedPaymentAdyen = function() {
         
         // convert input in euro to eurocent
         $scope.extraCredit = $scope.extraCredit*100;
+        
+        skin = 'default';
+        // detect if the device is mobile or not
+        if(document.documentElement.clientWidth < 768) {
+            skin = 'mobile'
+        }
         
         // get bill from endpoint after obtaining a token
         tokenManager.getToken().then(function(newToken) {
             $http({
                 method : "GET",
-                url : $rootScope.baseUrl + '/order/current/bill/cash/extraCredit=' + $scope.extraCredit + "&token=" + newToken + "/"
+                url : $rootScope.baseUrl + '/order/current/bill/cash/extraCredit=' + $scope.extraCredit + "&skin=" + skin + "&token=" + newToken + "/"
             }).then(function(response) {
                 $scope.pyBill = response.data;
             }, function(response) {
                 console.log(response.data);
                 $scope.pyBill = [];
-                // NEED hoe backend errors handlen, alert dat ze moeten pagina herladen?
             });
         }); 
         
         // try to submit form when data is ready    
-        function trySubmitForm() {
-            $scope.$watch('pyBill', function() {
-                if($scope.pyBill.merchantSig != "" && $scope.pyBill.merchantSig != null)
-                {
-                    $('#hiddenForm').submit();
-                }
-                else
-                {
-                    // wait again for changes in pyBill
-                    trySubmitForm();
-                }
-            });
-        };
-        
-        trySubmitForm();
+        // try to submit form when data is ready    
+        $scope.$watch('pyBill', function() {
+            if($scope.pyBill !== undefined && $scope.pyBill.merchantSig != "" && $scope.pyBill.merchantSig != null) {
+                $('#hiddenForm').submit();
+            }
+        });
     }; 
+    
+    // proceed with credit payment
+    $scope.proceedPaymentCredit = function() {
+        url = '/order/current/pay/';
+        dataToSend = {};
+        $scope.requestStatus = requestWrapper.init(); 
+        requestWrapper.post(url, dataToSend).then(function (newStatus) {
+            // redirect page
+            $window.location.href = '#/client/finalisepayment?credit=true&status='+newStatus; 
+        });
+    };
 });

@@ -1,7 +1,17 @@
 <div class="container">
     <div class="row spacer-medium"> <!-- main -->
-        <div class="col-md-8 col-md-offset-2">   
-            <div class="panel panel-default"> <!-- products panel -->
+        <div class="col-md-8 col-md-offset-2"> 
+            
+            <!-- navigate to bakery page as clients view it -->
+            <div>
+                <p>{{dict.introduction.introText}}</p>
+                <button type="button" class="btn btn-default" ng-click="goToBakeryPage()">
+                    {{dict.introduction.buttonText}}<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                </button>
+            </div>
+            
+            <!-- products panel -->
+            <div class="panel panel-default spacer-medium"> 
                 <div class="panel-heading" id="labelPanelTitle">{{dict.panelTitles.products}}</div>
                 <div class="panel-body">      
 
@@ -23,12 +33,12 @@
                     <div class="row spacer-medium" ng-repeat-start="product in productCategory.products">
                         <!-- checkbox -->
                         <div class="form-group col-xs-2">
-                            <input type="checkbox" data-toggle="toggle" data-style="quick" data-size="small">
+                            <input type="checkbox" data-style="quick" data-size="small" toggle-products> <!-- data-toggle="..." is an alternative to specify a directive, such as < ... toggle> -->
                         </div>
 
                         <!-- thumbnail of product -->
                         <div class="form-group col-xs-2">
-                            <img src="images/products/Tompoes.jpg" height="50" class="img-rounded" ng-class="{'blackwhite':!product.available}"> <!-- NEED dynamisch -->
+                            <img src="{{PRODUCT_IMAGE_SOURCE}}{{product.photoId}}.png" height="50" class="img-rounded" ng-class="{'blackwhite':!product.available}">
                         </div>
 
                         <!-- name -->
@@ -52,7 +62,7 @@
 
                         <!-- ingredient tags -->
                         <div class="col-xs-8">
-                            <input class="typeahead" type="text" placeholder="{{dict.ingredientsPlaceholder}}" data-role="tagsinput" ng-disabled="!product.available" tags-input>
+                            <input class="typeahead" type="text" placeholder="{{dict.ingredientsPlaceholder}}" data-role="tagsinput" ng-disabled="!product.available" data-bloodhound="bloodhound" ng-if="pyIngredients.custom.length > 0" data-initvalue="{{product.ingredientsString}}" tags-input>
                         </div>
                     </div>      
 
@@ -110,24 +120,39 @@
             <div class="panel panel-default"> <!-- last order hour panel -->
                 <div class="panel-heading" id="labelPanelTitle">{{dict.panelTitles.lastOrderHour}}</div>
                 <div class="panel-body">
-                        <div class="row">
-                            <div class="col-xs-3">{{dict.panelTitles.lastOrderHour}}: </div>
-                            <div class="form-group col-xs-3" ng-if="pyBakeryInfo"> <!-- load DOM if variable is available -->
-                                <div class="input-group bootstrap-timepicker timepicker">
-                                    <input type="text" class="form-control input-small timepicker-orderlimit-hours" timepicker>
-                                    <span class="input-group-addon">
-                                        <i class="glyphicon glyphicon-time"></i>
-                                    </span>
-                                </div>
-                            </div>  
+                    <div class="row">
+                        <div class="col-xs-3">{{dict.panelTitles.lastOrderHour}}: </div>
+                        <div class="form-group col-xs-3" ng-if="pyBakeryInfo"> <!-- load DOM if variable is available -->
+                            <div class="input-group bootstrap-timepicker timepicker">
+                                <input type="text" class="form-control input-small timepicker-orderlimit-hours" timepicker>
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-time"></i>
+                                </span>
+                            </div>
+                        </div>  
+                    </div>
+
+                    <!-- save changes button -->
+                    <div class="row spacer-medium">
+                        <div class="col-xs-3">
+                            <button class="btn btn-default" ng-click="saveAllData()">{{dict.saveChanges}}</button>
                         </div>
 
-                        <!-- save changes button -->
-                        <div class="row spacer-medium">
-                            <div class="col-xs-12">
-                                <button class="btn btn-default" ng-click="saveAllData()">{{dict.saveChanges}}</button>
-                            </div>
+                        <!-- loading icon -->
+                        <div class="col-xs-1" ng-show="requestStatus[0]=='working' || requestStatus[1]=='working'">
+                            <div class="loader-small"></div>
                         </div>
+                        <!-- succesfull -->
+                        <div class="col-xs-6 text-success" ng-show="requestStatus[0]=='success' && requestStatus[1]=='success'">
+                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            {{dict.status.success}}
+                        </div>
+                        <!-- error -->
+                        <div class="col-xs-6 text-danger" ng-show="!(requestStatus[0]=='success' && requestStatus[1]=='success') && !(requestStatus[0]=='working' || requestStatus[1]=='working') && (requestStatus != null)">
+                            <span class="glyphicon glyphicon-flash" aria-hidden="true"></span>
+                            {{dict.status.failure}}
+                        </div>
+                    </div>  
                 </div> <!-- panel body -->
             </div> <!-- last order hour panel -->  
                 

@@ -53,8 +53,7 @@
             
             <div class="container spacer-small" ng-switch on="requestStatus">
                 <div ng-switch-default></div> <!-- empty -->
-                <div class="text-danger" ng-switch-when="alreadyexists">
-                    {{dict.requestStatus.alreadyExists}}
+                <div class="text-danger" ng-switch-when="alreadyexists" data-to-substitute="{{dict.requestStatus.alreadyExists.toSubstitute}}" data-destination="#/client/forgotpassword?email={{user.email}}" data-base-text="{{dict.requestStatus.alreadyExists.description}}" sub-link>
                 </div>
                 <div class="text-danger" ng-switch-when="backenderror">
                     {{dict.requestStatus.backendError}}

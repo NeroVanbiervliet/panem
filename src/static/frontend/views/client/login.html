@@ -20,6 +20,11 @@
                 <button type="submit" ng-disabled="userForm.$invalid" class="btn btn-default">{{dict.form.submit}}</button>
             </form> 
             
+            <!-- forgot password -->
+            <div class="spacer-small">
+                <a href="#/client/forgotpassword?email={{user.email}}">{{dict.forgotPassword}}</a>
+            </div>
+            
             <!-- feedback div -->
             <div class="container spacer-small" ng-switch on="requestStatus">
                 <div ng-switch-default></div> <!-- empty -->

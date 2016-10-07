@@ -1,5 +1,5 @@
-panemApp.controller('bkAllOrdersCtrl', function($scope, $rootScope, dictionary, $window, $http, tokenManager, $location, GETUrl, processDate) {
-
+panemApp.controller('bkAllOrdersCtrl', function($scope, $rootScope, dictionary, $window, requestWrapper, tokenManager, $location, GETUrl, processDate) {
+    
     // define variables
     $scope.pyDayOrders; 
     
@@ -23,17 +23,13 @@ panemApp.controller('bkAllOrdersCtrl', function($scope, $rootScope, dictionary, 
     $scope.getQualitativeDate = processDate.getWordDate; 
     
     // GET pyDayOrders data when token is available
-    tokenManager.getToken().then(function(newToken) {
-        $http({
-            method : "GET",
-            url : $rootScope.baseUrl + "/bakery/"+GET.bakeryId+"/allDayOrders/firstDay=" + todayMs + "&lastDay=" + twoWeeksAgoMs + "&token=" + newToken + "/"
-        }).then(function(response) {
-            $scope.pyDayOrders = response.data;
-
-        }, function(response) {
-            $scope.pyDayOrders = []; // NEED niet zeker dat dit werkt
-        })
+    var url = '/bakery/' + GET.bakeryId + '/allDayOrders/firstDay=' + todayMs + '&lastDay=' + twoWeeksAgoMs
+    $scope.requestStatus = requestWrapper.init(); 
+    requestWrapper.get(url).then(function ([newStatus,resultData]) {
+        $scope.requestStatus = newStatus; 
+        $scope.pyDayOrders = resultData; 
     });
+    
     
     $scope.navigateToDayOrder = function(date) {
         $window.location.href = "#/baker/dayorder?bakeryId="+GET.bakeryId+"&date="+date;

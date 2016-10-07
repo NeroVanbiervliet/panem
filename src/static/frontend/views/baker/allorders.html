@@ -7,6 +7,7 @@
                     <p>{{dict.panelDescription}}</p>
                 </div>
                 <table class="table table-hover">
+                     
                     <thead>
                         <tr>
                             <th>{{dict.tableHead.date}}</th>
@@ -23,6 +24,13 @@
                     </tbody>
                 </table>
             </div>
+            
+            <!-- show this message if no orders to display -->
+            <div class="panel panel-default" ng-show="!pyDayOrders.length || pyDayOrders.length == 0">
+                <div class="panel-body"><p class="text-info">
+                    <span class="glyphicon glyphicon-warning-sign"></span>  {{dict.noOrders}}
+                </p></div>
+            </div> 
         </div>
     </div><!-- row main -->  
 </div>

@@ -1,5 +1,5 @@
 panemApp.controller('clRegisterCtrl', function($scope, dictionary, $http, $rootScope, tokenManager) {
-
+    
 	// initialize dictionary
 	$scope.dict =  dictionary.fillClRegister("nl");
     
@@ -23,28 +23,30 @@ panemApp.controller('clRegisterCtrl', function($scope, dictionary, $http, $rootS
             user.adress = ""; 
         }
         
-        var formData = $.param({
+        tokenManager.getToken().then(function(newToken) {
+            var formData = $.param({
             json: JSON.stringify({
-                firstname: user.firstName,
-                lastname : user.lastName,
-                email : user.email,
-                adress : user.adress,
-                type : "normal", // NEED removen uit endpoint requirement
-                password : user.password,
-                token : tokenManager.getToken()
-            })
+                    firstname: user.firstName,
+                    lastname : user.lastName,
+                    email : user.email,
+                    adress : user.adress,
+                    type : "normal", // NEED removen uit endpoint requirement
+                    password : user.password,
+                    token : newToken
+                })
+            });
+
+            $http.post($rootScope.baseUrl + '/account/create/',formData)
+               .then(
+                   function(response){ // successful request to backend
+                        $scope.requestStatus = response.data; 
+                   }, 
+                   function(response){ // failed request to backend
+                        $scope.requestStatus = "backenderror"; 
+                   }
+                );
+
+            $scope.requestInProgress = false; 
         });
-        
-        $http.post($rootScope.baseUrl + '/account/create/',formData)
-           .then(
-               function(response){ // successful request to backend
-                    $scope.requestStatus = response.data; 
-               }, 
-               function(response){ // failed request to backend
-                    $scope.requestStatus = "backenderror"; 
-               }
-            );
-        
-        $scope.requestInProgress = false;
     };
 });

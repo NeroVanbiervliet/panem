@@ -12,7 +12,7 @@
                         </div>
                         <div class="col-md-6">
                             <p class="spacer-medium">{{dict.creditPanel.description}}</p>
-                            <button type="button" class="btn btn-default spacer-medium">
+                            <button type="button" class="btn btn-default spacer-medium" ng-click="navigate('#/client/topupcredit/')">
                                 {{dict.creditPanel.continue}} <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
                             </button>
                         </div>
@@ -24,12 +24,20 @@
             
             <!-- previous orders -->
             <div class="panel panel-default spacer-medium">
+                <!-- show this message if no orders to display -->
+                <div class="panel-body" ng-show="!pyPreviousOrders.length">
+                    <div class="row">
+                        <div class="col-md-8">{{dict.ordersPanel.noOrders}}</div>
+                    </div>
+                </div>                
+                
+                <!-- show the orders -->
                 <table class="table table-hover">
                     <!-- TODO maak markeringen vanaf waar deze week, vorige week, twee weken geleden, ... -->
-                    <tbody>
+                    <tbody>                        
                         <tr ng-repeat="order in pyPreviousOrders" ng-click="navigateToOrder(order.id, order.bakeryId)">
                             <th scope="row">{{order.date}}</th>
-                            <td>{{order.bakery.name}}</td>
+                            <td>{{order.bakeryName}}</td>
                             <td class="price-euro">{{order.totalPrice | moneyFilter}}</td>
                         </tr>
                     </tbody>
