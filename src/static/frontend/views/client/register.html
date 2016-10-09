@@ -1,0 +1,78 @@
+<div class="container">
+    <h1>Welkom {{user.firstName}}</h1>
+    
+    <div class="row">
+        <!-- client registration -->
+        <div class="col-sm-4 col-sm-offset-1">
+            <form name="userForm" ng-submit="submitForm()" novalidate> <!-- novalidate prevents HTML5 validation -->
+                <div class="form-group" ng-class="{'has-success has-feedback':userForm.firstName.$valid}">
+                    <label for="firstName" class="control-label">{{dict.form.firstName}}</label>
+                    <input type="text" class="form-control" name="firstName" id="firstName" placeholder="{{dict.form.firstName}}" ng-model="user.firstName" minlength=2 required>
+                    <span ng-if="userForm.firstName.$valid" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                    <span ng-if="userForm.firstName.$valid" class="sr-only">(success)</span>
+                </div>
+                <div class="form-group" ng-class="{'has-success has-feedback':userForm.lastName.$valid}">
+                    <label for="lastName" class="control-label">{{dict.form.lastName}}</label>
+                    <input type="text" class="form-control" name="lastName" id="lastName" placeholder="{{dict.form.lastName}}" ng-model="user.lastName" minlength=2 required>
+                    <span ng-if="userForm.lastName.$valid" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                    <span ng-if="userForm.lastName.$valid" class="sr-only">(success)</span>
+                </div>
+                <div class="form-group" ng-class="{'has-success has-feedback':userForm.email.$valid}">
+                    <label for="email" class="control-label">{{dict.form.emailAdress}}</label>
+                    <input type="email" class="form-control" name="email" id="email" ng-model="user.email" placeholder="{{dict.form.emailAdress}}" required>
+                    <span ng-if="userForm.email.$valid" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                    <span ng-if="userForm.email.$valid" class="sr-only">(success)</span>
+                </div>
+                <!--<div class="form-group">
+                    <label for="emailRepeat">{{dict.form.repeatEmail}}</label>
+                    <input type="email" class="form-control" id="emailRepeat" placeholder="{{dict.form.repeatEmail}}">
+                </div>-->
+                <div class="form-group" ng-class="{'has-success has-feedback':userForm.password.$valid}">
+                    <label for="password" class="control-label">{{dict.form.password}}</label>
+                    <input type="password" class="form-control" name="password" id="password" ng-model="user.password" placeholder="{{dict.form.password}}" minlength=7 required>
+                    <span ng-if="userForm.password.$valid" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                    <span ng-if="userForm.password.$valid" class="sr-only">(success)</span>
+                    <p class="help-block">{{dict.form.passwordHelpText}}</p>
+                </div>
+                <!--<div class="form-group">
+                    <label for="passwordRepeat">{{dict.form.repeatPassword}}</label>
+                    <input type="password" class="form-control" id="passwordRepeat" placeholder="{{dict.form.password}}">
+                </div>-->
+                <div class="form-group">
+                    <label for="adress">{{dict.form.adress}}</label>
+                    <input type="text" class="form-control" id="adress" ng-model="user.adress" placeholder="{{dict.form.adressPlaceholder}}">
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" ng-model="termsChecked">
+                        {{dict.form.checkbox.iHave}} <a href="/#/client/termsconditions" target="_blank">{{dict.form.checkbox.termsAndConditions}}</a> {{dict.form.checkbox.readAndConsent}}
+                    </label>
+                </div>
+                <button type="submit" ng-disabled="userForm.$invalid || !termsChecked" class="btn btn-default">{{dict.form.submit}}</button>
+            </form> 
+            
+            <div class="container spacer-small" ng-switch on="requestStatus">
+                <div ng-switch-default></div> <!-- empty -->
+                <div class="text-danger" ng-switch-when="alreadyexists" data-to-substitute="{{dict.requestStatus.alreadyExists.toSubstitute}}" data-destination="#/client/forgotpassword?email={{user.email}}" data-base-text="{{dict.requestStatus.alreadyExists.description}}" sub-link>
+                </div>
+                <div class="text-danger" ng-switch-when="backenderror">
+                    {{dict.requestStatus.backendError}}
+                </div>
+                <div class="text-success" ng-switch-when="success">
+                    {{dict.requestStatus.success}} {{user.email}}.
+                </div>
+                <div class="text-info" ng-switch-when="inProgress">
+                    {{dict.requestStatus.inProgress}}
+                </div>
+            </div>
+        </div>
+        
+        <!-- info for bakery registration -->
+        <div class="col-md-3 col-md-offset-2 bg-danger">
+            <h2 class="text-danger">Opgelet, bakkers!</h2>
+            <p>Dit is de registratiepagina voor klanten. Je bakkerij kun je <a href="#/baker/register">hier</a> registreren.</p>
+        </div>
+    </div>
+    
+    
+</div>

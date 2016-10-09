@@ -1,0 +1,46 @@
+<div class="container">
+    <div class="row spacer-medium">
+        <div class="col-sm-3">
+            <form name="userForm" ng-submit="submitForm()" novalidate> <!-- novalidate prevents HTML5 validation -->
+                <!-- email -->
+                <div class="form-group" ng-class="{'has-success has-feedback':userForm.email.$valid}">
+                    <label for="email" class="control-label">{{dict.form.emailAdress}}</label>
+                    <input type="email" class="form-control" name="email" id="email" ng-model="user.email" placeholder="{{dict.form.emailAdress}}" required>
+                    <span ng-if="userForm.email.$valid" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                    <span ng-if="userForm.email.$valid" class="sr-only">(success)</span>
+                </div>
+                <!-- password -->
+                <div class="form-group" ng-class="{'has-success has-feedback':userForm.password.$valid}">
+                    <label for="password" class="control-label">{{dict.form.password}}</label>
+                    <input type="password" class="form-control" name="password" id="password" ng-model="user.password" placeholder="{{dict.form.password}}" minlength=7 required>
+                    <span ng-if="userForm.password.$valid" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                    <span ng-if="userForm.password.$valid" class="sr-only">(success)</span>
+                    <p class="help-block">{{dict.form.passwordHelpText}}</p>
+                </div>
+                <button type="submit" ng-disabled="userForm.$invalid" class="btn btn-default">{{dict.form.submit}}</button>
+            </form> 
+            
+            <!-- forgot password -->
+            <div class="spacer-small">
+                <a href="#/client/forgotpassword?email={{user.email}}">{{dict.forgotPassword}}</a>
+            </div>
+            
+            <!-- feedback div -->
+            <div class="container spacer-small" ng-switch on="requestStatus">
+                <div ng-switch-default></div> <!-- empty -->
+                <div class="text-danger" ng-switch-when="backenderror">
+                    {{dict.requestStatus.backenderror}}
+                </div>
+                <div class="text-danger" ng-switch-when="accnotfound">
+                    {{dict.requestStatus.accnotfound}}
+                </div>
+                <div class="text-danger" ng-switch-when="wrongpassword">
+                    {{dict.requestStatus.wrongpassword}}.
+                </div>
+                <div class="text-success" ng-switch-when="success">
+                    {{dict.requestStatus.success}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

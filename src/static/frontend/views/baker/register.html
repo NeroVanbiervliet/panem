@@ -1,0 +1,148 @@
+<div class="container">
+    <div class="row spacer"> <!-- main -->
+        <div class="col-md-6 col-md-offset-1">
+            <form class="form-horizontal" name="bakeryForm" ng-submit="submitForm()" novalidate>
+                <!-- PERSONAL INFO --> 
+                <div class="col-sm-offset-4 col-sm-8">
+                    <h3>{{dict.personalInfo.title}}</h3>
+                </div>
+
+                <div class="form-group" ng-class="{'has-success has-feedback':bakeryForm.personFirstName.$valid}">
+                    <label for="personFirstName" class="control-label col-sm-4">
+                        {{dict.personalInfo.firstName}}
+                    </label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="personFirstName" id="personFirstName" placeholder="{{dict.personalInfo.firstName}}" ng-model="person.firstName" minlength=2 required>
+                        <span ng-if="bakeryForm.personFirstName.$valid" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                        <span ng-if="bakeryForm.personFirstName.$valid" class="sr-only">(success)</span>
+                    </div>  
+                </div>
+                
+                <div class="form-group" ng-class="{'has-success has-feedback':bakeryForm.personLastName.$valid}">
+                    <label for="personLastName" class="control-label col-sm-4">
+                        {{dict.personalInfo.lastName}}
+                    </label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="personLastName" id="personLastName"
+                            placeholder="{{dict.personalInfo.lastName}}" ng-model="person.lastName" minlength=2 required>
+                        <span ng-if="bakeryForm.personLastName.$valid" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                        <span ng-if="bakeryForm.personLastName.$valid" class="sr-only">(success)</span>
+                    </div>  
+                </div>
+
+                <div class="form-group" ng-class="{'has-success has-feedback':bakeryForm.personEmail.$valid}">
+                    <label for="personEmail" class="control-label col-sm-4">
+                        {{dict.personalInfo.email}}
+                        <span id="emailInfoSpan" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="{{dict.personalInfo.emailTooltip}}" tooltip></span>
+                    </label>
+                    <div class="col-sm-8">
+                        <input type="email" class="form-control" name="personEmail" id="personEmail" placeholder="{{dict.personalInfo.email}}" ng-model="person.email" minlength=2 required>
+                        <span ng-if="bakeryForm.personEmail.$valid" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                        <span ng-if="bakeryForm.personEmail.$valid" class="sr-only">(success)</span>
+                    </div>
+                </div>
+
+                 <div class="form-group" ng-class="{'has-success has-feedback':bakeryForm.personPassword.$valid}">
+                    <label for="personPassword" class="control-label col-sm-4">
+                        {{dict.personalInfo.password}}
+                        <span id="passwordInfoSpan" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="{{dict.personalInfo.passwordTooltip}}" tooltip></span>
+                    </label>
+                    <div class="col-sm-8">
+                        <input type="password" class="form-control" name="personPassword" id="personPassword" ng-model="person.password" minlength=2 required>
+                        <span ng-if="bakeryForm.personPassword.$valid" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                        <span ng-if="bakeryForm.personPassword.$valid" class="sr-only">(success)</span>
+                    </div>  
+                </div>
+
+                <!-- BAKERY INFO -->                    
+                <div class="col-sm-offset-4 col-sm-8">
+                    <h3 id="titleBakeryInformation">{{dict.bakeryInfo.title}}</h3>
+                </div>
+
+                <div class="form-group" ng-class="{'has-success has-feedback':bakeryForm.bakeryName.$valid}">
+                    <label for="bakeryName" class="control-label col-sm-4">
+                        {{dict.bakeryInfo.name}}
+                    </label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="bakeryName" id="bakeryName" placeholder="{{dict.bakeryInfo.name}}" ng-model="bakery.name" minlength=2 required>
+                        <span ng-if="bakeryForm.bakeryName.$valid" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                        <span ng-if="bakeryForm.bakeryName.$valid" class="sr-only">(success)</span>
+                    </div>  
+                </div>
+
+                <div class="form-group" ng-class="{'has-success has-feedback':bakeryForm.bakeryAddress.$valid}">
+                    <label for="bakeryAddress" class="control-label col-sm-4">
+                        {{dict.bakeryInfo.address}}
+                    </label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="bakeryAddress" id="bakeryAddress" placeholder="{{dict.bakeryInfo.address}}" ng-model="bakery.address" minlength=2 required>
+                        <span ng-if="bakeryForm.bakeryAddress.$valid" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                        <span ng-if="bakeryForm.bakeryAddress.$valid" class="sr-only">(success)</span>
+                    </div>  
+                </div>
+
+                <div class="form-group" ng-class="{'has-success has-feedback':bakeryForm.bakeryTelephone.$valid}">
+                    <label for="bakeryTelephone" class="control-label col-sm-4">
+                        {{dict.bakeryInfo.telephone}}
+                    </label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="bakeryTelephone" id="bakeryTelephone" placeholder="{{dict.bakeryInfo.telephone}}" ng-model="bakery.telephone" minlength=2 required>
+                        <span ng-if="bakeryForm.bakeryTelephone.$valid" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                        <span ng-if="bakeryForm.bakeryTelephone.$valid" class="sr-only">(success)</span>
+                    </div>  
+                </div>
+
+                <div class="form-group" ng-class="{'has-success has-feedback':bakeryForm.bakeryTaxNumber.$valid}">
+                    <label for="bakeryTaxNumber" class="control-label col-sm-4">
+                        {{dict.bakeryInfo.taxNumber}}
+                    </label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="bakeryTaxNumber" id="bakeryTaxNumber" placeholder="{{dict.bakeryInfo.taxNumber}}" ng-model="bakery.taxNumber" minlength=2 required>
+                        <span ng-if="bakeryForm.bakeryTaxNumber.$valid" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                        <span ng-if="bakeryForm.bakeryTaxNumber.$valid" class="sr-only">(success)</span>
+                    </div>  
+                </div>
+                
+                <div class="form-group" ng-class="{'has-success has-feedback':bakeryForm.bakeryBankAccount.$valid}">
+                    <label for="bakeryBankAccount" class="control-label col-sm-4">
+                        {{dict.bakeryInfo.bankAccount}}
+                        <span id="passwordInfoSpan" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="{{dict.bakeryInfo.bankAccountTooltip}}" tooltip></span>
+                    </label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="bakeryBankAccount" id="bakeryBankAccount" placeholder="{{dict.bakeryInfo.bankAccountPlaceholder}}" ng-model="bakery.bankAccount" minlength=2 required>
+                        <span ng-if="bakeryForm.bakeryBankAccount.$valid" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                        <span ng-if="bakeryForm.bakeryBankAccount.$valid" class="sr-only">(success)</span>
+                    </div>  
+                </div>
+
+                <!-- TERMS OF USE CHECKBOX -->
+                <div class="form-group">
+                    <div class="checkbox col-sm-offset-4 col-sm-8">
+                        <label>
+                            <input type="checkbox" ng-model="termsChecked">
+                            {{dict.checkbox.iHave}} <a href="/#/client/termsconditions" target="_blank">
+                            {{dict.checkbox.termsAndConditions}}</a> {{dict.checkbox.readAndConsent}}
+                        </label>
+                    </div>
+                </div>
+
+                <!-- SUBMIT BUTTON -->
+                <div class="form-group">
+                    <div class="col-sm-offset-4 col-sm-8">
+                      <button type="submit" ng-disabled="bakeryForm.$invalid || !termsChecked" class="btn btn-default">
+                        {{dict.submitText}}
+                      </button>
+                    </div>
+                </div>  
+                
+                 <!-- request feedback -->
+                <div class="form-group">
+                    <div class="col-md-8 col-sm-offset-4">
+                        <p data-request-type="post" request-status-handler></p>
+                    </div>
+                </div>
+                
+            </form>
+        </div>   
+    </div><!-- row main -->    
+</div>

@@ -1,0 +1,8 @@
+List of things that are not in the dictionary
+---------------------------------------------
+
+client/termsandconditions/
+client/register/ 
+	tekstje dat bakkers doorverwijst naar /baker/register
+client/confirmregister/
+index & config: page title 

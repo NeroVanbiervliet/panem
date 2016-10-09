@@ -1,0 +1,137 @@
+<div class="container">
+    <div class="row spacer-medium"> 
+        <div class="col-md-8 col-md-offset-2">   
+            <div class="panel panel-default"> 
+                <div class="panel-heading" id="labelPanelTitle">{{dict.panelTitles.products}}</div>
+                <div class="panel-body">      
+
+                    
+                    <div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        {{dict.category}}
+                        <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li ng-repeat="cat in pyCategories" ng-click="showCategory($index)"><a href="">{{cat.name}}</a></li>
+                        </ul>
+                    </div>
+
+                    
+                    <h3 ng-class="{'spacer-medium':!$first}">{{productCategory.name}}</h3>    
+
+                    
+                    <div class="row spacer-medium" ng-repeat-start="product in productCategory.products">
+                        
+                        <div class="form-group col-xs-2">
+                            <input type="checkbox" data-toggle="toggle" data-style="quick" data-size="small">
+                        </div>
+
+                        
+                        <div class="form-group col-xs-2">
+                            <img src="images/products/Tompoes.jpg" height="50" class="img-rounded" ng-class="{'blackwhite':!product.available}"> 
+                        </div>
+
+                        
+                        <div class="form-group col-xs-4">
+                            <input type="text" class="form-control" placeholder="{{dict.productNamePlaceholder}}" ng-disabled="!product.available" ng-model="product.name">
+                        </div>
+
+                        
+                        <div class="input-group col-xs-2">
+                            <div class="input-group-addon">€</div>
+                            <input type="text" class="form-control price-product" data-product-id="{{product.id}}" placeholder="150" ng-disabled="!product.available" ng-model="product.price">
+                        </div>  
+                    </div>
+                    <div class="row" ng-repeat-end>
+                        
+                        <div class="col-xs-2">
+                            <button class="btn btn-danger btn-xs" ng-click="removeProduct(productCategory,$index)">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                        </div>
+
+                        
+                        <div class="col-xs-8">
+                            <input class="typeahead" type="text" placeholder="{{dict.ingredientsPlaceholder}}" data-role="tagsinput" ng-disabled="!product.available" tags-input>
+                        </div>
+                    </div>      
+
+                    
+                    <div class="row spacer-medium" ng-repeat-end>
+                        <div class="col-xs-5">
+                            <button type="button" ng-click="addProduct(productCategory)" class="btn btn-default">
+                                {{dict.addCustomProduct }}
+                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div> 
+            </div> 
+
+            
+            <div class="panel panel-default"> 
+                <div class="panel-heading" id="labelPanelTitle">{{dict.panelTitles.openingHours}}</div>
+                <div class="panel-body">
+                    <div class="row spacer-small" ng-repeat="day in pyBakeryInfo.openingHours">
+                        <div class="form-group col-xs-2">
+                            <label>
+                                <input type="checkbox" data-dayno="{{$index}}" ng-model="day[2]"> {{dict.daysOfTheWeek[$index].name}}
+                            </label>
+                        </div>
+
+                        <div class="col-xs-1">{{dict.from}}</div>
+
+                        
+                        <div class="form-group col-xs-3">
+                            <div class="input-group bootstrap-timepicker timepicker">
+                                <input type="text" class="form-control input-small timepicker-opening-hours" ng-disabled="!day[2]" timepicker>
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-time"></i>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-1">{{dict.to}}</div>
+
+                        
+                        <div class="form-group col-xs-3">
+                            <div class="input-group bootstrap-timepicker timepicker">
+                                <input type="text" class="form-control input-small timepicker-closing-hours" ng-disabled="!day[2]" timepicker>
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-time"></i>
+                                </span>
+                            </div>
+                        </div>
+
+                    </div> 
+                </div> 
+            </div> 
+
+            <div class="panel panel-default"> 
+                <div class="panel-heading" id="labelPanelTitle">{{dict.panelTitles.lastOrderHour}}</div>
+                <div class="panel-body">
+                        <div class="row">
+                            <div class="col-xs-3">{{dict.panelTitles.lastOrderHour}}: </div>
+                            <div class="form-group col-xs-3" ng-if="pyBakeryInfo"> 
+                                <div class="input-group bootstrap-timepicker timepicker">
+                                    <input type="text" class="form-control input-small timepicker-orderlimit-hours" timepicker>
+                                    <span class="input-group-addon">
+                                        <i class="glyphicon glyphicon-time"></i>
+                                    </span>
+                                </div>
+                            </div>  
+                        </div>
+
+                        
+                        <div class="row spacer-medium">
+                            <div class="col-xs-12">
+                                <button class="btn btn-default" ng-click="saveAllData()">{{dict.saveChanges}}</button>
+                            </div>
+                        </div>
+                </div> 
+            </div>   
+                
+        </div>
+        <div class="col-md-2"></div>
+    </div>    
+</div>

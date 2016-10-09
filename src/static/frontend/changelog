@@ -1,0 +1,867 @@
+FRONT 1
+	initial werk van tweedaagse in delft
+	datepicker toegevoegd
+	knoppen voor volgende dagen toegevoegd (namen van dagen zijn nog static) 
+
+	ESTIMATE WERK: 30u
+
+FRONT 2
+	vocabulary.js toegevoegd
+	quick date selector morgen / maandag / dinsdag nu dynamisch
+	datepicker nu in het nederlands
+	datepicker toont nu ook datum met dag erbij : maandag 7 juni
+	searchbar staat rechts van alle tabs
+	dropdownbox met laatste bestellingen wordt dynamisch geladen
+	taalgevoelige tekst weggehaald uit index.html en vervangen door id="labelWelkeTekst", js vult dan in adhv vocabulary.js
+
+	ESTIMATE WERK: 20u
+
+FRONT 3
+	order
+		positionering searchbar ok voor pc-scherm
+		logo updated to nero logo :) -> navbar iets breder gemaakt om logo te fitten
+
+	orders_overview
+		pagina toegevoegd
+		tabel gemaakt
+		eerste versie van dynamisch data laden
+
+	ESTIMATE WERK: 5u
+
+FRONT 4
+	order
+		icoontje toegevoegd in calender textbox zodat je ziet dat je er op kan klikken
+
+	orders_overview
+		gekleurde achtergrond toegevoegd voor wanneer bool isLocked true is
+		volledige row is nu link naar andere pagina, niet enkel de datum
+		<a> tag verwijderd bij datum
+		(morgen) verschijnt nu na datum indien deze morgen is
+
+	dayorder
+		pagina toegevoegd
+		volledig dynamisch laden van data
+		printknop toegevoegd
+		print html pagina toegevoegd
+
+	ESTIMATE WERK: 3u
+	WERKTIJD: 
+		20/03 	3u 
+
+FRONT 5
+	varia
+		navbar deegrol verwijderd, enkel panem.be
+		navbar niet meer zwevend
+		navbar dropdownmenu rechts voor account
+
+	homepage
+		toegevoegd, searchbar ook toegevoegd
+
+	register_bakker
+		toegevoegd, naam en voornaam dynamisch uit voc
+		form vervolledigd, link toegevoegd naar algemene voorwaarden
+		form vult automatisch velden in die in url via GET zijn meegegeven
+
+	WERKTIJD 
+		20/03   2u 
+		21/03	2u
+		22/03	5u
+
+FRONT 6
+	cl_bakery
+		updated design, bestelling staat nu naast aanbod producten ipv er onder
+		tooltip toegevoegd voor openingsuren
+
+	cl_home
+		search werkt nu dynamisch, zoekresultaten zijn wel nog random
+
+	bk_dayorder
+		remarks bij order worden nu ook getoond
+
+	WERKTIJD
+		23/03 5u
+		24/03 4u
+		27/03 1u
+
+FRONT 7 
+	grondige herstructurering
+	
+FRONT special commit
+	test directory zwaar veranderd
+	er zit nu een test angular appje zodat jan er naar kan kijken en de basisstructuur aanpassen
+
+	WERKTIJD 
+		29/03 4u
+
+FRONT 8
+	bk_register
+		rekeningnummer toegevoegd aan form
+
+    bk_modifyproducts
+        pagina toegevoegd
+        volledig dynamisch inladen van content
+
+	varia
+		jquery nu lokaal ipv verwijzen naar externe bron
+        angular.js toegevoegd aan elke pagina
+        elke pagina include nu navbar ipv code te kopieren
+             
+    WERKTIJD
+        28/03 3u
+        29/03 4u
+		30/03 1u
+
+FRONT 9
+	cl_confirmorder
+		pagina toegevoegd
+		data wordt dynamisch geladen behalve sommige voc
+		betaalknoppen onderaan wordt dynamisch verander afhankelijk of er nog een netto te betalen bedrag is of niet
+		
+	varia
+		fontawesome toegevoegd in fonts (mooie icons)
+
+	WERKTIJD
+		30/03 6u
+
+FRONT 10
+	test/views/client/home
+		data wordt nu dynamisch uit json file gehaald
+		wel nog steeds random zoekresultaat
+		ook iets meer mobile support (meerdere cols toegevoegd aan panem logo en aan search results
+		opgelost dat results geladen worden in rijen van 4 items
+	
+	WERKTIJD
+		31/03 4u
+
+FRONT 11
+	client/home
+		zoekfunctie v2 geimplementeerd
+		data wordt voorlopig uit test_data gehaald (json formaat) 		
+
+	WERKTIJD 
+		05/03 3u
+		06/03 2u
+
+FRONT 12
+	client/home
+		zoekfunctie geupdate
+			distanceScore wordt nu gebruikt
+			als je zoekt op postcode, wordt distanceScore overrulet
+			als je een woord dat niet het laatste woord is, worden alle scores herberekend ipv enkel de laatste
+			initScore wordt gebruikt
+
+	WERKTIJD
+		08/03 4u
+
+FRONT 13
+	client/home
+		zoekfunctie geupdate
+			gebruikt nu echte geolocatie
+			gebruikt nu echte backend data
+
+	WERKTIJD
+		09/03 2.5u
+
+FRONT 14
+	client/home
+		alle bakker results gaan nu naar client/bakery als je er op klikt
+
+	client/bakery
+		volledig omgezet naar angular, enige dat nog niet werkt is in tabs navigeren omdat angular routing dat verpest
+        dynamisch items toevoegen aan orders
+        dynamisch items verwijderen uit orders
+        totaalprijs van order past dynamisch aan
+        eerdere orders inladen kan
+
+	WERKTIJD
+		ESTIMATE 20u
+
+FRONT 15
+	client/bakery
+		redirect naar confirmorder
+		zet huidige order in cookie
+
+	client/confirmorder
+		added
+		omzet naar angular voltooid
+		
+	client/register
+		pagina toegevoegd
+		validation in angular gedaan
+
+	client/confirmregister
+		pagina toegevoegd
+		haalt code en email uit GET parameters in url
+		maakt request naar backend
+		toont appropriate content afhankelijk van wat backend terug geeft 0/1/2/-1
+
+	client/contact
+		pagina gemaakt
+		dynamisch sizen van textarea
+
+	WERKTIJD
+		18/04 3u
+		24/04 6u
+		25/04 3u
+
+FRONT 16
+	client/register
+		omgezet naar angular
+		form verify toegevoegd
+		endpoint connection gemaakt
+		feedback message naar user toegevoegd van backend request
+
+	WERKTIJD
+		25/04 1u
+		26/04 5u 
+
+FRONT 17
+	client/register
+		feedback messages in dictionary
+		new feedback message for request pending
+
+	client/bakery
+		bakeryId geextraheerd uit url
+		pyBakeryInfo uit endpoint		
+		openingstijden worden dynamisch ingeladen + huidige dag in bold
+
+	client/home
+		klikken op bakkerij heeft nu link naar client/bakery?bakeryid=juisteid
+
+	WERKTIJD
+		30/04 3u
+
+FRONT 18
+	client/bakery
+		searchbar removed
+		pyCategories via endpoint
+		pyPreviousOrders via endpoint
+		prijzen worden nu juist getoond EUR,CENTS
+
+	WERKTIJD
+		30/04 0.5u
+		01/05 4u
+
+FRONT 19 
+	client/bakery 
+		calendar wordt nu native html5 calendar voor xs(mobile) devices
+
+	baker/register 
+		volledig gebouwd, dit was verloren gegaan in previous commits
+
+	WERKTIJD
+		01/05 0.5u
+
+FRONT 20
+	baker/modifyproducts
+		toegevoegd
+
+	baker/dayorder
+		converted naar angular
+
+	baker/allorders
+		converted naar angular
+
+	js/filters.js
+		added 
+		converts 30045 to 300,45 (price in cents to eur,cents)
+
+	WERKTIJD
+		01/05 1.5u
+		01/05 2u
+
+FRONT 21
+	grand herstructurering: test directory removed, angular is now root application in frontend
+
+FRONT 22
+	client/login 
+		created
+		backend communcation set up 
+
+	client/resetpassword
+		created
+
+	client/home
+		token compatibility
+
+	client/register
+		token compatibility
+
+	client/bakery
+		token compatibility
+
+	client/confirmregister
+		token compatibility
+
+	services/tokenManager
+		create service to administer login tokens
+
+	WERKTIJD
+		05/05 10u 
+
+FRONT 23
+	sandbox
+		typeahead geklooi
+
+	baker/modifyproducts
+		tags syteem toegevoegd voor allergie
+		timepicker gefixt, die werkt niet meer na porten naar angular
+		ported to dictionary
+		mogelijkheid toegvoegd om een eigen product toe te voegen
+		basisproducten hun naam is nu ook aanpasbaar
+		ingredienten van een default product zijn nu ook zichtbaar
+
+	WERKTIJD 
+		07/05 2u
+		08/05 5u
+		09/05 4u
+
+FRONT 24
+	js
+		services 
+			tokenManager updated for changed token/create endpoint url 
+			GETUrl added
+
+	client/login
+		updated for changed token/create endpoint url 
+
+	baker/allorders
+		uses endpoint to get data		
+	
+	baker/dayorder
+		uses endpoint to get data
+
+	client/confirmorder
+		using backend to request data and forward to adyen
+
+	WERKTIJD 
+		09/05 2u
+		10/05 4u @ test_suite backend
+		11/05 3.5u @ test_suite backend
+			  1.5u 
+
+FRONT 25
+	baker/dayorder
+		aggregate order displayen op pagina		
+
+	js
+		services
+			processDate
+
+		dictionary 
+			fillServices added
+
+	WERKTIJD 
+		12/05 4u
+
+FRONT 26 
+	client/finalisepayment
+		added
+
+	client/confirmorder
+		adyen hpp integration -> unstable!
+		backend endpoint integration
+
+	WERKTIJD 
+		12/05 4u
+
+FRONT 27
+	client/confirmorder
+		adyen hpp integration is now STABLE!
+
+	WERKTIJD 
+		13/05 1u@backend
+ 		13/05 2u 
+
+	CHECKFILES	
+		Total: 65 (254)
+
+FRONT 28
+	client/confirmorder
+		function renamed
+		
+	client/bakery
+		tab system fixed, did not work anymore due to spaces in category names
+
+	various NE+ED fixed, not specified in detail per file
+
+	WERKTIJD 
+		14/05 3u
+
+FRONT 29
+	client/bakery
+		now stores order in /current/order/ when proceeding to confirmpayement
+
+	client/confirmorder
+		makes now extensive use of backend endpoints
+	
+	client/finalisepayment
+		minimal adyen data processing added
+		/order/current/receipt/ endpoint used
+
+	WERKTIJD 
+		15/05 1u @backend
+		15/05 5u 
+
+DROPBOX
+
+	WERKTIJD
+		15/05 1.5u @ backend excel file updated
+		=> total tot nu = 216.5
+
+===================
+examens
+===================
+
+
+FRONT 30
+	
+	various taakjes in checkFiles
+	
+	client/bakery
+		label van openinghours toont nu 'geen gegevens' indien empty string
+		leeg item in dropdownbox voor previous orders is verwijderd
+
+	navbar	
+		sign in button added
+		when logged in, name is displayed, as well as logout icon
+	
+	client/login
+		succesfull login now redirects to page where sign in button was clicked, or default to client/home
+
+	WERKTIJD 
+		24/06 3u
+		25/06 3u
+		26/06 3u
+		27/06 2u
+
+FRONT 31
+	
+	client/bakery
+		tijdsindicatie van aantal dagen gelden voor een order gefixt
+		bakery pagina laden met orderId in url is mogelijk
+
+	services
+		enhanced date handling with moment.js
+
+	WERKTIJD
+		27/06 4u
+
+FRONT 32
+
+	client/bakery
+		'ga verder' knop disabled als er nog geen producten zitten in order
+		website icon disabled if no website available
+
+	client/myaccount
+		added
+		alles uitgelezen uit dict
+
+	WERKTIJD 
+		28/06 4u 
+		
+FRONT 33
+	
+	client/termsandconditions
+		demotekst van dropbox toegevoegd in html
+
+	navbar
+		register button added
+		button text added to dictionary
+		bakery name is now showed when an account of type baker is logged in
+
+	client/register
+		link naar registratie voor bakkers toegevoegd
+
+	various NE+ED's fixed
+
+	backend werk
+
+	WERKTIJD 
+		28/06 5u 
+				
+FRONT 34
+	
+	various NE+ED's fixed
+
+	favicon added
+
+	services/tokenManager
+		problem with guest tokens fixed
+		forceNewToken() function added
+
+	WERKTIJD 
+		29/06 4u
+
+FRONT 35
+	
+	various NE+ED's fixed
+	
+	client/contact
+		layout herwerkt
+		dictionary
+		mailto links fixed
+		dynamic textarea scaling removed
+		form wordt al ingevuld met gegevens die bekend zijn
+
+	stripFiles.py added
+
+	WERKTIJD 
+		29/06 2u
+		30/06 3u 
+
+FRONT 36
+	
+	various NE+ED's fixed
+
+	navbar
+		smaller gemaakt
+		buttons nu ook zichtbaar op smalle devices
+
+	client/myaccount
+		credit is now loaded from database
+
+	client/bakery 
+		icons voor producten verkleinen nu bij smalle devices
+
+	WERKTIJD
+		30/06 3u
+		01/07 3u
+
+FRONT 37 
+	
+	baker/modifyproducts
+		toggle buttons added instead of checkbox
+		productimages black and white when product not enabled
+		tagsinput veranderingen worden ook aangepast in angular variable
+		dropdownbox om productcategorie te selecteren
+	
+	WERKTIJD
+		delft
+
+FRONT 38 
+	
+	baker/modifyproducts
+		delete button to remove products
+		openinHours fixed
+		lastOrderHour fixed
+
+	WERKTIJD 
+		delft
+
+FRONT 39
+	
+	client/contact
+		form fields checks added
+		backend integration added
+
+	WERKTIJD
+		delft
+
+FRONT 40
+	
+	baker/modifyproducts
+		removal of products is now functioning
+
+	WERKTIJD
+		delft
+
+
+------------------------
+amerikareis + scoutskamp
+------------------------
+
+FRONT 41
+	
+	client/register 
+		endpoint access fixed
+
+	client/myaccount
+		bakery name added to shown orders
+	
+	client/confirmregister	
+		endpoint access fixed
+		
+	WERKTIJD 
+		02/08 2u
+
+FRONT 42
+	
+	client/myaccount
+		a message is displayed when no orders are present
+
+	baker/modifyproducts
+		introtekstje toegevoegd
+		knop die navigeert naar bakery page 
+
+	client/forgotpassword
+		created/renamed
+		backend integration
+
+	client/resetpassword
+		created
+		backend integration
+
+	WERKTIJD 
+		02/08 6u
+		09/08 1u
+
+FRONT 43
+		
+	panem_main.css
+		added loader-small class for small loader animation next to a button
+
+	baker/modifyproducts
+		complete backend integration
+
+	WERKTIJD
+		09/08 6u 
+		10/08 3u 
+
+FRONT 44
+
+	services 
+		*requestWrapper
+
+	directives
+		*requestStatusHandler
+
+	client/forgotpassword
+		requestWrapper integrated
+		requestStatusHandler integrated
+		dictionary enabled
+
+	WERKTIJD
+		10/08 3u
+		11/08 1u
+
+FRONT 45
+
+	checkFiles
+		various tasks solved
+
+	navbar
+		alertbar on top of screen when requestStatus = 'error'
+
+	WERKTIJD 
+		11/08 6u
+
+FRONT 46
+
+	checkFiles
+		various tasks solved
+
+	*baker/manageproducts
+		
+	directives
+		*subLink
+		*buttonLink
+
+	navbar
+		link to contact page added to alert in navbar
+
+	WERKTIJD 
+		11/08 1u
+		15/08 5u
+		16/08 1u
+
+FRONT 47
+	
+	navbar
+		for logged in bakers, clicking on their bakery's name now redirects to baker/managebakery
+
+	*footer
+
+	WERKTIJD
+		16/08 2u
+
+FRONT 48 
+	
+	directives
+		requestStatusHandler
+			updated to work with multiple requestStatusses 
+	
+	baker/managebakery
+		load email setting from backend
+		save email setting in backend
+		handle requestStatus for email setting backend interaction
+
+	services
+		userInfo
+			if logged in as a baker, the userInfo now contains a bakery dictionary field, containing id and name
+
+	WERKTIJD 
+		17/08 5u
+
+FRONT 49
+
+	checkFiles
+		various tasks
+
+	client/confirmorder
+		paying with credit is now fixed
+		if insufficient credit, credit is marked in orange/red	
+
+	client/myaccount
+		userInfo is now updated on loading page
+
+	WERKTIJD
+		17/08 2u
+
+FRONT 50
+	
+	client/finalisepayment
+		this page now also finalises credit payments  
+
+	WERKTIJD 
+		17/08 1u
+
+FRONT 51 
+
+	checkFiles 
+		various tasks
+
+	client/finalisepayment
+		link to contact page for questions
+		payment id is displayed on page, for in case a problem occurs
+		dutch titles and descriptions added for the various statusses
+
+	WERKTIJD 
+		18/08 3u
+
+FRONT 52 
+	
+	client/confirmorder
+		some static variables made dynamic
+		more dictionary usage
+		enhancement of watch function before form submission
+
+	client/myaccount
+		link established to client/topupcredit
+
+	*client/topupcredit
+		backend integration
+		adyen integration
+
+	client/finalisepayment
+		integration for top up credit payments
+
+	WERKTIJD 
+		18/08 1u
+		19/08 6u 
+
+FRONT 53 
+	
+	navbar
+		logging out now takes you to the home page
+
+	baker/allorders
+		requestWrapper integration
+		message is displayed when there are no orders to show
+
+	baker/dayorder
+		requestWrapper integration
+		message is displayed when there are no orders to show
+
+	client/confirmregister
+		used subLink to enhance dicionary usage
+		page layout enhanced
+		requestWrapper integration
+
+	checkFiles
+		various NE+ED solved
+
+	WERKTIJD
+		19/08 0.5u
+		23/08 1.5u
+
+FRONT 54
+	
+	client/register
+		if the account already exists, a link is shown to the forgot password page
+		in this link, the email adress is included
+	
+	client/login
+		the link to forgotpassword contains the email adress, if provided
+
+	client/forgotpassword
+		checks for GET.email present in url
+
+	WERKTIJD
+		23/08 1u
+
+FRONT 55 
+
+	client/bakery
+		too long product names are now split over multiple lines in the current order section
+
+	baker/register
+		backend integeration
+		requestStatusHandler integration
+	
+	services/requestWrapper
+		enhanced error handling 
+			- GET 	
+				> succesfull request
+					o response is an object
+						=> success status
+						=> data is passed on
+					o response is a string
+						> tokennotexist
+							=> set alert bar
+							=> error-requestWrapper-tokenNotExist
+						> other string
+							=> string is passed on
+							=> error-message
+					o response is something else
+						=> set alert bar
+						=> error-requestWrapper-noObjectNorString
+
+				> failed request
+					=> set alert bar
+					=> error-requestWrapper-requestFailed
+
+			- POST (assumes the return value is a string)
+				> succesfull request
+					o tokennotexist
+						=> set alert bar
+						=> error-requestWrapper-tokenNotExist
+					o success
+						=> success is passed on
+					o other string
+						=> string is passed on with error-message prepended
+					
+				> failed request
+					=> set alert bar
+					=> error-requestWrapper-requestFailed
+
+	directives/requestStatusHandler
+		updated to be able to handle the new requestWrapper
+		classes can now be submitted through data-classes. they are added to the div on each internal reset
+
+	WERKTIJD 
+		23/08 1u
+		24/08 5.5u
+
+FRONT 56
+
+	misc
+		alle titles een zinnige waarde gegeven + default title voorzien
+
+	client/bakery
+		als amount van een product in de bestelling 0 wordt, verwijderen uit bestelling
+
+	baker/modifyproducts
+		suggestions in tagsinput van bestaande producten
+
+	directives
+		tagsInput heavily edited
+
+	WERKTIJD 
+		25/08 1u
+		28/08 4u
+		29/08 2u
+		01/09 1u
+		02/09 1.5u
+		06/09 3u
+		TOTAL 12.5u

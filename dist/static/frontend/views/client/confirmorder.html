@@ -1,0 +1,136 @@
+<div class="container">
+    
+    <div class="row spacer-medium"> 
+        <div class="col-md-8 col-md-offset-2">
+
+            <button type="button" class="btn btn-default" ng-click="returnToEditOrder()">
+                <span class="glyphicon glyphicon-arrow-left"></span>
+                {{dict.backToEditOrder}}
+            </button>
+
+            <div class="panel panel-default spacer-medium">
+                <div class="panel-heading" id="labelPanelTitle">{{dict.panelTitle}}</div>
+                <div class="panel-body">
+
+                    
+                    <div class="row"> 
+                        <div class="col-sm-6">
+                            <img src="images/winkel.jpg" class="img-responsive img-rounded" width="400" alt="winkel image">
+                        </div>
+                        <div class="col-sm-6">
+                            <h3>Bakkermans Nero</h3>
+                            <span class="fa fa-calendar"></span>
+                            afhalen op <strong>{{getQualitative(pyOrder.pickupDate, true)}}</strong>
+                        </div>
+                    </div> 
+
+                    <div class="row spacer-medium"> 
+
+                        
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th></th> 
+                                    <th>{{dict.tableHeading.product}}</th>
+                                    <th>{{dict.tableHeading.amount}}</th>
+                                    <th>{{dict.tableHeading.price}}</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableBody">
+
+                                <tr ng-repeat="product in pyOrder.products">
+                                    <td> 
+                                        <img src="{{PRODUCT_IMAGE_SOURCE + product.productData.id + PRODUCT_IMAGE_EXTENSION}}" class="img-responsive img-rounded" width="30">
+                                    </td>
+                                    <td>{{product.productData.name}}</td>
+                                    <td>{{product.amount}}</td>
+                                    <td>{{product.productData.price}}</td>
+                                </tr>
+
+                                
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td align="right"><h4>{{dict.total}}</h4></td>
+                                    <td><h4>{{pyOrder.totalPrice | moneyFilter}}</h4></td>
+                                </tr>
+
+                                
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td align="right"><h4 class="bootstrap-green">{{dict.credit}}</h4></td>
+                                    <td><h4 class="bootstrap-green">{{credit | moneyFilter}}</h4></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div> 
+
+                    
+                    <div class="row">
+                        <form class="col-sm-12">
+                            <div ng-switch="credit >= pyOrder.totalPrice">
+                                <div ng-switch-when="true">
+                                    <p><button type="submit" class="btn btn-success">{{dict.payWithCredits}}</button></p>
+                                </div>
+
+                                <div ng-switch-when="false">
+                                    
+                                    <label class="control-label">
+                                        {{dict.addCreditToAccount}}
+                                        <span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Krediet kun je later gebruiken om een andere online bestelling te plaatsen zonder opnieuw je bankgegevens te hoeven gebruiken" tooltip></span>
+                                    </label>
+                                    
+                                    
+                                        <div class="input-group col-xs-4 col-sm-2">
+                                            <div class="input-group-addon">€</div>
+                                            <input type="text" class="form-control" ng-model="$parent.extraCredit" placeholder="10">
+                                        </div>
+                                        <h4 class="text-success" ng-if="extraCredit>=10">
+                                            +2
+                                        </h4>
+                                   
+                                    <span class="label label-success">
+                                        {{dict.bonusCredit}}
+                                    </span>
+                                    
+                                    <div class="spacer-medium">
+                                        <button class="btn btn-default" ng-click="proceedPayment()">{{dict.payOnline}}</button>
+                                    </div>
+                                    <div class="spacer-small">
+                                        <span class="fa fa-lock fa-lg"></span>
+                                        {{dict.paymentIsSecure}}
+                                    </div>      
+                                </div>
+                            </div>   
+                        </form> 
+                    </div> 
+                </div> 
+            </div> 
+        </div>
+        <div class="col-md-2"></div>
+    </div>    
+    <!--
+    // NEED remove
+    //https://ca-test.adyen.com/ca/ca/skin/checkhmac.shtml
+    //https://test.adyen.com/hpp/pay.shtml
+    //http://posttestserver.com/post.php
+    -->
+    
+    <form method="post" action="https://test.adyen.com/hpp/pay.shtml" id="hiddenForm" target="_parent">
+        <input type="hidden" name="merchantSig" value="{{pyBill.merchantSig}}"/>
+        <input type="hidden" name="sessionValidity" value="{{pyBill.sessionValidity}}"/>
+        <input type="hidden" name="shipBeforeDate" value="{{pyBill.shipBeforeDate}}"/>
+        <input type="hidden" name="shopperLocale" value="{{pyBill.shopperLocale}}"/>
+        <input type="hidden" name="merchantAccount" value="{{pyBill.merchantAccount}}"/>
+        <input type="hidden" name="paymentAmount" value="{{pyBill.paymentAmount}}"/>
+        <input type="hidden" name="currencyCode" value="{{pyBill.currencyCode}}"/>
+        <input type="hidden" name="skinCode" value="{{pyBill.skinCode}}"/>
+        <input type="hidden" name="merchantReference" value="{{pyBill.merchantReference}}"/>
+        <input type="hidden" name="merchantReturnData" value="{{pyBill.merchantReturnData}}"/>
+        <input type="hidden" name="shopperReference" value="{{pyBill.shopperReference}}"/>
+        <input type="hidden" name="recurringContract" value="{{pyBill.recurringContract}}"/>
+        <input type="hidden" name="shopperEmail" value="{{pyBill.shopperEmail}}"/>
+        <input type="submit" id="testSubmit" class="submit" style="display: none" />
+    </form>
+</div>

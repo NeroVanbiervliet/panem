@@ -1,0 +1,162 @@
+<div class="container">
+    <div class="row spacer-medium"> <!-- main -->
+        <div class="col-md-8 col-md-offset-2"> 
+            
+            <!-- navigate to bakery page as clients view it -->
+            <div>
+                <p>{{dict.introduction.introText}}</p>
+                <button type="button" class="btn btn-default" ng-click="goToBakeryPage()">
+                    {{dict.introduction.buttonText}}<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                </button>
+            </div>
+            
+            <!-- products panel -->
+            <div class="panel panel-default spacer-medium"> 
+                <div class="panel-heading" id="labelPanelTitle">{{dict.panelTitles.products}}</div>
+                <div class="panel-body">      
+
+                    <!-- select category dropdown -->
+                    <div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        {{dict.category}}
+                        <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li ng-repeat="cat in pyCategories" ng-click="showCategory($index)"><a href="">{{cat.name}}</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- category name -->
+                    <h3 ng-class="{'spacer-medium':!$first}">{{productCategory.name}}</h3>    
+
+                    <!-- product list -->
+                    <div class="row spacer-medium" ng-repeat-start="product in productCategory.products">
+                        <!-- checkbox -->
+                        <div class="form-group col-xs-2">
+                            <input type="checkbox" data-style="quick" data-size="small" toggle-products> <!-- data-toggle="..." is an alternative to specify a directive, such as < ... toggle> -->
+                        </div>
+
+                        <!-- thumbnail of product -->
+                        <div class="form-group col-xs-2">
+                            <img src="{{PRODUCT_IMAGE_SOURCE}}{{product.photoId}}.png" height="50" class="img-rounded" ng-class="{'blackwhite':!product.available}">
+                        </div>
+
+                        <!-- name -->
+                        <div class="form-group col-xs-4">
+                            <input type="text" class="form-control" placeholder="{{dict.productNamePlaceholder}}" ng-disabled="!product.available" ng-model="product.name">
+                        </div>
+
+                        <!-- input field for price -->
+                        <div class="input-group col-xs-2">
+                            <div class="input-group-addon">€</div>
+                            <input type="text" class="form-control price-product" data-product-id="{{product.id}}" placeholder="150" ng-disabled="!product.available" ng-model="product.price">
+                        </div>  
+                    </div>
+                    <div class="row" ng-repeat-end>
+                        <!-- button to delete product -->
+                        <div class="col-xs-2">
+                            <button class="btn btn-danger btn-xs" ng-click="removeProduct(productCategory,$index)">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                        </div>
+
+                        <!-- ingredient tags -->
+                        <div class="col-xs-8">
+                            <input class="typeahead" type="text" placeholder="{{dict.ingredientsPlaceholder}}" data-role="tagsinput" ng-disabled="!product.available" data-bloodhound="bloodhound" ng-if="pyIngredients.custom.length > 0" data-initvalue="{{product.ingredientsString}}" tags-input>
+                        </div>
+                    </div>      
+
+                    <!-- button to add another product to the class -->
+                    <div class="row spacer-medium" ng-repeat-end>
+                        <div class="col-xs-5">
+                            <button type="button" ng-click="addProduct(productCategory)" class="btn btn-default">
+                                {{dict.addCustomProduct }}
+                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div> <!-- panel body -->
+            </div> <!-- products panel -->
+
+            <!-- opening hours panel -->
+            <div class="panel panel-default"> 
+                <div class="panel-heading" id="labelPanelTitle">{{dict.panelTitles.openingHours}}</div>
+                <div class="panel-body">
+                    <div class="row spacer-small" ng-repeat="day in pyBakeryInfo.openingHours">
+                        <div class="form-group col-xs-2">
+                            <label>
+                                <input type="checkbox" data-dayno="{{$index}}" ng-model="day[2]"> {{dict.daysOfTheWeek[$index].name}}
+                            </label>
+                        </div>
+
+                        <div class="col-xs-1">{{dict.from}}</div>
+
+                        <!-- time picker for opening hour -->
+                        <div class="form-group col-xs-3">
+                            <div class="input-group bootstrap-timepicker timepicker">
+                                <input type="text" class="form-control input-small timepicker-opening-hours" ng-disabled="!day[2]" timepicker>
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-time"></i>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-1">{{dict.to}}</div>
+
+                        <!-- time picker for closing hour -->
+                        <div class="form-group col-xs-3">
+                            <div class="input-group bootstrap-timepicker timepicker">
+                                <input type="text" class="form-control input-small timepicker-closing-hours" ng-disabled="!day[2]" timepicker>
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-time"></i>
+                                </span>
+                            </div>
+                        </div>
+
+                    </div> <!-- row -->
+                </div> <!-- panel body -->
+            </div> <!-- opening hours panel -->
+
+            <div class="panel panel-default"> <!-- last order hour panel -->
+                <div class="panel-heading" id="labelPanelTitle">{{dict.panelTitles.lastOrderHour}}</div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-xs-3">{{dict.panelTitles.lastOrderHour}}: </div>
+                        <div class="form-group col-xs-3" ng-if="pyBakeryInfo"> <!-- load DOM if variable is available -->
+                            <div class="input-group bootstrap-timepicker timepicker">
+                                <input type="text" class="form-control input-small timepicker-orderlimit-hours" timepicker>
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-time"></i>
+                                </span>
+                            </div>
+                        </div>  
+                    </div>
+
+                    <!-- save changes button -->
+                    <div class="row spacer-medium">
+                        <div class="col-xs-3">
+                            <button class="btn btn-default" ng-click="saveAllData()">{{dict.saveChanges}}</button>
+                        </div>
+
+                        <!-- loading icon -->
+                        <div class="col-xs-1" ng-show="requestStatus[0]=='working' || requestStatus[1]=='working'">
+                            <div class="loader-small"></div>
+                        </div>
+                        <!-- succesfull -->
+                        <div class="col-xs-6 text-success" ng-show="requestStatus[0]=='success' && requestStatus[1]=='success'">
+                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            {{dict.status.success}}
+                        </div>
+                        <!-- error -->
+                        <div class="col-xs-6 text-danger" ng-show="!(requestStatus[0]=='success' && requestStatus[1]=='success') && !(requestStatus[0]=='working' || requestStatus[1]=='working') && (requestStatus != null)">
+                            <span class="glyphicon glyphicon-flash" aria-hidden="true"></span>
+                            {{dict.status.failure}}
+                        </div>
+                    </div>  
+                </div> <!-- panel body -->
+            </div> <!-- last order hour panel -->  
+                
+        </div>
+        <div class="col-md-2"></div>
+    </div><!-- row main -->    
+</div>

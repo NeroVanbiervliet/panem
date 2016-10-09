@@ -1,0 +1,36 @@
+<div class="container">
+    <div class="row"> <!-- main -->
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">{{dict.panelTitle}}</div>
+                <div class="panel-body">
+                    <p>{{dict.panelDescription}}</p>
+                </div>
+                <table class="table table-hover">
+                     
+                    <thead>
+                        <tr>
+                            <th>{{dict.tableHead.date}}</th>
+                            <th>{{dict.tableHead.totalOrders}}</th>
+                            <th>{{dict.tableHead.totalPrice}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="order in pyDayOrders" ng-class="{success:order.isLocked}" ng-click="navigateToDayOrder(order.date)">
+                            <th scope="row">{{getQualitativeDate(order.date, true)}}</th>
+                            <td>{{order.totalOrders}}</td>
+                            <td class="price-euro">{{order.totalPrice | moneyFilter}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- show this message if no orders to display -->
+            <div class="panel panel-default" ng-show="!pyDayOrders.length || pyDayOrders.length == 0">
+                <div class="panel-body"><p class="text-info">
+                    <span class="glyphicon glyphicon-warning-sign"></span>  {{dict.noOrders}}
+                </p></div>
+            </div> 
+        </div>
+    </div><!-- row main -->  
+</div>

@@ -1,0 +1,57 @@
+<div class="container">
+    <!-- status message -->
+    <div class="row" ng-switch="status">
+        <!-- NEED split in four switches, one for credit/adyenpayment/topup, and switches in the cases for each of these options -->
+        <div ng-switch-when="loading" class="loader">
+        </div>
+        <div ng-switch-when="cancelled">
+            <h4>{{dict.judgment.cancelled.title}}</h4>
+            <p>{{dict.judgment.cancelled.description}}</p>
+        </div>
+        <div ng-switch-when="refusedAdyen">
+            <h4>{{dict.judgment.refusedAdyen.title}}</h4>
+            <p>{{dict.judgment.refusedAdyen.description}}</p>
+        </div>
+        <div ng-switch-when="refusedPanem">
+            <h4>{{dict.judgment.refusedPanem.title}}</h4>
+            <p>{{dict.judgment.refusedPanem.description}}</p>
+        </div>
+        <div ng-switch-when="pending">
+            <h4>{{dict.judgment.pending.title}}</h4>
+            <p>{{dict.judgment.pending.description}}</p>
+        </div>
+        <div ng-switch-when="adyenerror">
+            <h4>{{dict.judgment.adyenerror.title}}</h4>
+            <p>{{dict.judgment.adyenerror.description}}</p>
+        </div>
+        <div ng-switch-when="backenderror">
+            <h4>{{dict.judgment.backenderror.title}}</h4>
+            <p>{{dict.judgment.backenderror.description}}</p>
+            <button class="btn btn-default" ng-click="reloadPage()">
+                {{dict.judgment.backenderror.buttonText}}
+                <span class="glyphicon glyphicon-refresh"></span>
+            </button>
+        </div>
+        <div ng-switch-when="success">
+            <h4>{{dict.judgment.success.title}}</h4>
+        </div>
+        <div ng-switch-when="nocurrentorder">
+            <h4>{{dict.judgment.nocurrentorder.title}}</h4>
+            <p>{{dict.judgment.nocurrentorder.description}}</p>
+        </div>
+        <div ng-switch-when="topUpSuccess">
+            <h4>{{dict.judgment.topUpSuccess.title}}</h4>
+            <p>{{dict.judgment.topUpSuccess.description}}</p>
+        </div>
+        
+        <!-- link to home -->
+        <p class="spacer-small" ng-if="paymentCode !== undefined" data-to-substitute="{{dict.toHome.toSubstitute}}" data-destination="#/client/home/" data-base-text="{{dict.toHome.baseText}}" sub-link></p>
+    </div>
+
+    <!-- questions? contact -->
+    <div class="row spacer-extended" ng-if="paymentCode !== undefined">
+        <h4>{{dict.questions.title}}</h4>
+        <div data-to-substitute="{{dict.questions.toSubstitute}}" data-destination="#/client/contact/" data-base-text="{{dict.questions.baseText + paymentCode}}" sub-link></div>
+    </div>
+</div>
+

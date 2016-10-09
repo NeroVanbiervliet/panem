@@ -1,0 +1,411 @@
+@charset "UTF-8";
+@charset 'iso-8859-15';
+
+/* tweede versie van image hover */
+.box{  
+	width:100px;
+	height:100px;
+	/*border-bottom:2px solid #fff;
+	border-right:2px solid #fff; */
+	margin:5% auto 0 auto;
+	background-size:cover;
+	border-radius:10px;
+	overflow:hidden;
+}
+
+.box-xs {
+    width:50px;
+	height:50px;
+	/*border-bottom:2px solid #fff;
+	border-right:2px solid #fff; */
+	margin:5% auto 0 auto;
+	background-size:cover;
+	border-radius:5px;
+	overflow:hidden;
+}
+
+.overlay {  
+	background:rgba(0,0,0,.65); /* black, slightly transparant */
+	text-align:center;
+	padding:26px 0 100px 0;
+	opacity:0;
+	/* TODO smooth transition, dit verpest border radius
+    -webkit-transition: opacity .25s ease;
+	-moz-transition: opacity .25s ease; */
+	border-radius:10px;
+}
+
+.overlay-xs {  
+	background:rgba(0,0,0,.65); /* black, slightly transparant */
+	text-align:center;
+	padding:13px 0 100px 0;
+	opacity:0;
+	/* TODO smooth transition, dit verpest border radius
+    -webkit-transition: opacity .25s ease;
+	-moz-transition: opacity .25s ease; */
+	border-radius:5px;
+}
+
+.box:hover .overlay { /* @ event hover van box -> doe deze layout op overlay */
+	opacity:1;
+}
+
+.box-xs:hover .overlay-xs { /* @ event hover van box -> doe deze layout op overlay */
+	opacity:1;
+}
+
+
+.product-plus {  
+	color:rgba(255,255,255,.85);
+	font-size:40px;
+}
+
+.product-plus-xs {  
+	color:rgba(255,255,255,.85);
+	font-size:20px;
+}
+
+.product-remove {  
+	color:rgba(255,255,255,.85);
+	font-size:40px;
+}
+
+/* miniversie */
+
+.box-mini {  
+	max-width:50px;
+	max-height:50px;
+	/*border-bottom:2px solid #fff;
+	border-right:2px solid #fff; */
+	margin:5% auto 0 auto;
+	background-size:contain;
+    background-repeat: no-repeat;
+	border-radius:2px;
+	overflow:hidden;
+}
+
+.overlay-mini { 
+    max-height: 100%; 
+    max-width: 100%; 
+	background:rgba(0,0,0,.65); /* black, slightly transparant */
+	text-align:center;
+	padding:0px 0 0px 0;
+	opacity:0;
+	border-radius:2px;
+}
+
+.box-mini:hover .overlay-mini { /* @ event hover van box -> doe deze layout op overlay */
+	opacity:1;
+}
+
+/* loader animation */
+
+.loader {
+  border: 8px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 8px solid #ffd11a;
+  width: 60px;
+  height: 60px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+.loader-small {
+    border: 3px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 3px solid #ffd11a;
+    width: 30px;
+    height: 30px;
+    -webkit-animation: spin 0.7s linear infinite;
+    animation: spin 0.7s linear infinite; 
+}
+
+.request-status {
+    padding-left: 0px;
+    float: left;
+    margin-left: 10px; 
+}
+
+.request-button {
+    float: left; 
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* alert bar modifications */
+
+.alert-custom {
+    margin-bottom: 0px;
+    border: 0px solid transparent;
+    border-radius: 0px;
+    color: white; /* text color */
+    background-color: #b30000; 
+}
+
+.white-link {
+    color: white; 
+    text-decoration: underline; 
+}
+
+.white-link:hover {
+    color: lightgrey;
+}
+
+.close {
+    opacity: 1;
+    color: white; 
+    font-weight: 100; 
+    text-shadow: 0 0px 0 #fff;
+}
+
+/* bootstrap fixes */
+
+.spacer { /* to create some whitespace */
+    margin-top: 40px; 
+}
+
+.spacer-small {
+    margin-top: 10px; 
+}
+
+.spacer-medium {
+    margin-top: 20px; 
+}
+
+.spacer-extended {
+    margin-top: 50px; 
+}
+
+.spacer-large {
+    margin-top: 100px; 
+}
+
+.navbar-img {
+    position: absolute;
+    padding-top: 10px; 
+}
+
+.no-bold-fix {
+    font-weight: normal !important;
+}
+
+.col-order {
+    padding-left: 30px;
+    padding-top: 0; !important 
+}
+
+.col-supply {
+    padding-right: 72px; 
+}
+
+.vcenter { /* vertically centers it's children */
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+
+/* custom own */
+.price-euro:before { 
+    content: "\20AC  ";
+}
+
+.row-border {
+    border: 1px solid; 
+    border-radius: 5px; 
+    padding: 4px; 
+    border-color: lightgray; 
+}
+
+.bootstrap-green {
+    color: #5cb85c; 
+}
+
+.col-order-border {
+    border: 1px solid; 
+    border-radius: 5px; 
+    padding: 30px; 
+    border-color: lightgray; 
+}
+
+.cursor-not-allowed {
+    cursor:not-allowed;
+}
+
+.cursor-not-allowed-all-children * {
+    cursor:not-allowed;
+}
+
+.non-selectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    
+    /* change cursor */
+    cursor:pointer;
+}
+
+.jumbotron {
+    background: rgb(200, 54, 54); /* This is for ie8 and below */ 
+    background: rgba(255, 255, 255, 0.9); 
+}
+
+/* printing */
+
+.force-page-break {
+    page-break-after: always; 
+}
+
+.avoid-page-break {
+    page-break-after: avoid; 
+}
+
+/* search bar */ 
+
+#custom-search-input{
+    padding: 3px;
+    border: solid 1px #E4E4E4;
+    border-radius: 6px;
+    background-color: #fff;
+}
+
+#custom-search-input input{
+    border: 0;
+    box-shadow: none;
+}
+
+#custom-search-input button{
+    margin: 2px 0 0 0;
+    background: none;
+    box-shadow: none;
+    border: 0;
+    color: #666666;
+    padding: 0 8px 0 10px;
+    border-left: solid 1px #ccc;
+}
+
+#custom-search-input button:hover{
+    border: 0;
+    box-shadow: none;
+    border-left: solid 1px #ccc;
+}
+
+#custom-search-input .glyphicon-search{
+    font-size: 23px;
+}
+
+/* bootstrap calendar color adaption for disabled dates */
+.datepicker table tr td.disabled,
+.datepicker table tr td.disabled:hover {
+  color: #c17373 !important;
+}
+
+/* bootstrap toggle animation disable */
+.quick .toggle-group { transition: none; -webkit-transition: none; }
+
+/* black and white image */
+.blackwhite {
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+}
+
+/* insufficient credit to pay style */
+.insufficient-funds {
+    color: #F56500; 
+}
+
+/* tagsinput, css stolen from example, edited by nero vanbiervliet */
+.bootstrap-tagsinput {
+    width: 100%;
+}
+
+.accordion {
+    margin-bottom:-3px;
+}
+
+.accordion-group {
+    border: none;
+}
+
+.twitter-typeahead .tt-query,
+.twitter-typeahead .tt-hint {
+    margin-bottom: 0;
+}
+
+.twitter-typeahead .tt-hint
+{
+    display: none;
+}
+
+.tt-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 160px;
+    padding: 5px 0;
+    margin: 2px 0 0;
+    list-style: none;
+    font-size: 14px;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 4px;
+    -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+    background-clip: padding-box;
+    cursor: pointer;
+}
+
+.tt-suggestion {
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: normal;
+    line-height: 1.428571429;
+    color: #333333;
+    white-space: nowrap;
+}
+
+.tt-suggestion:hover,
+.tt-suggestion:focus {
+  color: #ffffff;
+  text-decoration: none;
+  outline: 0;
+  background-color: #428bca;
+}
+
+.tt-cursor { /* the suggestion item currently selected with the keyboard */
+  color: #ffffff;
+  text-decoration: none;
+  outline: 0;
+  background-color: #428bca;
+}
+
+.suggestions-header-standard { /* title for the standard products */
+    color: #337ab7; 
+    font-weight: bold; 
+    margin: 0 20px 5px 20px;
+    padding: 3px 0;
+    border-bottom: 1px solid #337ab7;
+}
+
+.suggestions-header-custom { /* title for the products specific for this customer */
+    color: #e39b45; 
+    font-weight: bold; 
+    margin: 0 20px 5px 20px;
+    padding: 3px 0;
+    border-bottom: 1px solid #e39b45;
+}
