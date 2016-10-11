@@ -34,8 +34,8 @@ After=network.target
 [Service]
 User=<b>username</b>
 Group=www-data
-WorkingDirectory=<b>clone_root</b>/dist
-ExecStart=<b>clone_root</b>/dist/panem_env/bin/gunicorn --workers 3 --bind unix:<b>clone_root</b>/dist/panem_project.sock panem_project.wsgi:application
+WorkingDirectory=<b>clone_root</b>/src
+ExecStart=<b>clone_root</b>/src/panem_env/bin/gunicorn --workers 3 --bind unix:<b>clone_root</b>/src/panem_project.sock panem_project.wsgi:application
 
 [Install]
 WantedBy=multi-user.target
@@ -54,7 +54,7 @@ server {
 
     location / {
         include proxy_params;
-        proxy_pass http://unix:<b>clone_root</b>/dist/panem_project.sock;
+        proxy_pass http://unix:<b>clone_root</b>/src/panem_project.sock;
     }
 }
 
@@ -64,7 +64,7 @@ server {
 
     location = /favicon.ico {access_log off; log_not_found off; }
     location / {
-        root <b>clone_root</b>/dist/static/frontend;
+        root <b>clone_root</b>/src/static/frontend;
     }
 }
 </code></pre>
