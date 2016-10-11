@@ -1,4 +1,4 @@
-var panemApp = angular.module("panemApp", ['ngRoute','ngCookies']); // NEED cokies nog nodig? 
+var panemApp = angular.module("panemApp", ['ngRoute','ngCookies']);
     
 // WATCH OUT: /baker/.. and /client/... -> don't forget the leading slash
 
@@ -25,6 +25,10 @@ panemApp.config(['$routeProvider', function($routeProvider) {
        templateUrl: 'views/client/contact.html', controller: 'clContactCtrl'
    })
    
+   .when('/baker/managebakery', {
+       templateUrl: 'views/baker/managebakery.html', controller: 'bkManageBakeryCtrl'
+   })
+   
    .when('/client/bakery', {
       templateUrl: 'views/client/bakery.html', controller: 'clBakeryCtrl'
    })
@@ -49,8 +53,8 @@ panemApp.config(['$routeProvider', function($routeProvider) {
        templateUrl: 'views/client/termsconditions.html', controller: 'clTermsConditionsCtrl'
    })
    
-   .when('/client/confirmregister', {
-       templateUrl: 'views/client/confirmregister.html', controller: 'clConfirmRegisterCtrl'
+   .when('/client/verifyaccount', {
+       templateUrl: 'views/client/verifyaccount.html', controller: 'clVerifyAccountCtrl'
    })
 
    .when('/client/contact', {
@@ -61,12 +65,20 @@ panemApp.config(['$routeProvider', function($routeProvider) {
        templateUrl: 'views/client/login.html', controller: 'clLoginCtrl'
    })
    
+   .when('/client/forgotpassword', {
+       templateUrl: 'views/client/forgotpassword.html', controller: 'clForgotPasswordCtrl'
+   })
+   
    .when('/client/resetpassword', {
        templateUrl: 'views/client/resetpassword.html', controller: 'clResetPasswordCtrl'
    })
    
    .when('/client/myaccount',{
        templateUrl: 'views/client/myaccount.html', controller: 'clMyAccountCtrl'
+   })
+   
+   .when('/client/topupcredit', {
+       templateUrl: 'views/client/topupcredit.html', controller: 'clTopUpCreditCtrl'
    })
    
    .otherwise({
@@ -76,8 +88,9 @@ panemApp.config(['$routeProvider', function($routeProvider) {
 }]);
 
 panemApp.run(function(userInfo, $rootScope, $location, tokenManager, dictionary, $window) {
-    $rootScope.baseUrl = "http://146.185.179.39";
-
+    $rootScope.baseUrl = 'http://146.185.179.39:8000';
+    $rootScope.defaultTitle = 'Panem - bestel uw brood online';
+    
     // load navbar js
     loadNavBarLogic(userInfo, $rootScope, $location, tokenManager, dictionary, $window); 
 });

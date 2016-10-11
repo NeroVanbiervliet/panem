@@ -47,7 +47,7 @@ panemApp.service('tokenManager', function($cookies, $http, $rootScope, $q) {
         return deferred.promise;
     };
     
-    this.generateGuestToken = function(generatedToken) { // NEED is dit boeltje met callback nog valid? 
+    this.generateGuestToken = function(generatedToken) {
         
         var deferred = $q.defer();
         
@@ -228,4 +228,90 @@ panemApp.service('processDate', function(dictionary) {
 
         return resultString;
     }
+});         
+
+// performs requests (post/get) to a given url, relative to the baseUrl
+panemApp.service('requestWrapper', function($rootScope, $http, tokenManager, $q) {    
+    
+    // initialises a requestStatus string
+    this.init = function() {
+        return 'working'; 
+    };
+    
+    // performs a get request
+    this.get = function(relUrl) {
+        var deferred = $q.defer(); 
+        
+        tokenManager.getToken().then(function(newToken) {
+            // add token to relative url
+            var fullUrl = relUrl; 
+            if(relUrl.substr(relUrl.length-1) != '/') // check if last character of relUrl is a slash
+            {
+                fullUrl += '&'
+            }
+            fullUrl += 'token=' + newToken; 
+            
+            // endpoint access
+            $http({
+                method : "GET",
+                url : $rootScope.baseUrl + fullUrl
+            }).then(function(response) {
+                if (typeof(response.data) == 'object') { // data is returned
+                    deferred.resolve(['success',response.data]);
+                }
+                else if (typeof(response.data) == 'string') {
+                    if (response.data == 'tokennotexist') { // this should not happen in normal circumstances
+                        $rootScope.requestStatus = 'error'; // so alert message in navbar will be displayed
+                        deferred.resolve(['error-requestWrapper-tokenNotExist',{}]);  
+                    }
+                    else { // pass the error message on
+                        deferred.resolve(['error-message',response.data]);  
+                    }
+                }
+                else {
+                    // no string no object, fail
+                    $rootScope.requestStatus = 'error'; // so alert message in navbar will be displayed
+                    deferred.resolve(['error-requestWrapper-noObjectNorString',{}]); 
+                }
+            }, function(response) {
+                $rootScope.requestStatus = 'error'; // so alert message in navbar will be displayed
+                deferred.resolve(['error-requestWrapper-requestFailed',{}]);  
+            });
+        });
+        
+        return deferred.promise;
+    };
+    
+    // performs a post request
+    this.post = function(relUrl, data) {
+        var deferred = $q.defer();
+        
+        tokenManager.getToken().then(function(newToken) {
+            // add token to data
+            data.token = newToken; 
+            
+            var postData = $.param({
+                json : JSON.stringify(data)
+            });
+            
+            $http.post($rootScope.baseUrl + relUrl,postData)
+            .then(function(response) {
+                if (response.data == 'tokennotexist') { // this should not happen in normal circumstances
+                    $rootScope.requestStatus = 'error'; // so alert message in navbar will be displayed
+                    deferred.resolve('error-requestWrapper-tokenNotExist');  
+                }
+                else if (response.data == 'success') {
+                    deferred.resolve('success');
+                }
+                else { // pass the error message on
+                    deferred.resolve('error-message-' + response.data);  
+                }
+            }, function(response) {
+                $rootScope.requestStatus = 'error'; // so alert message in navbar will be displayed
+                deferred.resolve('error-requestWrapper-requestFailed');  
+            });
+        });
+        
+        return deferred.promise;
+    };
 });

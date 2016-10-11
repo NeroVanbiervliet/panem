@@ -1,4 +1,4 @@
-panemApp.controller('bkDayOrderCtrl', function($scope, $rootScope, dictionary, $location, $window, $http, tokenManager, GETUrl, processDate) {
+panemApp.controller('bkDayOrderCtrl', function($scope, $rootScope, dictionary, $location, $window, requestWrapper, tokenManager, GETUrl, processDate) {
 
     // variables
     $scope.pyOrder; 
@@ -14,22 +14,18 @@ panemApp.controller('bkDayOrderCtrl', function($scope, $rootScope, dictionary, $
     // obtain parameters from url
     var GET = GETUrl.decipher(); 
     
-    // GET pyDayOrders data when token is available
-    tokenManager.getToken().then(function(newToken) {
-        $http({
-            method : "GET",
-            url : $rootScope.baseUrl + "/bakery/"+GET.bakeryId+"/dayOrder/date=" + GET.date + "&token=" + newToken + "/"
-        }).then(function(response) {
-            $scope.pyOrder = response.data;
-
+    // GET pyDayOrders data when token is available    
+    var url = '/bakery/' + GET.bakeryId + '/dayOrder/date=' + GET.date
+    $scope.requestStatus = requestWrapper.init(); 
+    requestWrapper.get(url).then(function ([newStatus,resultData]) {
+        $scope.requestStatus = newStatus; 
+        $scope.pyOrder = resultData; 
+        if(newStatus == 'success') {
             // qualitative date
             processDate.setLang("nl");
             $scope.pyOrder.dateString = processDate.getWordDate($scope.pyOrder.date, true);
-
-        }, function(response) {
-            $scope.pyOrder = []; // NEED niet zeker dat dit werkt
-        });
-    }); 
+        }
+    });
     
     // print page
     $scope.printPage = function() {

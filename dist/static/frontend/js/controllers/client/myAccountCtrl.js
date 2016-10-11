@@ -1,4 +1,4 @@
-panemApp.controller('clMyAccountCtrl', function($scope, $rootScope, dictionary, $http, tokenManager, processDate, $window) {
+panemApp.controller('clMyAccountCtrl', function($scope, $rootScope, dictionary, $http, tokenManager, processDate, $window, userInfo) {
     
     
     // VARIABLES
@@ -11,6 +11,12 @@ panemApp.controller('clMyAccountCtrl', function($scope, $rootScope, dictionary, 
     
     // initialize dictionary
 	$scope.dict =  dictionary.fillClMyAccount("nl");
+    
+    // reload userInfo, information can be outdated
+    userInfo.updateInfo().then(function (loadedInfo) {
+        $rootScope.userInfo =  loadedInfo; 
+    });
+    
     
     // FUNCTIONS    
     
@@ -29,29 +35,6 @@ panemApp.controller('clMyAccountCtrl', function($scope, $rootScope, dictionary, 
                 // NEED zien wat dit geeft
             })
         });
-        
-        // test data
-        /*$scope.pyPreviousOrders = [
-            {  
-                "id" : 6,
-                "bakery" : {
-                    "id" : 147,
-                    "name" : "Bakkermans Nero"
-                },
-                "date" : (new Date()).getTime(),
-                "totalPrice" : 450
-            },
-            {  
-                "id" : 7,
-                "bakery" : {
-                    "id" : 147,
-                    "name" : "Bakkermans Nero"
-                },
-                "date" : (new Date()).getTime()-2*60*60*24*1000,
-                "totalPrice" : 830
-            }
-        ];
-        processPreviousOrders();*/
     }
     
     // process previous order data
