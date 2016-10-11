@@ -24,8 +24,8 @@
       <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/first/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-15.032258">
-              <caret line="43" column="18" selection-start-line="43" selection-start-column="18" selection-end-line="43" selection-end-column="18" />
+            <state vertical-scroll-proportion="-10.967742">
+              <caret line="36" column="115" selection-start-line="36" selection-start-column="101" selection-end-line="36" selection-end-column="115" />
               <folding>
                 <element signature="e#0#32#0" expanded="true" />
               </folding>
@@ -33,14 +33,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/first/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.68688524">
-              <caret line="823" column="25" selection-start-line="823" selection-start-column="25" selection-end-line="823" selection-end-column="25" />
+            <state vertical-scroll-proportion="-5.387097">
+              <caret line="708" column="56" selection-start-line="708" selection-start-column="25" selection-end-line="708" selection-end-column="56" />
               <folding>
                 <element signature="e#0#36#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="orderLookUp.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/FRG/orderLookUp.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.38845554">
+              <caret line="212" column="44" selection-start-line="212" selection-start-column="44" selection-end-line="212" selection-end-column="44" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -52,6 +62,7 @@
       <list>
         <option value="$PROJECT_DIR$/first/urls.py" />
         <option value="$PROJECT_DIR$/first/views.py" />
+        <option value="$PROJECT_DIR$/FRG/orderLookUp.py" />
       </list>
     </option>
   </component>
@@ -59,8 +70,8 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-2685" />
-    <option name="y" value="792" />
+    <option name="x" value="47" />
+    <option name="y" value="1560" />
     <option name="width" value="1319" />
     <option name="height" value="744" />
   </component>
@@ -263,7 +274,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-2685" y="792" width="1319" height="744" extended-state="6" />
+    <frame x="47" y="1560" width="1319" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24943139" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -294,16 +305,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/first/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-15.032258">
-          <caret line="43" column="18" selection-start-line="43" selection-start-column="18" selection-end-line="43" selection-end-column="18" />
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/first/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3650546">
@@ -314,13 +315,31 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/first/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-10.967742">
+          <caret line="36" column="115" selection-start-line="36" selection-start-column="101" selection-end-line="36" selection-end-column="115" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/first/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.68688524">
-          <caret line="823" column="25" selection-start-line="823" selection-start-column="25" selection-end-line="823" selection-end-column="25" />
+        <state vertical-scroll-proportion="-5.387097">
+          <caret line="708" column="56" selection-start-line="708" selection-start-column="25" selection-end-line="708" selection-end-column="56" />
           <folding>
             <element signature="e#0#36#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FRG/orderLookUp.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.38845554">
+          <caret line="212" column="44" selection-start-line="212" selection-start-column="44" selection-end-line="212" selection-end-column="44" />
+          <folding />
         </state>
       </provider>
     </entry>

@@ -168,6 +168,7 @@ def getPreviousOrdersAcrossBakeries(accountId):
         currentBakeryOrders = getPreviousOrders(int(accountId),int(bakery.id))
         if currentBakeryOrders != 'ordersnotfound':
 
+            # NEED werkt dit nog?
             # calculate total price for each order with the current prices
             for order in currentBakeryOrders:
                 totalPrice = 0

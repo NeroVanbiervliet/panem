@@ -23,6 +23,7 @@ panemApp.service('dictionary', function($rootScope) {
                             },
                             "IETF" : "nl-BE",
                             "qualitativePastTime" : {
+                                "future" : "nog af te halen",
                                 "0" : "vandaag",
                                 "1" : "gisteren",
                                 "2" : "eergisteren",
@@ -612,8 +613,7 @@ panemApp.service('dictionary', function($rootScope) {
                 dic = {
                     'heading' : {
                         'title' : "Beheer je bakkerij",
-                        'description' : "Op deze pagina kun je je bakkerij beheren. Als je hulp nodig hebt, contacteer ons dan hier.",
-                        'toSubstitute' : "hier"
+                        'description' : "Op deze pagina kun je je bakkerij beheren. Als je hulp nodig hebt, contacteer ons dan hier."
                     },
                     'orders' : {
                         'title' : "Bestellingen",
