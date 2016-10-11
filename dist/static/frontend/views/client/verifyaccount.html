@@ -1,0 +1,24 @@
+<div class="container" ng-switch on="requestStatus">
+    <div class="col-sm-offset-2 col-sm-8" ng-switch-default>
+        <h2>{{dict.noCorrectCodeOrEmail.heading}}</h2>
+        <p data-to-substitute="{{dict.noCorrectCodeOrEmail.toSubstitute}}" data-destination="#/client/contact" data-base-text="{{dict.noCorrectCodeOrEmail.description}}" sub-link></p>
+    </div>
+    <div class="col-sm-offset-2 col-sm-8" ng-switch-when="success">
+        <h1>{{dict.confirmed.heading}}</h1>
+        <p>{{dict.confirmed.description}}</p>
+        <a href="#/client/home">
+            <button class="btn btn-primary">{{dict.confirmed.buttonText}}</button>
+        </a>
+    </div>
+    <div class="col-sm-offset-2 col-sm-8" ng-switch-when="alreadyverified">
+        <h2>{{dict.wasAlreadyConfirmed.heading}}</h2>
+        <p>{{dict.wasAlreadyConfirmed.description + ' ' + dict.confirmed.description}}</p>
+        <a href="#/client/home">
+            <button class="btn btn-primary">{{dict.confirmed.buttonText}}</button>
+        </a>
+    </div>
+    <div class="col-sm-offset-2 col-sm-8" ng-switch-when="backenderror-requestWrapper">
+        <h2>{{dict.backendRequestFail.heading}}</h2>
+        <p>{{dict.backendRequestFail.description}}</p>
+    </div>
+</div>
