@@ -12,7 +12,7 @@ Panem is een webshop voor bakkers waar hun klanten online bestellingen kunnen pl
 De uitleg hieronder is van toepassing op ubuntu. Er wordt verondersteld dat deze repository gecloned is op een locatie die verder met `clone_root` wordt aangegeven. De setup is geldig voor ubuntu 16.xx, niet voor ubuntu 14.xx!
 
 ### Nodige software
-- git (`sudo apt-get install git-all`)
+- git (`sudo apt-get install git`)
 - nginx (`sudo apt-get install nginx`)
 - virtualenv (`sudo pip install virtualenv`)
 - gunicorn (`sudo pip install gunicorn`)
@@ -34,8 +34,8 @@ After=network.target
 [Service]
 User=<b>username</b>
 Group=www-data
-WorkingDirectory=<b>clone_root</b>/dist
-ExecStart=<b>clone_root</b>/dist/panem_env/bin/gunicorn --workers 3 --bind unix:<b>clone_root</b>/dist/panem_project.sock panem_project.wsgi:application
+WorkingDirectory=<b>clone_root</b>/src
+ExecStart=<b>clone_root</b>/src/panem_env/bin/gunicorn --workers 3 --bind unix:<b>clone_root</b>/src/panem_project.sock panem_project.wsgi:application
 
 [Install]
 WantedBy=multi-user.target
@@ -49,20 +49,24 @@ Je maakt opnieuw een configuratiefile aan, ditmaal de file `panem_project` in de
 
 <pre><code>
 server {
-    listen 80;
+    listen 8000;
     server_name localhost;
-
-    location = /favicon.ico { access_log off; log_not_found off; }
-    location /static/ {
-      root <b>clone_root</b>/dist;
-    }
 
     location / {
         include proxy_params;
-        proxy_pass http://unix:<b>clone_root</b>/dist/panem_project.sock;
+        proxy_pass http://unix:<b>clone_root</b>/src/panem_project.sock;
     }
 }
 
+server {
+    listen 80;
+    server_name localhost;
+
+    location = /favicon.ico {access_log off; log_not_found off; }
+    location / {
+        root <b>clone_root</b>/src/static/frontend;
+    }
+}
 </code></pre>
 
 Voer daarna het commando `sudo ln -s /etc/nginx/sites-available/panem_project /etc/nginx/sites-enabled` uit. 
