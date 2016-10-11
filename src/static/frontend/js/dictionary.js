@@ -262,7 +262,7 @@ panemApp.service('dictionary', function($rootScope) {
 	};
 
 
-    // CLIENT CONtACT PAGE
+    // CLIENT CONTACT AND CONTACT SUCCESS PAGE
 	dictionary.fillClContact = function (lang) {
 		var dic = {}
 
@@ -287,6 +287,10 @@ panemApp.service('dictionary', function($rootScope) {
                                 "error" : "Er ging iets fout. Herlaadt de pagina en probeer opnieuw.",
                                 "success" : "Je vraag werd verzonden"
                             }
+                        },
+                        'successPage' : {
+                            'message' : "Uw bericht werd verstuurd naar onze klantendienst.",
+                            'btnHome' : "Naar de homepagina"
                         }
                 };
                 $rootScope.title = 'Panem - Registreer bakkerij';
