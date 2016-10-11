@@ -45,7 +45,7 @@ Om er voor te zorgen dat je dit niet steeds hoeft te doen kun je instellen dat d
 
 ### Configuratie van nginx
 
-Je maakt opnieuw een configuratiefile aan, ditmaal de file `panem_project` in de map `/etc/nginx/sites-available/`. Let opnieuw op **clone_root** die tweemaal moet vervangen worden door de juiste map. 
+Je maakt opnieuw een configuratiefile aan, ditmaal de file `panem_project` in de map `/etc/nginx/sites-available/`. Let opnieuw op **clone_root** die drie maal moet vervangen worden door de juiste map. 
 
 <pre><code>
 server {
@@ -56,6 +56,12 @@ server {
         include proxy_params;
         proxy_pass http://unix:<b>clone_root</b>/src/panem_project.sock;
     }
+    
+    # to access css pages for django admin page
+    location ~ "/static/admin/.{1,}" {
+        root <b>clone_root</b>/src;
+    }
+
 }
 
 server {
