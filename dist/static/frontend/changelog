@@ -565,3 +565,303 @@ FRONT 40
 
 	WERKTIJD
 		delft
+
+
+------------------------
+amerikareis + scoutskamp
+------------------------
+
+FRONT 41
+	
+	client/register 
+		endpoint access fixed
+
+	client/myaccount
+		bakery name added to shown orders
+	
+	client/confirmregister	
+		endpoint access fixed
+		
+	WERKTIJD 
+		02/08 2u
+
+FRONT 42
+	
+	client/myaccount
+		a message is displayed when no orders are present
+
+	baker/modifyproducts
+		introtekstje toegevoegd
+		knop die navigeert naar bakery page 
+
+	client/forgotpassword
+		created/renamed
+		backend integration
+
+	client/resetpassword
+		created
+		backend integration
+
+	WERKTIJD 
+		02/08 6u
+		09/08 1u
+
+FRONT 43
+		
+	panem_main.css
+		added loader-small class for small loader animation next to a button
+
+	baker/modifyproducts
+		complete backend integration
+
+	WERKTIJD
+		09/08 6u 
+		10/08 3u 
+
+FRONT 44
+
+	services 
+		*requestWrapper
+
+	directives
+		*requestStatusHandler
+
+	client/forgotpassword
+		requestWrapper integrated
+		requestStatusHandler integrated
+		dictionary enabled
+
+	WERKTIJD
+		10/08 3u
+		11/08 1u
+
+FRONT 45
+
+	checkFiles
+		various tasks solved
+
+	navbar
+		alertbar on top of screen when requestStatus = 'error'
+
+	WERKTIJD 
+		11/08 6u
+
+FRONT 46
+
+	checkFiles
+		various tasks solved
+
+	*baker/manageproducts
+		
+	directives
+		*subLink
+		*buttonLink
+
+	navbar
+		link to contact page added to alert in navbar
+
+	WERKTIJD 
+		11/08 1u
+		15/08 5u
+		16/08 1u
+
+FRONT 47
+	
+	navbar
+		for logged in bakers, clicking on their bakery's name now redirects to baker/managebakery
+
+	*footer
+
+	WERKTIJD
+		16/08 2u
+
+FRONT 48 
+	
+	directives
+		requestStatusHandler
+			updated to work with multiple requestStatusses 
+	
+	baker/managebakery
+		load email setting from backend
+		save email setting in backend
+		handle requestStatus for email setting backend interaction
+
+	services
+		userInfo
+			if logged in as a baker, the userInfo now contains a bakery dictionary field, containing id and name
+
+	WERKTIJD 
+		17/08 5u
+
+FRONT 49
+
+	checkFiles
+		various tasks
+
+	client/confirmorder
+		paying with credit is now fixed
+		if insufficient credit, credit is marked in orange/red	
+
+	client/myaccount
+		userInfo is now updated on loading page
+
+	WERKTIJD
+		17/08 2u
+
+FRONT 50
+	
+	client/finalisepayment
+		this page now also finalises credit payments  
+
+	WERKTIJD 
+		17/08 1u
+
+FRONT 51 
+
+	checkFiles 
+		various tasks
+
+	client/finalisepayment
+		link to contact page for questions
+		payment id is displayed on page, for in case a problem occurs
+		dutch titles and descriptions added for the various statusses
+
+	WERKTIJD 
+		18/08 3u
+
+FRONT 52 
+	
+	client/confirmorder
+		some static variables made dynamic
+		more dictionary usage
+		enhancement of watch function before form submission
+
+	client/myaccount
+		link established to client/topupcredit
+
+	*client/topupcredit
+		backend integration
+		adyen integration
+
+	client/finalisepayment
+		integration for top up credit payments
+
+	WERKTIJD 
+		18/08 1u
+		19/08 6u 
+
+FRONT 53 
+	
+	navbar
+		logging out now takes you to the home page
+
+	baker/allorders
+		requestWrapper integration
+		message is displayed when there are no orders to show
+
+	baker/dayorder
+		requestWrapper integration
+		message is displayed when there are no orders to show
+
+	client/confirmregister
+		used subLink to enhance dicionary usage
+		page layout enhanced
+		requestWrapper integration
+
+	checkFiles
+		various NE+ED solved
+
+	WERKTIJD
+		19/08 0.5u
+		23/08 1.5u
+
+FRONT 54
+	
+	client/register
+		if the account already exists, a link is shown to the forgot password page
+		in this link, the email adress is included
+	
+	client/login
+		the link to forgotpassword contains the email adress, if provided
+
+	client/forgotpassword
+		checks for GET.email present in url
+
+	WERKTIJD
+		23/08 1u
+
+FRONT 55 
+
+	client/bakery
+		too long product names are now split over multiple lines in the current order section
+
+	baker/register
+		backend integeration
+		requestStatusHandler integration
+	
+	services/requestWrapper
+		enhanced error handling 
+			- GET 	
+				> succesfull request
+					o response is an object
+						=> success status
+						=> data is passed on
+					o response is a string
+						> tokennotexist
+							=> set alert bar
+							=> error-requestWrapper-tokenNotExist
+						> other string
+							=> string is passed on
+							=> error-message
+					o response is something else
+						=> set alert bar
+						=> error-requestWrapper-noObjectNorString
+
+				> failed request
+					=> set alert bar
+					=> error-requestWrapper-requestFailed
+
+			- POST (assumes the return value is a string)
+				> succesfull request
+					o tokennotexist
+						=> set alert bar
+						=> error-requestWrapper-tokenNotExist
+					o success
+						=> success is passed on
+					o other string
+						=> string is passed on with error-message prepended
+					
+				> failed request
+					=> set alert bar
+					=> error-requestWrapper-requestFailed
+
+	directives/requestStatusHandler
+		updated to be able to handle the new requestWrapper
+		classes can now be submitted through data-classes. they are added to the div on each internal reset
+
+	WERKTIJD 
+		23/08 1u
+		24/08 5.5u
+
+FRONT 56
+
+	misc
+		alle titles een zinnige waarde gegeven + default title voorzien
+
+	client/bakery
+		als amount van een product in de bestelling 0 wordt, verwijderen uit bestelling
+
+	baker/modifyproducts
+		suggestions in tagsinput van bestaande producten
+
+	directives
+		tagsInput heavily edited
+
+	WERKTIJD 
+		25/08 1u
+		28/08 4u
+		29/08 2u
+		01/09 1u
+		02/09 1.5u
+		06/09 3u
+		TOTAL 12.5u

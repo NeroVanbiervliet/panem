@@ -50,7 +50,8 @@ function updateQueryScores(scope, reset) { // TODO te lage scores truncaten naar
             {
                 var bakery = scope.pyBakeries[i];
 
-                // NEED die replaces kunnen eenmalig vooraf gebeuren om sneller te zijn
+                // TODO die replaces kunnen eenmalig vooraf gebeuren om sneller te zijn
+                // note : weinig mee te winnen, kijken in chrome profiler waar bottlenecks zitten als je wil optimisen
                 // let op! wel niet de originele data overwriten
                 var nameScore = stringCorrelation(bakery.name.replace(/[',&]/g,''),word);
                 var cityScore = stringCorrelation(bakery.city.replace(/[',&]/g,''),word);
@@ -88,7 +89,7 @@ function initSearch(scope) {
         // assign distanceScore
         if(bakery.distance != -1)
         {
-            bakery.distanceScore = Math.max(Math.round(200-bakery.distance),0)/40; // NEED goed? 
+            bakery.distanceScore = Math.max(Math.round(200-bakery.distance),0)/40;
         }
         else
         {

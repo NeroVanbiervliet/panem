@@ -15,7 +15,7 @@ panemApp.controller('clBakeryCtrl', function($scope, $rootScope, dictionary, $wi
 
     $scope.order = {}; 
     $scope.order.products = []; 
-    // initialisation is needed to prevent empty dropdown item to spawn
+    // initialisation is ne-eded to prevent empty dropdown item to spawn
     $scope.order.selectedOrderId = "-1";
     
     $scope.smallDevices = (document.documentElement.clientWidth < 768);
@@ -31,9 +31,15 @@ panemApp.controller('clBakeryCtrl', function($scope, $rootScope, dictionary, $wi
     
     // define constants
     $scope.ONE_DAY_MILLISECONDS; 
-    $scope.PRODUCT_IMAGE_SOURCE = "images/products_id/"; // NEED veranderen
-    $scope.PRODUCT_IMAGE_EXTENSION = ".jpg";
-    
+    $scope.SHOP_IMAGE_SOURCE = "images/shops/800x500/"; // TODO larger image for bakery page? 
+    $scope.IMAGE_EXTENSION = ".png";
+    if (document.documentElement.clientWidth < 768) {
+        $scope.PRODUCT_IMAGE_SOURCE = "images/products/50/"; // for mobile devices
+    }
+    else {
+        $scope.PRODUCT_IMAGE_SOURCE = "images/products/100/"; 
+    }
+        
     // initialise variables
     initialiseVariables();
     
@@ -103,6 +109,9 @@ panemApp.controller('clBakeryCtrl', function($scope, $rootScope, dictionary, $wi
         }).then(function(response) {
             $scope.pyBakeryInfo = response.data;
             processOpeningHours(); 
+            
+            // complete page title 
+            $rootScope.title += $scope.pyBakeryInfo.name; 
             
         }, function(response) {
             $scope.pyBakeryInfo = {};
@@ -290,7 +299,13 @@ panemApp.controller('clBakeryCtrl', function($scope, $rootScope, dictionary, $wi
     };
     
     $scope.decreaseAmount = function(product) {
-        product.amount--;
+        if (product.amount > 1) {
+            product.amount--;
+        }
+        else { // next count will be zero
+            // remove product from order
+            $scope.removeProductFromOrder(product.productData);
+        }
     };
     
     // changes the date of the date displayed in calendarDiv to the date of today + moreDays
@@ -321,10 +336,22 @@ panemApp.controller('clBakeryCtrl', function($scope, $rootScope, dictionary, $wi
         }
         else // product is not present in order
         {
+            var displayName; // the name to be displayed in the current order
+            
+            // check if name will fit in one label
+            if(product.name.length <= 20) {
+                displayName = [product.name]; 
+            }
+            else { // does not fit in one label
+                // TODO splits eerst altijd op spaties indien mogelijk, dan pas binnen woorden
+                displayName = product.name.match(/.{1,20}/g); // splits productname in pieces of size 20
+            }
+            
             // add product to order
             $scope.order.products.push({ 
                 'productData' : product,
-                'amount' : 1
+                'amount' : 1,
+                'displayName' : displayName
             });
         }
     };
