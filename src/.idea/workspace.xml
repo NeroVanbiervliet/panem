@@ -36,8 +36,8 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/first/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.387097">
-              <caret line="708" column="56" selection-start-line="708" selection-start-column="25" selection-end-line="708" selection-end-column="56" />
+            <state vertical-scroll-proportion="-10.612904">
+              <caret line="708" column="39" selection-start-line="708" selection-start-column="39" selection-end-line="708" selection-end-column="39" />
               <folding>
                 <element signature="e#0#36#0" expanded="true" />
               </folding>
@@ -48,8 +48,8 @@
       <file leaf-file-name="orderLookUp.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/FRG/orderLookUp.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.38845554">
-              <caret line="212" column="44" selection-start-line="212" selection-start-column="44" selection-end-line="212" selection-end-column="44" />
+            <state vertical-scroll-proportion="0.4726989">
+              <caret line="221" column="58" selection-start-line="221" selection-start-column="58" selection-end-line="221" selection-end-column="58" />
               <folding />
             </state>
           </provider>
@@ -327,8 +327,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/first/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.387097">
-          <caret line="708" column="56" selection-start-line="708" selection-start-column="25" selection-end-line="708" selection-end-column="56" />
+        <state vertical-scroll-proportion="-10.612904">
+          <caret line="708" column="39" selection-start-line="708" selection-start-column="39" selection-end-line="708" selection-end-column="39" />
           <folding>
             <element signature="e#0#36#0" expanded="true" />
           </folding>
@@ -337,8 +337,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/FRG/orderLookUp.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.38845554">
-          <caret line="212" column="44" selection-start-line="212" selection-start-column="44" selection-end-line="212" selection-end-column="44" />
+        <state vertical-scroll-proportion="0.4726989">
+          <caret line="221" column="58" selection-start-line="221" selection-start-column="58" selection-end-line="221" selection-end-column="58" />
           <folding />
         </state>
       </provider>

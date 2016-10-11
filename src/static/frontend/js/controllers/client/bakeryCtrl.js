@@ -281,7 +281,10 @@ panemApp.controller('clBakeryCtrl', function($scope, $rootScope, dictionary, $wi
 
             if(prevOrder != undefined)
             {
-                $scope.order.products = prevOrder.products;
+                // add products one by one
+                for(var i=0; i<prevOrder.products.length; i++) {
+                    $scope.addProductToOrder(prevOrder.products[i]);
+                }
             }
         }
         else // no previous order selected

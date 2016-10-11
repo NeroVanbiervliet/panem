@@ -218,14 +218,12 @@ def getPreviousOrders(accountId,bakeryId):
                     if productOrder.orderId == order.id:
                         productId = productOrder.productId
                         product = Product.objects.get(id = productId)
-                        productData = {}
-                        productData['price'] = productOrder.price
-                        productData['name'] = product.name
-                        productData['id'] = productId
-                        productData['photoId'] = product.photoId
+                        productDict['price'] = productOrder.price
+                        productDict['name'] = product.name
+                        productDict['id'] = productId
+                        productDict['photoId'] = product.photoId
 
                         productDict['amount'] = productOrder.amount
-                        productDict['productData'] = productData
                         orderTemp['products'].append(productDict)
                 xSort.append(orderTemp['numDaysPast'])
                 output.append(orderTemp)
