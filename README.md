@@ -49,13 +49,8 @@ Je maakt opnieuw een configuratiefile aan, ditmaal de file `panem_project` in de
 
 <pre><code>
 server {
-    listen 80;
+    listen 8000;
     server_name localhost;
-
-    location = /favicon.ico { access_log off; log_not_found off; }
-    location /static/ {
-      root <b>clone_root</b>/dist;
-    }
 
     location / {
         include proxy_params;
@@ -63,6 +58,15 @@ server {
     }
 }
 
+server {
+    listen 80;
+    server_name localhost;
+
+    location = /favicon.ico {access_log off; log_not_found off; }
+    location / {
+        root <b>clone_root</b>/dist/static/frontend;
+    }
+}
 </code></pre>
 
 Voer daarna het commando `sudo ln -s /etc/nginx/sites-available/panem_project /etc/nginx/sites-enabled` uit. 
