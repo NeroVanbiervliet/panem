@@ -21,6 +21,11 @@
             </form> 
             
             
+            <div class="spacer-small">
+                <a href="#/client/forgotpassword?email={{user.email}}">{{dict.forgotPassword}}</a>
+            </div>
+            
+            
             <div class="container spacer-small" ng-switch on="requestStatus">
                 <div ng-switch-default></div> 
                 <div class="text-danger" ng-switch-when="backenderror">

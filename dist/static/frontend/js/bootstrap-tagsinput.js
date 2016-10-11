@@ -432,11 +432,22 @@
 
          var text = $input.val(),
          maxLengthReached = self.options.maxChars && text.length >= self.options.maxChars;
-         if (self.options.freeInput && (keyCombinationInList(event, self.options.confirmKeys) || maxLengthReached)) {
+          
+         // MODIFIED LIBRARY BY NERO VANBIERVLIET!  
+         if ((keyCombinationInList(event, self.options.confirmKeys) || maxLengthReached)) {
+             
+            // construct object from text
+            var objectToAdd = {name : text, type : 'custom'};
+             
             // Only attempt to add a tag if there is data in the field
             if (text.length !== 0) {
-               self.add(maxLengthReached ? text.substr(0, self.options.maxChars) : text);
+               self.add(objectToAdd);
+               self.$input.typeahead('val', '');
                $input.val('');
+            
+               // raise unknownItemAdded event CUSTOM EVENT
+               var unknownItemAddedEvent = $.Event('unknownItemAdded', { item: objectToAdd, cancel: false, options: options});
+               self.$element.trigger(unknownItemAddedEvent);
             }
 
             // If the field is empty, let the event triggered fire as usual

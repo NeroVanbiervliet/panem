@@ -10,8 +10,8 @@ panemApp.controller('clHomeCtrl', function($scope, dictionary, $http, $rootScope
     };
     
     // contants
-    $scope.IMAGE_SOURCE = "images/shops/"; // NEED aanpassen
-    $scope.IMAGE_EXTENSION = ".jpg"; // NEED pngs later
+    $scope.IMAGE_SOURCE = "images/shops/800x500/"; 
+    $scope.IMAGE_EXTENSION = ".png";
     
     // Initialize dictionary
 	$scope.dict = dictionary.fillClHome("nl");

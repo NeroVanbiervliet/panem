@@ -32,7 +32,6 @@
                 <h3>{{dict.viaEmail}}</h3>
                 <p>   
                     <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
-                    
                     <a ng-if="loggedIn" href="mailto:help@panem.be?subject=[klantnummer {{userInfo.id}}] Vraag over panem" target="_blank">help@panem.be</a> 
                     <a ng-if="!loggedIn" href="mailto:help@panem.be?subject=Vraag over panem" target="_blank">help@panem.be</a> 
                 </p>

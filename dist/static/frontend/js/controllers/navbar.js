@@ -33,6 +33,9 @@ loadNavBarLogic = function(userInfo, $rootScope, $location, tokenManager, dictio
         tokenManager.forceNewToken().then(function(newToken) {
             $rootScope.token = newToken;  
         }); 
+        
+        // redirect to home page
+        $window.location = '#/client/home/'; 
     }
     
     // EXECUTED ON ROUTE CHANGE AND ON REFRESH

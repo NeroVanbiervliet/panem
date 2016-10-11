@@ -3,7 +3,7 @@
     <div class="row spacer-medium"> 
         <div class="col-md-8 col-md-offset-2">
 
-            <button type="button" class="btn btn-default" ng-click="returnToEditOrder()">
+            <button type="button" class="btn btn-default" ng-click="navigate('#/client/bakery?bakeryId=' + pyOrder.bakery.id)">
                 <span class="glyphicon glyphicon-arrow-left"></span>
                 {{dict.backToEditOrder}}
             </button>
@@ -15,12 +15,12 @@
                     
                     <div class="row"> 
                         <div class="col-sm-6">
-                            <img src="images/winkel.jpg" class="img-responsive img-rounded" width="400" alt="winkel image">
+                            <img src="{{SHOP_IMAGE_SOURCE + pyOrder.bakery.photoId + IMAGE_EXTENSION}}" class="img-responsive img-rounded" width="400">
                         </div>
                         <div class="col-sm-6">
-                            <h3>Bakkermans Nero</h3>
+                            <h3>{{pyOrder.bakery.name}}</h3>
                             <span class="fa fa-calendar"></span>
-                            afhalen op <strong>{{getQualitative(pyOrder.pickupDate, true)}}</strong>
+                            {{dict.pickUpOn}} <strong>{{getQualitative(pyOrder.pickupDate, true)}}</strong>
                         </div>
                     </div> 
 
@@ -40,11 +40,11 @@
 
                                 <tr ng-repeat="product in pyOrder.products">
                                     <td> 
-                                        <img src="{{PRODUCT_IMAGE_SOURCE + product.productData.id + PRODUCT_IMAGE_EXTENSION}}" class="img-responsive img-rounded" width="30">
+                                        <img src="{{PRODUCT_IMAGE_SOURCE + product.photoId + PRODUCT_IMAGE_EXTENSION}}" class="img-responsive img-rounded" width="30">
                                     </td>
-                                    <td>{{product.productData.name}}</td>
+                                    <td>{{product.name}}</td>
                                     <td>{{product.amount}}</td>
-                                    <td>{{product.productData.price}}</td>
+                                    <td>{{product.price | moneyFilter}}</td>
                                 </tr>
 
                                 
@@ -59,8 +59,8 @@
                                 <tr>
                                     <td></td>
                                     <td></td>
-                                    <td align="right"><h4 class="bootstrap-green">{{dict.credit}}</h4></td>
-                                    <td><h4 class="bootstrap-green">{{credit | moneyFilter}}</h4></td>
+                                    <td align="right"><h4 ng-class="{true:'bootstrap-green',false:'insufficient-funds'}[credit >= pyOrder.totalPrice]">{{dict.credit}}</h4></td>
+                                    <td><h4 ng-class="{true:'bootstrap-green',false:'insufficient-funds'}[credit >= pyOrder.totalPrice]">{{credit | moneyFilter}}</h4></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -70,32 +70,33 @@
                     <div class="row">
                         <form class="col-sm-12">
                             <div ng-switch="credit >= pyOrder.totalPrice">
+                                
+                                
                                 <div ng-switch-when="true">
-                                    <p><button type="submit" class="btn btn-success">{{dict.payWithCredits}}</button></p>
+                                    <p><button type="submit" class="btn btn-success" ng-click="proceedPaymentCredit()">{{dict.payWithCredits}}</button></p>
                                 </div>
 
+                                
                                 <div ng-switch-when="false">
-                                    
                                     <label class="control-label">
                                         {{dict.addCreditToAccount}}
-                                        <span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Krediet kun je later gebruiken om een andere online bestelling te plaatsen zonder opnieuw je bankgegevens te hoeven gebruiken" tooltip></span>
+                                        <span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="{{dict.addCreditToAccountTooltip}}" tooltip></span>
                                     </label>
                                     
-                                    
-                                        <div class="input-group col-xs-4 col-sm-2">
-                                            <div class="input-group-addon">€</div>
-                                            <input type="text" class="form-control" ng-model="$parent.extraCredit" placeholder="10">
-                                        </div>
-                                        <h4 class="text-success" ng-if="extraCredit>=10">
-                                            +2
-                                        </h4>
+                                    <div class="input-group col-xs-4 col-sm-2">
+                                        <div class="input-group-addon">€</div>
+                                        <input type="text" class="form-control" ng-model="$parent.extraCredit" placeholder="10">
+                                    </div>
+                                    <h4 class="text-success" ng-if="extraCredit>=10">
+                                        +2
+                                    </h4>
                                    
                                     <span class="label label-success">
                                         {{dict.bonusCredit}}
                                     </span>
                                     
                                     <div class="spacer-medium">
-                                        <button class="btn btn-default" ng-click="proceedPayment()">{{dict.payOnline}}</button>
+                                        <button class="btn btn-default" ng-click="proceedPaymentAdyen()">{{dict.payOnline}}</button>
                                     </div>
                                     <div class="spacer-small">
                                         <span class="fa fa-lock fa-lg"></span>
@@ -111,13 +112,16 @@
         <div class="col-md-2"></div>
     </div>    
     <!--
-    // NEED remove
     //https://ca-test.adyen.com/ca/ca/skin/checkhmac.shtml
-    //https://test.adyen.com/hpp/pay.shtml
+    //https://test.adyen.com/hpp/pay.shtml = one page payment flow
+    //https://test.adyen.com/hpp/select.shtml = multiple page payment flow
     //http://posttestserver.com/post.php
     -->
     
-    <form method="post" action="https://test.adyen.com/hpp/pay.shtml" id="hiddenForm" target="_parent">
+    
+    
+    
+    <form method="post" action="https://test.adyen.com/hpp/select.shtml" id="hiddenForm" target="_parent">
         <input type="hidden" name="merchantSig" value="{{pyBill.merchantSig}}"/>
         <input type="hidden" name="sessionValidity" value="{{pyBill.sessionValidity}}"/>
         <input type="hidden" name="shipBeforeDate" value="{{pyBill.shipBeforeDate}}"/>
