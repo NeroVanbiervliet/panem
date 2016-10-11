@@ -5,36 +5,36 @@
         </div>
         <div class="col-md-8"> <!-- text info -->
             <h1>{{pyBakeryInfo.name}}</h1>
-            <p> <!-- adress --> 
+            <p> <!-- adress -->
                 <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
                 {{pyBakeryInfo.adress}}
             </p>
-            <!-- website --> 
+            <!-- website -->
             <p ng-if="pyBakeryInfo.website"> <!-- empty string is evaluated as false -->
                 <span class="glyphicon glyphicon-globe" aria-hidden="true"></span>
                 <a href="http://{{pyBakeryInfo.website}}" target="_blank">{{pyBakeryInfo.website}}</a>
             </p>
-            
+
             <button type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="bottom" data-content="{{pyBakeryInfo.openingHours}}">
               <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
                 {{dict.bakeryDescription.openingHours}}
             </button>
         </div>
     </div> <!-- row -->
-    
+
     <div class="row spacer">
         <!-- BAKERY SUPPLY -->
         <div class="col-sm-8 col-supply">
-            
+
             <!-- TAB NAVIGATION BAR -->
             <ul class="nav nav-tabs">
                 <li ng-repeat="cat in pyCategories" ng-class="{active:$first}">
                     <a data-toggle="tab" href="#content{{$index}}" show-tab>{{cat.name}}</a>
                 </li>
-            </ul>                      
-            
-            <!-- TAB CONTENT --> 
-            <div class="row tab-content" id="tabsContent">                 
+            </ul>
+
+            <!-- TAB CONTENT -->
+            <div class="row tab-content" id="tabsContent">
                 <div class="tab-pane fade" ng-repeat="cat in pyCategories" id="content{{$index}}" ng-class="{'in active':$first}">
                     <div class="col-sm-3 col-xs-3" ng-repeat="product in cat.products">
                         <div ng-class="{true: 'box-xs', false: 'box'}[smallDevices]" style="background-image: url('{{PRODUCT_IMAGE_SOURCE + product.photoId + IMAGE_EXTENSION}}');">
@@ -49,15 +49,15 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="row spacer-small" ng-show="!pyCategories.length">
                 <div class="col-md-11 col-md-offset-1">{{dict.bakeryDescription.noProducts}}</div>
             </div>
-            
+
         </div> <!-- col-sm-8 -->
-        
+
         <!-- CURRENT ORDER -->
-        <div class="col-sm-4 col-order col-order-border" ng-class="{true: 'spacer-extended', false: ''}[smallDevices]">                
+        <div class="col-sm-4 col-order col-order-border" ng-class="{true: 'spacer-extended', false: ''}[smallDevices]">
             <div class="row"> <!-- order summary-->
                 <h3 id="labelOrder">{{dict.label.order}}</h3>
 
@@ -92,7 +92,7 @@
                     <div class="text-left" ng-repeat="namePart in product.displayName">
                         <p class="label label-default">{{namePart}}</p>
                     </div>
-                    
+
                     <!-- price -->
                     <div class="text-left">
                         <span class="badge price-euro">{{product.productData.price | moneyFilter}}</span>
@@ -119,21 +119,21 @@
             <div class="row"> <!-- calendar -->
                     <h3>{{dict.label.pickupDate}}</h3>
 
-                    <!-- buttons for quickselect tomorrow/day after tomorrow -->   
+                    <!-- buttons for quickselect tomorrow/day after tomorrow -->
                     <div class="spacer-small btn-toolbar">
 
                         <!-- tomorrow disabled -->
                         <button ng-if="(disabledDatesInt.indexOf(1) > -1)" ng-click="setCalenderDivDate(1)" class="btn btn-danger btn-sm cursor-not-allowed" data-toggle="tooltip" data-placement="top" title="{{dict.orderLabels.bakeryIsClosed}}" tooltip>
                             {{dict.nextDays[1]}}
                         </button>
-                        
+
                         <!-- tomorrow is not disabled -->
                         <button class="btn btn-primary btn-sm" ng-if="!(disabledDatesInt.indexOf(1) > -1)" ng-click="setCalenderDivDate(1)">
                             {{dict.nextDays[1]}}
                         </button>
-                        
+
                         <!-- date is disabled -->
-                        <button ng-repeat-start="moreDays in [2,3,4]" ng-if="(disabledDatesInt.indexOf(moreDays) > -1)" class="btn btn-danger btn-sm cursor-not-allowed" data-toggle="tooltip" data-placement="top" title="{{dict.orderLabels.bakeryIsClosed}}" tooltip> 
+                        <button ng-repeat-start="moreDays in [2,3,4]" ng-if="(disabledDatesInt.indexOf(moreDays) > -1)" class="btn btn-danger btn-sm cursor-not-allowed" data-toggle="tooltip" data-placement="top" title="{{dict.orderLabels.bakeryIsClosed}}" tooltip>
                             {{getDateName(moreDays)}}
                         </button>
 
@@ -160,7 +160,7 @@
 
             </div>
 
-            <!-- remarks --> 
+            <!-- remarks -->
             <div class="row spacer-small">
                 <!--<label id="labelRemarks" for="orderRemarks">{{dict.orderLabels.remarks}}</label> -->
                 <textarea class="form-control" rows="2" ng-model="remarks" placeholder="{{dict.orderLabels.remarks}}"></textarea>
@@ -174,7 +174,16 @@
                 </button>
             </div>
 
+            <!-- NEED dictionary -->
+            <div class="overlay-no-access" ng-if="!loggedIn">
+            	<p class="overlay-text">Je moet ingelogd zijn om een bestelling te maken.</p>
+				<button type="button" class="btn overlay-btn-white" ng-click="navigate('#/client/login?source='+urlPath)">Inloggen</button>
+				<button type="button" class="btn overlay-btn-white" ng-click="navigate('#/client/register/')">Registreren</button>
+            </div>
+
         </div> <!-- col-sm-4 -->
-    </div> <!-- row -->              
-    
+
+
+    </div> <!-- row -->
+
 </div> <!-- container -->

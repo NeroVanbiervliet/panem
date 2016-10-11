@@ -27,7 +27,9 @@ def processJson(request):
     # remove json=
     dataToParse = dataToParse.replace('json=','')
     # decode, replaces %7B by {, %22 by ",  %2C by ,
-    dataToParse=urllib.unquote(dataToParse)
+    dataToParse = urllib.unquote(dataToParse)
+    # convert + to space
+    dataToParse = dataToParse.replace('+',' ')
     # convert to object
     return json.loads(dataToParse)
 

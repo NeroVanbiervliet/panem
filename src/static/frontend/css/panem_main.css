@@ -2,7 +2,7 @@
 @charset 'iso-8859-15';
 
 /* tweede versie van image hover */
-.box{  
+.box{
 	width:100px;
 	height:100px;
 	/*border-bottom:2px solid #fff;
@@ -24,7 +24,7 @@
 	overflow:hidden;
 }
 
-.overlay {  
+.overlay {
 	background:rgba(0,0,0,.65); /* black, slightly transparant */
 	text-align:center;
 	padding:26px 0 100px 0;
@@ -35,7 +35,7 @@
 	border-radius:10px;
 }
 
-.overlay-xs {  
+.overlay-xs {
 	background:rgba(0,0,0,.65); /* black, slightly transparant */
 	text-align:center;
 	padding:13px 0 100px 0;
@@ -55,24 +55,24 @@
 }
 
 
-.product-plus {  
+.product-plus {
 	color:rgba(255,255,255,.85);
 	font-size:40px;
 }
 
-.product-plus-xs {  
+.product-plus-xs {
 	color:rgba(255,255,255,.85);
 	font-size:20px;
 }
 
-.product-remove {  
+.product-remove {
 	color:rgba(255,255,255,.85);
 	font-size:40px;
 }
 
 /* miniversie */
 
-.box-mini {  
+.box-mini {
 	max-width:50px;
 	max-height:50px;
 	/*border-bottom:2px solid #fff;
@@ -84,9 +84,9 @@
 	overflow:hidden;
 }
 
-.overlay-mini { 
-    max-height: 100%; 
-    max-width: 100%; 
+.overlay-mini {
+    max-height: 100%;
+    max-width: 100%;
 	background:rgba(0,0,0,.65); /* black, slightly transparant */
 	text-align:center;
 	padding:0px 0 0px 0;
@@ -117,17 +117,17 @@
     width: 30px;
     height: 30px;
     -webkit-animation: spin 0.7s linear infinite;
-    animation: spin 0.7s linear infinite; 
+    animation: spin 0.7s linear infinite;
 }
 
 .request-status {
     padding-left: 0px;
     float: left;
-    margin-left: 10px; 
+    margin-left: 10px;
 }
 
 .request-button {
-    float: left; 
+    float: left;
 }
 
 @-webkit-keyframes spin {
@@ -147,12 +147,12 @@
     border: 0px solid transparent;
     border-radius: 0px;
     color: white; /* text color */
-    background-color: #b30000; 
+    background-color: #b30000;
 }
 
 .white-link {
-    color: white; 
-    text-decoration: underline; 
+    color: white;
+    text-decoration: underline;
 }
 
 .white-link:hover {
@@ -161,36 +161,36 @@
 
 .close {
     opacity: 1;
-    color: white; 
-    font-weight: 100; 
+    color: white;
+    font-weight: 100;
     text-shadow: 0 0px 0 #fff;
 }
 
 /* bootstrap fixes */
 
 .spacer { /* to create some whitespace */
-    margin-top: 40px; 
+    margin-top: 40px;
 }
 
 .spacer-small {
-    margin-top: 10px; 
+    margin-top: 10px;
 }
 
 .spacer-medium {
-    margin-top: 20px; 
+    margin-top: 20px;
 }
 
 .spacer-extended {
-    margin-top: 50px; 
+    margin-top: 50px;
 }
 
 .spacer-large {
-    margin-top: 100px; 
+    margin-top: 100px;
 }
 
 .navbar-img {
     position: absolute;
-    padding-top: 10px; 
+    padding-top: 10px;
 }
 
 .no-bold-fix {
@@ -199,11 +199,11 @@
 
 .col-order {
     padding-left: 30px;
-    padding-top: 0; !important 
+    padding-top: 0; !important
 }
 
 .col-supply {
-    padding-right: 72px; 
+    padding-right: 72px;
 }
 
 .vcenter { /* vertically centers it's children */
@@ -213,26 +213,26 @@
 }
 
 /* custom own */
-.price-euro:before { 
+.price-euro:before {
     content: "\20AC  ";
 }
 
 .row-border {
-    border: 1px solid; 
-    border-radius: 5px; 
-    padding: 4px; 
-    border-color: lightgray; 
+    border: 1px solid;
+    border-radius: 5px;
+    padding: 4px;
+    border-color: lightgray;
 }
 
 .bootstrap-green {
-    color: #5cb85c; 
+    color: #5cb85c;
 }
 
 .col-order-border {
-    border: 1px solid; 
-    border-radius: 5px; 
-    padding: 30px; 
-    border-color: lightgray; 
+    border: 1px solid;
+    border-radius: 5px;
+    padding: 30px;
+    border-color: lightgray;
 }
 
 .cursor-not-allowed {
@@ -250,27 +250,27 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    
+
     /* change cursor */
     cursor:pointer;
 }
 
 .jumbotron {
-    background: rgb(200, 54, 54); /* This is for ie8 and below */ 
-    background: rgba(255, 255, 255, 0.9); 
+    background: rgb(200, 54, 54); /* This is for ie8 and below */
+    background: rgba(255, 255, 255, 0.9);
 }
 
 /* printing */
 
 .force-page-break {
-    page-break-after: always; 
+    page-break-after: always;
 }
 
 .avoid-page-break {
-    page-break-after: avoid; 
+    page-break-after: avoid;
 }
 
-/* search bar */ 
+/* search bar */
 
 #custom-search-input{
     padding: 3px;
@@ -321,7 +321,7 @@
 
 /* insufficient credit to pay style */
 .insufficient-funds {
-    color: #F56500; 
+    color: #F56500;
 }
 
 /* tagsinput, css stolen from example, edited by nero vanbiervliet */
@@ -395,17 +395,54 @@
 }
 
 .suggestions-header-standard { /* title for the standard products */
-    color: #337ab7; 
-    font-weight: bold; 
+    color: #337ab7;
+    font-weight: bold;
     margin: 0 20px 5px 20px;
     padding: 3px 0;
     border-bottom: 1px solid #337ab7;
 }
 
 .suggestions-header-custom { /* title for the products specific for this customer */
-    color: #e39b45; 
-    font-weight: bold; 
+    color: #e39b45;
+    font-weight: bold;
     margin: 0 20px 5px 20px;
     padding: 3px 0;
     border-bottom: 1px solid #e39b45;
+}
+
+/* no access overlay for on cl/bakery for in case a person is not logged in */
+
+.overlay-no-access {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		top: 0;
+		left: 0;
+		background-color: #292c2f;
+		opacity: 0.9;
+		color: white;
+		padding-left: 10%;
+		padding-right: 10%;
+		padding-top: 15%;
+		border-radius: 5px;
+		z-index: 10;
+}
+
+.overlay-btn-white, .overlay-btn-white:visited {
+	color: white;
+    background-color: #292c2f;
+    border-color: white;
+    border-width: thin;
+}
+
+.overlay-btn-white:hover, .overlay-btn-white:active {
+	color: #333;
+	background-color: white;
+	border-color: white;
+	border-width: thin;
+	box-shadow: none;
+}
+
+.overlay-text {
+	font-size: 24px;
 }
