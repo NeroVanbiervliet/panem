@@ -12,7 +12,7 @@ Panem is een webshop voor bakkers waar hun klanten online bestellingen kunnen pl
 De uitleg hieronder is van toepassing op ubuntu. Er wordt verondersteld dat deze repository gecloned is op een locatie die verder met `clone_root` wordt aangegeven. De setup is geldig voor ubuntu 16.xx, niet voor ubuntu 14.xx!
 
 ### Nodige software
-- git (`sudo apt-get install git-all`)
+- git (`sudo apt-get install git`)
 - nginx (`sudo apt-get install nginx`)
 - virtualenv (`sudo pip install virtualenv`)
 - gunicorn (`sudo pip install gunicorn`)
