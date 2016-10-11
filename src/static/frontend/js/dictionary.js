@@ -1,8 +1,8 @@
 panemApp.service('dictionary', function($rootScope) {
-   
+
   var dictionary = {};
 
-    // SERVICES 
+    // SERVICES
 	dictionary.fillServices = function (lang, serviceName) {
 		var dic = {}
 
@@ -11,9 +11,9 @@ panemApp.service('dictionary', function($rootScope) {
 						dic = {};
 		        break;
 		    default: // NL
-				
+
                 switch(serviceName) {
-                    case "processDate" : 
+                    case "processDate" :
                         dic = {
                             "nextDayNames" : {
                                 "-1" : "gisteren",
@@ -43,19 +43,19 @@ panemApp.service('dictionary', function($rootScope) {
                                 "365": "meer dan een jaar geleden"
                                 }
                         };
-                    break; 
-                        
-                    default: 
-                        dic = {}; 
+                    break;
+
+                    default:
+                        dic = {};
                 }
 		}
 
 		return dic;
 	};
-    
-    
-    
-    // DIRECTIVES 
+
+
+
+    // DIRECTIVES
     dictionary.fillDirectives = function (lang, directiveName) {
 		var dic = {}
 
@@ -64,27 +64,27 @@ panemApp.service('dictionary', function($rootScope) {
 						dic = {};
 		        break;
 		    default: // NL
-				
+
                 switch(directiveName) {
-                    case "requestStatusHandler" : 
+                    case "requestStatusHandler" :
                         dic = {
                             "status" : {
                                 "failure" : "Er ging iets fout, herlaad de pagina en probeer opnieuw.",
                                 "success" : "Voltooid"
                             }
                         };
-                    break; 
-                        
-                    default: 
-                        dic = {}; 
+                    break;
+
+                    default:
+                        dic = {};
                 }
 		}
 
 		return dic;
-	};    
-    
-    
-    // NAVBAR 
+	};
+
+
+    // NAVBAR
     dictionary.fillNavbar = function (lang) {
         var dic = {}
 
@@ -103,9 +103,9 @@ panemApp.service('dictionary', function($rootScope) {
 
         return dic;
     };
-    
-    
-    // CLIENT HOME PAGE 
+
+
+    // CLIENT HOME PAGE
 	dictionary.fillClHome = function (lang) {
 		var dic = {}
 
@@ -127,7 +127,7 @@ panemApp.service('dictionary', function($rootScope) {
 
 		return dic;
 	};
-    
+
     // CLIENT MYACCOUNT
     dictionary.fillClMyAccount = function (lang) {
         var dic = {}
@@ -199,7 +199,12 @@ panemApp.service('dictionary', function($rootScope) {
                         "155": "vijf maanden geleden",
                         "186": "een half jaar geleden",
                         "365": "meer dan een jaar geleden"
-                        }
+                    },
+                    'overlay' : {
+                        'message' : "Je moet ingelogd zijn om een bestelling te maken.",
+                        'btnLogIn' : "Inloggen",
+                        'btnRegister' : "Registreren"
+                    }
                 };
                 $rootScope.title = 'Panem - '; // bakery name is added in client/bakery controller
 		}
@@ -256,7 +261,7 @@ panemApp.service('dictionary', function($rootScope) {
 	};
 
 
-    // CLIENT CONtACT PAGE 
+    // CLIENT CONtACT PAGE
 	dictionary.fillClContact = function (lang) {
 		var dic = {}
 
@@ -288,9 +293,9 @@ panemApp.service('dictionary', function($rootScope) {
 
 		return dic;
 	};
-    
 
-    // RESET PASSWORD PAGE 
+
+    // RESET PASSWORD PAGE
 	dictionary.fillClResetPassword = function (lang) {
 		var dic = {}
 
@@ -315,9 +320,9 @@ panemApp.service('dictionary', function($rootScope) {
 
 		return dic;
 	};
-    
-    
-    // FORGOT PASSWORD PAGE 
+
+
+    // FORGOT PASSWORD PAGE
 	dictionary.fillClForgotPassword = function (lang) {
 		var dic = {}
 
@@ -341,9 +346,9 @@ panemApp.service('dictionary', function($rootScope) {
 
 		return dic;
 	};
-    
-    
-    // CLIENT LOGIN PAGE 
+
+
+    // CLIENT LOGIN PAGE
 	dictionary.fillClLogin = function (lang) {
 		var dic = {}
 
@@ -374,8 +379,8 @@ panemApp.service('dictionary', function($rootScope) {
 
 		return dic;
 	};
-    
-    
+
+
     // CLIENT CONFIRM ORDER PAGE
     dictionary.fillClConfirmOrder = function (lang) {
         var dic = {}
@@ -409,7 +414,7 @@ panemApp.service('dictionary', function($rootScope) {
 
         return dic;
     };
-    
+
     // CLIENT VERIFY REGISTER PAGE
     dictionary.fillClVerifyAccount = function (lang) {
         var dic = {}
@@ -447,7 +452,7 @@ panemApp.service('dictionary', function($rootScope) {
 
         return dic;
     };
-    
+
 
     // BAKER REGISTER PAGE
 	dictionary.fillBkRegister = function (lang) {
@@ -498,7 +503,7 @@ panemApp.service('dictionary', function($rootScope) {
 	};
 
 
-    // BAKER DAY ORDER PAGE 
+    // BAKER DAY ORDER PAGE
 	dictionary.fillBkDayOrder = function (lang) {
 		var dic = {}
 
@@ -511,7 +516,7 @@ panemApp.service('dictionary', function($rootScope) {
                     "IETF" : "nl-BE",
                     "aggregatePanel" : {
                         "title" : "Overzicht bestellingen voor",
-                        "totalNumberOfOrders" : "Totaal aantal bestellingen", 
+                        "totalNumberOfOrders" : "Totaal aantal bestellingen",
                         "totalMoney" : "Totaal bedrag van de bestellingen",
                         "print" : "Afdrukken"
                     },
@@ -540,7 +545,7 @@ panemApp.service('dictionary', function($rootScope) {
 		    default: // NL
                 dic = {
                     "introduction" : {
-                        "introText" : "Op deze pagina kun je je bakkerij beheren. Om te zien hoe de bakkerij er uit ziet voor je klanten, klik op de knop hieronder.",
+                        "introText" : "Op deze pagina kun je je bakkerij beheren.",
                         "buttonText" : "Naar de klantenpagina",
                     },
                     "panelTitles" : {
@@ -566,9 +571,9 @@ panemApp.service('dictionary', function($rootScope) {
 
 		return dic;
 	};
-    
-    
-    // BAKER ALL ORDERS PAGE 
+
+
+    // BAKER ALL ORDERS PAGE
 	dictionary.fillBkAllOrders = function (lang) {
 		var dic = {}
 
@@ -594,7 +599,7 @@ panemApp.service('dictionary', function($rootScope) {
 
 		return dic;
 	};
-    
+
     // BAKER MANAGE BAKERY PAGE
 	dictionary.fillBkManageBakery = function (lang) {
 		var dic = {}
@@ -620,6 +625,8 @@ panemApp.service('dictionary', function($rootScope) {
                     },
                     'modify' : {
                         'title' : "Aanbod, openingsuren en tijdstip van laatste bestelling",
+                        'currentBakeryPage' : "Om te zien hoe je bakkerij er op dit moment uit ziet voor je klanten, ga dan naar je online winkel. Als je dit wil aanpassen, ga dan naar de beheerspagina.",
+                        'toClientBakery' : "Naar mijn online winkel",
                         'toModifyPage' : "Naar de beheerspagina"
                     },
                     'notifications' : {
@@ -666,7 +673,7 @@ panemApp.service('dictionary', function($rootScope) {
                         },
                         'pending' : {
                             'title' : "De betaling wordt nog verwerkt",
-                            'description' : "De betaling is nog niet volledig verwerkt. Een medewerker van Panem is automatisch op de hoogte gebracht. U wordt binnenkort gecontacteerd." 
+                            'description' : "De betaling is nog niet volledig verwerkt. Een medewerker van Panem is automatisch op de hoogte gebracht. U wordt binnenkort gecontacteerd."
                         },
                         'adyenerror' : {
                             'title' : "Er is iets fout gegaan met de betaling bij adyen",
@@ -704,7 +711,7 @@ panemApp.service('dictionary', function($rootScope) {
 
 		return dic;
 	};
-    
+
     // CLIENT TOP UP CREDIT PAGE
 	dictionary.fillClTopUpCredit = function (lang) {
 		var dic = {}
@@ -727,6 +734,6 @@ panemApp.service('dictionary', function($rootScope) {
 
 		return dic;
 	};
-    
+
 	return dictionary;
 });

@@ -174,11 +174,11 @@
                 </button>
             </div>
 
-            <!-- NEED dictionary -->
+            <!-- overlay to log in if not logged in -->
             <div class="overlay-no-access" ng-if="!loggedIn">
-            	<p class="overlay-text">Je moet ingelogd zijn om een bestelling te maken.</p>
-				<button type="button" class="btn overlay-btn-white" ng-click="navigate('#/client/login?source='+urlPath)">Inloggen</button>
-				<button type="button" class="btn overlay-btn-white" ng-click="navigate('#/client/register/')">Registreren</button>
+            	<p class="overlay-text">{{dict.overlay.message}}</p>
+				<button type="button" class="btn overlay-btn-white" ng-click="navigate('#/client/login?source='+urlPath)">{{dict.overlay.btnLogIn}}</button>
+				<button type="button" class="btn overlay-btn-white" ng-click="navigate('#/client/register/')">{{dict.overlay.btnRegister}}</button>
             </div>
 
         </div> <!-- col-sm-4 -->
