@@ -51,9 +51,8 @@ def get_bakeryId(name_lookup):
 def get_bakery_from_id(bakeryId,accountId):
     try:
         objectOut = Bakery.objects.get(id=bakeryId)
-        kind = 'visit'
-        event_text = str(bakeryId)
-        LogHappenning(accountId,event_text,kind)
+        bakeryIdStr = str(bakeryId)
+        logVisit(accountId,bakeryIdStr)
     except ObjectDoesNotExist:
         objectOut = 'NA'
         
@@ -242,7 +241,16 @@ def asanaLink(assigneeEmail,taskName,notes):
     a={'name':taskName,'projects':'151047700474054','workspace':'97640907304377','notes':notes,'assignee':assigneeEmail}
     client.tasks.create(a)
 
-    
+def logVisit(accountId,bakeryId):
+    newLog = Logging()
+    newLog.timeStamp = datetime.datetime.now()
+    newLog.accountId = accountId
+    newLog.event_text = bakeryId
+    newLog.kind = 'visit'
+
+    newLog.save()
+
+
 def LogHappenning(accountId,event_text,kind):
     b = Logging()
     
