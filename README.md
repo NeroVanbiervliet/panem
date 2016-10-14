@@ -4,6 +4,7 @@ Panem is een webshop voor bakkers waar hun klanten online bestellingen kunnen pl
 
 ## Inhoudstafel
 - [Werkomgeving opzetten](#werkomgeving-opzetten)
+- [Testen] (#testen)
 - [Git workflow](#git-workflow)
 - [Versienummering](#versienummering)
 - [Building](#building)
@@ -82,6 +83,9 @@ Herstart nu nginx : `sudo systemctl restart nginx`
 Het is belangrijk dat libraries geinstalleerd worden in de virtuele omgeving. Op deze manier worden ze deel van de source code van de website en zal ook de library mee gepushed worden naar de Git server. Om binnen te gaan in de virtuele omgeving navigeer je eerst met je terminal tot in de `clone_root/src` map. Je typt volgend commando om de virtuele omgeving op te starten : `source panem_env/bin/activate`. Met pip kun je nu libraries installeren, bv. `pip install numpy`. Let op om hierbij **niet het prefix sudo** te gebruiken. Anders wordt de library toegevoegd aan je lokale versie van python, niet aan de versie binnenin de virtuele omgeving.  
 
 Je kunt een lijst van alle geinstalleerde libraries en hun versienummer opvragen met het commando `pip freeze`. 
+
+## Testen
+Als je alles goed geconfigureerd hebt, kun je de website zien door te surfen naar `localhost`. Om de backend te beheren surf je naar `localhost:8000`. Als je aanpassingen in de backend gedaan hebt, moet je wel **steeds opnieuw `sudo systemctl restart gunicorn` uitvoeren om de backend te herstarten** zodat je aanpassingen toegepast worden. De testsuite kan je laten lopen door het script `test_suite.py` te laten lopen.
 
 ## Git workflow
 Deze repository is georganiseerd volgens [dit](http://nvie.com/posts/a-successful-git-branching-model/#feature-branches) systeem. Development gebeurt altijd in de src directory, niet in de dist. 
