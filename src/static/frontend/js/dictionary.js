@@ -727,7 +727,7 @@ panemApp.service('dictionary', function($rootScope) {
 		    default: // NL
                 dic = {
                     "panelTitle" : "Voeg krediet toe aan account",
-                    "addCreditToAccount" : "Voeg krediet toe aan mijn account",
+                    "addCreditToAccount" : "Krediet toevoegen aan je account",
                     "addCreditToAccountTooltip" : "Krediet kun je later gebruiken om een andere online bestelling te plaatsen zonder opnieuw je bankgegevens te hoeven gebruiken",
                     "bonusCredit" : "Vanaf 10 euro krijg je twee euro extra krediet!",
                     "payOnline" : "Betaal online",

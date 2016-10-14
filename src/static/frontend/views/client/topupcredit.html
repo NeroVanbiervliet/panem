@@ -1,18 +1,14 @@
 <div class="container">
     <!-- main -->
-    <div class="row spacer-medium"> 
+    <div class="row spacer-medium">
         <div class="col-md-8 col-md-offset-2">
+            <h3>{{dict.addCreditToAccount}}</h3>
+            <p>{{dict.addCreditToAccountTooltip}}</p>
             <div class="panel panel-default spacer-medium">
                 <div class="panel-body">
                     <!-- payment -->
                     <div class="row">
                         <form class="col-sm-12">
-                            <!-- pay with adyen -->
-                            <label class="control-label">
-                                {{dict.addCreditToAccount}}
-                                <span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="{{dict.addCreditToAccountTooltip}}" tooltip></span>
-                            </label>
-
                             <div class="input-group col-xs-4 col-sm-2">
                                 <div class="input-group-addon">€</div>
                                 <input type="text" class="form-control" ng-model="$parent.amountTopUp" placeholder="10">
@@ -31,16 +27,16 @@
                             <div class="spacer-small">
                                 <span class="fa fa-lock fa-lg"></span>
                                 {{dict.paymentIsSecure}}
-                            </div>      
-                        </form> 
+                            </div>
+                        </form>
                     </div> <!-- payment row -->
                 </div> <!-- panel body -->
             </div> <!-- panel -->
         </div>
-    </div><!-- row main -->    
-    
+    </div><!-- row main -->
+
     <!-- TODO oplossen dat select.shtml niet nodig is voor mobile, dat one page ook werkt -->
-    
+
     <!-- hidden adyen form -->
     <form method="post" action="https://test.adyen.com/hpp/select.shtml" id="hiddenForm" target="_parent">
         <input type="hidden" name="merchantSig" value="{{pyBill.merchantSig}}"/>
