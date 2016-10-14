@@ -810,9 +810,10 @@ def submitContactIssue(request):
         name = str(parsedData['name'])
         email = str(parsedData['email'])
         telephone = str(parsedData['telephone'])
+        paymentReference = str(parsedData['paymentReference'])
         question = str(parsedData['question'])
 
-        eventText = 'naam : ' + name + '\nemail : ' + email + '\ntelefoon : ' + telephone + '\nvraag : ' + question
+        eventText = 'paymentReference : ' + paymentReference + '\nnaam : ' + name + '\nemail : ' + email + '\ntelefoon : ' + telephone + '\nvraag : ' + question
 
         info = atm.verifyToken(token)
         if isinstance(info, int ):

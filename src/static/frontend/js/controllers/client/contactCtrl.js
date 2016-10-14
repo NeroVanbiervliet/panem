@@ -1,4 +1,4 @@
-panemApp.controller('clContactCtrl', function($scope, $rootScope, dictionary, tokenManager, $http, $window) {
+panemApp.controller('clContactCtrl', function($scope, $rootScope, dictionary, tokenManager, $http, $window, GETUrl) {
 
     // VARIABLES
     $scope.form = {};
@@ -22,6 +22,14 @@ panemApp.controller('clContactCtrl', function($scope, $rootScope, dictionary, to
         }, true);
     }
 
+    // obtain parameters from url
+    var GET = GETUrl.decipher();
+
+    // fills the payment reference if available in url
+    if('paymentReference' in GET) {
+        $scope.form.paymentReference = GET.paymentReference;
+    }
+
     // submits form to backend
     $scope.submitForm = function() {
 
@@ -31,11 +39,12 @@ panemApp.controller('clContactCtrl', function($scope, $rootScope, dictionary, to
             // prepare data
             requestData = $.param({
                 json: JSON.stringify({
-                token : newToken,
-                name : $scope.form.name,
-                email : $scope.form.email,
-                telephone : $scope.form.telephone,
-                question : $scope.form.question
+                    token : newToken,
+                    name : $scope.form.name,
+                    email : $scope.form.email,
+                    telephone : $scope.form.telephone,
+                    question : $scope.form.question,
+                    paymentReference : $scope.form.paymentReference
                 })
             });
 

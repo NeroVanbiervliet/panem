@@ -280,6 +280,7 @@ panemApp.service('dictionary', function($rootScope) {
                             "name" : "Naam",
                             "email" : "Email",
                             "telephone" : "Telefoon",
+                            "paymentReference" : "Betalingsreferentie",
                             "question" : "Vraag",
                             "pleaseFillInForm" : "Gelieve alles in te vullen",
                             "send" : "Verstuur",
