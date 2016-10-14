@@ -19,7 +19,8 @@ def resetPasswordSendMail(email,name,code):
 
 def sendVerifyMail(receiverEmail,code,token):
 
-    f = open('../email/registration.html','r')
+    # relative from manage.py
+    f = open('email_templates/registration.html','r')
     html = f.read()
     html = html.replace('(code_input)',str(code))
     html = html.replace('(email_input)',str(receiverEmail))

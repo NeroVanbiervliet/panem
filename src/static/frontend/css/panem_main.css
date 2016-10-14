@@ -1,6 +1,20 @@
 @charset "UTF-8";
 @charset 'iso-8859-15';
 
+.background-pattern {
+	/* url is relative to the css file, not the html file where this css is included! */
+	background-image: url("../images/brand/pattern.png");
+	background-size: 400px, 400px;
+}
+
+.navbar {
+	margin-bottom: 0px;
+}
+
+.jumbotron {
+	margin-top: 20px;
+}
+
 /* tweede versie van image hover */
 .box{
 	width:100px;
