@@ -306,8 +306,8 @@ panemApp.service('requestWrapper', function($rootScope, $http, tokenManager, $q)
                     $rootScope.requestStatus = 'error'; // so alert message in navbar will be displayed
                     deferred.resolve('error-requestWrapper-tokenNotExist');
                 }
-                else if (response.data == 'success') {
-                    deferred.resolve('success');
+                else if (response.data.split('-')[0] == 'success') {
+                    deferred.resolve(response.data);
                 }
                 else { // pass the error message on
                     deferred.resolve('error-message-' + response.data);

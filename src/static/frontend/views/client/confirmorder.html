@@ -67,7 +67,7 @@
                     </div> <!-- row products -->
 
                     <!-- message of insufficient credit -->
-                    <p class="insufficient-funds">{{dict.insufficientFunds}}</p>
+                    <p class="insufficient-funds" ng-hide="credit >= pyOrder.totalPrice">{{dict.insufficientFunds}}</p>
 
                     <!-- payment -->
                     <div class="row">
