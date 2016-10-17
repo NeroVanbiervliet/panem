@@ -227,7 +227,7 @@ def currentOrderGET(accountId):
                 tempDict = {}
                 tempDict['amount'] = productOrder.amount
                 tempDict['price'] = productOrder.price
-                tempDict['productId'] = productOrder.productId
+                tempDict['id'] = productOrder.productId
                 product = Product.objects.get(id = productOrder.productId)
                 tempDict['name'] = product.name
                 tempDict['photoId'] = product.photoId

@@ -1,4 +1,4 @@
-panemApp.controller('clBakeryCtrl', function($scope, $rootScope, dictionary, $window, $cookies, $http, tokenManager, processDate, GETUrl) {
+panemApp.controller('clBakeryCtrl', function($scope, $rootScope, dictionary, $window, $cookies, $http, tokenManager, processDate, GETUrl, requestWrapper) {
 
 	// define variables
     $scope.pyBakeryInfo;
@@ -67,11 +67,10 @@ panemApp.controller('clBakeryCtrl', function($scope, $rootScope, dictionary, $wi
             $scope.pyPreviousOrders = response.data;
             processPreviousOrders();
             // if orderId exist, load the order
-            if("orderId" in GET)
-            {
+            if("orderId" in GET) {
                 $scope.order.selectedOrderId = GET.orderId;
-                loadOrder();
             }
+            loadOrder();
         }, function(response) {
             $scope.pyPreviousOrders = [];
         });
@@ -264,7 +263,6 @@ panemApp.controller('clBakeryCtrl', function($scope, $rootScope, dictionary, $wi
 
     // loads a previous order into the current order div
     function loadOrder() {
-
         if($scope.order.selectedOrderId != -1)
         {
             var prevOrder;
@@ -289,9 +287,26 @@ panemApp.controller('clBakeryCtrl', function($scope, $rootScope, dictionary, $wi
         }
         else // no previous order selected
         {
-            $scope.order.products = [];
-        }
+            // check if a current order is present in the backend
+            var currentOrderBackend;
+            var url = '/order/current/';
+            $scope.requestStatus = requestWrapper.init();
+            requestWrapper.get(url).then(function ([newStatus,resultData]) {
+                $scope.requestStatus = newStatus;
+                currentOrderBackend = resultData;
 
+                if(typeof(currentOrderBackend) != "string" && currentOrderBackend.bakery.id == $scope.bakeryId) {
+                    // add products one by one
+                    for(var i=0; i<currentOrderBackend.products.length; i++) {
+                        $scope.addProductToOrder(currentOrderBackend.products[i]);
+                    }
+                }
+                else { // response is nocurrentorder OR tokennotauthorised
+                    // set empty current order
+                    $scope.order.products = [];
+                }
+            });
+        }
     };
 
     $scope.loadOrder = loadOrder;
@@ -307,7 +322,7 @@ panemApp.controller('clBakeryCtrl', function($scope, $rootScope, dictionary, $wi
         }
         else { // next count will be zero
             // remove product from order
-            $scope.removeProductFromOrder(product.productData);
+            $scope.removeProductFromOrder(product);
         }
     };
 
@@ -325,7 +340,7 @@ panemApp.controller('clBakeryCtrl', function($scope, $rootScope, dictionary, $wi
 
         for(i=0; i<$scope.order.products.length; i++)
         {
-            if($scope.order.products[i].productData.id == product.id)
+            if($scope.order.products[i].id == product.id)
             {
                 inOrder = true;
                 break;
@@ -351,11 +366,10 @@ panemApp.controller('clBakeryCtrl', function($scope, $rootScope, dictionary, $wi
             }
 
             // add product to order
-            $scope.order.products.push({
-                'productData' : product,
+            $scope.order.products.push($.extend({ // extend joins two {} {} dictionaries
                 'amount' : 1,
                 'displayName' : displayName
-            });
+            },product));
         }
     };
 
@@ -363,7 +377,7 @@ panemApp.controller('clBakeryCtrl', function($scope, $rootScope, dictionary, $wi
     $scope.removeProductFromOrder = function(product) {
         for(var i=0; i<$scope.order.products.length; i++)
         {
-            if($scope.order.products[i].productData.id == product.id)
+            if($scope.order.products[i].id == product.id)
             {
                 // remove product from order.products
                 $scope.order.products.splice(i,1);
@@ -382,7 +396,7 @@ panemApp.controller('clBakeryCtrl', function($scope, $rootScope, dictionary, $wi
         {
             var orderedProduct = $scope.order.products[i];
             var productToStore = {
-                "productId" : orderedProduct.productData.id,
+                "productId" : orderedProduct.id,
                 "amount" : orderedProduct.amount
             };
             productArray.push(productToStore);
@@ -426,7 +440,7 @@ panemApp.controller('clBakeryCtrl', function($scope, $rootScope, dictionary, $wi
             for(var i=0; i<$scope.order.products.length; i++)
             {
                 var product = $scope.order.products[i];
-                totPrice += product.productData.price * product.amount;
+                totPrice += product.price * product.amount;
             }
 
             $scope.totalPrice = totPrice;

@@ -173,7 +173,7 @@ def getPreviousOrdersAcrossBakeries(accountId):
             for order in currentBakeryOrders:
                 totalPrice = 0
                 for product in order['products']:
-                    totalPrice += product['amount']*product['productData']['price']
+                    totalPrice += product['amount']*product['price']
                 order['totalPrice'] = totalPrice
                 # add bakery id to order
                 order['bakeryId'] = bakery.id

@@ -711,7 +711,7 @@ def previousOrdersAcrossBakeries(request,token):
         else:
             output = info
         if info == 0:
-            output = 'Token not auhorised'
+            output = 'token not auhorised'
         return HttpResponse(output)
 
     else:
