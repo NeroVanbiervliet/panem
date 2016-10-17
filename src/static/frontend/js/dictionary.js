@@ -146,6 +146,7 @@ panemApp.service('dictionary', function($rootScope) {
                     },
                     "ordersPanel" : {
                         "title" : "Bestellingen",
+                        "orderTip" : "Klik op een bestelling om hem opnieuw te plaatsen.",
                         "noOrders" : "Bestellingen die je maakt zullen hier getoond worden"
                     }
                 };
@@ -408,6 +409,7 @@ panemApp.service('dictionary', function($rootScope) {
                     "total" : "Totaal",
                     "credit" : "Krediet",
                     "toPay" : "Resterend te betalen",
+                    "insufficientFunds" : "Je hebt onvoldoende krediet. Om de bestelling te plaatsen kun je doorgaan met online betalen.",
                     "payWithCredits" : "Betaal met krediet",
                     "addCreditToAccount" : "Voeg krediet toe aan mijn account",
                     "addCreditToAccountTooltip" : "Krediet kun je later gebruiken om een andere online bestelling te plaatsen zonder opnieuw je bankgegevens te hoeven gebruiken",
