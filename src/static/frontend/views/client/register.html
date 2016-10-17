@@ -1,6 +1,6 @@
 <div class="container">
     <h1>Welkom {{user.firstName}}</h1>
-    
+
     <div class="row">
         <!-- client registration -->
         <div class="col-sm-4 col-sm-offset-1">
@@ -49,8 +49,10 @@
                     </label>
                 </div>
                 <button type="submit" ng-disabled="userForm.$invalid || !termsChecked" class="btn btn-default">{{dict.form.submit}}</button>
-            </form> 
-            
+                <!-- info for bakery registration -->
+                <p class="spacer-small">Dit is de registratiepagina voor klanten. Indien je een bakker bent kun je je bakkerij <a href="#/baker/register">hier</a> registreren.</p>
+            </form>
+
             <div class="container spacer-small" ng-switch on="requestStatus">
                 <div ng-switch-default></div> <!-- empty -->
                 <div class="text-danger" ng-switch-when="alreadyexists" data-to-substitute="{{dict.requestStatus.alreadyExists.toSubstitute}}" data-destination="#/client/forgotpassword?email={{user.email}}" data-base-text="{{dict.requestStatus.alreadyExists.description}}" sub-link>
@@ -66,13 +68,5 @@
                 </div>
             </div>
         </div>
-        
-        <!-- info for bakery registration -->
-        <div class="col-md-3 col-md-offset-2 bg-danger">
-            <h2 class="text-danger">Opgelet, bakkers!</h2>
-            <p>Dit is de registratiepagina voor klanten. Je bakkerij kun je <a href="#/baker/register">hier</a> registreren.</p>
-        </div>
     </div>
-    
-    
 </div>
