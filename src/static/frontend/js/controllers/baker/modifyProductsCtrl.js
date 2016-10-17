@@ -1,4 +1,4 @@
-panemApp.controller('bkModifyProductsCtrl', function($scope, $rootScope, dictionary, tokenManager, $http, $window, requestWrapper) {
+panemApp.controller('bkModifyProductsCtrl', function($scope, $rootScope, dictionary, tokenManager, $http, $window, requestWrapper, $q) {
 
     // VARIABLES
     $scope.pyCategories;
@@ -8,6 +8,10 @@ panemApp.controller('bkModifyProductsCtrl', function($scope, $rootScope, diction
     $scope.deleteList = [];
     $scope.pyNewIngredients = [];
 
+    $scope.requestStatus = {
+        'updateBakery' : 'init',
+        'adaptProducts' : 'init'
+    };
     $scope.bakeryId = $scope.userInfo.bakery.id;
 
     // define constants
@@ -47,7 +51,6 @@ panemApp.controller('bkModifyProductsCtrl', function($scope, $rootScope, diction
         }).then(function(response) {
             $scope.pyBakeryInfo = response.data;
             decodeOpeningHours();
-
         }, function(response) {
             $scope.pyBakeryInfo = {};
             // TODO dit geeft een slechte pagina
@@ -56,10 +59,12 @@ panemApp.controller('bkModifyProductsCtrl', function($scope, $rootScope, diction
 
     // get pyIngredients
     loadIngredients = function() {
-        $scope.requestStatus = requestWrapper.init();
+        var deferred = $q.defer();
+
+        $scope.requestStatus.loadIngredients = requestWrapper.init();
         url = '/bakery/' + $scope.bakeryId + '/ingredients/';
         requestWrapper.get(url).then(function ([newStatus,resultData]) {
-            $scope.requestStatus = newStatus;
+            $scope.requestStatus.loadIngredients = newStatus;
 
             // TODO code kan netter, geen herhaling
 
@@ -89,16 +94,21 @@ panemApp.controller('bkModifyProductsCtrl', function($scope, $rootScope, diction
                 local : $scope.pyIngredients.custom
             });
             $scope.bloodhound.custom.initialize();
+
+            deferred.resolve();
         });
+
+        return deferred.promise;
     }
 
     // load data when token is available
     tokenManager.getToken().then(function(newToken) {
         $scope.token = newToken;
         // access endpoints
-        loadBakeryInfo(newToken);
-        loadProducts(newToken);
-        loadIngredients();
+        loadIngredients().then(function() {
+            loadBakeryInfo(newToken);
+            loadProducts(newToken);
+        });
     });
 
     // adds a new product to a category
@@ -109,6 +119,7 @@ panemApp.controller('bkModifyProductsCtrl', function($scope, $rootScope, diction
             "photoId" : category.defaultPhotoId,
             "available" : true,
             "price" : 160,
+            "ingredients" : [],
             "ingredientsString" : ""
         }
         category.products.push(newProduct);
@@ -146,10 +157,10 @@ panemApp.controller('bkModifyProductsCtrl', function($scope, $rootScope, diction
         $http.post($rootScope.baseUrl + '/bakery/update/',requestData)
         .then(
             function(response){ // successful request to backend
-                $scope.requestStatus[0] = response.data;
+                $scope.requestStatus.updateBakery = response.data;
             },
             function(response){ // failed request to backend
-                $scope.requestStatus[0] = "backenderror";
+                $scope.requestStatus.updateBakery = "backenderror";
                 alert('error');
             }
         );
@@ -171,17 +182,18 @@ panemApp.controller('bkModifyProductsCtrl', function($scope, $rootScope, diction
         $http.post($rootScope.baseUrl + '/bakery/adaptProducts/',requestData)
         .then(
             function(response){ // successful request to backend
-                $scope.requestStatus[1] = response.data;
+                $scope.requestStatus.adaptProducts = response.data;
             },
             function(response){ // failed request to backend
-                $scope.requestStatus[1] = "backenderror";
+                $scope.requestStatus.adaptProducts = "backenderror";
             }
         );
     }
 
     // save all data to backend
     $scope.saveAllData = function() {
-        $scope.requestStatus = ['working','working','working'];
+        $scope.requestStatus.updateBakery = 'working';
+        $scope.requestStatus.adaptProducts = 'working';
         tokenManager.getToken().then(function(newToken) {
             saveBakeryInfo(newToken);
             savePyCategories(newToken);

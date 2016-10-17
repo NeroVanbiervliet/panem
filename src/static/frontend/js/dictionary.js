@@ -121,7 +121,8 @@ panemApp.service('dictionary', function($rootScope) {
 		    default: // NL
                 dic = {
                     "searchTitle" : "Zoek uw bakker",
-                    "searchPlaceholder" : "Zoek op naam of postcode van de bakkerij"
+                    "searchPlaceholder" : "Zoek op naam of postcode van de bakkerij",
+                    "searchPlaceholderMobile" : "Naam of postcode"
                 };
                 $rootScope.title = 'Panem - Home';
             }

@@ -1,22 +1,24 @@
 panemApp.controller('clHomeCtrl', function($scope, dictionary, $http, $rootScope, tokenManager, $q, $location) {
-    
+
 	// variables
-    $scope.lastQuerySplit = []; 
+    $scope.lastQuerySplit = [];
     $scope.locationOverrule = false;
     // default value is very far from belgium => geolocation does not contribute to score
-    $scope.geoLocation = { 
+    $scope.geoLocation = {
         'lon' : 179.1,
         'lat' : 89.1
     };
-    
+
+    $scope.smallDevices = (document.documentElement.clientWidth < 768);
+
     // contants
-    $scope.IMAGE_SOURCE = "images/shops/800x500/"; 
+    $scope.IMAGE_SOURCE = "images/shops/800x500/";
     $scope.IMAGE_EXTENSION = ".png";
-    
+
     // Initialize dictionary
 	$scope.dict = dictionary.fillClHome("nl");
- 
-    // load bakeries data from backend 
+
+    // load bakeries data from backend
     $scope.getPyBakeries = function(token) {
         $http({
             method : "GET",
@@ -33,7 +35,7 @@ panemApp.controller('clHomeCtrl', function($scope, dictionary, $http, $rootScope
             // TODO message tonen dat er iets fout gelopen is als pyBakeries leeg is
         });
     }
-    
+
     // loads the bakery data
     loadData = function(token) {
         // first load the data without geoLocation knowledge
@@ -48,17 +50,17 @@ panemApp.controller('clHomeCtrl', function($scope, dictionary, $http, $rootScope
                 };
                 $scope.getPyBakeries(token);
             });
-        } 
-    } 
-    
+        }
+    }
+
     // get geolocation as soon as token is available
     tokenManager.getToken().then(function(newToken) {
-        loadData(newToken); 
+        loadData(newToken);
     });
-    
+
     // executed on ng-change of search input field
-    $scope.updateSearchResults = function () {        
-        var suspiciousChangeDetected = false; 
+    $scope.updateSearchResults = function () {
+        var suspiciousChangeDetected = false;
         var searchInputSplit = $scope.searchInput.split(" ");
         for(var i=0; i<searchInputSplit-1; i++)
         {
@@ -68,11 +70,11 @@ panemApp.controller('clHomeCtrl', function($scope, dictionary, $http, $rootScope
                 break;
             }
         }
-        
+
         if ($scope.lastQuerySplit.length > searchInputSplit.length) suspiciousChangeDetected = true; // there is a word less in the query
-        
+
         $scope.lastQuerySplit = $scope.searchInput.split(" ");
-        
+
         if(suspiciousChangeDetected)
         {
             // function from search.js
@@ -83,12 +85,12 @@ panemApp.controller('clHomeCtrl', function($scope, dictionary, $http, $rootScope
             // function from search.js
             updateQueryScores($scope,false);
         }
-        
+
         // function from search.js
         updateTotalScore($scope.pyBakeries,$scope.locationOverrule);
     };
-    
+
     // focus on search input element
     document.getElementById('searchInput').focus();
-  
+
 });

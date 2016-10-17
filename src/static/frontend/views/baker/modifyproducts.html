@@ -59,7 +59,8 @@
 
                         <!-- ingredient tags -->
                         <div class="col-xs-8">
-                            <input class="typeahead" type="text" placeholder="{{dict.ingredientsPlaceholder}}" data-role="tagsinput" ng-disabled="!product.available" data-bloodhound="bloodhound" ng-if="pyIngredients.custom.length > 0" data-initvalue="{{product.ingredientsString}}" tags-input>
+                            <!-- NEED ng-if="pyIngredients.custom.length > 0" -> dit stond als parameter erbij hieronder, waarom? -->
+                            <input class="typeahead" type="text" placeholder="{{dict.ingredientsPlaceholder}}" data-role="tagsinput" ng-disabled="!product.available" data-bloodhound="bloodhound" data-initvalue="{{product.ingredientsString}}" tags-input>
                         </div>
                     </div>
 
@@ -136,16 +137,16 @@
                         </div>
 
                         <!-- loading icon -->
-                        <div class="col-xs-1" ng-show="requestStatus[0]=='working' || requestStatus[1]=='working'">
+                        <div class="col-xs-1" ng-show="requestStatus.updateBakery=='working' || requestStatus.adaptProducts=='working'">
                             <div class="loader-small"></div>
                         </div>
                         <!-- succesfull -->
-                        <div class="col-xs-6 text-success" ng-show="requestStatus[0]=='success' && requestStatus[1]=='success'">
+                        <div class="col-xs-6 text-success" ng-show="requestStatus.updateBakery=='success' && requestStatus.adaptProducts=='success'">
                             <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                             {{dict.status.success}}
                         </div>
                         <!-- error -->
-                        <div class="col-xs-6 text-danger" ng-show="!(requestStatus[0]=='success' && requestStatus[1]=='success') && !(requestStatus[0]=='working' || requestStatus[1]=='working') && (requestStatus != null)">
+                        <div class="col-xs-6 text-danger" ng-show="!(requestStatus.updateBakery=='success' && requestStatus.adaptProducts=='success') && !(requestStatus.updateBakery=='working' || requestStatus.adaptProducts=='working') && (requestStatus.adaptProducts != 'init' && requestStatus.updateBakery != 'init')">
                             <span class="glyphicon glyphicon-flash" aria-hidden="true"></span>
                             {{dict.status.failure}}
                         </div>
