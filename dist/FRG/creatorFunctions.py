@@ -59,7 +59,7 @@ def create_account(firstnameIn, lastnameIn, emailIn, typeIn, adressIn, password,
             passwordSalted = password + salt
             hashed = hashlib.sha512(passwordSalted).hexdigest()
             confirmedNumber = random.randint(1,999999)
-            mhl.sendVerifyMail(emailIn,confirmedNumber,token)
+            #mhl.sendVerifyMail(emailIn,confirmedNumber,token)
             bsf.add_account(firstnameIn, lastnameIn, emailIn, typeIn, adressIn, hashed, confirmedNumber,salt)
 
             return 'success'
