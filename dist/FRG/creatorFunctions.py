@@ -10,8 +10,8 @@ import hashlib
 import random
 
 def create_bakery(personInfo, bakeryInfo, token):
-    #address = bakeryInfo['address'] #+ ' ' + str(bakeryInfo['postcode']) +' '+ bakeryInfo['city']
-    address = bakeryInfo['address'] + ' ' + str(bakeryInfo['postcode']) +' '+ bakeryInfo['city']
+    address = bakeryInfo['address'] #+ ' ' + str(bakeryInfo['postcode']) +' '+ bakeryInfo['city']
+    #address = bakeryInfo['address'] + ' ' + str(bakeryInfo['postcode']) +' '+ bakeryInfo['city']
     GPSLat,GPSLon = getGpsFromAdress(address)
 
     #Check Of bakker al bestaat
@@ -28,8 +28,8 @@ def create_bakery(personInfo, bakeryInfo, token):
             accountId = Account.objects.get(email = personInfo['email']).id
             website = ''
             #openingsDefault = '[[{"h": "6", "m": "30"}, {"h": "19", "m": ""},0], [{"h": "6", "m": "30"}, {"h": "19", "m": ""},0], [{"h": "6", "m": "30"}, {"h": "19", "m": ""},0], [{"h": "6", "m": "30"}, {"h": "19", "m": ""},0], [{"h": "6", "m": "30"}, {"h": "19", "m": ""},0], [{"h": "6", "m": "30"}, {"h": "19", "m": ""},0], [{"h": "6", "m": "30"}, {"h": "19", "m": ""},0]]'
-#            bakeryInfo['postcode'] = 3000
-#            bakeryInfo['city'] = ""
+            bakeryInfo['postcode'] = 3000
+            bakeryInfo['city'] = ""
             description = 'lolololololololololololololololol'
             bestelLimitTime = '17:00'
             bakeryObject = bsf.add_bakery(bakeryInfo['name'],bakeryInfo['address'],int(bakeryInfo['postcode']),bakeryInfo['city'],GPSLat,GPSLon,bakeryInfo['telephone'],website,bakeryInfo['openings'],description,bestelLimitTime,bakeryInfo['bankAccount'],bakeryInfo['taxNumber'],1,accountId)
@@ -59,7 +59,7 @@ def create_account(firstnameIn, lastnameIn, emailIn, typeIn, adressIn, password,
             passwordSalted = password + salt
             hashed = hashlib.sha512(passwordSalted).hexdigest()
             confirmedNumber = random.randint(1,999999)
-            #mhl.sendVerifyMail(emailIn,confirmedNumber,token)
+            mhl.sendVerifyMail(emailIn,confirmedNumber,token)
             bsf.add_account(firstnameIn, lastnameIn, emailIn, typeIn, adressIn, hashed, confirmedNumber,salt)
 
             return 'success'
