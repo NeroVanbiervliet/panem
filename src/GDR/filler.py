@@ -29,11 +29,11 @@ def databaseFillAll():
 
 def databaseFillCategory():
     #only developers mode
-    add_category('Broden')
-    add_category('Koffiekoeken')
-    add_category('Klein gebak')
-    add_category('Taarten')
-    add_category('Broodjes en Pistolets')
+    add_category('Broden',1)
+    add_category('Koffiekoeken',2)
+    add_category('Klein gebak',3)
+    add_category('Taarten',4)
+    add_category('Broodjes en Pistolets',5)
     
 def databaseFillStandardProducts():
     standardProducts = [['Wit brood','Broden'], \
@@ -61,14 +61,16 @@ def databaseFillStandardProducts():
                         
     for item in standardProducts:
         category = Category.objects.get(name=item[1])
-        add_product(item[0],category.id,1,0,[])
+        photoIdCat = category.defaultPhotoId
+        add_product(item[0],category.id,1,photoIdCat,[])
 
 
 def databaseFillBakeries():
 
     ## Generate Bakeries
-    bakerN = 100
+    bakerN = 1
     for lol in range(bakerN):
+        print lol
         firstNames = ['Jan','Piet','Joris','Korneel','Louis','Nero','Michiel','Emiel','Maarten','Helena','Suzy','Martine','Lieven']
         lastNames = ['Kok','Jassens','Peters','Baert','Baerto','VDB','Lesc','VBV','Homo','Kaas','Schoenmaker','De Vroe','Mignolet']
         adressList = [['Jozef van Walleghemstraat 11','8200','Brugge'],['Loppemsestraat 80','8020','Oostkamp'],['Raverschootstraat 62','9900','Eeklo'],['Koolstraat 1','8750','Wingene'],['Diepestraat 50','9200','Dendermonde'],['Fonteinstraat 57','9400','Ninove'],['Zevekotestraat 9','9940','Evergem']]
@@ -91,17 +93,24 @@ def databaseFillBakeries():
 #        bakeryInfo['postcode'] = adressList[dummy][1]
 #        bakeryInfo['city'] = adressList[dummy][2]
         bakeryInfo['telephone'] = random.randint(10**5,10**6)
-        openings = [[{"h": "6", "m": "30"}, {"h": "19", "m": ""},0], [{"h": "6", "m": "30"}, {"h": "19", "m": ""},0], [{"h": "6", "m": "30"}, {"h": "19", "m": ""},0], [{"h": "6", "m": "30"}, {"h": "19", "m": ""},0], [{"h": "6", "m": "30"}, {"h": "19", "m": ""},0], [{"h": "6", "m": "30"}, {"h": "19", "m": ""},0], [{"h": "6", "m": "30"}, {"h": "19", "m": ""},0]]
+        openings = [[{"h":"4","m":"30"},{"h":"19","m":""},False],[{"h":"6","m":"30"},{"h":"19","m":""},False],[{"h":"6","m":"30"},{"h":"19","m":""},False],[{"h":"6","m":"30"},{"h":"19","m":""},False],[{"h":"6","m":"30"},{"h":"19","m":""},False],[{"h":"6","m":"30"},{"h":"19","m":""},False],[{"h":"6","m":"30"},{"h":"19","m":""},False]]
         for i in range(len(openings)):
-            openings[i][2] = random.randint(0,1)
-            openings[i][0]['h'] = random.randint(5,7)
-            openings[i][0]['m'] = random.randint(0,40)
-            openings[i][1]['h'] = random.randint(16,20)
-            openings[i][1]['m'] = random.randint(0,40)
+            openings[i][2] = bool(random.getrandbits(1)) # random boolean
+            openings[i][0]['h'] = str(random.randint(5,7))
+            openings[i][0]['m'] = str(random.randint(0,40))
+            openings[i][1]['h'] = str(random.randint(16,20))
+            openings[i][1]['m'] = str(random.randint(0,40))
+
+        # NEED toch dynamische testdata maken maar
+        # 1. laatste van openings moet true of false zijn, niet True of False
+        # 2. de str() functie moet er overal strings met dubbele quotes van maken, niet enkele
+        # voorlopige testdata :
+        openings = "[[{\"h\": \"5\", \"m\": \"15\"}, {\"h\": \"16\", \"m\": \"28\"}, true], [{\"h\": \"7\", \"m\": \"28\"}, {\"h\": \"18\", \"m\": \"16\"}, false], [{\"h\": \"7\", \"m\": \"32\"}, {\"h\": \"18\", \"m\": \"4\"}, false], [{\"h\": \"5\", \"m\": \"13\"}, {\"h\": \"16\", \"m\": \"40\"}, true], [{\"h\": \"5\", \"m\": \"26\"}, {\"h\": \"17\", \"m\": \"1\"}, true], [{\"h\": \"5\", \"m\": \"35\"}, {\"h\": \"18\", \"m\": \"8\"}, true], [{\"h\": \"5\", \"m\": \"28\"}, {\"h\": \"20\", \"m\": \"6\"}, true]]"
 
         bakeryInfo['openings'] = str(openings)
         bakeryInfo['bankAccount'] = str(random.randint(10**5,10**6))
         bakeryInfo['taxNumber'] = str(random.randint(10**5,10**6))
+        bakeryInfo['website'] = "nero.be"
 
         token = 'haha'
         
