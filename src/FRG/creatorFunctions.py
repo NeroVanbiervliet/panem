@@ -9,7 +9,7 @@ import os
 import hashlib
 import random
 
-def create_bakery(personInfo, bakeryInfo, token):
+def create_bakery(personInfo, bakeryInfo, token, sendMail):
     address = bakeryInfo['address'] #+ ' ' + str(bakeryInfo['postcode']) +' '+ bakeryInfo['city']
     #address = bakeryInfo['address'] + ' ' + str(bakeryInfo['postcode']) +' '+ bakeryInfo['city']
     GPSLat,GPSLon = getGpsFromAdress(address)
@@ -21,7 +21,7 @@ def create_bakery(personInfo, bakeryInfo, token):
     except ObjectDoesNotExist:
         #Account Maken
 
-        accountOutput = create_account(personInfo['firstName'], personInfo['lastName'], personInfo['email'], 'baker', address, personInfo['password'],token)
+        accountOutput = create_account(personInfo['firstName'], personInfo['lastName'], personInfo['email'], 'baker', address, personInfo['password'],token, sendMail)
 
         # Bakker aanmaken
         if accountOutput == 'success':
@@ -42,7 +42,7 @@ def create_bakery(personInfo, bakeryInfo, token):
     return output
 
 
-def create_account(firstnameIn, lastnameIn, emailIn, typeIn, adressIn, password,token):
+def create_account(firstnameIn, lastnameIn, emailIn, typeIn, adressIn, password,token, sendMail):
 
     try:
         #check if the account does not already exists
@@ -55,11 +55,20 @@ def create_account(firstnameIn, lastnameIn, emailIn, typeIn, adressIn, password,
         elif not password.isalnum():
             return 'notalphanumeric'
         else:
-            salt = b64encode(os.urandom(64)).decode('utf-8')
-            passwordSalted = password + salt
-            hashed = hashlib.sha512(passwordSalted).hexdigest()
-            confirmedNumber = random.randint(1,999999)
-            #mhl.sendVerifyMail(emailIn,confirmedNumber,token)
-            bsf.add_account(firstnameIn, lastnameIn, emailIn, typeIn, adressIn, hashed, confirmedNumber,salt)
+            if sendMail:
+                # normal procedure
+                salt = b64encode(os.urandom(64)).decode('utf-8')
+                passwordSalted = password + salt
+                hashed = hashlib.sha512(passwordSalted).hexdigest()
+                confirmedNumber = random.randint(1,999999)
+                mhl.sendVerifyMail(emailIn,confirmedNumber,token)
+                bsf.add_account(firstnameIn, lastnameIn, emailIn, typeIn, adressIn, hashed, confirmedNumber,salt)
+            else:
+                # database testing procedure
+                salt = b64encode(os.urandom(64)).decode('utf-8')
+                passwordSalted = password + salt
+                hashed = hashlib.sha512(passwordSalted).hexdigest()
+                confirmedNumber = 0
+                bsf.add_account(firstnameIn, lastnameIn, emailIn, typeIn, adressIn, hashed, confirmedNumber,salt)
 
             return 'success'

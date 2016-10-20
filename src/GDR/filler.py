@@ -68,9 +68,12 @@ def databaseFillStandardProducts():
 def databaseFillBakeries():
 
     ## Generate Bakeries
-    bakerN = 1
+    bakerN = 20
     for lol in range(bakerN):
-        print lol
+
+        if lol%5 == 0:
+            print "bakery progress = " + str(lol) + "/" + str(bakerN)
+
         firstNames = ['Jan','Piet','Joris','Korneel','Louis','Nero','Michiel','Emiel','Maarten','Helena','Suzy','Martine','Lieven']
         lastNames = ['Kok','Jassens','Peters','Baert','Baerto','VDB','Lesc','VBV','Homo','Kaas','Schoenmaker','De Vroe','Mignolet']
         adressList = [['Jozef van Walleghemstraat 11','8200','Brugge'],['Loppemsestraat 80','8020','Oostkamp'],['Raverschootstraat 62','9900','Eeklo'],['Koolstraat 1','8750','Wingene'],['Diepestraat 50','9200','Dendermonde'],['Fonteinstraat 57','9400','Ninove'],['Zevekotestraat 9','9940','Evergem']]
@@ -113,8 +116,9 @@ def databaseFillBakeries():
         bakeryInfo['website'] = "nero.be"
 
         token = 'haha'
-        
-        output = create_bakery(personInfo, bakeryInfo, token)
+
+        # sendMail = False
+        output = create_bakery(personInfo, bakeryInfo, token, False)
         if not output == 'success':
             print output
 
@@ -163,7 +167,7 @@ def databaseFillAccounts():
         password = 'password101'
         token = 'haha'
         
-        output = create_account(firstname, lastname, email, type, adress, password,token)
+        output = create_account(firstname, lastname, email, type, adress, password,token, False)
         if not output == 'success':
             print output
         #give everyone millions of credit?
