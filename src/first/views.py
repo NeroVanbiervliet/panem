@@ -119,7 +119,7 @@ def createBakery(request):
             #bakeryInfo['openings'] = str(parsedData['bakeryInfo']['openings'])
 
             # sendMail = True
-            output = crf.create_bakery(personInfo, bakeryInfo, token,True)
+            output = crf.create_bakery(personInfo, bakeryInfo,True)
         else:
             output = info
         return HttpResponse(str(output))

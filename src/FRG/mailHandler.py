@@ -17,7 +17,7 @@ def resetPasswordSendMail(email,name,code):
     return code
 
 
-def sendVerifyMail(receiverEmail,code,token):
+def sendVerifyMail(receiverEmail,code):
 
     # relative from manage.py
     f = open('email_templates/registration.html','r')
@@ -63,7 +63,7 @@ def repeatVerifyMail(emailIn,token):
         else:
             name = account.firstname
             code = account.confirmed
-            sendVerifyMail(emailIn,code,token)
+            sendVerifyMail(emailIn,code)
 
             return 'success'
 

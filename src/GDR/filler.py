@@ -118,8 +118,33 @@ def databaseFillBakeries():
         token = 'haha'
 
         # sendMail = False
-        output = create_bakery(personInfo, bakeryInfo, token, False)
+        output = create_bakery(personInfo, bakeryInfo, False)
         if not output == 'success':
+            print output
+
+    # default baker
+    personInfo = {}
+    personInfo['firstName'] = "Sloe"
+    personInfo['lastName'] = "Wie"
+    personInfo['email'] = "sloewie@gmail.com"
+    personInfo['password'] = 'rosbeiaard'
+
+    bakeryInfo = {}
+    bakeryInfo['name'] = "Bakkermans Nero"
+    adress= "damse vaart zuid 14 8310 Brugge"
+    bakeryInfo['address'] = adress
+    bakeryInfo['telephone'] = random.randint(10**5,10**6)
+    openings = "[[{\"h\": \"5\", \"m\": \"15\"}, {\"h\": \"16\", \"m\": \"28\"}, true], [{\"h\": \"7\", \"m\": \"28\"}, {\"h\": \"18\", \"m\": \"16\"}, false], [{\"h\": \"7\", \"m\": \"32\"}, {\"h\": \"18\", \"m\": \"4\"}, false], [{\"h\": \"5\", \"m\": \"13\"}, {\"h\": \"16\", \"m\": \"40\"}, true], [{\"h\": \"5\", \"m\": \"26\"}, {\"h\": \"17\", \"m\": \"1\"}, true], [{\"h\": \"5\", \"m\": \"35\"}, {\"h\": \"18\", \"m\": \"8\"}, true], [{\"h\": \"5\", \"m\": \"28\"}, {\"h\": \"20\", \"m\": \"6\"}, true]]"
+    bakeryInfo['openings'] = str(openings)
+    bakeryInfo['bankAccount'] = str(random.randint(10**5,10**6))
+    bakeryInfo['taxNumber'] = str(random.randint(10**5,10**6))
+    bakeryInfo['website'] = "nero.be"
+
+    token = 'haha'
+
+    # sendMail = False
+    output = create_bakery(personInfo, bakeryInfo, False)
+    if not output == 'success':
             print output
 
 def databaseFillProducts():
@@ -164,12 +189,14 @@ def databaseFillAccounts():
         adress= adress[0] + ' ' + adress[1] + ' ' + adress[2]
         email = firstname + lastname + '_456' + '@gmail.com'
         type = 'normal'
-        password = 'password101'
-        token = 'haha'
+        password = 'rosbeiaard'
         
-        output = create_account(firstname, lastname, email, type, adress, password,token, False)
+        output = create_account(firstname, lastname, email, type, adress, password, False)
         if not output == 'success':
             print output
         #give everyone millions of credit?
+
+    # default accounts
+    create_account("Nero","Vanbiervliet","nero.vanbiervliet@gmail.com","normal","damse vaart","rosbeiaard",False)
 
 
