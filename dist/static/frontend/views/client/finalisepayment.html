@@ -43,7 +43,7 @@
             <h4>{{dict.judgment.topUpSuccess.title}}</h4>
             <p>{{dict.judgment.topUpSuccess.description}}</p>
         </div>
-        
+
         
         <p class="spacer-small" ng-if="paymentCode !== undefined" data-to-substitute="{{dict.toHome.toSubstitute}}" data-destination="#/client/home/" data-base-text="{{dict.toHome.baseText}}" sub-link></p>
     </div>
@@ -51,7 +51,6 @@
     
     <div class="row spacer-extended" ng-if="paymentCode !== undefined">
         <h4>{{dict.questions.title}}</h4>
-        <div data-to-substitute="{{dict.questions.toSubstitute}}" data-destination="#/client/contact/" data-base-text="{{dict.questions.baseText + paymentCode}}" sub-link></div>
+        <div data-to-substitute="{{dict.questions.toSubstitute}}" data-destination="#/client/contact/?paymentReference={{paymentCode}}" data-base-text="{{dict.questions.baseText + paymentCode}}" sub-link></div>
     </div>
 </div>
-

@@ -9,6 +9,12 @@ from base64 import b64encode
 import hashlib
 import json
 
+# CONTSTANTS
+MOBILE_SKIN_CODE = 'CDTklqvU'
+MOBILE_HMAC_KEY = '186B64CF9623215BAFE622DA227CC5C669EF4C5F09E0632EB9AFA918FD727295'
+MOBILE_SKIN_CODE = 'Xvwh5KA0'
+MOBILE_HMAC_KEY = '57A6794EFB389EF0ABFC249E54919CDFB7C83BAE6CAFD929E1F8CF6D9358394D'
+
 def getPaymentBill(accountId,bakeryId,orderId,price,shipDateMS,extraCredit,skin):
     import FRG.databaseFunctions as dbf
     try:
@@ -24,11 +30,11 @@ def getPaymentBill(accountId,bakeryId,orderId,price,shipDateMS,extraCredit,skin)
         recurringContract = "RECURRING,ONECLICK"
 
         if skin == 'mobile':
-            skinCode = 'IJJ04ynA'
-            key = 'f15d5s4f5s7e4fhjk7y5'
+            skinCode = MOBILE_SKIN_CODE
+            key = MOBILE_HMAC_KEY
         else:
-            skinCode = 'Qjdn2DGx'
-            key = 'f15d5s4f5s7e4fhjk7y5'
+            skinCode = NORMAL_SKIN_CODE
+            key = NORMAL_HMAC_KEY
 
 
         output = {}
@@ -80,11 +86,11 @@ def getCreditTopUpBill(creditTopUp, skin):
 
     recurringContract = "RECURRING,ONECLICK"
     if skin == 'mobile':
-        skinCode = 'IJJ04ynA'
-        key = 'f15d5s4f5s7e4fhjk7y5'
+        skinCode = MOBILE_SKIN_CODE
+        key = MOBILE_HMAC_KEY
     else:
-        skinCode = 'Qjdn2DGx'
-        key = 'f15d5s4f5s7e4fhjk7y5'
+        skinCode = NORMAL_SKIN_CODE
+        key = NORMAL_HMAC_KEY
 
 
     output = {}
@@ -227,7 +233,7 @@ def currentOrderGET(accountId):
                 tempDict = {}
                 tempDict['amount'] = productOrder.amount
                 tempDict['price'] = productOrder.price
-                tempDict['productId'] = productOrder.productId
+                tempDict['id'] = productOrder.productId
                 product = Product.objects.get(id = productOrder.productId)
                 tempDict['name'] = product.name
                 tempDict['photoId'] = product.photoId

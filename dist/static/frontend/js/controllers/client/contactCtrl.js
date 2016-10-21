@@ -1,55 +1,67 @@
-panemApp.controller('clContactCtrl', function($scope, $rootScope, dictionary, tokenManager, $http) {
+panemApp.controller('clContactCtrl', function($scope, $rootScope, dictionary, tokenManager, $http, $window, GETUrl) {
 
     // VARIABLES
-    $scope.form = {}; 
-    
+    $scope.form = {};
+
     // initialise
     $scope.form.name = "";
     $scope.form.email = "";
     $scope.form.telephone = "";
     $scope.form.question = "";
     $scope.requestStatus = "init";
-    
+
 	// initialize dictionary
 	$scope.dict =  dictionary.fillClContact("nl");
-    
+
     // fills the email form with know data if someone is logged in
     if($rootScope.loggedIn)
     {
-        $rootScope.$watch('userInfo', function() { 
-            $scope.form.name = $rootScope.userInfo.firstName + ' ' + $rootScope.userInfo.lastName; 
-            $scope.form.email = $rootScope.userInfo.email; 
+        $rootScope.$watch('userInfo', function() {
+            $scope.form.name = $rootScope.userInfo.firstName + ' ' + $rootScope.userInfo.lastName;
+            $scope.form.email = $rootScope.userInfo.email;
         }, true);
     }
-    
+
+    // obtain parameters from url
+    var GET = GETUrl.decipher();
+
+    // fills the payment reference if available in url
+    if('paymentReference' in GET) {
+        $scope.form.paymentReference = GET.paymentReference;
+    }
+
     // submits form to backend
     $scope.submitForm = function() {
-        
-        var requestData; 
-        
+
+        var requestData;
+
         tokenManager.getToken().then(function(newToken) {
             // prepare data
             requestData = $.param({
                 json: JSON.stringify({
-                token : newToken,
-                name : $scope.form.name,
-                email : $scope.form.email, 
-                telephone : $scope.form.telephone,
-                question : $scope.form.question
+                    token : newToken,
+                    name : $scope.form.name,
+                    email : $scope.form.email,
+                    telephone : $scope.form.telephone,
+                    question : $scope.form.question,
+                    paymentReference : $scope.form.paymentReference
                 })
-            });  
-        
+            });
+
             // perform endpoint request
             $http.post($rootScope.baseUrl + '/contact/',requestData)
             .then(
                 function(response){ // successful request to backend
-                    $scope.requestStatus = response.data; 
-                }, 
+                    $scope.requestStatus = response.data;
+                    if(response.data == 'success') {
+                        $window.location.href = '#/client/contactsuccess';
+                    }
+                },
                 function(response){ // failed request to backend
-                    $scope.requestStatus = "backenderror"; 
+                    $scope.requestStatus = "backenderror";
                     // NEED notify user that something whent wrong
                 }
             );
-        })  
+        })
     }
 });

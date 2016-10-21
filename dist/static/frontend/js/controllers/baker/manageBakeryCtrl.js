@@ -5,21 +5,21 @@ panemApp.controller('bkManageBakeryCtrl', function($scope, dictionary, requestWr
 
     // contants
     var ONE_DAY_MILLISECONDS = 24 * 60 * 60 * 1000;
-    
+
     // variables
-    $scope.emailNotifyNextDayOrder; 
-    $scope.pyBakeryInfo; 
-    $scope.pyDayOrder; 
-    $scope.requestStatus = {}; 
+    $scope.emailNotifyNextDayOrder;
+    $scope.pyBakeryInfo;
+    $scope.pyDayOrder;
+    $scope.requestStatus = {};
     $scope.tomorrowDate = new Date(new Date().getTime() + ONE_DAY_MILLISECONDS).getTime();
-    $scope.notFirstWatch = false; 
-    
+    $scope.notFirstWatch = false;
+
     // load pyBakeryInfo from backend
     var url = '/bakery/' + $scope.userInfo.bakery.id + '/'
-    $scope.requestStatus.pyBakeryInfo = requestWrapper.init(); 
+    $scope.requestStatus.pyBakeryInfo = requestWrapper.init();
     requestWrapper.get(url).then(function ([newStatus,resultData]) {
-        $scope.requestStatus.pyBakeryInfo = newStatus; 
-        $scope.pyBakeryInfo = resultData; 
+        $scope.requestStatus.pyBakeryInfo = newStatus;
+        $scope.pyBakeryInfo = resultData;
         if(newStatus == 'success') {
             $scope.emailNotifyNextDayOrder = resultData.emailNotifyNextDayOrder;
         }
@@ -27,12 +27,12 @@ panemApp.controller('bkManageBakeryCtrl', function($scope, dictionary, requestWr
 
     // load pyDayOrder from backend
     var url = '/bakery/'+ $scope.userInfo.bakery.id + '/dayOrder/date=' + $scope.tomorrowDate;
-    $scope.requestStatus.pyDayOrder = requestWrapper.init(); 
+    $scope.requestStatus.pyDayOrder = requestWrapper.init();
     requestWrapper.get(url).then(function ([newStatus,resultData]) {
-        $scope.requestStatus.pyDayOrder = newStatus; 
-        $scope.pyDayOrder = resultData; 
+        $scope.requestStatus.pyDayOrder = newStatus;
+        $scope.pyDayOrder = resultData;
     });
-    
+
     // watch a change in email preferences
     $scope.$watch('emailNotifyNextDayOrder', function (newValue,oldValue) {
         if($scope.emailNotifyNextDayOrder!==undefined) {
@@ -40,11 +40,11 @@ panemApp.controller('bkManageBakeryCtrl', function($scope, dictionary, requestWr
                 $scope.notFirstWatch = true;
             }
             else {
-                saveEmailSettings(); 
+                saveEmailSettings();
             }
         }
     });
-    
+
     // save the email preferences in the backend
     function saveEmailSettings() {
         url = '/bakery/update/emailnotifications/';
@@ -52,9 +52,14 @@ panemApp.controller('bkManageBakeryCtrl', function($scope, dictionary, requestWr
             emailNotifyNextDayOrder : $scope.emailNotifyNextDayOrder,
             id : $scope.pyBakeryInfo.id
         };
-        $scope.requestStatus.saveEmailSettings = requestWrapper.init(); 
+        $scope.requestStatus.saveEmailSettings = requestWrapper.init();
         requestWrapper.post(url, dataToSend).then(function (newStatus) {
-            $scope.requestStatus.saveEmailSettings = newStatus; 
+            $scope.requestStatus.saveEmailSettings = newStatus;
         });
-    }; 
+    };
+
+	// navigate to client bakery page
+    $scope.goToBakeryPage = function() {
+        $window.location.href = "#/client/bakery?bakeryId="+$scope.pyBakeryInfo.id;
+    };
 });
