@@ -11,11 +11,12 @@ import random
 
 def create_bakery(personInfo, bakeryInfo, token):
     address = bakeryInfo['address'] #+ ' ' + str(bakeryInfo['postcode']) +' '+ bakeryInfo['city']
+    #address = bakeryInfo['address'] + ' ' + str(bakeryInfo['postcode']) +' '+ bakeryInfo['city']
     GPSLat,GPSLon = getGpsFromAdress(address)
 
     #Check Of bakker al bestaat
     try:
-        object = Bakery.objects.get(adress=bakeryInfo['address']) # NEED slechte check, want 1 typfoutje leidt tot een nieuwe bakker
+        object = Bakery.objects.get(taxNumber=bakeryInfo['taxNumber']) # NEED slechte check, want 1 typfoutje leidt tot een nieuwe bakker
         output = 'bakeryalreadyexists'
     except ObjectDoesNotExist:
         #Account Maken
@@ -26,12 +27,12 @@ def create_bakery(personInfo, bakeryInfo, token):
         if accountOutput == 'success':
             accountId = Account.objects.get(email = personInfo['email']).id
             website = ''
-            openingsDefault = '[[{"h": "6", "m": "30"}, {"h": "19", "m": ""},0], [{"h": "6", "m": "30"}, {"h": "19", "m": ""},0], [{"h": "6", "m": "30"}, {"h": "19", "m": ""},0], [{"h": "6", "m": "30"}, {"h": "19", "m": ""},0], [{"h": "6", "m": "30"}, {"h": "19", "m": ""},0], [{"h": "6", "m": "30"}, {"h": "19", "m": ""},0], [{"h": "6", "m": "30"}, {"h": "19", "m": ""},0]]'
+            #openingsDefault = '[[{"h": "6", "m": "30"}, {"h": "19", "m": ""},0], [{"h": "6", "m": "30"}, {"h": "19", "m": ""},0], [{"h": "6", "m": "30"}, {"h": "19", "m": ""},0], [{"h": "6", "m": "30"}, {"h": "19", "m": ""},0], [{"h": "6", "m": "30"}, {"h": "19", "m": ""},0], [{"h": "6", "m": "30"}, {"h": "19", "m": ""},0], [{"h": "6", "m": "30"}, {"h": "19", "m": ""},0]]'
             bakeryInfo['postcode'] = 3000
             bakeryInfo['city'] = ""
             description = 'lolololololololololololololololol'
             bestelLimitTime = '17:00'
-            bakeryObject = bsf.add_bakery(bakeryInfo['name'],bakeryInfo['address'],int(bakeryInfo['postcode']),bakeryInfo['city'],GPSLat,GPSLon,bakeryInfo['telephone'],website,openingsDefault,description,bestelLimitTime,bakeryInfo['bankAccount'],bakeryInfo['taxNumber'],1,accountId)
+            bakeryObject = bsf.add_bakery(bakeryInfo['name'],bakeryInfo['address'],int(bakeryInfo['postcode']),bakeryInfo['city'],GPSLat,GPSLon,bakeryInfo['telephone'],website,bakeryInfo['openings'],description,bestelLimitTime,bakeryInfo['bankAccount'],bakeryInfo['taxNumber'],1,accountId)
             output = 'success'
             #initialise standard products for bakery
             bts.initStandardProducts(bakeryObject)
@@ -58,7 +59,7 @@ def create_account(firstnameIn, lastnameIn, emailIn, typeIn, adressIn, password,
             passwordSalted = password + salt
             hashed = hashlib.sha512(passwordSalted).hexdigest()
             confirmedNumber = random.randint(1,999999)
-            mhl.sendVerifyMail(emailIn,confirmedNumber,token)
+            #mhl.sendVerifyMail(emailIn,confirmedNumber,token)
             bsf.add_account(firstnameIn, lastnameIn, emailIn, typeIn, adressIn, hashed, confirmedNumber,salt)
 
             return 'success'

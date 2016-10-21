@@ -118,7 +118,8 @@ def createBakery(request):
             bakeryInfo['bankAccount'] = str(parsedData['bakeryInfo']['bankAccount']) 
             #bakeryInfo['openings'] = str(parsedData['bakeryInfo']['openings'])
 
-            output = crf.create_bakery(personInfo, bakeryInfo, token)
+            # sendMail = True
+            output = crf.create_bakery(personInfo, bakeryInfo,True)
         else:
             output = info
         return HttpResponse(str(output))
@@ -357,7 +358,8 @@ def createAccount(request):
             password = str(parsedData['password'])
             typeIn = str(parsedData['type']) 
 
-            output = crf.create_account(firstnameIn, lastnameIn, emailIn, typeIn, adressIn, password,token)
+            # sendMail = True
+            output = crf.create_account(firstnameIn, lastnameIn, emailIn, typeIn, adressIn, password,token,True)
         else:
             output = info
         return HttpResponse(str(output))
