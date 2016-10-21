@@ -5,7 +5,7 @@ panemApp.controller('clBakeryCtrl', function($scope, $rootScope, dictionary, $wi
     $scope.pyCategories;
     $scope.pyProducts;
     $scope.pyPreviousOrders;
-    $scope.pyDisabledDates;
+    $scope.pyDisabledDatesInt;
 
     $scope.dict;
 
@@ -44,7 +44,6 @@ panemApp.controller('clBakeryCtrl', function($scope, $rootScope, dictionary, $wi
     initialiseVariables();
 
     // initialise components
-    initialiseDatePicker();
     initialiseTooltipsAndPopovers();
 
     /***************
@@ -140,17 +139,28 @@ panemApp.controller('clBakeryCtrl', function($scope, $rootScope, dictionary, $wi
             loadBakeryInfo(newToken);
         });
 
-        $scope.disabledDatesInt = [1,4]; // NEED uit endpoint
-        this.pickerProps = {};
-        this.pickerProps.startDate = new Date();
-        this.pickerProps.endDate = new Date((new Date()).getTime() + $scope.ONE_DAY_MILLISECONDS*34); // limit booking to 34 days in advance
-        this.pickerProps.disabledDates = [];
-        // add disabledDates
-        for(var i=0; i<$scope.disabledDatesInt.length; i++) {
-            var numDays = $scope.disabledDatesInt[i];
-            var currentDisabledDate = new Date((new Date()).getTime() + $scope.ONE_DAY_MILLISECONDS*numDays);
-            this.pickerProps.disabledDates.push(currentDisabledDate);
-        }
+        // GET disabled dates from endpoint
+        var url = '/bakery/' + GET.bakeryId + '/disabledates/';
+        $scope.requestStatusDisableDates = requestWrapper.init();
+        requestWrapper.get(url).then(function ([newStatus,resultData]) {
+            $scope.requestStatusDisableDates = newStatus;
+            $scope.pyDisabledDatesInt = resultData;
+
+            // process disabledDates
+            this.pickerProps = {};
+            this.pickerProps.startDate = new Date();
+            this.pickerProps.endDate = new Date((new Date()).getTime() + $scope.ONE_DAY_MILLISECONDS*34); // limit booking to 34 days in advance
+            this.pickerProps.disabledDates = [];
+            // add disabledDates to calendar
+            for(var i=0; i<$scope.pyDisabledDatesInt.length; i++) {
+                var numDays = $scope.pyDisabledDatesInt[i];
+                var currentDisabledDate = new Date((new Date()).getTime() + $scope.ONE_DAY_MILLISECONDS*numDays);
+                this.pickerProps.disabledDates.push(currentDisabledDate);
+            }
+
+            // initialise calendar
+            initialiseDatePicker();
+        });
     }
 
     // process previous order data

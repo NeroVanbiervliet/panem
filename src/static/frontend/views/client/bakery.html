@@ -123,22 +123,22 @@
                     <div class="spacer-small btn-toolbar">
 
                         <!-- tomorrow disabled -->
-                        <button ng-if="(disabledDatesInt.indexOf(1) > -1)" ng-click="setCalenderDivDate(1)" class="btn btn-danger btn-sm cursor-not-allowed" data-toggle="tooltip" data-placement="top" title="{{dict.orderLabels.bakeryIsClosed}}" tooltip>
+                        <button ng-if="(pyDisabledDatesInt.indexOf(1) > -1)" ng-click="setCalenderDivDate(1)" class="btn btn-danger btn-sm cursor-not-allowed" data-toggle="tooltip" data-placement="top" title="{{dict.orderLabels.bakeryIsClosed}}" tooltip>
                             {{dict.nextDays[1]}}
                         </button>
 
                         <!-- tomorrow is not disabled -->
-                        <button class="btn btn-primary btn-sm" ng-if="!(disabledDatesInt.indexOf(1) > -1)" ng-click="setCalenderDivDate(1)">
+                        <button class="btn btn-primary btn-sm" ng-if="!(pyDisabledDatesInt.indexOf(1) > -1)" ng-click="setCalenderDivDate(1)">
                             {{dict.nextDays[1]}}
                         </button>
 
                         <!-- date is disabled -->
-                        <button ng-repeat-start="moreDays in [2,3,4]" ng-if="(disabledDatesInt.indexOf(moreDays) > -1)" class="btn btn-danger btn-sm cursor-not-allowed" data-toggle="tooltip" data-placement="top" title="{{dict.orderLabels.bakeryIsClosed}}" tooltip>
+                        <button ng-repeat-start="moreDays in [2,3,4]" ng-if="(pyDisabledDatesInt.indexOf(moreDays) > -1)" class="btn btn-danger btn-sm cursor-not-allowed" data-toggle="tooltip" data-placement="top" title="{{dict.orderLabels.bakeryIsClosed}}" tooltip>
                             {{getDateName(moreDays)}}
                         </button>
 
                         <!-- date is not disabled -->
-                        <button ng-if="!(disabledDatesInt.indexOf(moreDays) > -1)" class="btn btn-default btn-sm" ng-click="setCalenderDivDate(moreDays)" ng-repeat-end>
+                        <button ng-if="!(pyDisabledDatesInt.indexOf(moreDays) > -1)" class="btn btn-default btn-sm" ng-click="setCalenderDivDate(moreDays)" ng-repeat-end>
                             {{getDateName(moreDays)}}
                         </button>
 
