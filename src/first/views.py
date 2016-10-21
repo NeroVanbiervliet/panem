@@ -214,7 +214,7 @@ def disableDates(request, bakeryId,token):
     if validMethod:
         info = atm.verifyToken(token)
         if isinstance(info, int ):
-            output = databaseFunctions.get_disableDates(int(bakeryId))
+            output = json.dumps(databaseFunctions.get_disableDates(int(bakeryId)))
         else:
             output = info
             output = json.dumps(output)

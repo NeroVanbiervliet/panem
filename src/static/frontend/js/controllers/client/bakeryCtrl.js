@@ -140,13 +140,17 @@ panemApp.controller('clBakeryCtrl', function($scope, $rootScope, dictionary, $wi
             loadBakeryInfo(newToken);
         });
 
-        // NEED uit endpoint
+        $scope.disabledDatesInt = [1,4]; // NEED uit endpoint
         this.pickerProps = {};
         this.pickerProps.startDate = new Date();
         this.pickerProps.endDate = new Date((new Date()).getTime() + $scope.ONE_DAY_MILLISECONDS*34); // limit booking to 34 days in advance
-        this.pickerProps.disabledDates = [new Date((new Date()).getTime() + $scope.ONE_DAY_MILLISECONDS*2), new Date((new Date()).getTime() + $scope.ONE_DAY_MILLISECONDS)];
-        $scope.disabledDatesInt = [1,2,4];
-
+        this.pickerProps.disabledDates = [];
+        // add disabledDates
+        for(var i=0; i<$scope.disabledDatesInt.length; i++) {
+            var numDays = $scope.disabledDatesInt[i];
+            var currentDisabledDate = new Date((new Date()).getTime() + $scope.ONE_DAY_MILLISECONDS*numDays);
+            this.pickerProps.disabledDates.push(currentDisabledDate);
+        }
     }
 
     // process previous order data

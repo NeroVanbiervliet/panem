@@ -202,12 +202,13 @@ def get_disableDates(bakeryId):
             if disableDate.bakeryId == bakeryId and -1 < diff < threshold:
                 output.append(diff)
         
-        openings = eval(bakery.openings)
+        openings = eval(bakery.openings.replace('false','False').replace('true','True'))
         weekdayNow = datetime.datetime.now().weekday()
         
         for i in range(len(openings)):
             weekday = i
-            if openings[i][2] == 'false':
+            print openings[i][2]
+            if not openings[i][2]: # False, bakery is closed that day
                 for i in range(7):
                     daysInFuture = weekday - weekdayNow + 7*i
                     if -1 < daysInFuture < threshold and (daysInFuture not in output):

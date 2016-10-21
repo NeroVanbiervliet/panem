@@ -19,7 +19,7 @@ urlpatterns = [
     url(r'^bakery/update/$', views.adaptBakery, name='adaptBakery'), # POST
     url(r'^bakery/update/emailnotifications/$', views.updateEmailNotifications, name='updateEmailNotifications'), # POST
     url(r'^bakery/adaptProducts/$', views.adaptProducts, name='adaptProducts'), # POST NEED dit moet komen onder baker/id/products/categories/update of zo
-    url(r'^bakery/disableDates/$', views.disableDates, name='disableDates'), # POST 
+    url(r'^bakery/(?P<bakeryId>[0-9]+)/disabledates/token=(?P<token>[A-Za-z0-9.-]+)/$', views.disableDates, name='disableDates'), # GET
     url(r'^account/create/$', views.createAccount, name='createAccount'), #POST working
     url(r'^account/verify/$', views.verifyAccount, name='verifyAccount'), #POST
     url(r'^account/verify/resendmail/email=(?P<emailIn>[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4})&token=(?P<token>[A-Za-z0-9.-]+)/$', views.repeatVerifyMail, name='repeatVerifyMail'), #GET working
