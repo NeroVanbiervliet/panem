@@ -91,7 +91,7 @@ def replaceFirstLineOfFile(filePath, newText):
 # relative path to src and dist directory
 srcPath = 'src/'
 distPath = 'dist/'
-serverIp = '146.185.179.39'
+serverIp = '95.85.20.119'
 serverEnvPath = '/home/sysadmin/panem/dist/panem_env/'
 
 # obtain version number from command line arguments
