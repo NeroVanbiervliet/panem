@@ -1,4 +1,4 @@
-<div class="cl_home_container">
+<div class="cl_home_container background-pattern">
     <!-- Page Content -->
     <div class="container">
 
@@ -10,7 +10,7 @@
                         <h2>{{dict.searchTitle}}</h2>
                         <div id="custom-search-input">
                             <div class="input-group col-md-12">
-                                <input type="text" class="form-control input-lg" ng-change="updateSearchResults()" ng-model="searchInput" placeholder="{{dict.searchPlaceholder}}" id="searchInput"/>
+                                <input type="text" class="form-control input-lg" ng-change="updateSearchResults()" ng-model="searchInput" placeholder="{{smallDevices ? dict.searchPlaceholderMobile : dict.searchPlaceholder}}" id="searchInput"/>
                                 <span class="input-group-btn">
                                     <button class="btn btn-info btn-lg" type="button">
                                         <i class="glyphicon glyphicon-search"></i>
@@ -20,7 +20,7 @@
                         </div>
                     </div>
                     <div class="col-md-4 col-xs-8 col-md-offset-1 col-xs-offset-2">
-                        <img src="images/brand/panem_groot.png" width="80%" height="auto" alt="">
+                        <img src="images/brand/panem_groot.png" width="80%" height="auto" alt="" ng-hide="smallDevices">
                     </div>
                 </div>
             </div>
@@ -32,7 +32,7 @@
         <div class="row text-center" ng-repeat="resultRow in [0,1]"> <!-- search results -->
 
             <!-- load eight search results -->
-            <div class="col-md-3 col-xs-6 hero-feature" ng-repeat="bakery in pyBakeries | orderBy: '-totalScore' | limitTo: 4*(resultRow+1)" ng-if="$index > 4*resultRow-1" >
+            <div class="col-md-3 col-xs-10 col-md-offset-0 col-xs-offset-1 hero-feature" ng-repeat="bakery in pyBakeries | orderBy: '-totalScore' | limitTo: 4*(resultRow+1)" ng-if="$index > 4*resultRow-1" >
                 <a href="#/client/bakery?bakeryId={{bakery.id}}">
                     <div class="thumbnail">
                         <img src="{{IMAGE_SOURCE + bakery.photoId + IMAGE_EXTENSION}}" alt="">
@@ -46,7 +46,7 @@
                     </div>
                 </a>
             </div>
-            
+
         </div><!-- /.row -->
     </div>
     <!-- /.container -->

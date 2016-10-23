@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row spacer-medium"> <!-- main -->
         <div class="col-md-8 col-md-offset-2">
-            
+
             <!-- credit summary -->
             <div class="panel panel-default">
                 <div class="panel-body">
@@ -16,12 +16,12 @@
                                 {{dict.creditPanel.continue}} <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
                             </button>
                         </div>
-                    </div> <!-- row --> 
+                    </div> <!-- row -->
                 </div> <!-- panel body -->
             </div>
-            
+
             <h3 class="spacer-extended">{{dict.ordersPanel.title}}</h3>
-            
+            <p ng-hide="!pyPreviousOrders.length">{{dict.ordersPanel.orderTip}}</p>
             <!-- previous orders -->
             <div class="panel panel-default spacer-medium">
                 <!-- show this message if no orders to display -->
@@ -29,12 +29,12 @@
                     <div class="row">
                         <div class="col-md-8">{{dict.ordersPanel.noOrders}}</div>
                     </div>
-                </div>                
-                
+                </div>
+
                 <!-- show the orders -->
                 <table class="table table-hover">
                     <!-- TODO maak markeringen vanaf waar deze week, vorige week, twee weken geleden, ... -->
-                    <tbody>                        
+                    <tbody>
                         <tr ng-repeat="order in pyPreviousOrders" ng-click="navigateToOrder(order.id, order.bakeryId)">
                             <th scope="row">{{order.date}}</th>
                             <td>{{order.bakeryName}}</td>
@@ -44,5 +44,5 @@
                 </table>
             </div>
         </div>
-    </div><!-- row main -->    
+    </div><!-- row main -->
 </div>

@@ -5,7 +5,7 @@
             <h2>{{dict.heading}}</h2>
         </div>
     </div>
-    
+
     <!-- telephone -->
     <div class="row">
         <div class="col-sm-offset-1 col-sm-1">
@@ -18,10 +18,10 @@
                     <span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>
                     +32 487 244 130 <!-- dyamisch aanpassen of doorschakelen? -->
                 </p>
-            </div> 
+            </div>
         </div>
     </div>
-    
+
     <!-- email -->
     <div class="row">
         <div class="col-sm-offset-1 col-sm-1">
@@ -30,15 +30,15 @@
         <div class="panel panel-default col-sm-6 spacer-medium">
             <div class="panel-body">
                 <h3>{{dict.viaEmail}}</h3>
-                <p>   
+                <p>
                     <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
-                    <a ng-if="loggedIn" href="mailto:help@panem.be?subject=[klantnummer {{userInfo.id}}] Vraag over panem" target="_blank">help@panem.be</a> 
-                    <a ng-if="!loggedIn" href="mailto:help@panem.be?subject=Vraag over panem" target="_blank">help@panem.be</a> 
+                    <a ng-if="loggedIn" href="mailto:help@panem.be?subject=[klantnummer {{userInfo.id}}] Vraag over panem" target="_blank">help@panem.be</a>
+                    <a ng-if="!loggedIn" href="mailto:help@panem.be?subject=Vraag over panem" target="_blank">help@panem.be</a>
                 </p>
-            </div> 
+            </div>
         </div>
     </div>
-    
+
     <!-- form -->
     <div class="row">
         <div class="col-sm-offset-1 col-sm-1">
@@ -77,24 +77,35 @@
                         </div>
                     </div>
 
+                    <!-- payment reference -->
+                    <div class="form-group row" ng-if="form.paymentReference != null">
+                        <div class=" col-sm-8">
+                            <div class="input-group">
+                                <label for="payref">{{dict.form.paymentReference}}</label>
+                                <input type="text" class="form-control" name="payref" id="payref" placeholder="{{dict.form.name}}" ng-model="form.paymentReference" disabled>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- question -->
                     <div class="form-group row">
                         <div class=" col-sm-8">
                             <label for="name">{{dict.form.question}}</label>
                             <textarea style="resize: vertical;" rows="3" class="form-control" name="question" id="question" placeholder="{{dict.form.question}}" ng-model="form.question" required></textarea>
                         </div>
                     </div>
-                    
+
                     <div class="row">
                         <div class=" col-sm-8" ng-switch on="requestStatus">
-                            
+
                             <!-- backend request feedback -->
-                            <p class="text-danger" ng-switch-default>{{dict.form.status.error}}</p>     
+                            <p class="text-danger" ng-switch-default>{{dict.form.status.error}}</p>
                             <p class="text-success" ng-switch-when="success">{{dict.form.status.success}}</p>
                             <p ng-switch-when="init"><!-- empty --></p>
-                            
+
                             <!-- for not completed message -->
                             <p class="text-danger" ng-show="contactForm.$invalid">{{dict.form.pleaseFillInForm}}</p>
-                            
+
                             <!-- submit button -->
                             <button type="button" class="btn btn-default" ng-disabled="contactForm.$invalid" ng-click="submitForm()">
                                 {{dict.form.send}}
@@ -103,8 +114,8 @@
                         </div>
                     </div>
                 </form>
-            </div> 
+            </div>
         </div>
     </div>
-    
+
 </div>

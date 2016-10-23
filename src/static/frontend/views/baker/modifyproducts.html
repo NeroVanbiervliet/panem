@@ -1,19 +1,16 @@
 <div class="container">
     <div class="row spacer-medium"> <!-- main -->
-        <div class="col-md-8 col-md-offset-2"> 
-            
-            <!-- navigate to bakery page as clients view it -->
+        <div class="col-md-8 col-md-offset-2">
+
+            <!-- page description -->
             <div>
                 <p>{{dict.introduction.introText}}</p>
-                <button type="button" class="btn btn-default" ng-click="goToBakeryPage()">
-                    {{dict.introduction.buttonText}}<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                </button>
             </div>
-            
+
             <!-- products panel -->
-            <div class="panel panel-default spacer-medium"> 
+            <div class="panel panel-default spacer-medium">
                 <div class="panel-heading" id="labelPanelTitle">{{dict.panelTitles.products}}</div>
-                <div class="panel-body">      
+                <div class="panel-body">
 
                     <!-- select category dropdown -->
                     <div class="dropdown">
@@ -27,7 +24,7 @@
                     </div>
 
                     <!-- category name -->
-                    <h3 ng-class="{'spacer-medium':!$first}">{{productCategory.name}}</h3>    
+                    <h3 ng-class="{'spacer-medium':!$first}">{{productCategory.name}}</h3>
 
                     <!-- product list -->
                     <div class="row spacer-medium" ng-repeat-start="product in productCategory.products">
@@ -50,7 +47,7 @@
                         <div class="input-group col-xs-2">
                             <div class="input-group-addon">€</div>
                             <input type="text" class="form-control price-product" data-product-id="{{product.id}}" placeholder="150" ng-disabled="!product.available" ng-model="product.price">
-                        </div>  
+                        </div>
                     </div>
                     <div class="row" ng-repeat-end>
                         <!-- button to delete product -->
@@ -62,9 +59,10 @@
 
                         <!-- ingredient tags -->
                         <div class="col-xs-8">
-                            <input class="typeahead" type="text" placeholder="{{dict.ingredientsPlaceholder}}" data-role="tagsinput" ng-disabled="!product.available" data-bloodhound="bloodhound" ng-if="pyIngredients.custom.length > 0" data-initvalue="{{product.ingredientsString}}" tags-input>
+                            <!-- NEED ng-if="pyIngredients.custom.length > 0" -> dit stond als parameter erbij hieronder, waarom? -->
+                            <input class="typeahead" type="text" placeholder="{{dict.ingredientsPlaceholder}}" data-role="tagsinput" ng-disabled="!product.available" data-bloodhound="bloodhound" data-initvalue="{{product.ingredientsString}}" tags-input>
                         </div>
-                    </div>      
+                    </div>
 
                     <!-- button to add another product to the class -->
                     <div class="row spacer-medium" ng-repeat-end>
@@ -79,7 +77,7 @@
             </div> <!-- products panel -->
 
             <!-- opening hours panel -->
-            <div class="panel panel-default"> 
+            <div class="panel panel-default">
                 <div class="panel-heading" id="labelPanelTitle">{{dict.panelTitles.openingHours}}</div>
                 <div class="panel-body">
                     <div class="row spacer-small" ng-repeat="day in pyBakeryInfo.openingHours">
@@ -129,7 +127,7 @@
                                     <i class="glyphicon glyphicon-time"></i>
                                 </span>
                             </div>
-                        </div>  
+                        </div>
                     </div>
 
                     <!-- save changes button -->
@@ -139,24 +137,24 @@
                         </div>
 
                         <!-- loading icon -->
-                        <div class="col-xs-1" ng-show="requestStatus[0]=='working' || requestStatus[1]=='working'">
+                        <div class="col-xs-1" ng-show="requestStatus.updateBakery=='working' || requestStatus.adaptProducts=='working'">
                             <div class="loader-small"></div>
                         </div>
                         <!-- succesfull -->
-                        <div class="col-xs-6 text-success" ng-show="requestStatus[0]=='success' && requestStatus[1]=='success'">
+                        <div class="col-xs-6 text-success" ng-show="requestStatus.updateBakery=='success' && requestStatus.adaptProducts=='success'">
                             <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                             {{dict.status.success}}
                         </div>
                         <!-- error -->
-                        <div class="col-xs-6 text-danger" ng-show="!(requestStatus[0]=='success' && requestStatus[1]=='success') && !(requestStatus[0]=='working' || requestStatus[1]=='working') && (requestStatus != null)">
+                        <div class="col-xs-6 text-danger" ng-show="!(requestStatus.updateBakery=='success' && requestStatus.adaptProducts=='success') && !(requestStatus.updateBakery=='working' || requestStatus.adaptProducts=='working') && (requestStatus.adaptProducts != 'init' && requestStatus.updateBakery != 'init')">
                             <span class="glyphicon glyphicon-flash" aria-hidden="true"></span>
                             {{dict.status.failure}}
                         </div>
-                    </div>  
+                    </div>
                 </div> <!-- panel body -->
-            </div> <!-- last order hour panel -->  
-                
+            </div> <!-- last order hour panel -->
+
         </div>
         <div class="col-md-2"></div>
-    </div><!-- row main -->    
+    </div><!-- row main -->
 </div>

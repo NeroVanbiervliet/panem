@@ -15,13 +15,7 @@ def get_all_bakeries():
 
 ## Fillers
 ## fill category List
-def fill_category():
-    #only developers mode
-    add_category('Broden')
-    add_category('Koffiekoeken')
-    add_category('Klein gebak')
-    add_category('Taarten')
-    add_category('Broodjes en Pistolets')
+
 
 #def fill_products():
 #    #update for new products

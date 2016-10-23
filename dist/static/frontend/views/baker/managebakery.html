@@ -1,0 +1,83 @@
+<div class="container">
+    
+    <div class="row spacer-medium">
+        <div class="col-md-10 col-md-offset-2">
+            <h3>{{dict.heading.title}}</h3>
+            <p data-to-substitute="{{dict.heading.toSubstitute}}" data-destination="#/client/contact" data-base-text="{{dict.heading.description}}" sub-link></p>
+        </div>
+    </div>
+
+    
+    <div class="row spacer-medium">
+        <div class="col-md-7 col-md-offset-2">
+            <h4>{{dict.orders.title}}</h4>
+
+            
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>{{dict.orders.nextOrder}}</strong></p>
+                            <p>{{dict.orders.amount}} : {{pyDayOrder.totalNumOrders}}</p>
+                            <p>{{dict.orders.money}} : {{pyDayOrder.totalMoney | moneyFilter}}</p>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="button" class="btn btn-default" data-href="#/baker/dayorder?bakeryId={{pyBakeryInfo.id}}&date={{tomorrowDate}}" data-button-link>
+                                {{dict.orders.details}}
+                                <span class="glyphicon glyphicon-chevron-right"></span>
+                            </button>
+                        </div>
+                    </div> 
+                </div> 
+            </div>
+
+            
+            <button type="button" class="btn btn-default" data-href="#/baker/allorders?bakeryId={{pyBakeryInfo.id}}" data-button-link>
+                {{dict.orders.allOrders}}
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </button>
+        </div>
+    </div>
+
+    
+    <div class="row spacer-extended">
+        <div class="col-md-10 col-md-offset-2">
+            <h4>{{dict.modify.title}}</h4>
+            <p>{{dict.modify.currentBakeryPage}}</p>
+            <button type="button" class="btn btn-default" ng-click="goToBakeryPage()">
+                {{dict.modify.toClientBakery}}<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            </button>
+            <button type="button" class="btn btn-default" data-href="#/baker/modifyproducts" data-button-link>
+                {{dict.modify.toModifyPage}}
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </button>
+        </div>
+    </div>
+
+    
+    <div class="row spacer-extended">
+        <div class="col-md-10 col-md-offset-2">
+            <h4>{{dict.notifications.title}}</h4>
+            {{dict.notifications.destinationEmail}} {{userInfo.email}}
+
+            
+            <div class="row spacer-small">
+                
+                <div class="col-md-1">
+                    <input type="checkbox" id="toggle-email" ng-if="emailNotifyNextDayOrder!==undefined" data-style="quick" data-size="mini" data-linkvar="emailNotifyNextDayOrder" data-linkvar-in-parent="true" toggle-general> 
+                </div>
+
+                <div class="col-md-11">
+                    {{dict.notifications.toggles.nextDayOrder}} ({{pyBakeryInfo.bestelLimitTime}})
+                </div>
+            </div>
+
+            
+            <div class="row spacer-small">
+                <div class="col-md-12">
+                    <div data-key="saveEmailSettings" request-status-handler></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

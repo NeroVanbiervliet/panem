@@ -100,9 +100,9 @@ def update_hasProduct(idIn,bakeryIdIn,productIdIn,priceIn,availabilityIn):
     except ObjectDoesNotExist:
         a = 'lol'
     
-def add_category(nameIn):
+def add_category(nameIn,defaultPhotoIdIn):
     
-    b = Category(name = nameIn)
+    b = Category(name = nameIn, defaultPhotoId = defaultPhotoIdIn)
     b.save()
 
 def update_category(idIn,nameIn):

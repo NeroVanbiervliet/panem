@@ -17,7 +17,7 @@
                                 <span class="glyphicon glyphicon-print" aria-hidden="true"></span>
                             </button>
                         </div>
-                    </div>  
+                    </div> 
                 </div> 
                 <table class="table">
                     <tbody id="tableBody">
@@ -34,12 +34,20 @@
                     </tbody>
                 </table>
             </div>
+
             
-             
             <div class="panel panel-default">
                 <div class="panel-heading">{{dict.individualPanel.title}}</div>
                 <table class="table">
                     <tbody id="tableBody">
+                        
+                        <tr ng-hide="pyOrder.orders.length">
+                            <th>
+                                <span class="glyphicon glyphicon-info-sign"></span>
+                                Er zijn geen nog geen bestellingen
+                            </th>
+                        </tr>
+
                         <tr ng-repeat-start="order in pyOrder.orders" class="active avoid-page-break">
                             <th>{{order.lastName.toUpperCase()}} {{order.firstName}}</th>
                             <td class="price-euro">{{order.totalPrice | moneyFilter}}</td>
@@ -64,5 +72,5 @@
                 </table>
             </div>
         </div>
-    </div>    
+    </div>
 </div>

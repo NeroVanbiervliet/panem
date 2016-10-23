@@ -36,7 +36,7 @@ end
 # Unset irrelevant variables.
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV "/home/nero/Downloads/panem_server_pull/panem_project_modified/panem_env"
+set -gx VIRTUAL_ENV "/home/nero/GIT/panem/dist/panem_env"
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/bin" $PATH

@@ -168,11 +168,12 @@ def getPreviousOrdersAcrossBakeries(accountId):
         currentBakeryOrders = getPreviousOrders(int(accountId),int(bakery.id))
         if currentBakeryOrders != 'ordersnotfound':
 
+            # NEED werkt dit nog?
             # calculate total price for each order with the current prices
             for order in currentBakeryOrders:
                 totalPrice = 0
                 for product in order['products']:
-                    totalPrice += product['amount']*product['productData']['price']
+                    totalPrice += product['amount']*product['price']
                 order['totalPrice'] = totalPrice
                 # add bakery id to order
                 order['bakeryId'] = bakery.id
@@ -217,14 +218,12 @@ def getPreviousOrders(accountId,bakeryId):
                     if productOrder.orderId == order.id:
                         productId = productOrder.productId
                         product = Product.objects.get(id = productId)
-                        productData = {}
-                        productData['price'] = productOrder.price
-                        productData['name'] = product.name
-                        productData['id'] = productId
-                        productData['photoId'] = product.photoId
+                        productDict['price'] = productOrder.price
+                        productDict['name'] = product.name
+                        productDict['id'] = productId
+                        productDict['photoId'] = product.photoId
 
                         productDict['amount'] = productOrder.amount
-                        productDict['productData'] = productData
                         orderTemp['products'].append(productDict)
                 xSort.append(orderTemp['numDaysPast'])
                 output.append(orderTemp)

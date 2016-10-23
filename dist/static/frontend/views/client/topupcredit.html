@@ -1,0 +1,57 @@
+<div class="container">
+    
+    <div class="row spacer-medium">
+        <div class="col-md-8 col-md-offset-2">
+            <h3>{{dict.addCreditToAccount}}</h3>
+            <p>{{dict.addCreditToAccountTooltip}}</p>
+            <div class="panel panel-default spacer-medium">
+                <div class="panel-body">
+                    
+                    <div class="row">
+                        <form class="col-sm-12">
+                            <div class="input-group col-xs-4 col-sm-2">
+                                <div class="input-group-addon">€</div>
+                                <input type="text" class="form-control" ng-model="$parent.amountTopUp" placeholder="10">
+                            </div>
+                            <h4 class="text-success" ng-if="amountTopUp>=10">
+                                +2
+                            </h4>
+
+                            <span class="label label-success">
+                                {{dict.bonusCredit}}
+                            </span>
+
+                            <div class="spacer-medium">
+                                <button class="btn btn-default" ng-click="proceedPaymentAdyen()">{{dict.payOnline}}</button>
+                            </div>
+                            <div class="spacer-small">
+                                <span class="fa fa-lock fa-lg"></span>
+                                {{dict.paymentIsSecure}}
+                            </div>
+                        </form>
+                    </div> 
+                </div> 
+            </div> 
+        </div>
+    </div>
+
+    
+
+    
+    <form method="post" action="https://test.adyen.com/hpp/select.shtml" id="hiddenForm" target="_parent">
+        <input type="hidden" name="merchantSig" value="{{pyBill.merchantSig}}"/>
+        <input type="hidden" name="sessionValidity" value="{{pyBill.sessionValidity}}"/>
+        <input type="hidden" name="shipBeforeDate" value="{{pyBill.shipBeforeDate}}"/>
+        <input type="hidden" name="shopperLocale" value="{{pyBill.shopperLocale}}"/>
+        <input type="hidden" name="merchantAccount" value="{{pyBill.merchantAccount}}"/>
+        <input type="hidden" name="paymentAmount" value="{{pyBill.paymentAmount}}"/>
+        <input type="hidden" name="currencyCode" value="{{pyBill.currencyCode}}"/>
+        <input type="hidden" name="skinCode" value="{{pyBill.skinCode}}"/>
+        <input type="hidden" name="merchantReference" value="{{pyBill.merchantReference}}"/>
+        <input type="hidden" name="merchantReturnData" value="{{pyBill.merchantReturnData}}"/>
+        <input type="hidden" name="shopperReference" value="{{pyBill.shopperReference}}"/>
+        <input type="hidden" name="recurringContract" value="{{pyBill.recurringContract}}"/>
+        <input type="hidden" name="shopperEmail" value="{{pyBill.shopperEmail}}"/>
+        <input type="submit" id="testSubmit" class="submit" style="display: none" />
+    </form>
+</div>

@@ -1,6 +1,6 @@
 <div class="container">
     <!-- main -->
-    <div class="row spacer-medium"> 
+    <div class="row spacer-medium">
         <div class="col-md-8 col-md-offset-2">
 
             <button type="button" class="btn btn-default" ng-click="navigate('#/client/bakery?bakeryId=' + pyOrder.bakery.id)">
@@ -13,7 +13,7 @@
                 <div class="panel-body">
 
                     <!-- bakery summary -->
-                    <div class="row"> 
+                    <div class="row">
                         <div class="col-sm-6">
                             <img src="{{SHOP_IMAGE_SOURCE + pyOrder.bakery.photoId + IMAGE_EXTENSION}}" class="img-responsive img-rounded" width="400">
                         </div>
@@ -39,7 +39,7 @@
                             <tbody id="tableBody">
 
                                 <tr ng-repeat="product in pyOrder.products">
-                                    <td> 
+                                    <td>
                                         <img src="{{PRODUCT_IMAGE_SOURCE + product.photoId + PRODUCT_IMAGE_EXTENSION}}" class="img-responsive img-rounded" width="30">
                                     </td>
                                     <td>{{product.name}}</td>
@@ -66,11 +66,14 @@
                         </table>
                     </div> <!-- row products -->
 
+                    <!-- message of insufficient credit -->
+                    <p class="insufficient-funds" ng-hide="credit >= pyOrder.totalPrice">{{dict.insufficientFunds}}</p>
+
                     <!-- payment -->
                     <div class="row">
                         <form class="col-sm-12">
                             <div ng-switch="credit >= pyOrder.totalPrice">
-                                
+
                                 <!-- pay with credit -->
                                 <div ng-switch-when="true">
                                     <p><button type="submit" class="btn btn-success" ng-click="proceedPaymentCredit()">{{dict.payWithCredits}}</button></p>
@@ -82,7 +85,7 @@
                                         {{dict.addCreditToAccount}}
                                         <span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="{{dict.addCreditToAccountTooltip}}" tooltip></span>
                                     </label>
-                                    
+
                                     <div class="input-group col-xs-4 col-sm-2">
                                         <div class="input-group-addon">€</div>
                                         <input type="text" class="form-control" ng-model="$parent.extraCredit" placeholder="10">
@@ -90,36 +93,36 @@
                                     <h4 class="text-success" ng-if="extraCredit>=10">
                                         +2
                                     </h4>
-                                   
+
                                     <span class="label label-success">
                                         {{dict.bonusCredit}}
                                     </span>
-                                    
+
                                     <div class="spacer-medium">
                                         <button class="btn btn-default" ng-click="proceedPaymentAdyen()">{{dict.payOnline}}</button>
                                     </div>
                                     <div class="spacer-small">
                                         <span class="fa fa-lock fa-lg"></span>
                                         {{dict.paymentIsSecure}}
-                                    </div>      
+                                    </div>
                                 </div>
-                            </div>   
-                        </form> 
+                            </div>
+                        </form>
                     </div> <!-- payment row -->
                 </div> <!-- panel body -->
             </div> <!-- panel -->
         </div>
         <div class="col-md-2"></div>
-    </div><!-- row main -->    
+    </div><!-- row main -->
     <!--
     //https://ca-test.adyen.com/ca/ca/skin/checkhmac.shtml
     //https://test.adyen.com/hpp/pay.shtml = one page payment flow
     //https://test.adyen.com/hpp/select.shtml = multiple page payment flow
     //http://posttestserver.com/post.php
     -->
-    
+
     <!-- TODO oplossen dat select.shtml niet nodig is voor mobile, dat one page ook werkt -->
-    
+
     <!-- hidden adyen form -->
     <form method="post" action="https://test.adyen.com/hpp/select.shtml" id="hiddenForm" target="_parent">
         <input type="hidden" name="merchantSig" value="{{pyBill.merchantSig}}"/>

@@ -27,7 +27,9 @@ def processJson(request):
     # remove json=
     dataToParse = dataToParse.replace('json=','')
     # decode, replaces %7B by {, %22 by ",  %2C by ,
-    dataToParse=urllib.unquote(dataToParse)
+    dataToParse = urllib.unquote(dataToParse)
+    # convert + to space
+    dataToParse = dataToParse.replace('+',' ')
     # convert to object
     return json.loads(dataToParse)
 
@@ -116,7 +118,8 @@ def createBakery(request):
             bakeryInfo['bankAccount'] = str(parsedData['bakeryInfo']['bankAccount']) 
             #bakeryInfo['openings'] = str(parsedData['bakeryInfo']['openings'])
 
-            output = crf.create_bakery(personInfo, bakeryInfo, token)
+            # sendMail = True
+            output = crf.create_bakery(personInfo, bakeryInfo,True)
         else:
             output = info
         return HttpResponse(str(output))
@@ -212,7 +215,7 @@ def disableDates(request, bakeryId,token):
     if validMethod:
         info = atm.verifyToken(token)
         if isinstance(info, int ):
-            output = databaseFunctions.get_disableDates(int(bakeryId))
+            output = json.dumps(databaseFunctions.get_disableDates(int(bakeryId)))
         else:
             output = info
             output = json.dumps(output)
@@ -355,7 +358,8 @@ def createAccount(request):
             password = str(parsedData['password'])
             typeIn = str(parsedData['type']) 
 
-            output = crf.create_account(firstnameIn, lastnameIn, emailIn, typeIn, adressIn, password,token)
+            # sendMail = True
+            output = crf.create_account(firstnameIn, lastnameIn, emailIn, typeIn, adressIn, password,token,True)
         else:
             output = info
         return HttpResponse(str(output))
@@ -709,7 +713,7 @@ def previousOrdersAcrossBakeries(request,token):
         else:
             output = info
         if info == 0:
-            output = 'Token not auhorised'
+            output = 'token not auhorised'
         return HttpResponse(output)
 
     else:
@@ -808,9 +812,10 @@ def submitContactIssue(request):
         name = str(parsedData['name'])
         email = str(parsedData['email'])
         telephone = str(parsedData['telephone'])
+        paymentReference = str(parsedData['paymentReference'])
         question = str(parsedData['question'])
 
-        eventText = 'naam : ' + name + '\nemail : ' + email + '\ntelefoon : ' + telephone + '\nvraag : ' + question
+        eventText = 'paymentReference : ' + paymentReference + '\nnaam : ' + name + '\nemail : ' + email + '\ntelefoon : ' + telephone + '\nvraag : ' + question
 
         info = atm.verifyToken(token)
         if isinstance(info, int ):
