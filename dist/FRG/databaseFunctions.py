@@ -51,9 +51,8 @@ def get_bakeryId(name_lookup):
 def get_bakery_from_id(bakeryId,accountId):
     try:
         objectOut = Bakery.objects.get(id=bakeryId)
-        kind = 'visit'
-        event_text = str(bakeryId)
-        LogHappenning(accountId,event_text,kind)
+        bakeryIdStr = str(bakeryId)
+        logVisit(accountId,bakeryIdStr)
     except ObjectDoesNotExist:
         objectOut = 'NA'
         
@@ -203,12 +202,13 @@ def get_disableDates(bakeryId):
             if disableDate.bakeryId == bakeryId and -1 < diff < threshold:
                 output.append(diff)
         
-        openings = eval(bakery.openings)
+        openings = eval(bakery.openings.replace('false','False').replace('true','True'))
         weekdayNow = datetime.datetime.now().weekday()
         
         for i in range(len(openings)):
             weekday = i
-            if openings[i][2] == 'false':
+            print openings[i][2]
+            if not openings[i][2]: # False, bakery is closed that day
                 for i in range(7):
                     daysInFuture = weekday - weekdayNow + 7*i
                     if -1 < daysInFuture < threshold and (daysInFuture not in output):
@@ -242,7 +242,16 @@ def asanaLink(assigneeEmail,taskName,notes):
     a={'name':taskName,'projects':'151047700474054','workspace':'97640907304377','notes':notes,'assignee':assigneeEmail}
     client.tasks.create(a)
 
-    
+def logVisit(accountId,bakeryId):
+    newLog = Logging()
+    newLog.timeStamp = datetime.datetime.now()
+    newLog.accountId = accountId
+    newLog.event_text = bakeryId
+    newLog.kind = 'visit'
+
+    newLog.save()
+
+
 def LogHappenning(accountId,event_text,kind):
     b = Logging()
     

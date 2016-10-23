@@ -17,9 +17,10 @@ def resetPasswordSendMail(email,name,code):
     return code
 
 
-def sendVerifyMail(receiverEmail,code,token):
+def sendVerifyMail(receiverEmail,code):
 
-    f = open('../email/registration.html','r')
+    # relative from manage.py
+    f = open('email_templates/registration.html','r')
     html = f.read()
     html = html.replace('(code_input)',str(code))
     html = html.replace('(email_input)',str(receiverEmail))
@@ -62,7 +63,7 @@ def repeatVerifyMail(emailIn,token):
         else:
             name = account.firstname
             code = account.confirmed
-            sendVerifyMail(emailIn,code,token)
+            sendVerifyMail(emailIn,code)
 
             return 'success'
 

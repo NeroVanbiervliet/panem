@@ -1,4 +1,4 @@
-#!/home/nero/Downloads/panem_server_pull/panem_push/panem_env/bin/python
+#!/home/nero/GIT/panem/src/panem_env/bin/python
 
 # -*- coding: utf-8 -*-
 import re

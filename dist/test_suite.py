@@ -17,12 +17,12 @@ client = Client()
 
 # ACTIVATED TESTS
 t1 = True # 1 TOKEN TESTS
-t2 = True # 2 BAKERY TESTS
+t2 = False # 2 BAKERY TESTS
 t3 = True # 3 ORDER TESTS
-t4 = True # 4 ACCOUNT TESTS
-t5 = True # 5 ME TESTS
-t6 = True # 6 ADYEN TESTS
-t7 = True # 7 CONTACT TESTS
+t4 = False # 4 ACCOUNT TESTS
+t5 = False # 5 ME TESTS
+t6 = False # 6 ADYEN TESTS
+t7 = False # 7 CONTACT TESTS
 
 # COMMON MISTAKES
 # http status 301 when doing GET is often because of '/' forgotten at the end of the request
@@ -645,6 +645,7 @@ if t7:
         "name" : "Nero Vanbiervliet",
         "telephone" : "0487244130",
         "email" : "nero.vanbiervliet@gmail.com",
+        "paymentReference" : "nerovb123456",
         "question" : "ik kan niet meer inloggen in mijn account. help!"
     }
 

@@ -91,7 +91,7 @@ def replaceFirstLineOfFile(filePath, newText):
 # relative path to src and dist directory
 srcPath = 'src/'
 distPath = 'dist/'
-serverIp = '146.185.179.39'
+serverIp = '95.85.20.119'
 serverEnvPath = '/home/sysadmin/panem/dist/panem_env/'
 
 # obtain version number from command line arguments
@@ -131,9 +131,9 @@ for i in range(len(filesToModify)):
 
 print 'replacing adyen skin codes and HMAC keys'
 replaceCodeInFileRegex(distPath + 'FRG/salesOffice.py',r"MOBILE_SKIN_CODE = '.+'","MOBILE_SKIN_CODE = 'CDTklqvU'")
-replaceCodeInFileRegex(distPath + 'FRG/salesOffice.py',r"MOBILE_HMAC_KEY = '.+'","MOBILE_HMAC_KEY = '186B64CF9623215BAFE622DA227CC5C669EF4C5F09E0632EB9AFA918FD727295'")
-replaceCodeInFileRegex(distPath + 'FRG/salesOffice.py',r"NORMAL_SKIN_CODE = '.+'","MOBILE_SKIN_CODE = 'Xvwh5KA0'")
-replaceCodeInFileRegex(distPath + 'FRG/salesOffice.py',r"NORMAL_HMAC_KEY = '.+'","MOBILE_HMAC_KEY = '57A6794EFB389EF0ABFC249E54919CDFB7C83BAE6CAFD929E1F8CF6D9358394D'")
+replaceCodeInFileRegex(distPath + 'FRG/salesOffice.py',r"MOBILE_HMAC_KEY = '.+'","MOBILE_HMAC_KEY = 'f15d5s4f5s7e4fhjk7y5'")
+replaceCodeInFileRegex(distPath + 'FRG/salesOffice.py',r"NORMAL_SKIN_CODE = '.+'","NORMAL_SKIN_CODE = 'Xvwh5KA0'")
+replaceCodeInFileRegex(distPath + 'FRG/salesOffice.py',r"NORMAL_HMAC_KEY = '.+'","NORMAL_HMAC_KEY = 'f15d5s4f5s7e4fhjk7y5'")
 
 print 'build completed'
 
