@@ -415,7 +415,7 @@ panemApp.service('dictionary', function($rootScope) {
                     "addCreditToAccount" : "Voeg krediet toe aan mijn account",
                     "addCreditToAccountTooltip" : "Krediet kun je later gebruiken om een andere online bestelling te plaatsen zonder opnieuw je bankgegevens te hoeven gebruiken",
                     "bonusCredit" : "Vanaf 10 euro krijg je twee euro extra krediet!",
-                    "payOnline" : "Betaal online",
+                    "payOnline" : "Betaal",
                     "paymentIsSecure" : "De betaling wordt veilig verwerkt door onze partner Adyen"
                 };
                 $rootScope.title = 'Panem - Bevestig bestelling';
@@ -734,7 +734,7 @@ panemApp.service('dictionary', function($rootScope) {
                     "addCreditToAccount" : "Krediet toevoegen aan je account",
                     "addCreditToAccountTooltip" : "Krediet kun je later gebruiken om een andere online bestelling te plaatsen zonder opnieuw je bankgegevens te hoeven gebruiken",
                     "bonusCredit" : "Vanaf 10 euro krijg je twee euro extra krediet!",
-                    "payOnline" : "Betaal online",
+                    "payOnline" : "Voeg krediet toe",
                     "paymentIsSecure" : "De betaling wordt veilig verwerkt door onze partner Adyen"
                 };
                 $rootScope.title = 'Panem - Krediet opladen';
