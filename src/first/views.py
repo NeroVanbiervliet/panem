@@ -359,7 +359,7 @@ def createAccount(request):
             typeIn = str(parsedData['type']) 
 
             # sendMail = True
-            output = crf.create_account(firstnameIn, lastnameIn, emailIn, typeIn, adressIn, password,token,True)
+            output = crf.create_account(firstnameIn, lastnameIn, emailIn, typeIn, adressIn, password,True)
         else:
             output = info
         return HttpResponse(str(output))

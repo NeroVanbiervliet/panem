@@ -18,8 +18,8 @@ client = Client()
 # ACTIVATED TESTS
 t1 = True # 1 TOKEN TESTS
 t2 = False # 2 BAKERY TESTS
-t3 = True # 3 ORDER TESTS
-t4 = False # 4 ACCOUNT TESTS
+t3 = False # 3 ORDER TESTS
+t4 = True # 4 ACCOUNT TESTS
 t5 = False # 5 ME TESTS
 t6 = False # 6 ADYEN TESTS
 t7 = False # 7 CONTACT TESTS
