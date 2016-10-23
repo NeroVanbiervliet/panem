@@ -92,7 +92,7 @@ panemApp.config(['$routeProvider', function($routeProvider) {
 }]);
 
 panemApp.run(function(userInfo, $rootScope, $location, tokenManager, dictionary, $window) {
-    $rootScope.baseUrl = 'http://146.185.179.39:8000';
+    $rootScope.baseUrl = 'http://95.85.20.119:8000';
     $rootScope.defaultTitle = 'Panem - bestel uw brood online';
 
     // load navbar js
