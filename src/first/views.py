@@ -806,23 +806,26 @@ def submitContactIssue(request):
     [validMethod,errorMsg] = validRequestMethod(request,'POST')
 
     if validMethod:
+        # check for valid account
         parsedData = processJson(request)
-
         token = parsedData['token']
-        name = str(parsedData['name'])
-        email = str(parsedData['email'])
-        telephone = str(parsedData['telephone'])
-        paymentReference = str(parsedData['paymentReference'])
-        question = str(parsedData['question'])
-
-        eventText = 'paymentReference : ' + paymentReference + '\nnaam : ' + name + '\nemail : ' + email + '\ntelefoon : ' + telephone + '\nvraag : ' + question
-
         info = atm.verifyToken(token)
         if isinstance(info, int ):
-            accountId = info
-            databaseFunctions.LogHappenning(accountId,eventText,'contact')
-            output = 'success'
 
+            name = str(parsedData['name'])
+            email = str(parsedData['email'])
+            telephone = str(parsedData['telephone'])
+            question = str(parsedData['question'])
+            accountId = info
+            if 'paymentReference' in parsedData:
+                paymentReference = str(parsedData['paymentReference'])
+                eventText = 'paymentReference : ' + paymentReference + '\nnaam : ' + name + '\nemail : ' + email + '\ntelefoon : ' + telephone + '\nvraag : ' + question
+                databaseFunctions.LogHappenning(accountId,eventText,'contact-payment')
+            else:
+                eventText = 'naam : ' + name + '\nemail : ' + email + '\ntelefoon : ' + telephone + '\nvraag : ' + question
+                databaseFunctions.LogHappenning(accountId,eventText,'contact')
+
+            output = 'success'
         else:
             output = info
 

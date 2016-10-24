@@ -272,6 +272,11 @@ def LogHappenning(accountId,event_text,kind):
         notes = 'account id : ' + str(b.accountId) + '\n' +\
                 b.event_text
 
+    elif kind == 'contact-payment':
+        taskName = 'issue ' + str(b.id) + ' [' + kind + ']'
+        notes = 'account id : ' + str(b.accountId) + '\n' +\
+                b.event_text
+
     else:
         taskName = 'issue ' + str(b.id)
         notes = 'account id : ' + str(b.accountId) + '\n' +\
