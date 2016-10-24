@@ -635,9 +635,16 @@ def currentOrderReceipt(request):
         info = atm.verifyToken(token)
         if isinstance(info, int ) and (not info == 0):
             accountId = info
-            merchantReference = parsedData['merchantReference'] 
             authResult = parsedData['authResult']
-            output = bts.currentOrderReceipt(str(authResult),int(accountId))
+
+            if 'merchantReturnData' in parsedData and str(parsedData['merchantReturnData']).split('-')[0] == 'topUp':
+                # credit topup payment
+                topUpId = int(str(parsedData['merchantReturnData']).split('-')[1])
+                output = slo.topUpReceipt(int(accountId),topUpId)
+            else:
+                # current order payment
+                output = slo.currentOrderReceipt(str(authResult),int(accountId))
+
         else:
             output = info
             

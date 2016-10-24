@@ -82,38 +82,7 @@ def initStandardProducts(bakeryObject):
             add_hasProduct(bakeryId,copiedproductId,price,availability)
 
 
-def currentOrderReceipt(authResult,accountId):
 
-    if authResult == 'AUTHORISED':
-        # NEED : check hash code
-        account = Account.objects.get(id=accountId)
-        orderId = account.lastOrderId
-
-        if orderId > 0:
-            order = Order.objects.get(id=orderId)
-            status = order.status
-            type,adyenId = status.split(';')
-            if type == 'Billed Adyen':
-
-                adyenPayment = AdyenPayment.objects.get(id=adyenId)
-                adyenPayment.succes == 1
-                adyenPayment.save()
-                order.status = 'payed;0'
-                order.save()
-                account.lastOrderId = 0
-                account.credit += adyenPayment.extraCredit
-                account.save()
-                output = 'success-' + str(adyenId) # NEED als er wel degelijk een adyen payment is, maar hashcode blijkt niet ok te zijn, moet dan ook het adyenId mee geouput worden
-
-            else:
-                output = 'notbilledwithadyen'
-        else:
-            output = 'nocurrentorder'
-
-    else:
-        output = authResult
-
-    return output
 
 # pays the current order with credit if possible
 def currentOrderCredit(accountId):
