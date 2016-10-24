@@ -36,14 +36,18 @@
             <!-- TAB CONTENT -->
             <div class="row tab-content" id="tabsContent">
                 <div class="tab-pane fade" ng-repeat="cat in pyCategories" id="content{{$index}}" ng-class="{'in active':$first}">
-                    <div class="col-sm-3 col-xs-3" ng-repeat="product in cat.products">
+                    <div class="col-sm-3 col-xs-3" ng-repeat="product in cat.products" ng-if="product.available">
                         <div ng-class="{true: 'box-xs', false: 'box'}[smallDevices]" style="background-image: url('{{PRODUCT_IMAGE_SOURCE + product.photoId + IMAGE_EXTENSION}}');">
                             <div ng-class="{true: 'overlay-xs', false: 'overlay'}[smallDevices]" ng-click="addProductToOrder(product)">
                                 <span aria-hidden="true" class="glyphicon glyphicon-plus" ng-class="{true: 'product-plus-xs', false: 'product-plus'}[smallDevices]"></span>
                             </div>
                         </div>
                         <div class="text-center">
-                            <p class="label label-default">{{product.name}}</p>
+                            <!-- name -->
+                            <div ng-repeat="namePart in product.displayName">
+                                <p class="label label-default">{{namePart}}</p>
+                            </div>
+                            <!-- price -->
                             <span class="badge price-euro">{{product.price | moneyFilter}}</span>
                         </div>
                     </div>

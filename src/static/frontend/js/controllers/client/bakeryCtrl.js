@@ -3,7 +3,6 @@ panemApp.controller('clBakeryCtrl', function($scope, $rootScope, dictionary, $wi
 	// define variables
     $scope.pyBakeryInfo;
     $scope.pyCategories;
-    $scope.pyProducts;
     $scope.pyPreviousOrders;
     $scope.pyDisabledDatesInt;
 
@@ -75,13 +74,14 @@ panemApp.controller('clBakeryCtrl', function($scope, $rootScope, dictionary, $wi
         });
     }
 
-    // get pyCategories and pyProducts
+    // get pyCategories
     var loadProducts = function (token){
         $http({
             method : "GET",
             url : $rootScope.baseUrl + "/bakery/" + $scope.bakeryId + "/products/categories/token=" + token
         }).then(function(response) {
             $scope.pyCategories = response.data;
+            generateDisplayNames();
         }, function(response) {
             $scope.pyCategories = [];
         });
@@ -115,6 +115,30 @@ panemApp.controller('clBakeryCtrl', function($scope, $rootScope, dictionary, $wi
             $scope.pyBakeryInfo = {};
             // TODO dit geeft een slechte pagina
         });
+    }
+
+    // generate displayNames
+    function generateDisplayNames() {
+        for(var i=0; i<$scope.pyCategories.length; i++) {
+            var currentCat = $scope.pyCategories[i];
+
+            for(var j=0; j<currentCat.products.length; j++) {
+                var currentProduct = currentCat.products[j];
+                var displayName; // the name to be displayed in the current order
+
+                // check if name will fit in one label
+                if(currentProduct.name.length <= 20) {
+                    displayName = [currentProduct.name];
+                }
+                else { // does not fit in one label
+                    // TODO splits eerst altijd op spaties indien mogelijk, dan pas binnen woorden
+                    displayName = currentProduct.name.match(/.{1,20}/g); // splits productname in pieces of size 20
+                }
+
+                // store displayName
+                $scope.pyCategories[i].products[j].displayName = displayName; 
+            }
+        }
     }
 
     // initialises variables
@@ -368,21 +392,9 @@ panemApp.controller('clBakeryCtrl', function($scope, $rootScope, dictionary, $wi
         }
         else // product is not present in order
         {
-            var displayName; // the name to be displayed in the current order
-
-            // check if name will fit in one label
-            if(product.name.length <= 20) {
-                displayName = [product.name];
-            }
-            else { // does not fit in one label
-                // TODO splits eerst altijd op spaties indien mogelijk, dan pas binnen woorden
-                displayName = product.name.match(/.{1,20}/g); // splits productname in pieces of size 20
-            }
-
             // add product to order
             $scope.order.products.push($.extend({ // extend joins two {} {} dictionaries
-                'amount' : 1,
-                'displayName' : displayName
+                'amount' : 1
             },product));
         }
     };
