@@ -128,24 +128,10 @@ panemApp.controller('clBakeryCtrl', function($scope, $rootScope, dictionary, $wi
                 var displayNameMobile;
 
                 // displayName
-                // check if name will fit in one label
-                if(currentProduct.name.length <= 20) {
-                    displayName = [currentProduct.name];
-                }
-                else { // does not fit in one label
-                    // TODO splits eerst altijd op spaties indien mogelijk, dan pas binnen woorden
-                    displayName = currentProduct.name.match(/.{1,20}/g); // splits productname in pieces of size 20
-                }
+                displayName = cutNamesSmart(currentProduct.name.split(' '),20);
 
                 // displayNameMobile
-                // check if name will fit in one label
-                if(currentProduct.name.length <= 11) {
-                    displayNameMobile = [currentProduct.name];
-                }
-                else { // does not fit in one label
-                    // TODO splits eerst altijd op spaties indien mogelijk, dan pas binnen woorden
-                    displayNameMobile = currentProduct.name.match(/.{1,11}/g); // splits productname in pieces of size 20
-                }
+                displayNameMobile = cutNamesSmart(currentProduct.name.split(' '),11);
 
                 // used in order
                 $scope.pyCategories[i].products[j].displayNameOrder = displayName;
@@ -473,6 +459,53 @@ panemApp.controller('clBakeryCtrl', function($scope, $rootScope, dictionary, $wi
                 }
             );
     };
+
+    // displayNames cutting function
+    // spl is an array of words
+    function cutNamesSmart(spl, maxWidth) {
+
+        // JOIN PARTS IF POSSIBLE
+    	var joinFinish = true;
+    	for(var i=1; i<spl.length; i++) {
+    		if (spl[i].length + spl[i-1].length <= maxWidth-1) { // -1 because a space will be added
+    			spl[i-1] = spl[i-1] + " " + spl[i];
+    			spl.splice(i, 1);
+    			joinFinish = false;
+    			break;
+            }
+        }
+
+    	if (!joinFinish)
+    		cutNamesSmart(spl, maxWidth);
+
+        // SPLIT TOO LARGE WORDS
+    	var cutFinish = true;
+    	for(var i=0; i<spl.length; i++) {
+    		if (spl[i].length > maxWidth) {
+
+    			// check if at least 4 characters could be added to the previous line
+    			if(i-1>=0 && spl[i-1].length + 4 < maxWidth) {
+    				var extraSpace = maxW-2-spl[i-1].length;
+    				var originalStr = spl[i];
+    				spl[i] = originalStr.substring(0,extraSpace) + "-";
+    				spl.splice(i+1,0,originalStr.substring(extraSpace));
+    				cutFinish = false;
+    				break;
+                }
+    			else {
+    				var originalStr = spl[i];
+    				spl[i] = originalStr.substring(0,maxWidth-1) + "-";
+    				spl.splice(i+1,0,originalStr.substring(maxWidth));
+    				cutFinish = false;
+    				break;
+                }
+            }
+        }
+    	if (!cutFinish)
+    		cutNamesSmart(spl, maxWidth);
+        else
+            return spl
+    }
 
     /***********
      *  WATCH  *
