@@ -1,6 +1,8 @@
 @charset "UTF-8";
 @charset 'iso-8859-15';
 
+/* home page layout */
+
 .background-pattern {
 	/* url is relative to the css file, not the html file where this css is included! */
 	background-image: url("../images/brand/pattern.png");
@@ -231,6 +233,10 @@
 }
 
 /* custom own */
+.cursor-hand {
+	cursor: pointer;
+}
+
 .price-euro:before {
     content: "\20AC  ";
 }
