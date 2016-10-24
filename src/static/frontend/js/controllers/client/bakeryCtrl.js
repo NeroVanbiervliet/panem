@@ -124,26 +124,28 @@ panemApp.controller('clBakeryCtrl', function($scope, $rootScope, dictionary, $wi
 
             for(var j=0; j<currentCat.products.length; j++) {
                 var currentProduct = currentCat.products[j];
-                var displayName;
-                var displayNameMobile;
 
-                // displayName
-                displayName = cutNamesSmart(currentProduct.name.split(' '),20);
-
-                // displayNameMobile
-                displayNameMobile = cutNamesSmart(currentProduct.name.split(' '),11);
-
-                // used in order
-                $scope.pyCategories[i].products[j].displayNameOrder = displayName;
-
-                // used in tabs
-                if($scope.smallDevices) {
-                    $scope.pyCategories[i].products[j].displayNameTabs = displayNameMobile;
-                }
-                else {
-                    $scope.pyCategories[i].products[j].displayNameTabs = displayName;
-                }
+                addDisplayNamesToProduct(currentProduct);
             }
+        }
+    }
+
+    function addDisplayNamesToProduct(product) {
+        // displayName
+        var displayName = cutNamesSmart(product.name.split(' '),20);
+
+        // displayNameMobile
+        var displayNameMobile = cutNamesSmart(product.name.split(' '),11);
+
+        // used in order
+        product.displayNameOrder = displayName;
+
+        // used in tabs
+        if($scope.smallDevices) {
+            product.displayNameTabs = displayNameMobile;
+        }
+        else {
+            product.displayNameTabs = displayName;
         }
     }
 
@@ -325,6 +327,10 @@ panemApp.controller('clBakeryCtrl', function($scope, $rootScope, dictionary, $wi
             {
                 // add products one by one
                 for(var i=0; i<prevOrder.products.length; i++) {
+                    // add display names
+                    addDisplayNamesToProduct(prevOrder.products[i]);
+
+                    // add products to order
                     $scope.addProductToOrder(prevOrder.products[i]);
                 }
             }
@@ -342,6 +348,10 @@ panemApp.controller('clBakeryCtrl', function($scope, $rootScope, dictionary, $wi
                 if(typeof(currentOrderBackend) != "string" && currentOrderBackend.bakery.id == $scope.bakeryId) {
                     // add products one by one
                     for(var i=0; i<currentOrderBackend.products.length; i++) {
+                        // add display names
+                        addDisplayNamesToProduct(currentOrderBackend.products[i]);
+
+                        // add to order
                         $scope.addProductToOrder(currentOrderBackend.products[i]);
                     }
                 }
