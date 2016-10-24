@@ -124,8 +124,10 @@ panemApp.controller('clBakeryCtrl', function($scope, $rootScope, dictionary, $wi
 
             for(var j=0; j<currentCat.products.length; j++) {
                 var currentProduct = currentCat.products[j];
-                var displayName; // the name to be displayed in the current order
+                var displayName;
+                var displayNameMobile;
 
+                // displayName
                 // check if name will fit in one label
                 if(currentProduct.name.length <= 20) {
                     displayName = [currentProduct.name];
@@ -135,8 +137,26 @@ panemApp.controller('clBakeryCtrl', function($scope, $rootScope, dictionary, $wi
                     displayName = currentProduct.name.match(/.{1,20}/g); // splits productname in pieces of size 20
                 }
 
-                // store displayName
-                $scope.pyCategories[i].products[j].displayName = displayName; 
+                // displayNameMobile
+                // check if name will fit in one label
+                if(currentProduct.name.length <= 11) {
+                    displayNameMobile = [currentProduct.name];
+                }
+                else { // does not fit in one label
+                    // TODO splits eerst altijd op spaties indien mogelijk, dan pas binnen woorden
+                    displayNameMobile = currentProduct.name.match(/.{1,11}/g); // splits productname in pieces of size 20
+                }
+
+                // used in order
+                $scope.pyCategories[i].products[j].displayNameOrder = displayName;
+
+                // used in tabs
+                if($scope.smallDevices) {
+                    $scope.pyCategories[i].products[j].displayNameTabs = displayNameMobile;
+                }
+                else {
+                    $scope.pyCategories[i].products[j].displayNameTabs = displayName;
+                }
             }
         }
     }

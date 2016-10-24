@@ -44,7 +44,7 @@
                         </div>
                         <div class="text-center">
                             <!-- name -->
-                            <div ng-repeat="namePart in product.displayName">
+                            <div ng-repeat="namePart in product.displayNameTabs">
                                 <p class="label label-default">{{namePart}}</p>
                             </div>
                             <!-- price -->
@@ -93,7 +93,7 @@
                 <!-- name and price -->
                 <div class="col-xs-5 vcenter">
                     <!-- name -->
-                    <div class="text-left" ng-repeat="namePart in product.displayName">
+                    <div class="text-left" ng-repeat="namePart in product.displayNameOrder">
                         <p class="label label-default">{{namePart}}</p>
                     </div>
 
