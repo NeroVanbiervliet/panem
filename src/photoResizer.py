@@ -7,7 +7,7 @@ import os
 from PIL import Image
 from resizeimage import resizeimage
 
-topDirectory = 'static/frontend/images/'
+topDirectory = 'static/images/'
 
 productDir = 'products/'
 shopDir = 'shops/'

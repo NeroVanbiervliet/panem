@@ -73,6 +73,11 @@ server {
     location / {
         root <b>clone_root</b>/src/static/frontend;
     }
+
+	# to access images
+	location ~ "/images/.{1,}" {
+		root <b>clone_root</b>/src/static;
+	}
 }
 </code></pre>
 
