@@ -159,4 +159,8 @@ class DisableDates(models.Model):
     
     def __str__(self):
         return str(self.bakeryId)
-        
+
+class PromoCode(models.Model):
+    type = models.CharField(max_length=10, default='')
+    valueOne = models.IntegerField()
+    isUsed = models.BooleanField(default=False)
