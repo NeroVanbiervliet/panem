@@ -185,6 +185,7 @@ panemApp.service('dictionary', function($rootScope) {
                     "nextDays" : ["vandaag","morgen","overmorgen"],
                     "weekDays" : ["zondag","maandag","dinsdag","woensdag","donderdag","vrijdag","zaterdag"],
                     "weekDaysNew" : ["maandag","dinsdag","woensdag","donderdag","vrijdag","zaterdag","zondag"],
+                    "closed" : "gesloten",
                     "hourAbbr" : "u",
                     "qualitativePastTime" : {
                         "1" : "gisteren",

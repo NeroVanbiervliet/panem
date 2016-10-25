@@ -232,16 +232,23 @@ panemApp.controller('clBakeryCtrl', function($scope, $rootScope, dictionary, $wi
                 var dayHours = inputOpeningHours[i];
                 var opening = dayHours[0];
                 var closing = dayHours[1];
+                var isOpen = dayHours[2];
 
                 if(i+1==currentDayOfTheWeek)
                 {
-                    // bold
-                    processedOpeningHours += "<strong>" + dict.weekDaysNew[i].charAt(0).toUpperCase() + dict.weekDaysNew[i].substring(1) + " " + opening.h + dict.hourAbbr + opening.m + "-" + closing.h + dict.hourAbbr + closing.m + "</strong>";
+                    // set current day bold
+                    if (isOpen)
+                        processedOpeningHours += "<strong>" + dict.weekDaysNew[i].charAt(0).toUpperCase() + dict.weekDaysNew[i].substring(1) + " " + opening.h + dict.hourAbbr + opening.m + "-" + closing.h + dict.hourAbbr + closing.m + "</strong>";
+                    else
+                        processedOpeningHours += "<strong>" + dict.weekDaysNew[i].charAt(0).toUpperCase() + dict.weekDaysNew[i].substring(1) + " " + dict.closed + "</strong>";
                 }
                 else
                 {
-                    // no bold
-                    processedOpeningHours += "<div>" + dict.weekDaysNew[i].charAt(0).toUpperCase() + dict.weekDaysNew[i].substring(1) + " " + opening.h + dict.hourAbbr + opening.m + "-" + closing.h + dict.hourAbbr + closing.m + "</div>";
+                    // other days no bold
+                    if (isOpen)
+                        processedOpeningHours += "<div>" + dict.weekDaysNew[i].charAt(0).toUpperCase() + dict.weekDaysNew[i].substring(1) + " " + opening.h + dict.hourAbbr + opening.m + "-" + closing.h + dict.hourAbbr + closing.m + "</div>";
+                    else
+                        processedOpeningHours += "<div>" + dict.weekDaysNew[i].charAt(0).toUpperCase() + dict.weekDaysNew[i].substring(1) + " " + dict.closed + "</div>";
                 }
             }
         }
