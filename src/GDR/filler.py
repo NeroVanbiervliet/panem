@@ -11,6 +11,8 @@ from FRG.wareHouse import adaptProducts
 from FRG.creatorFunctions import create_bakery,create_account
 from GDR.basicFunctions import add_product,add_category
 from first.models import Bakery,Category
+import FRG.salesOffice as slo
+import GDR.basicFunctions as bsf
 
 def databaseFillAll():
     print 'Start'
@@ -24,6 +26,8 @@ def databaseFillAll():
     print 'Succes Products'
     databaseFillAccounts()
     print 'Succes Accounts'
+    fillPromoCodesCredit()
+    print 'Succes Promo Codes'
 
     
 
@@ -198,5 +202,10 @@ def databaseFillAccounts():
 
     # default accounts
     create_account("Nero","Vanbiervliet","nero.vanbiervliet@gmail.com","normal","damse vaart","rosbeiaard",False)
+
+def fillPromoCodesCredit():
+    bsf.addPromoCodeCredit('testcode1')
+    bsf.addPromoCodeCredit('testcode2')
+    slo.usePromoCode('testcode1')
 
 

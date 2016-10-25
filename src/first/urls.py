@@ -42,4 +42,5 @@ urlpatterns = [
     url(r'^token/verify/token=(?P<token>[A-Za-z0-9.-]+)/$', views.verifyToken, name='verifyToken'), #POST working
     url(r'^adyen/notify/$', views.processAdyenNotification, name='processAdyenNotification'), #POST working
     url(r'^contact/$', views.submitContactIssue, name='submitContactIssue'), # POST working
+    url(r'^promo/check/code=(?P<code>[A-Za-z0-9.-]+)&token=(?P<token>[A-Za-z0-9.-]+)/$', views.checkPromoCode, name='checkPromoCode'), # GET
 ]

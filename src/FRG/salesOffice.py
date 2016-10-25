@@ -1,7 +1,7 @@
 from GDR import basicFunctions as bsf
 import GDR.basicFunctions as bsf
 from GDR.basicFunctions import addAdyenPaymentForTopUp, add_order, update_order, add_product_order
-from first.models import Account, Order, Bakery, HasProduct, Product_order, Product, CreditTopUp, AdyenPayment
+from first.models import Account, Order, Bakery, HasProduct, Product_order, Product, CreditTopUp, AdyenPayment, PromoCode
 import datetime
 from django.core.exceptions import ObjectDoesNotExist
 import hmac
@@ -364,5 +364,33 @@ def topUpReceipt(accountId, topUpId):
 
     except ObjectDoesNotExist:
         output = 'error-account-or-topup-operation'
+
+    return output
+
+def checkPromoCode(code):
+    try:
+        promoCode = PromoCode.objects.get(code=code)
+        if(promoCode.isUsed):
+            output = 'invalid-used'
+        else:
+            output = 'valid'
+
+    except ObjectDoesNotExist:
+        output = 'invalid-notfound'
+
+    return output
+
+def usePromoCode(code):
+    try:
+        promoCode = PromoCode.objects.get(code=code)
+        if(promoCode.isUsed):
+            output = 'invalid-used'
+        else:
+            promoCode.isUsed = True
+            promoCode.save()
+            output = 'success'
+
+    except ObjectDoesNotExist:
+        output = 'invalid-notfound'
 
     return output

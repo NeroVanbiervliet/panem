@@ -5,7 +5,7 @@ Created on Wed Mar 30 23:43:52 2016
 @author: matthias
 """
 #Import our models we made in models.py
-from first.models import Bakery,Product,HasProduct,Category,Logging,Account,Order,Product_order,Token,AdyenPayment,PointPayment, CreditTopUp, Ingredient
+from first.models import Bakery,Product,HasProduct,Category,Logging,Account,Order,Product_order,Token,AdyenPayment,PointPayment, CreditTopUp, Ingredient, PromoCode
 from django.core.exceptions import ObjectDoesNotExist
 import datetime
 
@@ -237,3 +237,9 @@ def addBakeryIngredient(bakeryId, name):
     newIngredient = Ingredient(name=name, isStandard=False, bakeryId=bakeryId, allergenes='[]')
     newIngredient.save()
     return newIngredient.id
+
+def addPromoCodeCredit(code):
+    type = 'credit'
+    valueOne = 200 # 2 euro free
+    newPromoCode = PromoCode(type=type,code=code,valueOne=valueOne)
+    newPromoCode.save()

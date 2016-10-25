@@ -19,10 +19,11 @@ client = Client()
 t1 = True # 1 TOKEN TESTS
 t2 = False # 2 BAKERY TESTS
 t3 = False # 3 ORDER TESTS
-t4 = True # 4 ACCOUNT TESTS
+t4 = False # 4 ACCOUNT TESTS
 t5 = False # 5 ME TESTS
 t6 = False # 6 ADYEN TESTS
 t7 = False # 7 CONTACT TESTS
+t8 = True # 8 PROMO CODE TESTS
 
 # COMMON MISTAKES
 # http status 301 when doing GET is often because of '/' forgotten at the end of the request
@@ -656,3 +657,26 @@ if t7:
             printError("unknown error : " + response.content)
 
     # NEED zeker zijn dat contact met asana gelukt is, anders moet databasefunction een output error geven
+
+#
+# 8 PROMO CODE TESTS
+#
+if t8:
+    print "8 PROMO CODE TESTS"
+    # 8.1. promo/check/
+    print "8.1. promo/check/"
+    url = '/promo/check/code=%s&token=%s/' % ('testcode2',tokenLogin)
+    response = client.get(url)
+    assertStatusOk(response.status_code)
+    if(tokenOk(response.content)):
+        if(response.content != "valid"):
+             printError("unknown error : " + response.content)
+
+    # 8.2. promo/check/
+    print "8.2. promo/check/"
+    url = '/promo/check/code=%s&token=%s/' % ('testcode1',tokenLogin)
+    response = client.get(url)
+    assertStatusOk(response.status_code)
+    if(tokenOk(response.content)):
+        if(response.content != "invalid-used"):
+             printError("unknown error : " + response.content)

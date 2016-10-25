@@ -161,6 +161,10 @@ class DisableDates(models.Model):
         return str(self.bakeryId)
 
 class PromoCode(models.Model):
+    # credit promo codes
+    # * type = credit
+    # * valueOne = amount extra credit
     type = models.CharField(max_length=10, default='')
+    code = models.CharField(max_length=15, default='')
     valueOne = models.IntegerField()
     isUsed = models.BooleanField(default=False)

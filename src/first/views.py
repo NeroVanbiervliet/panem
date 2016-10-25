@@ -911,3 +911,14 @@ def insertIngredients(request,bakeryId):
 
     else:
         return errorMsg
+
+# checks the validity of a promotion code
+def checkPromoCode(request, code, token):
+    [validMethod,errorMsg] = validRequestMethod(request,'GET')
+
+    if validMethod:
+        output = slo.checkPromoCode(code)
+        return HttpResponse(output)
+
+    else:
+        return errorMsg
