@@ -734,9 +734,15 @@ panemApp.service('dictionary', function($rootScope) {
                     "panelTitle" : "Voeg krediet toe aan account",
                     "addCreditToAccount" : "Krediet toevoegen aan je account",
                     "addCreditToAccountTooltip" : "Krediet kun je later gebruiken om een andere online bestelling te plaatsen zonder opnieuw je bankgegevens te hoeven gebruiken",
-                    "bonusCredit" : "Vanaf 10 euro krijg je twee euro extra krediet!",
                     "payOnline" : "Voeg krediet toe",
-                    "paymentIsSecure" : "De betaling wordt veilig verwerkt door onze partner Adyen"
+                    "paymentIsSecure" : "De betaling wordt veilig verwerkt door onze partner Adyen",
+                    "promoCode" : "Promotie code",
+                    "promoFeedback" : {
+                        'valid' : "geldige code",
+                        'notfound' : "ongeldige code",
+                        'used' : "is al gebruikt"
+                    },
+                    'promoExplanation' : "Een code geeft je recht op twee euro gratis krediet, bij het opladen van minstens tien euro"
                 };
                 $rootScope.title = 'Panem - Krediet opladen';
 		}

@@ -5,7 +5,10 @@ panemApp.controller('clTopUpCreditCtrl', function($scope, dictionary, requestWra
 
     // VARIABLES
     $scope.pyBill;
-    $scope.requestStatus;
+    $scope.requestStatus = {};
+	$scope.smartChangeCount = 0;
+	$scope.promoCheck;
+	$scope.promoCode;
 
     // proceed to adyen payment
     $scope.proceedPaymentAdyen = function() {
@@ -17,10 +20,10 @@ panemApp.controller('clTopUpCreditCtrl', function($scope, dictionary, requestWra
         }
 
         // get bill from endpoint
-        var url = '/me/topup/bill/amount=' + $scope.amountTopUp*100 + '&skin=' + skin
-        $scope.requestStatus = requestWrapper.init();
+        var url = '/me/topup/bill/amount=' + $scope.amountTopUp*100 + '&skin=' + skin + '&promocode=' + $scope.promoCode
+        $scope.requestStatus.bill = requestWrapper.init();
         requestWrapper.get(url).then(function ([newStatus,resultData]) {
-            $scope.requestStatus = newStatus;
+            $scope.requestStatus.bill = newStatus;
             $scope.pyBill = resultData;
         });
 
@@ -31,5 +34,28 @@ panemApp.controller('clTopUpCreditCtrl', function($scope, dictionary, requestWra
             }
         });
     };
+
+	// checks for changes in an input in a smart way
+	$scope.checkChangeSmart = function() {
+		// get my count
+		var myCount = $scope.smartChangeCount +1;
+		$scope.smartChangeCount++;
+
+		// wait for one seconds
+		setTimeout(function(){
+		    if ($scope.smartChangeCount == myCount)
+				checkPromoCode();
+		}, 1000);
+	};
+
+	function checkPromoCode() {
+		// perform endpoint request
+		var url = '/promo/check/code=' + $scope.promoCode
+	    $scope.requestStatus.promo = requestWrapper.init();
+	    requestWrapper.get(url).then(function ([newStatus,resultData]) {
+	        $scope.requestStatus.promo = newStatus;
+	        $scope.promoCheck = resultData;
+	    });
+	}
 
 });

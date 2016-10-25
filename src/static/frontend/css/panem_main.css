@@ -237,6 +237,10 @@
 	cursor: pointer;
 }
 
+.to-caps {
+	text-transform: uppercase;
+}
+
 .price-euro:before {
     content: "\20AC  ";
 }

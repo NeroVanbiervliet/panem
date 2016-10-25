@@ -217,7 +217,7 @@ def add_PointPayment(date,orderId,shipDate,accountId,bakeryId,clientPay,succes):
     return b.id
 
 # adds a CreditTopUp item to the database, and returns it
-def addCreditTopUp(accountId,amountToPay) :
+def addCreditTopUp(accountId,amountToPay, promoCodeId):
 
     # date of today
     today = datetime.datetime.now()
@@ -225,7 +225,7 @@ def addCreditTopUp(accountId,amountToPay) :
     amountTopUp = amountToPay + 200*int((amountToPay >= 1000)) # int(True) = 1 and int(False) = 0
 
     # create new database item
-    newDbItem = CreditTopUp(accountId=accountId, dateOrdered=today, amountToPay=amountToPay, amountTopUp=amountTopUp)
+    newDbItem = CreditTopUp(accountId=accountId, dateOrdered=today, amountToPay=amountToPay, amountTopUp=amountTopUp, promoCodeId=promoCodeId)
     newDbItem.save()
 
     return newDbItem

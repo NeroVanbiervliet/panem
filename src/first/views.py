@@ -842,14 +842,14 @@ def submitContactIssue(request):
         return errorMsg
 
 # generates the info for an adyen payment to top up the credit
-def topUpAccountBill(request,amount,skin,token):
+def topUpAccountBill(request,amount,skin,promocode,token):
     [validMethod,errorMsg] = validRequestMethod(request,'GET')
 
     if validMethod:
         info = atm.verifyToken(token)
         if isinstance(info, int ):
             accountId = info
-            output = slo.topUpAccountBill(accountId,int(amount), str(skin))
+            output = slo.topUpAccountBill(accountId,int(amount), str(skin),str(promocode))
             output = json.dumps(output)
 
         else:

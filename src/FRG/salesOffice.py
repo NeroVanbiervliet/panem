@@ -121,10 +121,19 @@ def getCreditTopUpBill(creditTopUp, skin):
     return output
 
 # creates a bill to make an adyen payment to top up the credit of an account
-def topUpAccountBill(accountId,amountToPay, skin):
+def topUpAccountBill(accountId,amountToPay, skin, promocode):
+
+    try:
+        promoCodeObj = PromoCode.objects.get(code=promocode)
+        if not promoCodeObj.isUsed:
+            promoCodeId = promoCodeObj.id
+        else:
+            promoCodeId = 0
+    except ObjectDoesNotExist:
+            promoCodeId = 0
 
     # create CreditTopUp instance
-    creditTopUp = bsf.addCreditTopUp(accountId,amountToPay)
+    creditTopUp = bsf.addCreditTopUp(accountId,amountToPay, promoCodeId)
 
     # create the bill
     return getCreditTopUpBill(creditTopUp, skin)
@@ -350,6 +359,8 @@ def currentOrderReceipt(authResult,accountId):
 
 def topUpReceipt(accountId, topUpId):
     # NEED check HMAC
+    # NEED mark topup as payed
+
     try:
         account = Account.objects.get(id=accountId)
         topUp = CreditTopUp.objects.get(id=topUpId)
@@ -357,7 +368,16 @@ def topUpReceipt(accountId, topUpId):
         amountCredit = topUp.amountToPay
         currentCredit = account.credit
 
-        account.credit = currentCredit + amountCredit
+        # check if there is a promo that needs to be applied
+        if topUp.promoCodeId != 0:
+            promoCode = PromoCode.objects.get(id=topUp.promoCodeId)
+            promoCredit = promoCode.valueOne
+            promoCode.isUsed = True
+            promoCode.save()
+        else: # no additional promo credit
+            promoCredit = 0
+
+        account.credit = currentCredit + amountCredit + promoCredit
         account.save()
 
         output = 'success'
@@ -373,7 +393,7 @@ def checkPromoCode(code):
         if(promoCode.isUsed):
             output = 'invalid-used'
         else:
-            output = 'valid'
+            output = 'success-valid'
 
     except ObjectDoesNotExist:
         output = 'invalid-notfound'

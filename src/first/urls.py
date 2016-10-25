@@ -37,7 +37,7 @@ urlpatterns = [
     url(r'^me/previousOrders/bakeryId=(?P<bakeryId>[0-9]+)&token=(?P<token>[A-Za-z0-9.-]+)/$', views.previousOrders, name='previousOrders'), #GET working
     url(r'^me/allPreviousOrders/token=(?P<token>[A-Za-z0-9.-]+)/$', views.previousOrdersAcrossBakeries, name='previousOrdersAcrossBakeries'), #GET working
     url(r'^me/token=(?P<token>[A-Za-z0-9.-]+)/$', views.token2account, name='token2account'), #GET working
-    url(r'^me/topup/bill/amount=(?P<amount>[0-9]+)&skin=(?P<skin>[A-Za-z0-9.-]+)&token=(?P<token>[A-Za-z0-9.-]+)/$', views.topUpAccountBill, name='topUpAccountBill'), # GET
+    url(r'^me/topup/bill/amount=(?P<amount>[0-9]+)&skin=(?P<skin>[A-Za-z0-9.-]+)&promocode=(?P<promocode>[A-Za-z0-9.-]+)&token=(?P<token>[A-Za-z0-9.-]+)/$', views.topUpAccountBill, name='topUpAccountBill'), # GET
     url(r'^token/create/$', views.createToken, name='createToken'), #POST working
     url(r'^token/verify/token=(?P<token>[A-Za-z0-9.-]+)/$', views.verifyToken, name='verifyToken'), #POST working
     url(r'^adyen/notify/$', views.processAdyenNotification, name='processAdyenNotification'), #POST working

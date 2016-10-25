@@ -96,6 +96,7 @@ class CreditTopUp(models.Model):
     amountToPay = models.IntegerField(default=0) # total to pay
     amountTopUp = models.IntegerField(default=0) # increase in credit on account, dan differ from amountToPay due to a promotion
     status = models.CharField(max_length=100, default='created')
+    promoCodeId = models.IntegerField(default=0)
 
     def __str__(self):
         return str(self.id)
