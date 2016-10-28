@@ -16,11 +16,11 @@ panemApp.controller('clTopUpCreditCtrl', function($scope, dictionary, requestWra
         skin = 'default';
         // detect if the device is mobile or not
         if(document.documentElement.clientWidth < 768) {
-            skin = 'mobile'
+            skin = 'mobile';
         }
 
         // get bill from endpoint
-        var url = '/me/topup/bill/amount=' + $scope.amountTopUp*100 + '&skin=' + skin + '&promocode=' + $scope.promoCode
+        var url = '/me/topup/bill/amount=' + $scope.amountTopUp*100 + '&skin=' + skin + '&promocode=' + $scope.promoCode;
         $scope.requestStatus.bill = requestWrapper.init();
         requestWrapper.get(url).then(function ([newStatus,resultData]) {
             $scope.requestStatus.bill = newStatus;
@@ -50,7 +50,7 @@ panemApp.controller('clTopUpCreditCtrl', function($scope, dictionary, requestWra
 
 	function checkPromoCode() {
 		// perform endpoint request
-		var url = '/promo/check/code=' + $scope.promoCode
+		var url = '/promo/check/code=' + $scope.promoCode;
 	    $scope.requestStatus.promo = requestWrapper.init();
 	    requestWrapper.get(url).then(function ([newStatus,resultData]) {
 	        $scope.requestStatus.promo = newStatus;

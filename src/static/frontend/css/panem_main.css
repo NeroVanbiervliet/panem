@@ -188,6 +188,11 @@
 
 /* bootstrap fixes */
 
+.jumbotron {
+	padding-top : 20px;
+	padding-bottom: 20px; 
+}
+
 .spacer { /* to create some whitespace */
     margin-top: 40px;
 }
@@ -233,6 +238,11 @@
 }
 
 /* custom own */
+.top-bot-margin {
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+
 .cursor-hand {
 	cursor: pointer;
 }
