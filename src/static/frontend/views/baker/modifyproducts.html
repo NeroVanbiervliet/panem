@@ -46,7 +46,7 @@
                         <!-- input field for price -->
                         <div class="input-group col-xs-2">
                             <div class="input-group-addon">€</div>
-                            <input type="text" class="form-control price-product" data-product-id="{{product.id}}" placeholder="150" ng-disabled="!product.available" ng-model="product.price">
+                            <input type="text" class="form-control price-product" data-product-id="{{product.id}}" placeholder="150" ng-disabled="!product.available" data-source-var="product.price" money-input>
                         </div>
                     </div>
                     <div class="row" ng-repeat-end>

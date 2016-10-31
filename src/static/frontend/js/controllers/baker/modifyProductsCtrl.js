@@ -1,5 +1,8 @@
 panemApp.controller('bkModifyProductsCtrl', function($scope, $rootScope, dictionary, tokenManager, $http, $window, requestWrapper, $q) {
 
+    // NEED remove
+    window.scope = $scope; 
+
     // VARIABLES
     $scope.pyCategories;
     $scope.pyBakeryInfo;
@@ -26,7 +29,7 @@ panemApp.controller('bkModifyProductsCtrl', function($scope, $rootScope, diction
     // show category of items
     $scope.showCategory = function (catIndex) {
         $scope.productCategory = $scope.pyCategories[catIndex];
-    }
+    };
 
     // get pyCategories
     var loadProducts = function (token){
@@ -41,7 +44,7 @@ panemApp.controller('bkModifyProductsCtrl', function($scope, $rootScope, diction
         }, function(response) {
             $scope.pyCategories = [];
         });
-    }
+    };
 
     // get pyBakeryInfo
     var loadBakeryInfo = function(token) {
@@ -55,7 +58,7 @@ panemApp.controller('bkModifyProductsCtrl', function($scope, $rootScope, diction
             $scope.pyBakeryInfo = {};
             // TODO dit geeft een slechte pagina
         });
-    }
+    };
 
     // get pyIngredients
     loadIngredients = function() {
@@ -73,7 +76,7 @@ panemApp.controller('bkModifyProductsCtrl', function($scope, $rootScope, diction
             for(var i=0; i<resultData.standard.length; i++) {
                 $scope.pyIngredients.standard.push({'name' : resultData.standard[i].name, 'id' : resultData.standard[i].id, 'type' : 'standard'});
             }
-            for(var i=0; i<resultData.custom.length; i++) {
+            for(i=0; i<resultData.custom.length; i++) {
                 $scope.pyIngredients.custom.push({'name' : resultData.custom[i].name, 'id' : resultData.custom[i].id, 'type' : 'custom'});
             }
 
@@ -99,7 +102,7 @@ panemApp.controller('bkModifyProductsCtrl', function($scope, $rootScope, diction
         });
 
         return deferred.promise;
-    }
+    };
 
     // load data when token is available
     tokenManager.getToken().then(function(newToken) {
@@ -121,7 +124,7 @@ panemApp.controller('bkModifyProductsCtrl', function($scope, $rootScope, diction
             "price" : 160,
             "ingredients" : [],
             "ingredientsString" : ""
-        }
+        };
         category.products.push(newProduct);
     };
 
@@ -177,6 +180,8 @@ panemApp.controller('bkModifyProductsCtrl', function($scope, $rootScope, diction
                 deleteList : $scope.deleteList
             })
         });
+
+        console.log(requestData);
 
         // perform endpoint request
         $http.post($rootScope.baseUrl + '/bakery/adaptProducts/',requestData)
