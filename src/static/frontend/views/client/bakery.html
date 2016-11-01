@@ -28,14 +28,14 @@
 
             <!-- TAB NAVIGATION BAR -->
             <ul class="nav nav-tabs">
-                <li ng-repeat="cat in pyCategories" ng-class="{active:$first}">
+                <li ng-repeat="cat in pyCategories" ng-class="{active:$first}" ng-if="cat.products.length > 0">
                     <a data-toggle="tab" href="#content{{$index}}" show-tab>{{cat.name}}</a>
                 </li>
             </ul>
 
             <!-- TAB CONTENT -->
             <div class="row tab-content" id="tabsContent">
-                <div class="tab-pane fade" ng-repeat="cat in pyCategories" id="content{{$index}}" ng-class="{'in active':$first}">
+                <div class="tab-pane fade" ng-repeat="cat in pyCategories" id="content{{$index}}" ng-class="{'in active':$first}" ng-if="cat.products.length > 0">
                     <div class="col-sm-3 col-xs-3" ng-repeat="product in cat.products" ng-if="product.available">
                         <div ng-class="{true: 'box-xs', false: 'box'}[smallDevices]" style="background-image: url('{{PRODUCT_IMAGE_SOURCE + product.photoId + IMAGE_EXTENSION}}');">
                             <div ng-class="{true: 'overlay-xs', false: 'overlay'}[smallDevices]" ng-click="addProductToOrder(product)">

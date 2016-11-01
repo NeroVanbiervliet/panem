@@ -177,13 +177,12 @@ def get_products_category_bakery(bakeryId):
 
         # refactor data for output
         for key in productsPerCategory:
-            if len(productsPerCategory[key]) > 0:
-                temp2Dict = {}
-                temp2Dict['name'] = names[key]
-                temp2Dict['products'] = productsPerCategory[key]
-                temp2Dict['id'] = key
-                temp2Dict['defaultPhotoId'] = photoIds[key]
-                output.append(temp2Dict)
+            temp2Dict = {}
+            temp2Dict['name'] = names[key]
+            temp2Dict['products'] = productsPerCategory[key]
+            temp2Dict['id'] = key
+            temp2Dict['defaultPhotoId'] = photoIds[key]
+            output.append(temp2Dict)
         
         return output
 

@@ -301,8 +301,6 @@ panemApp.service('requestWrapper', function($rootScope, $http, tokenManager, $q)
                 json : JSON.stringify(data)
             });
 
-            console.log(postData);
-
             $http.post($rootScope.baseUrl + relUrl,postData)
             .then(function(response) {
                 if (response.data == 'tokennotexist') { // this should not happen in normal circumstances
