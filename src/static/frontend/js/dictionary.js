@@ -486,7 +486,11 @@ panemApp.service('dictionary', function($rootScope) {
                     "bakeryInfo" : {
                         'title' : 'Gegevens over de bakkerij',
                         'name' : 'Naam bakkerij',
-                        'address' : 'Adres',
+                        'address' : {
+                          'street' : 'Straat',
+                          'postcode' : 'Postcode',
+                          'city' : 'Stad'
+                        },
                         'telephone' : 'Telefoonnummer',
                         'taxNumber' : 'BTW-nummer',
                         'bankAccount' : 'Rekeningnummer',

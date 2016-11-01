@@ -92,13 +92,10 @@ def databaseFillBakeries():
         bakeryInfo = {}
         bakeryInfo['name'] = personInfo['lastName'] + ' ' + personInfo['firstName'] + ' ' + str(random.randint(0,100)) + ' ' + 'bakerij'
         dummy = random.randint(0,len(adressList)-1)
-        
-        adress = adressList[random.randint(0,len(adressList)-1)]
-        adress= adress[0] + ' ' + adress[1] + ' ' + adress[2]        
-        bakeryInfo['address'] = adress
-#        bakeryInfo['address'] = adressList[dummy][0]
-#        bakeryInfo['postcode'] = adressList[dummy][1]
-#        bakeryInfo['city'] = adressList[dummy][2]
+
+        bakeryInfo['street'] = adressList[dummy][0]
+        bakeryInfo['postcode'] = adressList[dummy][1]
+        bakeryInfo['city'] = adressList[dummy][2]
         bakeryInfo['telephone'] = random.randint(10**5,10**6)
         openings = [[{"h":"4","m":"30"},{"h":"19","m":""},False],[{"h":"6","m":"30"},{"h":"19","m":""},False],[{"h":"6","m":"30"},{"h":"19","m":""},False],[{"h":"6","m":"30"},{"h":"19","m":""},False],[{"h":"6","m":"30"},{"h":"19","m":""},False],[{"h":"6","m":"30"},{"h":"19","m":""},False],[{"h":"6","m":"30"},{"h":"19","m":""},False]]
         for i in range(len(openings)):
@@ -135,8 +132,9 @@ def databaseFillBakeries():
 
     bakeryInfo = {}
     bakeryInfo['name'] = "Bakkermans Nero"
-    adress= "damse vaart zuid 14 8310 Brugge"
-    bakeryInfo['address'] = adress
+    bakeryInfo['street'] = "damse vaart zuid 14"
+    bakeryInfo['postcode'] = 8310
+    bakeryInfo['city'] = "Brugge"
     bakeryInfo['telephone'] = random.randint(10**5,10**6)
     openings = "[[{\"h\": \"5\", \"m\": \"15\"}, {\"h\": \"16\", \"m\": \"28\"}, true], [{\"h\": \"7\", \"m\": \"28\"}, {\"h\": \"18\", \"m\": \"16\"}, false], [{\"h\": \"7\", \"m\": \"32\"}, {\"h\": \"18\", \"m\": \"4\"}, false], [{\"h\": \"5\", \"m\": \"13\"}, {\"h\": \"16\", \"m\": \"40\"}, true], [{\"h\": \"5\", \"m\": \"26\"}, {\"h\": \"17\", \"m\": \"1\"}, true], [{\"h\": \"5\", \"m\": \"35\"}, {\"h\": \"18\", \"m\": \"8\"}, true], [{\"h\": \"5\", \"m\": \"28\"}, {\"h\": \"20\", \"m\": \"6\"}, true]]"
     bakeryInfo['openings'] = str(openings)

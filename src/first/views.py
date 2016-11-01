@@ -110,9 +110,9 @@ def createBakery(request):
             personInfo['email'] = str(parsedData['personInfo']['email'])
             personInfo['password'] = str(parsedData['personInfo']['password'])
             bakeryInfo['name'] = str(parsedData['bakeryInfo']['name'])
-            bakeryInfo['address'] = str(parsedData['bakeryInfo']['address'])
-            #bakeryInfo['postcode'] = str(parsedData['bakeryInfo']['postcode'])
-            #bakeryInfo['city'] = str(parsedData['bakeryInfo']['city'])
+            bakeryInfo['street'] = str(parsedData['bakeryInfo']['address']['street'])
+            bakeryInfo['postcode'] = str(parsedData['bakeryInfo']['address']['postcode'])
+            bakeryInfo['city'] = str(parsedData['bakeryInfo']['address']['city'])
             bakeryInfo['telephone'] = str(parsedData['bakeryInfo']['telephone']) 
             bakeryInfo['taxNumber'] = str(parsedData['bakeryInfo']['taxNumber']) 
             bakeryInfo['bankAccount'] = str(parsedData['bakeryInfo']['bankAccount']) 
@@ -919,6 +919,22 @@ def checkPromoCode(request, code, token):
     if validMethod:
         output = slo.checkPromoCode(code)
         return HttpResponse(output)
+
+    else:
+        return errorMsg
+
+# writes the incoming post data to a file
+def postTest(request):
+    [validMethod,errorMsg] = validRequestMethod(request,'POST')
+
+    if validMethod:
+        # write to file
+        parsedData = processJson(request)
+        text_file = open("post_test", "w")
+        text_file.write(str(parsedData))
+        text_file.close()
+
+        return HttpResponse('success')
 
     else:
         return errorMsg

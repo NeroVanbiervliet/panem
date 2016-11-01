@@ -42,11 +42,10 @@ def adaptProducts(bakeryId, productUpdate, deleteList):
 
                 if productId == str(-1): # betekent een nieuw product dat nog niet bestond
 
-                    available = (str(product['available']) == 'True') # this is the conversion of a string to a boolean!
+                    available = (str(product['available']) == 'True') # this is the conversion of a string to a boolean
+                    fotoId = category['defaultPhotoId']
 
-                    fotoId = category['photoId'] # NEED dit moet het fotoid zijn voor defaultproducten voor deze categorie. moet dus ook meegegeven worden bij category (de categorie)
-
-                    productIdNew = add_product(name,category_id,standard,fotoId,ingredients)
+                    productIdNew = add_product(name,category_id,standard,fotoId,str(ingredientIds))
                     add_hasProduct(bakeryId,productIdNew,price,available)
 
                 else:
