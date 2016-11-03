@@ -34,7 +34,7 @@ def adaptProducts(bakeryId, productUpdate, deleteList):
                             ingredientIds.append(newCreatedIngredients[curIng['name']])
                         else:
                             # create new ingredient
-                            newId = bsf.addBakeryIngredient(bakeryId,curIng['name'])
+                            newId = bsf.addBakeryIngredient(bakeryId,curIng['name'],False,[])
                             # add name and id to new created ingredients array
                             newCreatedIngredients[curIng['name']] = newId
                             # add id to product
@@ -125,6 +125,6 @@ def insertIngredients(bakeryId, ingredientArray):
 
     for i in range(len(ingredientArray)):
         ingredient = ingredientArray[i]
-        bsf.addBakeryIngredient(bakeryId,ingredient['name'])
+        bsf.addBakeryIngredient(bakeryId,ingredient['name'],False,[])
 
     return "success"

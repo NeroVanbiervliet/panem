@@ -9,6 +9,19 @@ from first.models import Bakery,Product,HasProduct,Category,Logging,Account,Orde
 from django.core.exceptions import ObjectDoesNotExist
 import datetime
 
+def updateFunction(model, updates):
+    output = []
+    attributes = dir(model)
+    for key in updates:
+        if key in attributes:
+            setattr(model, key, updates[key])
+        else:
+            output.append('key:' + key + ' invalid')
+ 
+    model.save()
+    
+    return output
+
 def add_bakery(nameIn,adressIn,postcodeIn,cityIn,GPSLatIn,GPSLonIn,telephoneIn,websiteIn,openingsIn,descriptionIn,bestelLimitTimeIn,bankAccountIn,taxNumberIn,memberIn,bakerAccountIdIn):
     
     b = Bakery(name = nameIn , adress = adressIn , postcode = postcodeIn, city = cityIn ,GPSLat = GPSLatIn, GPSLon = GPSLonIn, telephone = telephoneIn , website = websiteIn, \
@@ -233,8 +246,8 @@ def addCreditTopUp(accountId,amountToPay, promoCodeId):
 # adds an ingredient associated with a bakery
 # allergenes are set empty
 # returns the id of the created database record
-def addBakeryIngredient(bakeryId, name):
-    newIngredient = Ingredient(name=name, isStandard=False, bakeryId=bakeryId, allergenes='[]')
+def addBakeryIngredient(bakeryId, name, standard,allergenes):
+    newIngredient = Ingredient(name=name, isStandard=standard, bakeryId=bakeryId, allergenes=allergenes)
     newIngredient.save()
     return newIngredient.id
 
