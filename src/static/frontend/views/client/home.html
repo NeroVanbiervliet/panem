@@ -32,7 +32,7 @@
         <div class="row text-center" ng-repeat="resultRow in [0,1]"> <!-- search results -->
 
             <!-- load eight search results -->
-            <div class="col-md-3 col-xs-10 col-md-offset-0 col-xs-offset-1 hero-feature" ng-repeat="bakery in pyBakeries | orderBy: '-totalScore' | limitTo: 4*(resultRow+1)" ng-if="$index > 4*resultRow-1" >
+            <div class="col-md-3 col-xs-6 col-md-offset-0 hero-feature" ng-repeat="bakery in pyBakeries | orderBy: '-totalScore' | limitTo: 4*(resultRow+1)" ng-if="$index > 4*resultRow-1" >
                 <a href="#/client/bakery?bakeryId={{bakery.id}}">
                     <div class="thumbnail">
                         <img src="{{IMAGE_SOURCE + bakery.photoId + IMAGE_EXTENSION}}" alt="">
