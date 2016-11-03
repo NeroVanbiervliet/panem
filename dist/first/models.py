@@ -96,6 +96,7 @@ class CreditTopUp(models.Model):
     amountToPay = models.IntegerField(default=0) # total to pay
     amountTopUp = models.IntegerField(default=0) # increase in credit on account, dan differ from amountToPay due to a promotion
     status = models.CharField(max_length=100, default='created')
+    promoCodeId = models.IntegerField(default=0)
 
     def __str__(self):
         return str(self.id)
@@ -159,4 +160,12 @@ class DisableDates(models.Model):
     
     def __str__(self):
         return str(self.bakeryId)
-        
+
+class PromoCode(models.Model):
+    # credit promo codes
+    # * type = credit
+    # * valueOne = amount extra credit
+    type = models.CharField(max_length=10, default='')
+    code = models.CharField(max_length=15, default='')
+    valueOne = models.IntegerField()
+    isUsed = models.BooleanField(default=False)

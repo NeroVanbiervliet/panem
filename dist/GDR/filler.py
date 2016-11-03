@@ -9,8 +9,10 @@ import random
 from FRG.databaseFunctions import get_allProducts, get_products_category_bakery
 from FRG.wareHouse import adaptProducts
 from FRG.creatorFunctions import create_bakery,create_account
-from GDR.basicFunctions import add_product,add_category
+from GDR.basicFunctions import add_product,add_category,addBakeryIngredient,updateFunction
 from first.models import Bakery,Category
+import FRG.salesOffice as slo
+import GDR.basicFunctions as bsf
 
 def databaseFillAll():
     print 'Start'
@@ -24,8 +26,10 @@ def databaseFillAll():
     print 'Succes Products'
     databaseFillAccounts()
     print 'Succes Accounts'
+    fillPromoCodesCredit()
+    print 'Succes Promo Codes'
 
-    
+
 
 def databaseFillCategory():
     #only developers mode
@@ -34,35 +38,50 @@ def databaseFillCategory():
     add_category('Klein gebak',3)
     add_category('Taarten',4)
     add_category('Broodjes en Pistolets',5)
-    
+
 def databaseFillStandardProducts():
-    standardProducts = [['Wit brood','Broden'], \
-                        ['Bruin brood', 'Broden'], \
-                        ['Volkoren brood', 'Broden'], \
-                        ['Tijger brood', 'Broden'], \
-                        ['Eerlijk brood', 'Broden'], \
-                        ['Zwart brood', 'Broden'], \
-                        ['Croissant','Koffiekoeken'], \
-                        ['Chocoladekoek','Koffiekoeken'], \
-                        ['Lange Suisse','Koffiekoeken'], \
-                        ['Ronde Suisse','Koffiekoeken'], \
-                        ['Tompouce','Klein gebak'], \
-                        ['Profiterollekes','Klein gebak'], \
-                        ['Muffin','Klein gebak'], \
-                        ['Witte Taart','Taarten'], \
-                        ['Voetbal Taart','Taarten'], \
-                        ['Smurfen Taart','Taarten'], \
-                        ['Aardbei Taart','Taarten'], \
-                        ['Framboos Taart','Taarten'], \
-                        ['Framblij Taart','Taarten'], \
-                        ['Sandwich','Broodjes en Pistolets'], \
-                        ['Picollo','Broodjes en Pistolets'], \
-                        ['Pistolet','Broodjes en Pistolets']]
-                        
+    ## Add products
+    standardProducts = [['Wit brood','Broden',10], \
+                        ['Bruin brood', 'Broden',11], \
+                        ['Volkoren brood', 'Broden',12], \
+                        ['Tijger brood', 'Broden',13], \
+                        ['Eerlijk brood', 'Broden',14], \
+                        ['Zwart brood', 'Broden',15], \
+                        ['Croissant','Koffiekoeken',16], \
+                        ['Chocoladekoek','Koffiekoeken',17], \
+                        ['Lange Suisse','Koffiekoeken',18], \
+                        ['Ronde Suisse','Koffiekoeken',19], \
+                        ['Tompouce','Klein gebak',20], \
+                        ['Profiterollekes','Klein gebak',21], \
+                        ['Muffin','Klein gebak',22], \
+                        ['Witte Taart','Taarten',23], \
+                        ['Voetbal Taart','Taarten',24], \
+                        ['Smurfen Taart','Taarten',25], \
+                        ['Aardbei Taart','Taarten',26], \
+                        ['Framboos Taart','Taarten',27], \
+                        ['Framblij Taart','Taarten',28], \
+                        ['Sandwich','Broodjes en Pistolets',29], \
+                        ['Picollo','Broodjes en Pistolets',30], \
+                        ['Pistolet','Broodjes en Pistolets',31]]
+
     for item in standardProducts:
         category = Category.objects.get(name=item[1])
-        photoIdCat = category.defaultPhotoId
-        add_product(item[0],category.id,1,photoIdCat,[])
+        add_product(item[0],category.id,1,item[2],[])
+
+    ## Add Ingredients
+    ingredientsList = ['meel','tarwe','ei','bloem','rozijnen','chocolade','water','suiker','zout','peper','panda','geitenkaas','melk']
+    allergenesList = ['Gluten','Schaaldieren','Eieren','Vis','Pinda','Soja','Melk','Noten','Slederij','Mosterd','Sesamzaad','Zwaveldioxide','Lupine','Weekdieren','Weekenddieren']
+
+    for name in ingredientsList:
+        amount = random.randint(1,3)
+        allergenes = []
+        for i in range(amount):
+            allergene = allergenesList[random.randint(0,len(allergenesList)-1)]
+            if not allergene in allergenes:
+                allergenes.append(allergene)
+        addBakeryIngredient(0,name,True,allergenes)
+
+
 
 
 def databaseFillBakeries():
@@ -83,19 +102,17 @@ def databaseFillBakeries():
         personInfo['firstName'] = firstNames[random.randint(0,len(firstNames)-1)]
         personInfo['lastName'] = lastNames[random.randint(0,len(lastNames)-1)]
         personInfo['email'] = personInfo['firstName'] + personInfo['lastName'] + str(random.randint(0,100))+ '@gmail.com'
-        personInfo['password'] = 'password101'
+        personInfo['password'] = 'rosbeiaard'
 
         bakeryInfo = {}
         bakeryInfo['name'] = personInfo['lastName'] + ' ' + personInfo['firstName'] + ' ' + str(random.randint(0,100)) + ' ' + 'bakerij'
         dummy = random.randint(0,len(adressList)-1)
-        
-        adress = adressList[random.randint(0,len(adressList)-1)]
-        adress= adress[0] + ' ' + adress[1] + ' ' + adress[2]        
-        bakeryInfo['address'] = adress
-#        bakeryInfo['address'] = adressList[dummy][0]
-#        bakeryInfo['postcode'] = adressList[dummy][1]
-#        bakeryInfo['city'] = adressList[dummy][2]
+
+        bakeryInfo['street'] = adressList[dummy][0]
+        bakeryInfo['postcode'] = adressList[dummy][1]
+        bakeryInfo['city'] = adressList[dummy][2]
         bakeryInfo['telephone'] = random.randint(10**5,10**6)
+
         openings = [[{"h":"4","m":"30"},{"h":"19","m":""},False],[{"h":"6","m":"30"},{"h":"19","m":""},False],[{"h":"6","m":"30"},{"h":"19","m":""},False],[{"h":"6","m":"30"},{"h":"19","m":""},False],[{"h":"6","m":"30"},{"h":"19","m":""},False],[{"h":"6","m":"30"},{"h":"19","m":""},False],[{"h":"6","m":"30"},{"h":"19","m":""},False]]
         for i in range(len(openings)):
             openings[i][2] = bool(random.getrandbits(1)) # random boolean
@@ -104,13 +121,17 @@ def databaseFillBakeries():
             openings[i][1]['h'] = str(random.randint(16,20))
             openings[i][1]['m'] = str(random.randint(0,40))
 
-        # NEED toch dynamische testdata maken maar
-        # 1. laatste van openings moet true of false zijn, niet True of False
-        # 2. de str() functie moet er overal strings met dubbele quotes van maken, niet enkele
-        # voorlopige testdata :
-        openings = "[[{\"h\": \"5\", \"m\": \"15\"}, {\"h\": \"16\", \"m\": \"28\"}, true], [{\"h\": \"7\", \"m\": \"28\"}, {\"h\": \"18\", \"m\": \"16\"}, false], [{\"h\": \"7\", \"m\": \"32\"}, {\"h\": \"18\", \"m\": \"4\"}, false], [{\"h\": \"5\", \"m\": \"13\"}, {\"h\": \"16\", \"m\": \"40\"}, true], [{\"h\": \"5\", \"m\": \"26\"}, {\"h\": \"17\", \"m\": \"1\"}, true], [{\"h\": \"5\", \"m\": \"35\"}, {\"h\": \"18\", \"m\": \"8\"}, true], [{\"h\": \"5\", \"m\": \"28\"}, {\"h\": \"20\", \"m\": \"6\"}, true]]"
+        openings = str(openings)
+        openings = openings.replace('\'','\"').replace('False','false').replace('True','true')
 
-        bakeryInfo['openings'] = str(openings)
+
+#        # NEED toch dynamische testdata maken maar
+#        # 1. laatste van openings moet true of false zijn, niet True of False
+#        # 2. de str() functie moet er overal strings met dubbele quotes van maken, niet enkele
+#        # voorlopige testdata :
+#        openings = "[[{\"h\": \"5\", \"m\": \"15\"}, {\"h\": \"16\", \"m\": \"28\"}, true], [{\"h\": \"7\", \"m\": \"28\"}, {\"h\": \"18\", \"m\": \"16\"}, false], [{\"h\": \"7\", \"m\": \"32\"}, {\"h\": \"18\", \"m\": \"4\"}, false], [{\"h\": \"5\", \"m\": \"13\"}, {\"h\": \"16\", \"m\": \"40\"}, true], [{\"h\": \"5\", \"m\": \"26\"}, {\"h\": \"17\", \"m\": \"1\"}, true], [{\"h\": \"5\", \"m\": \"35\"}, {\"h\": \"18\", \"m\": \"8\"}, true], [{\"h\": \"5\", \"m\": \"28\"}, {\"h\": \"20\", \"m\": \"6\"}, true]]"
+
+        bakeryInfo['openings'] = openings
         bakeryInfo['bankAccount'] = str(random.randint(10**5,10**6))
         bakeryInfo['taxNumber'] = str(random.randint(10**5,10**6))
         bakeryInfo['website'] = "nero.be"
@@ -122,6 +143,13 @@ def databaseFillBakeries():
         if not output == 'success':
             print output
 
+        else:
+            # change photoID
+            object = Bakery.objects.get(taxNumber=bakeryInfo['taxNumber'])
+            updates = {}
+            updates['photoId'] = random.randint(1,7)
+            output = updateFunction(object, updates)
+
     # default baker
     personInfo = {}
     personInfo['firstName'] = "Sloe"
@@ -131,8 +159,9 @@ def databaseFillBakeries():
 
     bakeryInfo = {}
     bakeryInfo['name'] = "Bakkermans Nero"
-    adress= "damse vaart zuid 14 8310 Brugge"
-    bakeryInfo['address'] = adress
+    bakeryInfo['street'] = "damse vaart zuid 14"
+    bakeryInfo['postcode'] = 8310
+    bakeryInfo['city'] = "Brugge"
     bakeryInfo['telephone'] = random.randint(10**5,10**6)
     openings = "[[{\"h\": \"5\", \"m\": \"15\"}, {\"h\": \"16\", \"m\": \"28\"}, true], [{\"h\": \"7\", \"m\": \"28\"}, {\"h\": \"18\", \"m\": \"16\"}, false], [{\"h\": \"7\", \"m\": \"32\"}, {\"h\": \"18\", \"m\": \"4\"}, false], [{\"h\": \"5\", \"m\": \"13\"}, {\"h\": \"16\", \"m\": \"40\"}, true], [{\"h\": \"5\", \"m\": \"26\"}, {\"h\": \"17\", \"m\": \"1\"}, true], [{\"h\": \"5\", \"m\": \"35\"}, {\"h\": \"18\", \"m\": \"8\"}, true], [{\"h\": \"5\", \"m\": \"28\"}, {\"h\": \"20\", \"m\": \"6\"}, true]]"
     bakeryInfo['openings'] = str(openings)
@@ -147,13 +176,20 @@ def databaseFillBakeries():
     if not output == 'success':
             print output
 
+    else:
+        # change photoID
+        object = Bakery.objects.get(taxNumber=bakeryInfo['taxNumber'])
+        updates = {}
+        updates['photoId'] = random.randint(1,7)
+        output = updateFunction(object, updates)
+
 def databaseFillProducts():
     ## Generate Products for the Bakeries
     bakeries = Bakery.objects.all()
     ingredientsList = ['meel','tarwe','ei','bloem','rozijnen','chocolade','water','suiker','zout','peper','panda','geitenkaas','melk']
-    
+
     for bakery in bakeries:
-        
+
         productUpdate = get_products_category_bakery(bakery.id)
         booleans = [True,False]
         for category in productUpdate:
@@ -167,13 +203,13 @@ def databaseFillProducts():
                     temp = {}
                     temp['name'] = ingredientsList[random.randint(0,len(ingredientsList)-1)]
                     product['ingredients'].append(temp)
-                 
-        
+
+
         deleteList = []
         output = adaptProducts(bakery.id, productUpdate, deleteList)
         if not output == 'success':
             print output
-        
+
 
 def databaseFillAccounts():
     ## Generate Accounts
@@ -190,7 +226,7 @@ def databaseFillAccounts():
         email = firstname + lastname + '_456' + '@gmail.com'
         type = 'normal'
         password = 'rosbeiaard'
-        
+
         output = create_account(firstname, lastname, email, type, adress, password, False)
         if not output == 'success':
             print output
@@ -199,4 +235,7 @@ def databaseFillAccounts():
     # default accounts
     create_account("Nero","Vanbiervliet","nero.vanbiervliet@gmail.com","normal","damse vaart","rosbeiaard",False)
 
-
+def fillPromoCodesCredit():
+    bsf.addPromoCodeCredit('testcode1')
+    bsf.addPromoCodeCredit('testcode2')
+    slo.usePromoCode('testcode1')

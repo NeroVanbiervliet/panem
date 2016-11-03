@@ -5,9 +5,22 @@ Created on Wed Mar 30 23:43:52 2016
 @author: matthias
 """
 #Import our models we made in models.py
-from first.models import Bakery,Product,HasProduct,Category,Logging,Account,Order,Product_order,Token,AdyenPayment,PointPayment, CreditTopUp, Ingredient
+from first.models import Bakery,Product,HasProduct,Category,Logging,Account,Order,Product_order,Token,AdyenPayment,PointPayment, CreditTopUp, Ingredient, PromoCode
 from django.core.exceptions import ObjectDoesNotExist
 import datetime
+
+def updateFunction(model, updates):
+    output = []
+    attributes = dir(model)
+    for key in updates:
+        if key in attributes:
+            setattr(model, key, updates[key])
+        else:
+            output.append('key:' + key + ' invalid')
+ 
+    model.save()
+    
+    return output
 
 def add_bakery(nameIn,adressIn,postcodeIn,cityIn,GPSLatIn,GPSLonIn,telephoneIn,websiteIn,openingsIn,descriptionIn,bestelLimitTimeIn,bankAccountIn,taxNumberIn,memberIn,bakerAccountIdIn):
     
@@ -217,7 +230,7 @@ def add_PointPayment(date,orderId,shipDate,accountId,bakeryId,clientPay,succes):
     return b.id
 
 # adds a CreditTopUp item to the database, and returns it
-def addCreditTopUp(accountId,amountToPay) :
+def addCreditTopUp(accountId,amountToPay, promoCodeId):
 
     # date of today
     today = datetime.datetime.now()
@@ -225,7 +238,7 @@ def addCreditTopUp(accountId,amountToPay) :
     amountTopUp = amountToPay + 200*int((amountToPay >= 1000)) # int(True) = 1 and int(False) = 0
 
     # create new database item
-    newDbItem = CreditTopUp(accountId=accountId, dateOrdered=today, amountToPay=amountToPay, amountTopUp=amountTopUp)
+    newDbItem = CreditTopUp(accountId=accountId, dateOrdered=today, amountToPay=amountToPay, amountTopUp=amountTopUp, promoCodeId=promoCodeId)
     newDbItem.save()
 
     return newDbItem
@@ -233,7 +246,13 @@ def addCreditTopUp(accountId,amountToPay) :
 # adds an ingredient associated with a bakery
 # allergenes are set empty
 # returns the id of the created database record
-def addBakeryIngredient(bakeryId, name):
-    newIngredient = Ingredient(name=name, isStandard=False, bakeryId=bakeryId, allergenes='[]')
+def addBakeryIngredient(bakeryId, name, standard,allergenes):
+    newIngredient = Ingredient(name=name, isStandard=standard, bakeryId=bakeryId, allergenes=allergenes)
     newIngredient.save()
     return newIngredient.id
+
+def addPromoCodeCredit(code):
+    type = 'credit'
+    valueOne = 200 # 2 euro free
+    newPromoCode = PromoCode(type=type,code=code,valueOne=valueOne)
+    newPromoCode.save()

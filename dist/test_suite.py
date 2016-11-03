@@ -17,12 +17,13 @@ client = Client()
 
 # ACTIVATED TESTS
 t1 = True # 1 TOKEN TESTS
-t2 = False # 2 BAKERY TESTS
-t3 = True # 3 ORDER TESTS
+t2 = True # 2 BAKERY TESTS
+t3 = False # 3 ORDER TESTS
 t4 = False # 4 ACCOUNT TESTS
 t5 = False # 5 ME TESTS
 t6 = False # 6 ADYEN TESTS
 t7 = False # 7 CONTACT TESTS
+t8 = False # 8 PROMO CODE TESTS
 
 # COMMON MISTAKES
 # http status 301 when doing GET is often because of '/' forgotten at the end of the request
@@ -267,8 +268,29 @@ if t2:
             "telephone"     :   "0498999336",
             "taxNumber"     :   "TAX3983",
             "bankAccount"   :   "BE46001615257336",
-            #"openings"      :   ""
+            "openings"      :   ""
         }
+    }
+
+    request = {
+        "personInfo": {
+            "email": "adrisisloewie@gmail.com",
+            "password": "rosbeiaard",
+            "firstName": "Idris",
+            "lastName": "Abidi"
+        },
+        "bakeryInfo": {
+            "name": "pistachenootjes",
+            "address": {
+                "street": "pistachestraat",
+                "postcode": "3000",
+                "city": "leuven"
+            },
+            "telephone": "050310516",
+            "taxNumber": "65421",
+            "bankAccount": "BE46001615257336"
+        },
+        "token": tokenLogin
     }
 
     response = client.post('/bakery/create/',content_type='text',data="json=" + json.dumps(request))
@@ -308,6 +330,16 @@ if t2:
     url = '/bakery/adaptProducts/'
     request = {"token":tokenLoginBakery,"productUpdate":[{"defaultPhotoId":4,"products":[{"available":True,"photoId":1,"name":"Boerenbrood","ingredients":[{"type":"standard","id":26,"name":"ei"},{"type":"standard","id":27,"name":"tarwe"},{"type":"standard","id":30,"name":"aardbeipoeder"},{"type":"custom","id":126,"name":"meelworm"}],"price":0,"id":20,"allergenes":["ei","schaal","tarwe"],"categoryid":1,"$$hashKey":"object:45"},{"available":True,"photoId":1,"name":"Bruin+boerenbrood","ingredients":[{"type":"standard","id":26,"name":"ei"},{"name":"fruitvlieg","type":"custom"}],"price":0,"id":23,"allergenes":["ei","schaal"],"categoryid":1,"$$hashKey":"object:46"},{"available":True,"photoId":1,"name":"Stokbrood","ingredients":[{"name":"fruitvlieg","type":"custom"}],"price":0,"id":30,"allergenes":[],"categoryid":1,"$$hashKey":"object:47"},{"available":False,"photoId":1,"name":"Tijgerbrood","ingredients":[],"price":0,"id":31,"allergenes":[],"categoryid":1,"$$hashKey":"object:48"},{"available":False,"photoId":1,"name":"Volkorenbrood","ingredients":[],"price":0,"id":33,"allergenes":[],"categoryid":1,"$$hashKey":"object:49"},{"available":False,"photoId":1,"name":"Wit+galet","ingredients":[],"price":0,"id":34,"allergenes":[],"categoryid":1,"$$hashKey":"object:50"}],"name":"Broden","id":"1","$$hashKey":"object:37"},{"defaultPhotoId":0,"products":[{"available":False,"photoId":1,"name":"Achtkoek","ingredients":[],"price":0,"id":18,"allergenes":[],"categoryid":3},{"available":False,"photoId":1,"name":"Berlijnse+Bol","ingredients":[],"price":0,"id":19,"allergenes":[],"categoryid":3},{"available":False,"photoId":1,"name":"Boterkoek+met+pudding","ingredients":[],"price":0,"id":21,"allergenes":[],"categoryid":3},{"available":False,"photoId":1,"name":"boterkoek+met+chocoladepudding","ingredients":[],"price":0,"id":22,"allergenes":[],"categoryid":3},{"available":False,"photoId":1,"name":"Lange+suisse","ingredients":[],"price":0,"id":27,"allergenes":[],"categoryid":3},{"available":False,"photoId":1,"name":"Tompoes","ingredients":[],"price":0,"id":32,"allergenes":[],"categoryid":3}],"name":"Klein gebak","id":"3","$$hashKey":"object:38"},{"defaultPhotoId":0,"products":[{"available":False,"photoId":1,"name":"Chocoladekoek","ingredients":[],"price":0,"id":24,"allergenes":[],"categoryid":2},{"available":False,"photoId":1,"name":"Croissant","ingredients":[],"price":0,"id":25,"allergenes":[],"categoryid":2},{"available":False,"photoId":1,"name":"Kleine+Koek","ingredients":[],"price":0,"id":26,"allergenes":[],"categoryid":2},{"available":False,"photoId":1,"name":"Ronde+suisse","ingredients":[],"price":0,"id":28,"allergenes":[],"categoryid":2}],"name":"Koffiekoeken","id":"2","$$hashKey":"object:39"},{"defaultPhotoId":0,"products":[{"available":False,"photoId":1,"name":"Sandwich","ingredients":[],"price":0,"id":29,"allergenes":[],"categoryid":5}],"name":"Broodjes en Pistolets","id":"5","$$hashKey":"object:40"}],"bakeryId":151,"deleteList":[]}
 
+    response = client.post(url,content_type='text',data="json=" + json.dumps(request))
+    assertStatusOk(response.status_code)
+    if(tokenOk(response.content)):
+        if(noHtmlError(response.content)):
+            if(response.content != 'success'):
+                printError("unknown error : " + response.content)
+
+    print "NEED remove /bakery/adaptProducts/ POST"
+    url = '/bakery/adaptProducts/'
+    request = {"token":"1IU1JTVQQD0SQJ","productUpdate":[{"defaultPhotoId":5,"products":[{"available":True,"photoId":5,"name":"Sandwich","ingredients":[{"type":"custom","id":4402,"name":"ei"},{"type":"custom","id":4403,"name":"tarwe"},{"type":"custom","id":4403,"name":"tarwe"},{"type":"custom","id":4404,"name":"suiker"},{"type":"custom","id":4405,"name":"panda"},{"type":"custom","id":4410,"name":"peper"}],"price":630,"id":9440,"allergenes":[],"categoryid":115,"$$hashKey":"object:47"},{"available":True,"photoId":5,"name":"Picollo","ingredients":[{"type":"custom","id":4406,"name":"geitenkaas"},{"type":"custom","id":4403,"name":"tarwe"},{"type":"custom","id":4407,"name":"meel"},{"type":"custom","id":4404,"name":"suiker"}],"price":822,"id":9441,"allergenes":[],"categoryid":115,"$$hashKey":"object:48"},{"available":True,"photoId":5,"name":"Pistolet","ingredients":[{"type":"custom","id":4406,"name":"geitenkaas"},{"type":"custom","id":4408,"name":"zout"},{"type":"custom","id":4403,"name":"tarwe"},{"type":"custom","id":4404,"name":"suiker"}],"price":268,"id":9442,"allergenes":[],"categoryid":115,"$$hashKey":"object:49"},{"available":True,"photoId":5,"name":"Pistolekke","ingredients":[{"type":"custom","id":4404,"name":"suiker"}],"price":160,"id":9443,"allergenes":[],"categoryid":115,"$$hashKey":"object:50"},{"available":True,"photoId":5,"name":"Brolke","ingredients":[{"type":"custom","id":4412,"name":"bloem"}],"price":160,"id":9444,"allergenes":[],"categoryid":115,"$$hashKey":"object:51"},{"id":"-1","name":"test","photoId":5,"available":True,"price":160,"ingredients":[{"name":"suiker","id":4404,"type":"custom"}],"ingredientsString":"","$$hashKey":"object:67"}],"name":"Broodjes en Pistolets","id":"115","$$hashKey":"object:37"},{"defaultPhotoId":4,"products":[{"available":False,"photoId":4,"name":"Witte Taart","ingredients":[{"type":"custom","id":4409,"name":"rozijnen"},{"type":"custom","id":4410,"name":"peper"}],"price":507,"id":9434,"allergenes":[],"categoryid":114},{"available":True,"photoId":4,"name":"Voetbal Taart","ingredients":[{"type":"custom","id":4411,"name":"melk"}],"price":297,"id":9435,"allergenes":[],"categoryid":114},{"available":True,"photoId":4,"name":"Smurfen Taart","ingredients":[{"type":"custom","id":4412,"name":"bloem"},{"type":"custom","id":4407,"name":"meel"},{"type":"custom","id":4410,"name":"peper"}],"price":166,"id":9436,"allergenes":[],"categoryid":114},{"available":False,"photoId":4,"name":"Aardbei Taart","ingredients":[{"type":"custom","id":4408,"name":"zout"},{"type":"custom","id":4411,"name":"melk"},{"type":"custom","id":4410,"name":"peper"}],"price":637,"id":9437,"allergenes":[],"categoryid":114},{"available":True,"photoId":4,"name":"Framboos Taart","ingredients":[{"type":"custom","id":4402,"name":"ei"},{"type":"custom","id":4404,"name":"suiker"},{"type":"custom","id":4406,"name":"geitenkaas"},{"type":"custom","id":4411,"name":"melk"}],"price":652,"id":9438,"allergenes":[],"categoryid":114},{"available":False,"photoId":4,"name":"Framblij Taart","ingredients":[{"type":"custom","id":4411,"name":"melk"},{"type":"custom","id":4410,"name":"peper"}],"price":906,"id":9439,"allergenes":[],"categoryid":114}],"name":"Taarten","id":"114","$$hashKey":"object:38"},{"defaultPhotoId":1,"products":[{"available":True,"photoId":1,"name":"Wit brood","ingredients":[{"type":"custom","id":4411,"name":"melk"},{"type":"custom","id":4403,"name":"tarwe"},{"type":"custom","id":4405,"name":"panda"},{"type":"custom","id":4405,"name":"panda"},{"type":"custom","id":4413,"name":"chocolade"}],"price":746,"id":9421,"allergenes":[],"categoryid":111},{"available":False,"photoId":1,"name":"Bruin brood","ingredients":[{"type":"custom","id":4403,"name":"tarwe"},{"type":"custom","id":4413,"name":"chocolade"}],"price":810,"id":9422,"allergenes":[],"categoryid":111},{"available":True,"photoId":1,"name":"Volkoren brood","ingredients":[{"type":"custom","id":4409,"name":"rozijnen"}],"price":641,"id":9423,"allergenes":[],"categoryid":111},{"available":False,"photoId":1,"name":"Tijger brood","ingredients":[{"type":"custom","id":4410,"name":"peper"},{"type":"custom","id":4404,"name":"suiker"},{"type":"custom","id":4413,"name":"chocolade"},{"type":"custom","id":4409,"name":"rozijnen"}],"price":721,"id":9424,"allergenes":[],"categoryid":111},{"available":True,"photoId":1,"name":"Eerlijk brood","ingredients":[{"type":"custom","id":4414,"name":"water"},{"type":"custom","id":4406,"name":"geitenkaas"}],"price":165,"id":9425,"allergenes":[],"categoryid":111},{"available":True,"photoId":1,"name":"Zwart brood","ingredients":[{"type":"custom","id":4411,"name":"melk"},{"type":"custom","id":4408,"name":"zout"},{"type":"custom","id":4410,"name":"peper"},{"type":"custom","id":4405,"name":"panda"}],"price":810,"id":9426,"allergenes":[],"categoryid":111}],"name":"Broden","id":"111","$$hashKey":"object:39"},{"defaultPhotoId":3,"products":[{"available":False,"photoId":3,"name":"Tompouce","ingredients":[{"type":"custom","id":4412,"name":"bloem"},{"type":"custom","id":4413,"name":"chocolade"},{"type":"custom","id":4411,"name":"melk"}],"price":129,"id":9431,"allergenes":[],"categoryid":113},{"available":False,"photoId":3,"name":"Profiterollekes","ingredients":[{"type":"custom","id":4414,"name":"water"}],"price":847,"id":9432,"allergenes":[],"categoryid":113},{"available":False,"photoId":3,"name":"Muffin","ingredients":[{"type":"custom","id":4406,"name":"geitenkaas"},{"type":"custom","id":4405,"name":"panda"},{"type":"custom","id":4403,"name":"tarwe"},{"type":"custom","id":4409,"name":"rozijnen"}],"price":533,"id":9433,"allergenes":[],"categoryid":113}],"name":"Klein gebak","id":"113","$$hashKey":"object:40"},{"defaultPhotoId":2,"products":[{"available":True,"photoId":2,"name":"Croissant","ingredients":[{"type":"custom","id":4403,"name":"tarwe"},{"type":"custom","id":4411,"name":"melk"}],"price":191,"id":9427,"allergenes":[],"categoryid":112},{"available":False,"photoId":2,"name":"Chocoladekoek","ingredients":[{"type":"custom","id":4407,"name":"meel"},{"type":"custom","id":4403,"name":"tarwe"}],"price":739,"id":9428,"allergenes":[],"categoryid":112},{"available":False,"photoId":2,"name":"Lange Suisse","ingredients":[{"type":"custom","id":4403,"name":"tarwe"},{"type":"custom","id":4404,"name":"suiker"}],"price":454,"id":9429,"allergenes":[],"categoryid":112},{"available":True,"photoId":2,"name":"Ronde Suisse","ingredients":[{"type":"custom","id":4411,"name":"melk"}],"price":845,"id":9430,"allergenes":[],"categoryid":112}],"name":"Koffiekoeken","id":"112","$$hashKey":"object:41"}],"bakeryId":582,"deleteList":[]}
     response = client.post(url,content_type='text',data="json=" + json.dumps(request))
     assertStatusOk(response.status_code)
     if(tokenOk(response.content)):
@@ -656,3 +688,26 @@ if t7:
             printError("unknown error : " + response.content)
 
     # NEED zeker zijn dat contact met asana gelukt is, anders moet databasefunction een output error geven
+
+#
+# 8 PROMO CODE TESTS
+#
+if t8:
+    print "8 PROMO CODE TESTS"
+    # 8.1. promo/check/
+    print "8.1. promo/check/"
+    url = '/promo/check/code=%s&token=%s/' % ('testcode2',tokenLogin)
+    response = client.get(url)
+    assertStatusOk(response.status_code)
+    if(tokenOk(response.content)):
+        if(response.content != "valid"):
+             printError("unknown error : " + response.content)
+
+    # 8.2. promo/check/
+    print "8.2. promo/check/"
+    url = '/promo/check/code=%s&token=%s/' % ('testcode1',tokenLogin)
+    response = client.get(url)
+    assertStatusOk(response.status_code)
+    if(tokenOk(response.content)):
+        if(response.content != "invalid-used"):
+             printError("unknown error : " + response.content)

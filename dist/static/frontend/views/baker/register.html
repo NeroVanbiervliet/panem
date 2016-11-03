@@ -2,7 +2,7 @@
     <div class="row spacer"> 
         <div class="col-md-6 col-md-offset-1">
             <form class="form-horizontal" name="bakeryForm" ng-submit="submitForm()" novalidate>
-                 
+                
                 <div class="col-sm-offset-4 col-sm-8">
                     <h3>{{dict.personalInfo.title}}</h3>
                 </div>
@@ -15,9 +15,9 @@
                         <input type="text" class="form-control" name="personFirstName" id="personFirstName" placeholder="{{dict.personalInfo.firstName}}" ng-model="person.firstName" minlength=2 required>
                         <span ng-if="bakeryForm.personFirstName.$valid" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
                         <span ng-if="bakeryForm.personFirstName.$valid" class="sr-only">(success)</span>
-                    </div>  
+                    </div>
                 </div>
-                
+
                 <div class="form-group" ng-class="{'has-success has-feedback':bakeryForm.personLastName.$valid}">
                     <label for="personLastName" class="control-label col-sm-4">
                         {{dict.personalInfo.lastName}}
@@ -27,7 +27,7 @@
                             placeholder="{{dict.personalInfo.lastName}}" ng-model="person.lastName" minlength=2 required>
                         <span ng-if="bakeryForm.personLastName.$valid" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
                         <span ng-if="bakeryForm.personLastName.$valid" class="sr-only">(success)</span>
-                    </div>  
+                    </div>
                 </div>
 
                 <div class="form-group" ng-class="{'has-success has-feedback':bakeryForm.personEmail.$valid}">
@@ -51,10 +51,10 @@
                         <input type="password" class="form-control" name="personPassword" id="personPassword" ng-model="person.password" minlength=2 required>
                         <span ng-if="bakeryForm.personPassword.$valid" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
                         <span ng-if="bakeryForm.personPassword.$valid" class="sr-only">(success)</span>
-                    </div>  
+                    </div>
                 </div>
 
-                                    
+                
                 <div class="col-sm-offset-4 col-sm-8">
                     <h3 id="titleBakeryInformation">{{dict.bakeryInfo.title}}</h3>
                 </div>
@@ -67,18 +67,43 @@
                         <input type="text" class="form-control" name="bakeryName" id="bakeryName" placeholder="{{dict.bakeryInfo.name}}" ng-model="bakery.name" minlength=2 required>
                         <span ng-if="bakeryForm.bakeryName.$valid" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
                         <span ng-if="bakeryForm.bakeryName.$valid" class="sr-only">(success)</span>
-                    </div>  
+                    </div>
                 </div>
 
-                <div class="form-group" ng-class="{'has-success has-feedback':bakeryForm.bakeryAddress.$valid}">
+                
+                <div class="form-group" ng-class="{'has-success has-feedback':bakeryForm.bakeryAddressStreet.$valid}">
                     <label for="bakeryAddress" class="control-label col-sm-4">
-                        {{dict.bakeryInfo.address}}
+                        {{dict.bakeryInfo.address.street}}
                     </label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" name="bakeryAddress" id="bakeryAddress" placeholder="{{dict.bakeryInfo.address}}" ng-model="bakery.address" minlength=2 required>
-                        <span ng-if="bakeryForm.bakeryAddress.$valid" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
-                        <span ng-if="bakeryForm.bakeryAddress.$valid" class="sr-only">(success)</span>
-                    </div>  
+                        <input type="text" class="form-control" name="bakeryAddressStreet" id="bakeryAddressStreet" placeholder="{{dict.bakeryInfo.address.street}}" ng-model="bakery.address.street" minlength=2 required>
+                        <span ng-if="bakeryForm.bakeryAddressStreet.$valid" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                        <span ng-if="bakeryForm.bakeryAddressStreet.$valid" class="sr-only">(success)</span>
+                    </div>
+                </div>
+
+                
+                <div class="form-group" ng-class="{'has-success has-feedback':bakeryForm.bakeryAddressPostcode.$valid}">
+                    <label for="bakeryAddressPostcode" class="control-label col-sm-4">
+                        {{dict.bakeryInfo.address.postcode}}
+                    </label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="bakeryAddressPostcode" id="bakeryAddressPostcode" placeholder="{{dict.bakeryInfo.address.postcode}}" ng-model="bakery.address.postcode" minlength=2 required>
+                        <span ng-if="bakeryForm.bakeryAddressPostcode.$valid" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                        <span ng-if="bakeryForm.bakeryAddressPostcode.$valid" class="sr-only">(success)</span>
+                    </div>
+                </div>
+
+                
+                <div class="form-group" ng-class="{'has-success has-feedback':bakeryForm.bakeryAddressCity.$valid}">
+                    <label for="bakeryAddressCity" class="control-label col-sm-4">
+                        {{dict.bakeryInfo.address.city}}
+                    </label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="bakeryAddressCity" id="bakeryAddressCity" placeholder="{{dict.bakeryInfo.address.city}}" ng-model="bakery.address.city" minlength=2 required>
+                        <span ng-if="bakeryForm.bakeryAddressCity.$valid" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                        <span ng-if="bakeryForm.bakeryAddressCity.$valid" class="sr-only">(success)</span>
+                    </div>
                 </div>
 
                 <div class="form-group" ng-class="{'has-success has-feedback':bakeryForm.bakeryTelephone.$valid}">
@@ -89,7 +114,7 @@
                         <input type="text" class="form-control" name="bakeryTelephone" id="bakeryTelephone" placeholder="{{dict.bakeryInfo.telephone}}" ng-model="bakery.telephone" minlength=2 required>
                         <span ng-if="bakeryForm.bakeryTelephone.$valid" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
                         <span ng-if="bakeryForm.bakeryTelephone.$valid" class="sr-only">(success)</span>
-                    </div>  
+                    </div>
                 </div>
 
                 <div class="form-group" ng-class="{'has-success has-feedback':bakeryForm.bakeryTaxNumber.$valid}">
@@ -100,9 +125,9 @@
                         <input type="text" class="form-control" name="bakeryTaxNumber" id="bakeryTaxNumber" placeholder="{{dict.bakeryInfo.taxNumber}}" ng-model="bakery.taxNumber" minlength=2 required>
                         <span ng-if="bakeryForm.bakeryTaxNumber.$valid" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
                         <span ng-if="bakeryForm.bakeryTaxNumber.$valid" class="sr-only">(success)</span>
-                    </div>  
+                    </div>
                 </div>
-                
+
                 <div class="form-group" ng-class="{'has-success has-feedback':bakeryForm.bakeryBankAccount.$valid}">
                     <label for="bakeryBankAccount" class="control-label col-sm-4">
                         {{dict.bakeryInfo.bankAccount}}
@@ -112,7 +137,7 @@
                         <input type="text" class="form-control" name="bakeryBankAccount" id="bakeryBankAccount" placeholder="{{dict.bakeryInfo.bankAccountPlaceholder}}" ng-model="bakery.bankAccount" minlength=2 required>
                         <span ng-if="bakeryForm.bakeryBankAccount.$valid" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
                         <span ng-if="bakeryForm.bakeryBankAccount.$valid" class="sr-only">(success)</span>
-                    </div>  
+                    </div>
                 </div>
 
                 
@@ -133,16 +158,16 @@
                         {{dict.submitText}}
                       </button>
                     </div>
-                </div>  
-                
+                </div>
+
                  
                 <div class="form-group">
                     <div class="col-md-8 col-sm-offset-4">
                         <p data-request-type="post" request-status-handler></p>
                     </div>
                 </div>
-                
+
             </form>
-        </div>   
-    </div>    
+        </div>
+    </div>
 </div>
