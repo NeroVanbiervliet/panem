@@ -43,11 +43,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="databaseFunctions.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="databaseFunctions.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/FRG/databaseFunctions.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6131045">
-              <caret line="179" column="12" selection-start-line="179" selection-start-column="12" selection-end-line="184" selection-end-column="36" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="185" column="8" selection-start-line="185" selection-start-column="8" selection-end-line="185" selection-end-column="8" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="filler.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/GDR/filler.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.8504983">
+              <caret line="242" column="47" selection-start-line="242" selection-start-column="47" selection-end-line="242" selection-end-column="47" />
               <folding />
             </state>
           </provider>
@@ -56,7 +66,7 @@
       <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/first/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.806452">
+            <state vertical-scroll-proportion="0.0">
               <caret line="12" column="113" selection-start-line="12" selection-start-column="113" selection-end-line="12" selection-end-column="113" />
               <folding />
             </state>
@@ -81,10 +91,10 @@
         <option value="$PROJECT_DIR$/FRG/wareHouse.py" />
         <option value="$PROJECT_DIR$/first/urls.py" />
         <option value="$PROJECT_DIR$/first/views.py" />
-        <option value="$PROJECT_DIR$/GDR/filler.py" />
         <option value="$PROJECT_DIR$/test_suite.py" />
         <option value="$PROJECT_DIR$/FRG/creatorFunctions.py" />
         <option value="$PROJECT_DIR$/FRG/databaseFunctions.py" />
+        <option value="$PROJECT_DIR$/GDR/filler.py" />
       </list>
     </option>
   </component>
@@ -92,7 +102,7 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="47" />
+    <option name="x" value="-1319" />
     <option name="y" value="24" />
     <option name="width" value="1319" />
     <option name="height" value="744" />
@@ -263,7 +273,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="47" y="24" width="1319" height="744" extended-state="6" />
+    <frame x="-1319" y="24" width="1319" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24943139" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -633,19 +643,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/GDR/filler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-10.032258">
-          <caret line="139" column="0" selection-start-line="138" selection-start-column="14" selection-end-line="139" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/FRG/creatorFunctions.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="29" column="41" selection-start-line="29" selection-start-column="41" selection-end-line="29" selection-end-column="41" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -653,7 +654,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3327869">
           <caret line="295" column="42" selection-start-line="295" selection-start-column="29" selection-end-line="295" selection-end-column="42" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -669,15 +669,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="131" column="4" selection-start-line="131" selection-start-column="4" selection-end-line="132" selection-end-column="27" />
-          <folding>
-            <element signature="e#0#37#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/first/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.806452">
+        <state vertical-scroll-proportion="0.0">
           <caret line="12" column="113" selection-start-line="12" selection-start-column="113" selection-end-line="12" selection-end-column="113" />
           <folding />
         </state>
@@ -695,8 +692,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/FRG/databaseFunctions.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6131045">
-          <caret line="179" column="12" selection-start-line="179" selection-start-column="12" selection-end-line="184" selection-end-column="36" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="185" column="8" selection-start-line="185" selection-start-column="8" selection-end-line="185" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GDR/filler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8504983">
+          <caret line="242" column="47" selection-start-line="242" selection-start-column="47" selection-end-line="242" selection-end-column="47" />
           <folding />
         </state>
       </provider>

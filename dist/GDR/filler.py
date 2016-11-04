@@ -236,6 +236,8 @@ def databaseFillAccounts():
     create_account("Nero","Vanbiervliet","nero.vanbiervliet@gmail.com","normal","damse vaart","rosbeiaard",False)
 
 def fillPromoCodesCredit():
+
     bsf.addPromoCodeCredit('testcode1')
-    bsf.addPromoCodeCredit('testcode2')
     slo.usePromoCode('testcode1')
+    for i in range(2,100):
+        bsf.addPromoCodeCredit('testcode'+str(i))
