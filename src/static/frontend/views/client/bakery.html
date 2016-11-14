@@ -180,9 +180,13 @@
 
             <!-- overlay to log in if not logged in -->
             <div class="overlay-no-access" ng-if="!loggedIn">
-            	<p class="overlay-text">{{dict.overlay.message}}</p>
+            	<p class="overlay-text">{{dict.overlay.loginMessage}}</p>
 				<button type="button" class="btn overlay-btn-white" ng-click="navigate('#/client/login?source='+urlPath)">{{dict.overlay.btnLogIn}}</button>
 				<button type="button" class="btn overlay-btn-white" ng-click="navigate('#/client/register/')">{{dict.overlay.btnRegister}}</button>
+            </div>
+
+            <div class="overlay-no-access" ng-if="loggedIn && userInfo.type == 'baker'">
+                <p class="overlay-text">{{dict.overlay.noBakerMessage}}</p>
             </div>
 
         </div> <!-- col-sm-4 -->

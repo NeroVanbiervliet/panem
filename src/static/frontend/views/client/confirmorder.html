@@ -52,7 +52,7 @@
                                     <td></td>
                                     <td></td>
                                     <td align="right"><h4>{{dict.total}}</h4></td>
-                                    <td><h4>{{pyOrder.totalPrice | moneyFilter}}</h4></td>
+                                    <td><h4 class="price-euro">{{pyOrder.totalPrice | moneyFilter}}</h4></td>
                                 </tr>
 
                                 <!-- credit -->
@@ -76,7 +76,7 @@
 
                                 <!-- pay with credit -->
                                 <div ng-switch-when="true">
-                                    <p><button type="submit" class="btn btn-success" ng-click="checkDoubleButtonClick($event)">{{dict.payWithCredits}}</button></p>
+                                    <p><button type="submit" class="btn" ng-class="firstTimeClicked ? 'btn-success' : 'btn-default'" ng-click="checkDoubleButtonClick($event)">{{firstTimeClicked ? dict.payWithCredits : dict.looksGreat}}</button></p>
                                 </div>
 
                                 <!-- pay with adyen -->

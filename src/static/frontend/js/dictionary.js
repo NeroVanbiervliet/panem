@@ -205,9 +205,10 @@ panemApp.service('dictionary', function($rootScope) {
                         "365": "meer dan een jaar geleden"
                     },
                     'overlay' : {
-                        'message' : "Je moet ingelogd zijn om een bestelling te maken.",
+                        'loginMessage' : "Je moet ingelogd zijn om een bestelling te maken.",
                         'btnLogIn' : "Inloggen",
-                        'btnRegister' : "Registreren"
+                        'btnRegister' : "Registreren",
+                        'noBakerMessage' : "Met een bakkersaccount kun je geen bestellingen plaatsen."
                     },
                     'today' : "Vandaag"
                 };

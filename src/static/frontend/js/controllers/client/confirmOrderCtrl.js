@@ -104,7 +104,7 @@ panemApp.controller('clConfirmOrderCtrl', function($scope, $rootScope, $window, 
     }
 
     // proceed with credit payment
-    $scope.proceedPaymentCredit = function() {
+    function proceedPaymentCredit() {
         url = '/order/current/pay/';
         dataToSend = {};
         $scope.requestStatus = requestWrapper.init();
@@ -112,5 +112,5 @@ panemApp.controller('clConfirmOrderCtrl', function($scope, $rootScope, $window, 
             // redirect page
             $window.location.href = '#/client/finalisepayment?credit=true&status='+newStatus;
         });
-    };
+    }
 });
