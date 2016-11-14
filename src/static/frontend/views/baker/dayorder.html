@@ -23,13 +23,11 @@
                     <tbody id="tableBody">
                         <tr ng-repeat-start="cat in pyOrder.aggregateOrder" class="active">
                             <th>{{cat.categoryName}}</th>
-                            <th>#</th>
-                            <th># liter</th>
+                            <th>totaal #</th>
                         </tr>
                         <tr ng-repeat-end ng-repeat="product in cat.products">
                             <td>{{product.name}}</td>
                             <td>{{product.amount}}</td>
-                            <td>{{product.amount*0.12}} l</td>
                         </tr>
                     </tbody>
                 </table>
@@ -51,12 +49,6 @@
                         <tr ng-repeat-start="order in pyOrder.orders" class="active avoid-page-break">
                             <th>{{order.lastName.toUpperCase()}} {{order.firstName}}</th>
                             <td class="price-euro">{{order.totalPrice | moneyFilter}}</td>
-                            <td ng-if="order.isPayed">
-                                <span class="label label-success">{{dict.individualPanel.payed}}</span>
-                            </td>
-                            <td ng-if="!order.isPayed">
-                                <span class="label label-info">{{dict.individualPanel.notpayed}}</span>
-                            </td>
                         </tr>
                         <tr class="active avoid-page-break" ng-if="remarksNotEmpty(order)">
                             <td colspan="3">

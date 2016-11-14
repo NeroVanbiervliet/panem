@@ -4,6 +4,8 @@ panemApp.controller('clConfirmOrderCtrl', function($scope, $rootScope, $window, 
     $scope.pyOrder;
     $scope.pyCreditBill;
 
+    $scope.firstTimeClicked = false;
+
     // initialise dictionary
     $scope.dict = dictionary.fillClConfirmOrder("nl");
 
@@ -28,7 +30,7 @@ panemApp.controller('clConfirmOrderCtrl', function($scope, $rootScope, $window, 
         }, function(response) {
             $scope.pyOrder = {};
             // NEED zien wat dit geeft
-        })
+        });
     };
 
     // load credit bill
@@ -42,7 +44,7 @@ panemApp.controller('clConfirmOrderCtrl', function($scope, $rootScope, $window, 
         }, function(response) {
             $scope.pyCreditBill = {};
             // NEED zien wat dit geeft
-        })
+        });
     };
 
     // load data when token is available
@@ -56,13 +58,27 @@ panemApp.controller('clConfirmOrderCtrl', function($scope, $rootScope, $window, 
     processDate.setLang("nl");
     $scope.getQualitative = processDate.getWordDate;
 
+    // checks if the button is twice clicked
+    $scope.checkDoubleButtonClick = function(event) {
+        if(!$scope.firstTimeClicked) {
+            // the button was not clicked before
+            $scope.firstTimeClicked = true;
+            $(event.target).blur(); // lose focus of event.target = button object
+        }
+        else
+            if($scope.credit >= $scope.pyOrder.totalPrice)
+                proceedPaymentCredit();
+            else
+                proceedPaymentAdyen();
+    };
+
     // proceed to adyen payment
-    $scope.proceedPaymentAdyen = function() {
+    function proceedPaymentAdyen() {
 
         skin = 'default';
         // detect if the device is mobile or not
         if(document.documentElement.clientWidth < 768) {
-            skin = 'mobile'
+            skin = 'mobile';
         }
 
         // get bill from endpoint after obtaining a token
@@ -85,7 +101,7 @@ panemApp.controller('clConfirmOrderCtrl', function($scope, $rootScope, $window, 
                 $('#hiddenForm').submit();
             }
         });
-    };
+    }
 
     // proceed with credit payment
     $scope.proceedPaymentCredit = function() {

@@ -76,7 +76,7 @@
 
                                 <!-- pay with credit -->
                                 <div ng-switch-when="true">
-                                    <p><button type="submit" class="btn btn-success" ng-click="proceedPaymentCredit()">{{dict.payWithCredits}}</button></p>
+                                    <p><button type="submit" class="btn btn-success" ng-click="checkDoubleButtonClick($event)">{{dict.payWithCredits}}</button></p>
                                 </div>
 
                                 <!-- pay with adyen -->
@@ -99,7 +99,7 @@
                                     </span>
 
                                     <div class="spacer-medium">
-                                        <button class="btn btn-default" ng-click="proceedPaymentAdyen()">{{dict.payOnline}}</button>
+                                        <button class="btn btn-default" ng-click="checkDoubleButtonClick($event)">{{firstTimeClicked ? dict.payOnline : dict.looksGreat}}</button>
                                     </div>
                                     <div class="spacer-small">
                                         <span class="fa fa-lock fa-lg"></span>
