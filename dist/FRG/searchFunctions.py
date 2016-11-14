@@ -36,15 +36,19 @@ def get_bakery_search(GPSLon,GPSLat,accountId):
 
 def initScoreCalculator(accountId,bakeryId):
 
-    ## Amount of orders
-    amountOfOrders = len(Order.objects.filter(accountId__exact=int(accountId),bakeryId__exact=int(bakeryId)))
+    if accountId != 0: # no guest
+        # amount of orders
+        amountOfOrders = len(Order.objects.filter(accountId__exact=int(accountId),bakeryId__exact=int(bakeryId)))
 
-    ## Amount of visits
-    amountOfVisits = len(Logging.objects.filter(accountId__exact=int(accountId),event_text__exact=str(bakeryId),kind__exact='visit'))
+        # amount of visits
+        amountOfVisits = len(Logging.objects.filter(accountId__exact=int(accountId),event_text__exact=str(bakeryId),kind__exact='visit'))
 
-    initScore = amountOfOrders + amountOfVisits
+        initScore = amountOfOrders + amountOfVisits
 
-    #TODO: filter
+    else:
+        initScore = 0
+
+    #TODO: filter die observaties van lang geleden heel klein gewicht geeft
 
     return initScore
 

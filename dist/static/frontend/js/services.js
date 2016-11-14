@@ -270,9 +270,10 @@ panemApp.service('requestWrapper', function($rootScope, $http, tokenManager, $q)
                         $rootScope.requestStatus = 'error'; // so alert message in navbar will be displayed
                         deferred.resolve(['error-requestWrapper-tokenNotExist',{}]);
                     }
-                    else { // pass the error message on
-                        deferred.resolve(['error-message',response.data]);
-                    }
+                    else if (response.data.split('-')[0] == 'success')
+                        deferred.resolve([response.data,{}])
+                    else // pass the error message on
+                        deferred.resolve(['error-message-'+response.data,response.data]);
                 }
                 else {
                     // no string no object, fail

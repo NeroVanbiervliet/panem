@@ -18,6 +18,9 @@ panemApp.controller('clHomeCtrl', function($scope, dictionary, $http, $rootScope
     // Initialize dictionary
 	$scope.dict = dictionary.fillClHome("nl");
 
+    // remove top-bot-margin class from ng-scope
+    $('#ang-main-view').removeClass('top-bot-margin');
+
     // load bakeries data from backend
     $scope.getPyBakeries = function(token) {
         $http({
@@ -34,7 +37,7 @@ panemApp.controller('clHomeCtrl', function($scope, dictionary, $http, $rootScope
             $scope.pyBakeries = [];
             // TODO message tonen dat er iets fout gelopen is als pyBakeries leeg is
         });
-    }
+    };
 
     // loads the bakery data
     loadData = function(token) {
@@ -51,7 +54,7 @@ panemApp.controller('clHomeCtrl', function($scope, dictionary, $http, $rootScope
                 $scope.getPyBakeries(token);
             });
         }
-    }
+    };
 
     // get geolocation as soon as token is available
     tokenManager.getToken().then(function(newToken) {

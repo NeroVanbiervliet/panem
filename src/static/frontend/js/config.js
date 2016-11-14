@@ -95,6 +95,10 @@ panemApp.run(function(userInfo, $rootScope, $location, tokenManager, dictionary,
     $rootScope.baseUrl = 'http://localhost:8000';
     $rootScope.defaultTitle = 'Panem - bestel uw brood online';
 
+    // minimum size for ang-main-view
+    minHeight = screen.height - 526; // 460 = navbar, footer and margins on #ang-main-view
+    $('#ang-main-view').css('min-height',minHeight.toString() + 'px');
+
     // load navbar js
     loadNavBarLogic(userInfo, $rootScope, $location, tokenManager, dictionary, $window);
 });

@@ -1,7 +1,7 @@
 from GDR import basicFunctions as bsf
 import GDR.basicFunctions as bsf
 from GDR.basicFunctions import addAdyenPaymentForTopUp, add_order, update_order, add_product_order
-from first.models import Account, Order, Bakery, HasProduct, Product_order, Product
+from first.models import Account, Order, Bakery, HasProduct, Product_order, Product, CreditTopUp, AdyenPayment, PromoCode
 import datetime
 from django.core.exceptions import ObjectDoesNotExist
 import hmac
@@ -97,7 +97,7 @@ def getCreditTopUpBill(creditTopUp, skin):
     output['shopperEmail'] = account.email
     output['recurringContract'] = recurringContract
     output['shopperReference'] = account.shopperReference
-    output['merchantReturnData'] = 'topUp'
+    output['merchantReturnData'] = 'topUp-'+str(creditTopUp.id)
     output['merchantReference'] = account.firstname + account.lastname + str(paymentId)
     output['skinCode'] = skinCode
     output['currencyCode'] = 'EUR'
@@ -121,10 +121,19 @@ def getCreditTopUpBill(creditTopUp, skin):
     return output
 
 # creates a bill to make an adyen payment to top up the credit of an account
-def topUpAccountBill(accountId,amountToPay, skin):
+def topUpAccountBill(accountId,amountToPay, skin, promocode):
+
+    try:
+        promoCodeObj = PromoCode.objects.get(code=promocode)
+        if not promoCodeObj.isUsed:
+            promoCodeId = promoCodeObj.id
+        else:
+            promoCodeId = 0
+    except ObjectDoesNotExist:
+            promoCodeId = 0
 
     # create CreditTopUp instance
-    creditTopUp = bsf.addCreditTopUp(accountId,amountToPay)
+    creditTopUp = bsf.addCreditTopUp(accountId,amountToPay, promoCodeId)
 
     # create the bill
     return getCreditTopUpBill(creditTopUp, skin)
@@ -312,5 +321,96 @@ def orderBillCredit(orderId):
         output = json.dumps(output)
     except ObjectDoesNotExist:
         output = 'orderdoesnotexist'
+
+    return output
+
+def currentOrderReceipt(authResult,accountId):
+
+    if authResult == 'AUTHORISED':
+        # NEED : check hash code
+        account = Account.objects.get(id=accountId)
+        orderId = account.lastOrderId
+
+        if orderId > 0:
+            order = Order.objects.get(id=orderId)
+            status = order.status
+            type,adyenId = status.split(';')
+            if type == 'Billed Adyen':
+
+                adyenPayment = AdyenPayment.objects.get(id=adyenId)
+                adyenPayment.succes == 1
+                adyenPayment.save()
+                order.status = 'payed;0'
+                order.save()
+                account.lastOrderId = 0
+                account.credit += adyenPayment.extraCredit
+                account.save()
+                output = 'success-' + str(adyenId) # NEED als er wel degelijk een adyen payment is, maar hashcode blijkt niet ok te zijn, moet dan ook het adyenId mee geouput worden
+
+            else:
+                output = 'notbilledwithadyen'
+        else:
+            output = 'nocurrentorder'
+
+    else:
+        output = authResult
+
+    return output
+
+def topUpReceipt(accountId, topUpId):
+    # NEED check HMAC
+    # NEED mark topup as payed
+
+    try:
+        account = Account.objects.get(id=accountId)
+        topUp = CreditTopUp.objects.get(id=topUpId)
+
+        amountCredit = topUp.amountToPay
+        currentCredit = account.credit
+
+        # check if there is a promo that needs to be applied
+        if topUp.promoCodeId != 0:
+            promoCode = PromoCode.objects.get(id=topUp.promoCodeId)
+            promoCredit = promoCode.valueOne
+            promoCode.isUsed = True
+            promoCode.save()
+        else: # no additional promo credit
+            promoCredit = 0
+
+        account.credit = currentCredit + amountCredit + promoCredit
+        account.save()
+
+        output = 'success'
+
+    except ObjectDoesNotExist:
+        output = 'error-account-or-topup-operation'
+
+    return output
+
+def checkPromoCode(code):
+    try:
+        promoCode = PromoCode.objects.get(code=code)
+        if(promoCode.isUsed):
+            output = 'invalid-used'
+        else:
+            output = 'success-valid'
+
+    except ObjectDoesNotExist:
+        output = 'invalid-notfound'
+
+    return output
+
+def usePromoCode(code):
+    try:
+        promoCode = PromoCode.objects.get(code=code)
+        if(promoCode.isUsed):
+            output = 'invalid-used'
+        else:
+            promoCode.isUsed = True
+            promoCode.save()
+            output = 'success'
+
+    except ObjectDoesNotExist:
+        output = 'invalid-notfound'
 
     return output

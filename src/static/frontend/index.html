@@ -7,6 +7,9 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1" name="viewport">
 
+    <!-- favicon -->
+    <link rel=”shortcut icon” href=”favicon.ico” type=”image/x-icon” />
+
     <!-- CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/panem_main.css" rel="stylesheet">
@@ -69,10 +72,6 @@
 
     <!-- moment date handling -->
     <script src="js/moment.js"></script>
-
-    <!-- favicon -->
-    <link rel="icon" href="images/brand/favicon.png">
-
 </head>
 
 <body>
@@ -80,7 +79,7 @@
     <div ng-include="'navbar.html'"></div>
 
     <!-- page content -->
-    <div ng-view></div>
+    <div ng-view id="ang-main-view" class="top-bot-margin"></div>
 
     <!-- footer -->
     <div ng-include="'footer.html'"></div>

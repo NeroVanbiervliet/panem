@@ -69,10 +69,20 @@ server {
     listen 80;
     server_name localhost;
 
-    location = /favicon.ico {access_log off; log_not_found off; }
+    # frontend
     location / {
         root <b>clone_root</b>/src/static/frontend;
     }
+
+	# favicon 
+    location = /favicon.ico {
+    	alias <b>clone_root</b>/src/static/images/brand/favicon.ico;
+	}
+
+	# to access images
+	location ~ "/images/.{1,}" {
+		root <b>clone_root</b>/src/static;
+	}
 }
 </code></pre>
 

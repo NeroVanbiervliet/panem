@@ -1,10 +1,16 @@
 @charset "UTF-8";
 @charset 'iso-8859-15';
 
+/* home page layout */
+
 .background-pattern {
 	/* url is relative to the css file, not the html file where this css is included! */
 	background-image: url("../images/brand/pattern.png");
 	background-size: 400px, 400px;
+}
+
+.footer-distributed {
+	margin-top: 0px !important;
 }
 
 .navbar {
@@ -182,6 +188,11 @@
 
 /* bootstrap fixes */
 
+.jumbotron {
+	padding-top : 20px;
+	padding-bottom: 20px; 
+}
+
 .spacer { /* to create some whitespace */
     margin-top: 40px;
 }
@@ -227,6 +238,19 @@
 }
 
 /* custom own */
+.top-bot-margin {
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+
+.cursor-hand {
+	cursor: pointer;
+}
+
+.to-caps {
+	text-transform: uppercase;
+}
+
 .price-euro:before {
     content: "\20AC  ";
 }

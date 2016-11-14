@@ -34,7 +34,7 @@ def adaptProducts(bakeryId, productUpdate, deleteList):
                             ingredientIds.append(newCreatedIngredients[curIng['name']])
                         else:
                             # create new ingredient
-                            newId = bsf.addBakeryIngredient(bakeryId,curIng['name'])
+                            newId = bsf.addBakeryIngredient(bakeryId,curIng['name'],False,[])
                             # add name and id to new created ingredients array
                             newCreatedIngredients[curIng['name']] = newId
                             # add id to product
@@ -42,11 +42,10 @@ def adaptProducts(bakeryId, productUpdate, deleteList):
 
                 if productId == str(-1): # betekent een nieuw product dat nog niet bestond
 
-                    available = (str(product['available']) == 'True') # this is the conversion of a string to a boolean!
+                    available = (str(product['available']) == 'True') # this is the conversion of a string to a boolean
+                    fotoId = category['defaultPhotoId']
 
-                    fotoId = category['photoId'] # NEED dit moet het fotoid zijn voor defaultproducten voor deze categorie. moet dus ook meegegeven worden bij category (de categorie)
-
-                    productIdNew = add_product(name,category_id,standard,fotoId,ingredients)
+                    productIdNew = add_product(name,category_id,standard,fotoId,str(ingredientIds))
                     add_hasProduct(bakeryId,productIdNew,price,available)
 
                 else:
@@ -126,6 +125,6 @@ def insertIngredients(bakeryId, ingredientArray):
 
     for i in range(len(ingredientArray)):
         ingredient = ingredientArray[i]
-        bsf.addBakeryIngredient(bakeryId,ingredient['name'])
+        bsf.addBakeryIngredient(bakeryId,ingredient['name'],False,[])
 
     return "success"

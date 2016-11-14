@@ -35,7 +35,7 @@
                 <table class="table table-hover">
                     
                     <tbody>
-                        <tr ng-repeat="order in pyPreviousOrders" ng-click="navigateToOrder(order.id, order.bakeryId)">
+                        <tr class="cursor-hand" ng-repeat="order in pyPreviousOrders" ng-click="navigateToOrder(order.id, order.bakeryId)">
                             <th scope="row">{{order.date}}</th>
                             <td>{{order.bakeryName}}</td>
                             <td class="price-euro">{{order.totalPrice | moneyFilter}}</td>

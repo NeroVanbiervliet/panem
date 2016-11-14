@@ -35,7 +35,7 @@
                 <table class="table table-hover">
                     <!-- TODO maak markeringen vanaf waar deze week, vorige week, twee weken geleden, ... -->
                     <tbody>
-                        <tr ng-repeat="order in pyPreviousOrders" ng-click="navigateToOrder(order.id, order.bakeryId)">
+                        <tr class="cursor-hand" ng-repeat="order in pyPreviousOrders" ng-click="navigateToOrder(order.id, order.bakeryId)">
                             <th scope="row">{{order.date}}</th>
                             <td>{{order.bakeryName}}</td>
                             <td class="price-euro">{{order.totalPrice | moneyFilter}}</td>

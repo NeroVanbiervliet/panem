@@ -3,7 +3,6 @@ panemApp.controller('clBakeryCtrl', function($scope, $rootScope, dictionary, $wi
 	// define variables
     $scope.pyBakeryInfo;
     $scope.pyCategories;
-    $scope.pyProducts;
     $scope.pyPreviousOrders;
     $scope.pyDisabledDatesInt;
 
@@ -75,13 +74,14 @@ panemApp.controller('clBakeryCtrl', function($scope, $rootScope, dictionary, $wi
         });
     }
 
-    // get pyCategories and pyProducts
+    // get pyCategories
     var loadProducts = function (token){
         $http({
             method : "GET",
             url : $rootScope.baseUrl + "/bakery/" + $scope.bakeryId + "/products/categories/token=" + token
         }).then(function(response) {
             $scope.pyCategories = response.data;
+            generateDisplayNames();
         }, function(response) {
             $scope.pyCategories = [];
         });
@@ -115,6 +115,38 @@ panemApp.controller('clBakeryCtrl', function($scope, $rootScope, dictionary, $wi
             $scope.pyBakeryInfo = {};
             // TODO dit geeft een slechte pagina
         });
+    }
+
+    // generate displayNames
+    function generateDisplayNames() {
+        for(var i=0; i<$scope.pyCategories.length; i++) {
+            var currentCat = $scope.pyCategories[i];
+
+            for(var j=0; j<currentCat.products.length; j++) {
+                var currentProduct = currentCat.products[j];
+
+                addDisplayNamesToProduct(currentProduct);
+            }
+        }
+    }
+
+    function addDisplayNamesToProduct(product) {
+        // displayName
+        var displayName = cutNamesSmart(product.name.split(' '),20);
+
+        // displayNameMobile
+        var displayNameMobile = cutNamesSmart(product.name.split(' '),11);
+
+        // used in order
+        product.displayNameOrder = displayName;
+
+        // used in tabs
+        if($scope.smallDevices) {
+            product.displayNameTabs = displayNameMobile;
+        }
+        else {
+            product.displayNameTabs = displayName;
+        }
     }
 
     // initialises variables
@@ -200,16 +232,23 @@ panemApp.controller('clBakeryCtrl', function($scope, $rootScope, dictionary, $wi
                 var dayHours = inputOpeningHours[i];
                 var opening = dayHours[0];
                 var closing = dayHours[1];
+                var isOpen = dayHours[2];
 
                 if(i+1==currentDayOfTheWeek)
                 {
-                    // bold
-                    processedOpeningHours += "<strong>" + dict.weekDaysNew[i].charAt(0).toUpperCase() + dict.weekDaysNew[i].substring(1) + " " + opening.h + dict.hourAbbr + opening.m + "-" + closing.h + dict.hourAbbr + closing.m + "</strong>";
+                    // set current day bold
+                    if (isOpen)
+                        processedOpeningHours += "<strong>" + dict.weekDaysNew[i].charAt(0).toUpperCase() + dict.weekDaysNew[i].substring(1) + " " + opening.h + dict.hourAbbr + opening.m + "-" + closing.h + dict.hourAbbr + closing.m + "</strong>";
+                    else
+                        processedOpeningHours += "<strong>" + dict.weekDaysNew[i].charAt(0).toUpperCase() + dict.weekDaysNew[i].substring(1) + " " + dict.closed + "</strong>";
                 }
                 else
                 {
-                    // no bold
-                    processedOpeningHours += "<div>" + dict.weekDaysNew[i].charAt(0).toUpperCase() + dict.weekDaysNew[i].substring(1) + " " + opening.h + dict.hourAbbr + opening.m + "-" + closing.h + dict.hourAbbr + closing.m + "</div>";
+                    // other days no bold
+                    if (isOpen)
+                        processedOpeningHours += "<div>" + dict.weekDaysNew[i].charAt(0).toUpperCase() + dict.weekDaysNew[i].substring(1) + " " + opening.h + dict.hourAbbr + opening.m + "-" + closing.h + dict.hourAbbr + closing.m + "</div>";
+                    else
+                        processedOpeningHours += "<div>" + dict.weekDaysNew[i].charAt(0).toUpperCase() + dict.weekDaysNew[i].substring(1) + " " + dict.closed + "</div>";
                 }
             }
         }
@@ -295,6 +334,10 @@ panemApp.controller('clBakeryCtrl', function($scope, $rootScope, dictionary, $wi
             {
                 // add products one by one
                 for(var i=0; i<prevOrder.products.length; i++) {
+                    // add display names
+                    addDisplayNamesToProduct(prevOrder.products[i]);
+
+                    // add products to order
                     $scope.addProductToOrder(prevOrder.products[i]);
                 }
             }
@@ -312,6 +355,10 @@ panemApp.controller('clBakeryCtrl', function($scope, $rootScope, dictionary, $wi
                 if(typeof(currentOrderBackend) != "string" && currentOrderBackend.bakery.id == $scope.bakeryId) {
                     // add products one by one
                     for(var i=0; i<currentOrderBackend.products.length; i++) {
+                        // add display names
+                        addDisplayNamesToProduct(currentOrderBackend.products[i]);
+
+                        // add to order
                         $scope.addProductToOrder(currentOrderBackend.products[i]);
                     }
                 }
@@ -368,21 +415,9 @@ panemApp.controller('clBakeryCtrl', function($scope, $rootScope, dictionary, $wi
         }
         else // product is not present in order
         {
-            var displayName; // the name to be displayed in the current order
-
-            // check if name will fit in one label
-            if(product.name.length <= 20) {
-                displayName = [product.name];
-            }
-            else { // does not fit in one label
-                // TODO splits eerst altijd op spaties indien mogelijk, dan pas binnen woorden
-                displayName = product.name.match(/.{1,20}/g); // splits productname in pieces of size 20
-            }
-
             // add product to order
             $scope.order.products.push($.extend({ // extend joins two {} {} dictionaries
-                'amount' : 1,
-                'displayName' : displayName
+                'amount' : 1
             },product));
         }
     };
@@ -441,6 +476,53 @@ panemApp.controller('clBakeryCtrl', function($scope, $rootScope, dictionary, $wi
                 }
             );
     };
+
+    // displayNames cutting function
+    // spl is an array of words
+    function cutNamesSmart(spl, maxWidth) {
+
+        // JOIN PARTS IF POSSIBLE
+    	var joinFinish = true;
+    	for(var i=1; i<spl.length; i++) {
+    		if (spl[i].length + spl[i-1].length <= maxWidth-1) { // -1 because a space will be added
+    			spl[i-1] = spl[i-1] + " " + spl[i];
+    			spl.splice(i, 1);
+    			joinFinish = false;
+    			break;
+            }
+        }
+
+    	if (!joinFinish)
+    		cutNamesSmart(spl, maxWidth);
+
+        // SPLIT TOO LARGE WORDS
+    	var cutFinish = true;
+    	for(var i=0; i<spl.length; i++) {
+    		if (spl[i].length > maxWidth) {
+
+    			// check if at least 4 characters could be added to the previous line
+    			if(i-1>=0 && spl[i-1].length + 4 < maxWidth) {
+    				var extraSpace = maxW-2-spl[i-1].length;
+    				var originalStr = spl[i];
+    				spl[i] = originalStr.substring(0,extraSpace) + "-";
+    				spl.splice(i+1,0,originalStr.substring(extraSpace));
+    				cutFinish = false;
+    				break;
+                }
+    			else {
+    				var originalStr = spl[i];
+    				spl[i] = originalStr.substring(0,maxWidth-1) + "-";
+    				spl.splice(i+1,0,originalStr.substring(maxWidth));
+    				cutFinish = false;
+    				break;
+                }
+            }
+        }
+    	if (!cutFinish)
+    		cutNamesSmart(spl, maxWidth);
+        else
+            return spl
+    }
 
     /***********
      *  WATCH  *

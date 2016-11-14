@@ -28,22 +28,26 @@
 
             <!-- TAB NAVIGATION BAR -->
             <ul class="nav nav-tabs">
-                <li ng-repeat="cat in pyCategories" ng-class="{active:$first}">
+                <li ng-repeat="cat in pyCategories" ng-class="{active:$first}" ng-if="cat.products.length > 0">
                     <a data-toggle="tab" href="#content{{$index}}" show-tab>{{cat.name}}</a>
                 </li>
             </ul>
 
             <!-- TAB CONTENT -->
             <div class="row tab-content" id="tabsContent">
-                <div class="tab-pane fade" ng-repeat="cat in pyCategories" id="content{{$index}}" ng-class="{'in active':$first}">
-                    <div class="col-sm-3 col-xs-3" ng-repeat="product in cat.products">
+                <div class="tab-pane fade" ng-repeat="cat in pyCategories" id="content{{$index}}" ng-class="{'in active':$first}" ng-if="cat.products.length > 0">
+                    <div class="col-sm-3 col-xs-3" ng-repeat="product in cat.products" ng-if="product.available">
                         <div ng-class="{true: 'box-xs', false: 'box'}[smallDevices]" style="background-image: url('{{PRODUCT_IMAGE_SOURCE + product.photoId + IMAGE_EXTENSION}}');">
                             <div ng-class="{true: 'overlay-xs', false: 'overlay'}[smallDevices]" ng-click="addProductToOrder(product)">
                                 <span aria-hidden="true" class="glyphicon glyphicon-plus" ng-class="{true: 'product-plus-xs', false: 'product-plus'}[smallDevices]"></span>
                             </div>
                         </div>
                         <div class="text-center">
-                            <p class="label label-default">{{product.name}}</p>
+                            <!-- name -->
+                            <div ng-repeat="namePart in product.displayNameTabs">
+                                <p class="label label-default">{{namePart}}</p>
+                            </div>
+                            <!-- price -->
                             <span class="badge price-euro">{{product.price | moneyFilter}}</span>
                         </div>
                     </div>
@@ -89,7 +93,7 @@
                 <!-- name and price -->
                 <div class="col-xs-5 vcenter">
                     <!-- name -->
-                    <div class="text-left" ng-repeat="namePart in product.displayName">
+                    <div class="text-left" ng-repeat="namePart in product.displayNameOrder">
                         <p class="label label-default">{{namePart}}</p>
                     </div>
 

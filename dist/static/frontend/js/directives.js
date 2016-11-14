@@ -353,3 +353,71 @@ panemApp.directive('requestStatusHandler', function (dictionary) {
         }
     };
 });
+
+// facilitates the input of an amount of money
+// don't use ngmodel on these inputs!
+// data-source-var contains the variable that otherwise would be use in ng-model
+// it is read and written appropriatly
+panemApp.directive('moneyInput', function($window) {
+    return {
+        link: function (scope, element, attrs) {
+            var initDone = false;
+            // on initialising, wait for source variable to be ready
+            scope.$watch(attrs.sourceVar, function(newValue,oldValue) {
+                if(!initDone) {
+                    $(element).val(newValue/100);
+                    cleanInput();
+                    initDone = true;
+                }
+            });
+
+            // on modifying
+            $(element).focusout(cleanInput);
+
+            function cleanInput() {
+                var whole, cents, totalCents, valueString;
+                var currentElValue = $(element).val();
+
+                // check if input contains a comma <,>
+                if (currentElValue.indexOf(',') != -1) {
+                    whole = parseInt(currentElValue.split(',')[0]);
+                    cents = parseInt(currentElValue.split(',')[1].substring(0,2)); // only takes two digits after <,>
+                    if (currentElValue.split(',')[1].length == 1)
+                        cents = cents*10;
+                }
+                else if (currentElValue.indexOf('.') != -1) {// check if input contains a point <.>
+                    whole = parseInt(currentElValue.split('.')[0]);
+                    cents = parseInt(currentElValue.split('.')[1].substring(0,2)); // only takes two digits after <,>
+                    if (currentElValue.split('.')[1].length == 1)
+                        cents = cents*10;
+                }
+                else if (currentElValue === '') {
+                    whole = 0;
+                    cents = 0;
+                }
+                else {
+                    whole = parseInt(currentElValue);
+                    cents = 0;
+                }
+                totalCents = cents + whole*100;
+                if (cents === 0)
+                    valueString = whole.toString() + ',00';
+                else if (cents <10)
+                    valueString = whole.toString() + ',0' + cents.toString();
+                else
+                    valueString = whole.toString() + ',' + cents.toString();
+
+                // displayed to user
+                $(element).val(valueString);
+                // store new value in var
+                // access target variable with nested access (scope.somevar.somesecondvar)
+                var currentVar = scope;
+                for(var i=0; i < attrs.sourceVar.split('.').length; i++) {
+                    currentVar = currentVar[attrs.sourceVar.split('.')[i]];
+                }
+                // e.g. scope.$apply('myvar.subvar = 780')
+                scope.$apply(attrs.sourceVar + '=' + totalCents.toString());
+            }
+        }
+    };
+});
