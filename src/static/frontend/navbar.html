@@ -12,24 +12,24 @@
                 <img alt="logo" height="auto" width="110" src="images/brand/logo.png">
             </a>
         </div>
-        <div class="navbar-header pull-right" ng-switch="userInfo.type">   
+        <div class="navbar-header pull-right" ng-switch="userInfo.type">
             <!-- content if not logged in -->
                 <!-- register button -->
-                <button type="button" ng-show="!loggedIn" class="btn btn-default navbar-btn" ng-click="navigate('#/client/register?source='+urlPath)">
+                <button type="button" ng-show="!loggedIn" class="btn btn-default navbar-btn" ng-click="changeUrl('/client/register?source='+urlPath)">
                     {{dict.register}}
                 </button>
 
                 <!-- log in buton -->
-                <button type="button" ng-show="!loggedIn" class="btn btn-primary navbar-btn" ng-click="navigate('#/client/login?source='+urlPath)">
+                <button type="button" ng-show="!loggedIn" class="btn btn-primary navbar-btn" ng-click="changeUrl('/client/login?source='+urlPath)">
                     {{dict.login}}
-                </button> 
+                </button>
 
             <!-- content if logged in -->
                 <!-- client myaccount button -->
                 <button class="btn btn-default navbar-btn" ng-click="navigate('#/client/myaccount')" ng-show="loggedIn" ng-switch-when="normal">
                     {{userInfo.firstName + ' ' + userInfo.lastName}}
                 </button>
-            
+
                 <!-- bakery mybakery button -->
                 <button class="btn btn-default navbar-btn" ng-click="navigate('#/baker/managebakery')" ng-show="loggedIn" ng-switch-when="baker">
                     {{userInfo.bakery.name}}
@@ -39,11 +39,6 @@
                 <button class="btn btn-danger navbar-btn" ng-click="logout()" ng-show="loggedIn">
                     <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
                 </button>
-        </div>   
+        </div>
     </div>
 </nav>
-
-
-
-
-
