@@ -21,6 +21,21 @@
 	margin-top: 20px;
 }
 
+.home-small-caption {
+	color : black;
+}
+
+.home-small-bakery-box {
+	background : white;
+	margin : 5px;
+	border : 1px solid #ddd;
+	border-radius : 4px;
+}
+
+.home-small-img-padding {
+	padding-top : 13px;
+}
+
 /* tweede versie van image hover */
 .box{
 	width:100px;
@@ -190,7 +205,7 @@
 
 .jumbotron {
 	padding-top : 20px;
-	padding-bottom: 20px; 
+	padding-bottom: 20px;
 }
 
 .spacer { /* to create some whitespace */
