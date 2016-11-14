@@ -12,6 +12,8 @@ panemApp.controller('clBakeryCtrl', function($scope, $rootScope, dictionary, $wi
     $scope.remarks = "";
     $scope.token;
 
+    $scope.openingsToday;
+
     $scope.order = {};
     $scope.order.products = [];
     // initialisation is ne-eded to prevent empty dropdown item to spawn
@@ -237,10 +239,14 @@ panemApp.controller('clBakeryCtrl', function($scope, $rootScope, dictionary, $wi
                 if(i+1==currentDayOfTheWeek)
                 {
                     // set current day bold
-                    if (isOpen)
-                        processedOpeningHours += "<strong>" + dict.weekDaysNew[i].charAt(0).toUpperCase() + dict.weekDaysNew[i].substring(1) + " " + opening.h + dict.hourAbbr + opening.m + "-" + closing.h + dict.hourAbbr + closing.m + "</strong>";
-                    else
-                        processedOpeningHours += "<strong>" + dict.weekDaysNew[i].charAt(0).toUpperCase() + dict.weekDaysNew[i].substring(1) + " " + dict.closed + "</strong>";
+                    if (isOpen) {
+                        $scope.openingsToday = opening.h + dict.hourAbbr + opening.m + "-" + closing.h + dict.hourAbbr + closing.m;
+                        processedOpeningHours += "<strong>" + dict.weekDaysNew[i].charAt(0).toUpperCase() + dict.weekDaysNew[i].substring(1) + " " + $scope.openingsToday + "</strong>";
+                    }
+                    else {
+                        $scope.openingsToday = dict.closed;
+                        processedOpeningHours += "<strong>" + dict.weekDaysNew[i].charAt(0).toUpperCase() + dict.weekDaysNew[i].substring(1) + $scope.openingsToday + "</strong>";
+                    }
                 }
                 else
                 {

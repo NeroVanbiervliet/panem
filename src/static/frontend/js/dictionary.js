@@ -4,7 +4,7 @@ panemApp.service('dictionary', function($rootScope) {
 
     // SERVICES
 	dictionary.fillServices = function (lang, serviceName) {
-		var dic = {}
+		var dic = {};
 
 		switch(lang) {
 		    case "en":
@@ -58,7 +58,7 @@ panemApp.service('dictionary', function($rootScope) {
 
     // DIRECTIVES
     dictionary.fillDirectives = function (lang, directiveName) {
-		var dic = {}
+		var dic = {};
 
 		switch(lang) {
 		    case "en":
@@ -87,7 +87,7 @@ panemApp.service('dictionary', function($rootScope) {
 
     // NAVBAR
     dictionary.fillNavbar = function (lang) {
-        var dic = {}
+        var dic = {};
 
         switch(lang) {
             case "en":
@@ -99,8 +99,8 @@ panemApp.service('dictionary', function($rootScope) {
                             "register" : "Registeren",
                             "alertMessage" : "Er is een probleem opgetreden, gelieve de pagina te herladen of ons te",
                             "linkToContact" : "contacteren"
-                        }
-                };
+                        };
+                }
 
         return dic;
     };
@@ -108,7 +108,7 @@ panemApp.service('dictionary', function($rootScope) {
 
     // CLIENT HOME PAGE
 	dictionary.fillClHome = function (lang) {
-		var dic = {}
+		var dic = {};
 
 		switch(lang) {
 		    case "en":
@@ -132,7 +132,7 @@ panemApp.service('dictionary', function($rootScope) {
 
     // CLIENT MYACCOUNT
     dictionary.fillClMyAccount = function (lang) {
-        var dic = {}
+        var dic = {};
 
         switch(lang) {
             case "en":
@@ -160,7 +160,7 @@ panemApp.service('dictionary', function($rootScope) {
 
     // CLIENT BAKERY PAGE
 	dictionary.fillClBakery = function (lang) {
-		var dic = {}
+		var dic = {};
 		switch(lang) {
 		    case "en":
                 dic = {};
@@ -208,7 +208,8 @@ panemApp.service('dictionary', function($rootScope) {
                         'message' : "Je moet ingelogd zijn om een bestelling te maken.",
                         'btnLogIn' : "Inloggen",
                         'btnRegister' : "Registreren"
-                    }
+                    },
+                    'today' : "Vandaag"
                 };
                 $rootScope.title = 'Panem - '; // bakery name is added in client/bakery controller
 		}
@@ -219,7 +220,7 @@ panemApp.service('dictionary', function($rootScope) {
 
     // CLIENT REGISTER PAGE
 	dictionary.fillClRegister = function (lang) {
-		var dic = {}
+		var dic = {};
 
 		switch(lang) {
 		    case "en":
@@ -267,7 +268,7 @@ panemApp.service('dictionary', function($rootScope) {
 
     // CLIENT CONTACT AND CONTACT SUCCESS PAGE
 	dictionary.fillClContact = function (lang) {
-		var dic = {}
+		var dic = {};
 
 		switch(lang) {
         case "en":
@@ -306,7 +307,7 @@ panemApp.service('dictionary', function($rootScope) {
 
     // RESET PASSWORD PAGE
 	dictionary.fillClResetPassword = function (lang) {
-		var dic = {}
+		var dic = {};
 
 		switch(lang) {
 		    case "en":
@@ -333,7 +334,7 @@ panemApp.service('dictionary', function($rootScope) {
 
     // FORGOT PASSWORD PAGE
 	dictionary.fillClForgotPassword = function (lang) {
-		var dic = {}
+		var dic = {};
 
 		switch(lang) {
 		    case "en":
@@ -359,7 +360,7 @@ panemApp.service('dictionary', function($rootScope) {
 
     // CLIENT LOGIN PAGE
 	dictionary.fillClLogin = function (lang) {
-		var dic = {}
+		var dic = {};
 
 		switch(lang) {
 		    case "en":
@@ -392,7 +393,7 @@ panemApp.service('dictionary', function($rootScope) {
 
     // CLIENT CONFIRM ORDER PAGE
     dictionary.fillClConfirmOrder = function (lang) {
-        var dic = {}
+        var dic = {};
 
         switch(lang) {
             case "en":
@@ -427,7 +428,7 @@ panemApp.service('dictionary', function($rootScope) {
 
     // CLIENT VERIFY REGISTER PAGE
     dictionary.fillClVerifyAccount = function (lang) {
-        var dic = {}
+        var dic = {};
 
         switch(lang) {
             case "en":
@@ -466,7 +467,7 @@ panemApp.service('dictionary', function($rootScope) {
 
     // BAKER REGISTER PAGE
 	dictionary.fillBkRegister = function (lang) {
-		var dic = {}
+		var dic = {};
 
 		switch(lang) {
 		    case "en":
@@ -519,7 +520,7 @@ panemApp.service('dictionary', function($rootScope) {
 
     // BAKER DAY ORDER PAGE
 	dictionary.fillBkDayOrder = function (lang) {
-		var dic = {}
+		var dic = {};
 
 		switch(lang) {
 		    case "en":
@@ -550,7 +551,7 @@ panemApp.service('dictionary', function($rootScope) {
 
     // BAKER MODIFYPRODUCTS PAGE
 	dictionary.fillBkModifyProducts = function (lang) {
-		var dic = {}
+		var dic = {};
 
 		switch(lang) {
 		    case "en":
@@ -589,7 +590,7 @@ panemApp.service('dictionary', function($rootScope) {
 
     // BAKER ALL ORDERS PAGE
 	dictionary.fillBkAllOrders = function (lang) {
-		var dic = {}
+		var dic = {};
 
 		switch(lang) {
 		    case "en":
@@ -616,7 +617,7 @@ panemApp.service('dictionary', function($rootScope) {
 
     // BAKER MANAGE BAKERY PAGE
 	dictionary.fillBkManageBakery = function (lang) {
-		var dic = {}
+		var dic = {};
 
 		switch(lang) {
 		    case "en":
@@ -663,7 +664,7 @@ panemApp.service('dictionary', function($rootScope) {
 
     // CLIENT FINALISE PAYMENT PAGE
 	dictionary.fillClFinalisePayment = function (lang) {
-		var dic = {}
+		var dic = {};
 
 		switch(lang) {
 		    case "en":
@@ -727,7 +728,7 @@ panemApp.service('dictionary', function($rootScope) {
 
     // CLIENT TOP UP CREDIT PAGE
 	dictionary.fillClTopUpCredit = function (lang) {
-		var dic = {}
+		var dic = {};
 
 		switch(lang) {
 		    case "en":

@@ -7,18 +7,18 @@
             <h1>{{pyBakeryInfo.name}}</h1>
             <p> <!-- adress -->
                 <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
-                {{pyBakeryInfo.adress}}
+                {{pyBakeryInfo.completeAddress}}
             </p>
             <!-- website -->
             <p ng-if="pyBakeryInfo.website"> <!-- empty string is evaluated as false -->
                 <span class="glyphicon glyphicon-globe" aria-hidden="true"></span>
                 <a href="http://{{pyBakeryInfo.website}}" target="_blank">{{pyBakeryInfo.website}}</a>
             </p>
-
-            <button type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="bottom" data-content="{{pyBakeryInfo.openingHours}}">
+            <button type="button" class="btn btn-default opening-hours-button" data-container="body" data-toggle="popover" data-placement="bottom" data-content="{{pyBakeryInfo.openingHours}}">
               <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
                 {{dict.bakeryDescription.openingHours}}
             </button>
+            <p class="spacer-small opening-hours-today"><strong>{{dict.today}}</strong>: {{openingsToday}}</p>
         </div>
     </div> <!-- row -->
 

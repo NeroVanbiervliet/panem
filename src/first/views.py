@@ -67,7 +67,8 @@ def bakery(request, bakeryId,token):
                 #data = serializers.serialize('json', [bakery])
                 data = {}
                 data['name'] = bakery.name
-                data['adress'] = bakery.adress +', '+ str(bakery.postcode) + ' ' + bakery.city 
+                data['completeAddress'] = bakery.adress +', '+ str(bakery.postcode) + ' ' + bakery.city
+                data['adress'] = bakery.adress
                 data['website'] = bakery.website
                 data['openingHours'] = bakery.openings
                 data['bestelLimitTime'] = bakery.bestelLimitTime

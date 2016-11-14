@@ -1,6 +1,17 @@
 @charset "UTF-8";
 @charset 'iso-8859-15';
 
+/* bakery page */
+
+.opening-hours-button {
+	float : left;
+}
+
+.opening-hours-today {
+	margin-left : 150px;
+	margin-top : 16px !important; 
+}
+
 /* home page layout */
 
 .background-pattern {
