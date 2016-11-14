@@ -76,13 +76,13 @@
 
 <body>
     <!-- include navbar -->
-    <div ng-include="'navbar.html'"></div>
+    <div ng-include="'navbar.html'" class="hide-print"></div>
 
     <!-- page content -->
     <div ng-view id="ang-main-view" class="top-bot-margin"></div>
 
     <!-- footer -->
-    <div ng-include="'footer.html'"></div>
+    <div ng-include="'footer.html'" class="hide-print"></div>
 </body>
 
 </html>

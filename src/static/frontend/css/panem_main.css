@@ -9,7 +9,7 @@
 
 .opening-hours-today {
 	margin-left : 150px;
-	margin-top : 16px !important; 
+	margin-top : 16px !important;
 }
 
 /* home page layout */
@@ -339,6 +339,19 @@
 
 .avoid-page-break {
     page-break-after: avoid;
+}
+
+@media only print {
+	/* hide an element on the printout */
+	.hide-print {
+		display : none;
+	}
+
+	@page {
+	    size: auto;   /* auto is the initial value */
+		/* hide the url at the bottom of the print */
+	    margin-bottom: 0;  /* this affects the margin in the printer settings*/
+	}
 }
 
 /* search bar */

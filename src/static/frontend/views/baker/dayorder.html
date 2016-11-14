@@ -3,7 +3,7 @@
         <div class="col-md-8 col-md-offset-2">
             <!-- TODO show logo on print -->
             <!-- aggregate order -->
-            <div class="panel panel-default force-page-break">
+            <div class="panel panel-default">
                 <div class="panel-heading">{{dict.aggregatePanel.title}} <strong>{{pyOrder.dateString}}</strong></div>
                 <div class="panel-body">
                     <div class="row">
@@ -12,7 +12,7 @@
                             <p>{{dict.aggregatePanel.totalMoney}}: <strong class="price-euro">{{pyOrder.totalMoney | moneyFilter}}</strong></p>
                         </div>
                         <div class="col-md-3">
-                            <button type="button" class="btn btn-default" aria-label="Left Align" ng-click="printPage()">
+                            <button type="button" class="btn btn-default hide-print" aria-label="Left Align" ng-click="printPage()">
                                 {{dict.aggregatePanel.print}}
                                 <span class="glyphicon glyphicon-print" aria-hidden="true"></span>
                             </button>
@@ -21,7 +21,7 @@
                 </div> <!-- panel body -->
                 <table class="table">
                     <tbody id="tableBody">
-                        <tr ng-repeat-start="cat in pyOrder.aggregateOrder" class="active">
+                        <tr ng-repeat-start="cat in pyOrder.aggregateOrder" class="active avoid-page-break">
                             <th>{{cat.categoryName}}</th>
                             <th>totaal #</th>
                         </tr>
