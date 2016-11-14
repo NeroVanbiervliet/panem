@@ -28,31 +28,27 @@ panemApp.controller('clFinalisePaymentCtrl', function($scope, dictionary, GETUrl
         // set payment code for helpdesk
         $scope.paymentCode = GET.merchantReference;
 
-        if(GET.merchantReturnData == 'topUp') { // the payment was to top up the account
-            $scope.status = "topUpSuccess";
+        // set page state
+        switch(GET.authResult) {
+            case "CANCELLED":
+                $scope.status = "cancelled";
+                break;
+            case "REFUSED":
+                $scope.status = "refusedAdyen";
+                break;
+            case "PENDING":
+                $scope.status = "pending";
+                break;
+            case "ERROR":
+                $scope.status = "adyenerror";
+                break;
+            default:
+                // AUTHORISED is also default, further checking in backend is needed
+                $scope.status = "loading";
         }
-        else {
-            switch(GET.authResult) {
-                case "CANCELLED":
-                    $scope.status = "cancelled";
-                    break;
-                case "REFUSED":
-                    $scope.status = "refusedAdyen";
-                    break;
-                case "PENDING":
-                    $scope.status = "pending";
-                    break;
-                case "ERROR":
-                    $scope.status = "adyenerror";
-                    break;
-                default:
-                    // AUTHORISED is also default, further checking in backend is needed
-                    $scope.status = "loading";
-            }
 
-            // verify adyen payment in backend
-            verifyAdyenPayment(); // NEED dit buiten de else zetten zodat ook voor topUp in de backend de betaling wordt geverifieerd
-        }
+        // pass payment data on to backend for verification
+        verifyAdyenPayment();
     }
 
     // FUNCTIONS

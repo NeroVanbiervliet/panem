@@ -8,27 +8,59 @@
                 <div class="panel-body">
                     
                     <div class="row">
-                        <form class="col-sm-12">
-                            <div class="input-group col-xs-4 col-sm-2">
-                                <div class="input-group-addon">€</div>
-                                <input type="text" class="form-control" ng-model="$parent.amountTopUp" placeholder="10">
+                        <form class="form-inline">
+                            <div class="form-group col-xs-4 col-sm-2">
+                                <div class="input-group">
+                                    <div class="input-group-addon">€</div>
+                                    <input type="text" class="form-control" ng-model="$parent.amountTopUp" placeholder="10">
+                                </div>
                             </div>
-                            <h4 class="text-success" ng-if="amountTopUp>=10">
-                                +2
-                            </h4>
-
-                            <span class="label label-success">
-                                {{dict.bonusCredit}}
-                            </span>
-
-                            <div class="spacer-medium">
-                                <button class="btn btn-default" ng-click="proceedPaymentAdyen()">{{dict.payOnline}}</button>
+                            <div class="form group col-sm-5">
+                                <label for="promocode">{{dict.promoCode}}</label>
+                                <input type="text" name="promocode" class="form-control to-caps" ng-model="promoCode" ng-change="checkChangeSmart()"/>
                             </div>
+                            
+                            <div class="form-group col-sm-4" ng-switch="requestStatus.promo">
+                                <div ng-switch-when="working" class="loader-small"></div>
+                                <div ng-switch-when="error-message-invalid-used">
+                                    <span class="label label-danger">
+                                        <span class="glyphicon glyphicon-flash"></span>
+                                        {{dict.promoFeedback.used}}
+                                    </span>
+                                </div>
+                                <div ng-switch-when="error-message-invalid-notfound">
+                                    <span class="label label-danger">
+                                        <span class="glyphicon glyphicon-flash"></span>
+                                        {{dict.promoFeedback.notfound}}
+                                    </span>
+                                </div>
+                                <div ng-switch-when="success-valid">
+                                    <span class="label label-success">
+                                        <span class="glyphicon glyphicon-ok"></span>
+                                        {{dict.promoFeedback.valid}}
+                                    </span>
+                                </div>
+                                <div ng-switch-default></div>
+                            </div>
+                        </form>
+
+                        <div class="col-xs-12">
+                            <div class="spacer-small">
+                                <span class="label label-success" ng-show="(amountTopUp >= 10) && (requestStatus.promo=='success-valid')">
+                                    +2
+                                </span>
+                            </div>
+                            <div class="spacer-small">
+                                <span class="label label-default">
+                                    {{dict.promoExplanation}}
+                                </span>
+                            </div>
+                            <button class="btn btn-default spacer-small" ng-click="proceedPaymentAdyen()">{{dict.payOnline}}</button>
                             <div class="spacer-small">
                                 <span class="fa fa-lock fa-lg"></span>
                                 {{dict.paymentIsSecure}}
                             </div>
-                        </form>
+                        </div>
                     </div> 
                 </div> 
             </div> 

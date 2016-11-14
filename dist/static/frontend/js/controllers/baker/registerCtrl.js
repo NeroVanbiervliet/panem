@@ -6,10 +6,10 @@ panemApp.controller('bkRegisterCtrl', function($scope, dictionary, requestWrappe
     // VARIABLES
     $scope.requestInProgress = false;
     $scope.person;
-    $scope.bakery; 
+    $scope.bakery;
 
     // FUNCTIONS
-    
+
     // attempts to start a backend request
     $scope.submitForm = function() {
         if(!$scope.requestInProgress)
@@ -17,20 +17,20 @@ panemApp.controller('bkRegisterCtrl', function($scope, dictionary, requestWrappe
             $scope.performRequest();
         }
     };
-    
+
     // performs the backend request
-    $scope.performRequest = function() {        
+    $scope.performRequest = function() {
         $scope.requestInProgress = true;
         $scope.requestStatus = requestWrapper.init();
-        
+
         var dataToSend = {
-            'personInfo' : $scope.person, 
+            'personInfo' : $scope.person,
             'bakeryInfo' : $scope.bakery
-        }
-        
+        };
+
         requestWrapper.post('/bakery/create/',dataToSend).then(function (newStatus) {
-            $scope.requestStatus = newStatus; 
-            $scope.requestInProgress = false; 
+            $scope.requestStatus = newStatus;
+            $scope.requestInProgress = false;
         });
     };
 });

@@ -185,6 +185,7 @@ panemApp.service('dictionary', function($rootScope) {
                     "nextDays" : ["vandaag","morgen","overmorgen"],
                     "weekDays" : ["zondag","maandag","dinsdag","woensdag","donderdag","vrijdag","zaterdag"],
                     "weekDaysNew" : ["maandag","dinsdag","woensdag","donderdag","vrijdag","zaterdag","zondag"],
+                    "closed" : "gesloten",
                     "hourAbbr" : "u",
                     "qualitativePastTime" : {
                         "1" : "gisteren",
@@ -415,7 +416,7 @@ panemApp.service('dictionary', function($rootScope) {
                     "addCreditToAccount" : "Voeg krediet toe aan mijn account",
                     "addCreditToAccountTooltip" : "Krediet kun je later gebruiken om een andere online bestelling te plaatsen zonder opnieuw je bankgegevens te hoeven gebruiken",
                     "bonusCredit" : "Vanaf 10 euro krijg je twee euro extra krediet!",
-                    "payOnline" : "Betaal online",
+                    "payOnline" : "Betaal",
                     "paymentIsSecure" : "De betaling wordt veilig verwerkt door onze partner Adyen"
                 };
                 $rootScope.title = 'Panem - Bevestig bestelling';
@@ -485,7 +486,11 @@ panemApp.service('dictionary', function($rootScope) {
                     "bakeryInfo" : {
                         'title' : 'Gegevens over de bakkerij',
                         'name' : 'Naam bakkerij',
-                        'address' : 'Adres',
+                        'address' : {
+                          'street' : 'Straat',
+                          'postcode' : 'Postcode',
+                          'city' : 'Stad'
+                        },
                         'telephone' : 'Telefoonnummer',
                         'taxNumber' : 'BTW-nummer',
                         'bankAccount' : 'Rekeningnummer',
@@ -733,9 +738,15 @@ panemApp.service('dictionary', function($rootScope) {
                     "panelTitle" : "Voeg krediet toe aan account",
                     "addCreditToAccount" : "Krediet toevoegen aan je account",
                     "addCreditToAccountTooltip" : "Krediet kun je later gebruiken om een andere online bestelling te plaatsen zonder opnieuw je bankgegevens te hoeven gebruiken",
-                    "bonusCredit" : "Vanaf 10 euro krijg je twee euro extra krediet!",
-                    "payOnline" : "Betaal online",
-                    "paymentIsSecure" : "De betaling wordt veilig verwerkt door onze partner Adyen"
+                    "payOnline" : "Voeg krediet toe",
+                    "paymentIsSecure" : "De betaling wordt veilig verwerkt door onze partner Adyen",
+                    "promoCode" : "Promotie code",
+                    "promoFeedback" : {
+                        'valid' : "geldige code",
+                        'notfound' : "ongeldige code",
+                        'used' : "is al gebruikt"
+                    },
+                    'promoExplanation' : "Een code geeft je recht op twee euro gratis krediet, bij het opladen van minstens tien euro"
                 };
                 $rootScope.title = 'Panem - Krediet opladen';
 		}
