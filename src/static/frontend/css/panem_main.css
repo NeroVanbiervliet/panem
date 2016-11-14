@@ -252,7 +252,14 @@
     float: none;
 }
 
+/* 404 */
+
+.red-404 {
+	color : #df3e3e;
+}
+
 /* custom own */
+
 .top-bot-margin {
 	margin-top: 50px;
 	margin-bottom: 50px;
