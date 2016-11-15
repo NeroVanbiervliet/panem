@@ -158,7 +158,7 @@ def get_products_bakery(bakeryId):
 def get_products_category_bakery(bakeryId):
     
     products = get_products_bakery(bakeryId)
-    categories = Category.objects.all()
+    categories = Category.objects.all().order_by('id')
     output = []
     productsPerCategory = {}
     names = {}
@@ -175,8 +175,16 @@ def get_products_category_bakery(bakeryId):
             categoryId = product['categoryid']
             productsPerCategory[str(categoryId)].append(product)
 
-        # refactor data for output
+        # sort object keys (lowest number (string) to highest number)
+        sortedKeys = []
         for key in productsPerCategory:
+            sortedKeys.append(key)
+        sortedKeys = map(int, sortedKeys)
+        sortedKeys.sort()
+
+        # refactor data for output
+        for i in range(len(sortedKeys)):
+            key = str(sortedKeys[i])
             temp2Dict = {}
             temp2Dict['name'] = names[key]
             temp2Dict['products'] = productsPerCategory[key]

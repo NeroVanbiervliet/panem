@@ -84,6 +84,7 @@ panemApp.controller('clBakeryCtrl', function($scope, $rootScope, dictionary, $wi
         }).then(function(response) {
             $scope.pyCategories = response.data;
             generateDisplayNames();
+            checkForEmtpyCategories();
         }, function(response) {
             $scope.pyCategories = [];
         });
@@ -129,6 +130,21 @@ panemApp.controller('clBakeryCtrl', function($scope, $rootScope, dictionary, $wi
 
                 addDisplayNamesToProduct(currentProduct);
             }
+        }
+    }
+
+    function checkForEmtpyCategories() {
+        for(var i=0; i<$scope.pyCategories.length; i++) {
+            var currentCat = $scope.pyCategories[i];
+
+            var noRenderedItems = true;
+            for(var j=0; j<currentCat.products.length; j++) {
+                if (currentCat.products[j].available) {
+                    noRenderedItems = false;
+                    break;
+                }
+            }
+            currentCat.noRenderedItems = noRenderedItems;
         }
     }
 
