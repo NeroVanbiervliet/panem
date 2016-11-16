@@ -280,6 +280,10 @@
 	cursor: pointer;
 }
 
+.cursor-arrow {
+	cursor : default;
+}
+
 .to-caps {
 	text-transform: uppercase;
 }

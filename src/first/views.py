@@ -939,3 +939,21 @@ def postTest(request):
 
     else:
         return errorMsg
+
+# cancels a payed order
+def cancelOrder(request, orderId):
+    [validMethod,errorMsg] = validRequestMethod(request,'POST')
+
+    if validMethod:
+
+        parsedData = processJson(request)
+        info = atm.verifyToken(parsedData['token'])
+        if isinstance(info, int ):
+            accountId = info
+            returnMessage = slo.cancelorder(orderId,accountId) # success | no-access | not-payed | order-not-found | frozen
+        else:
+            returnMessage = 'not-logged-in'
+        return HttpResponse(returnMessage)
+    else:
+        return errorMsg
+

@@ -143,12 +143,23 @@ panemApp.service('dictionary', function($rootScope) {
                     "creditPanel" : {
                         "currentCredit" : "Huidige krediet",
                         "continue" : "Ga verder",
-                        "description" : "Met krediet kunt u snel en eenvoudig bestellingen plaatsen, zonder uw bankkaart te hoeven gebruiken. Klik hieronder om krediet toe te voegen aan uw account."
+                        "description" : "Met krediet kunt u snel en eenvoudig bestellingen plaatsen, zonder uw bankkaart te hoeven gebruiken. Klik hieronder om krediet toe te voegen aan uw account.",
+                        "added" : "toegevoegd"
                     },
                     "ordersPanel" : {
                         "title" : "Bestellingen",
-                        "orderTip" : "Klik op een bestelling om hem opnieuw te plaatsen.",
-                        "noOrders" : "Bestellingen die je maakt zullen hier getoond worden"
+                        "orderTip" : "Je kunt je bestellingen bekijken en ze opnieuw plaatsen.",
+                        "noOrders" : "Bestellingen die je maakt zullen hier getoond worden",
+                        "replaceOrder" : "Bestel nog eens",
+                        "cancel" : "Annuleren",
+                        "confirmCancel" : "Ben je zeker dat je de bestelling wil annuleren?",
+                        "yes" : "Ja",
+                        "no" : "Nee",
+                        "cancelled" : "Geannuleerd"
+                    },
+                    "cancelFeedback" : {
+                      'frozen' : 'De bestelling is al doorgegeven aan de bakker en kan daarom niet meer geannuleerd worden.',
+                      'error' : 'Er ging iets fout. Contacteer ons om dit samen op te lossen.'
                     }
                 };
                 $rootScope.title = 'Panem - Mijn account';

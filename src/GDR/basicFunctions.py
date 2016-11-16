@@ -127,9 +127,10 @@ def update_category(idIn,nameIn):
     except ObjectDoesNotExist:
         a = 'lol'
         
-def add_logging(timeStampIn, accountIn,event_textIn,kindIn):
-    
-    b = Logging(timeStamp = timeStampIn , account = accountIn , event_text = event_textIn, kind = kindIn)
+def add_logging(timeStampIn, accountIdIn,event_textIn,kindIn):
+
+
+    b = Logging(timeStamp = timeStampIn , accountId = accountIdIn , event_text = event_textIn, kind = kindIn)
     b.save()
     
 def update_logging(idIn,timeStampIn, accountIn,event_textIn,kindIn):

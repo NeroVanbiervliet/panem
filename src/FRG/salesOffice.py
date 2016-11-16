@@ -414,3 +414,34 @@ def usePromoCode(code):
         output = 'invalid-notfound'
 
     return output
+
+def cancelorder(orderId, accountId):
+    try:
+        order = Order.objects.get(id=orderId)
+        if int(order.accountId) != int(accountId):
+            output = 'no-access'
+        else:
+            if order.status == 'frozen':
+                output = 'frozen'
+            else:
+                if 'payed' not in order.status:
+                    output = 'not-payed'
+                else:
+                    order.status = 'cancelled'
+                    order.save()
+
+                    # refunding
+                    account = Account.objects.get(id=accountId)
+                    account.credit += order.totalPrice
+                    account.save()
+
+                    # log refunding
+                    logMessage = 'refunding of cancelled order (id: %d) for an amount of %d' % (order.id, order.totalPrice)
+                    bsf.add_logging(datetime.datetime.now(), int(accountId), logMessage, 'credit')
+
+                    output = 'success'
+
+    except ObjectDoesNotExist:
+        output = 'order-not-found'
+
+    return output

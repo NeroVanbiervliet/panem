@@ -225,6 +225,7 @@ def getPreviousOrders(accountId,bakeryId):
 
                         productDict['amount'] = productOrder.amount
                         orderTemp['products'].append(productDict)
+                orderTemp['status'] = order.status
                 xSort.append(orderTemp['numDaysPast'])
                 output.append(orderTemp)
         if len(xSort) > 0:
