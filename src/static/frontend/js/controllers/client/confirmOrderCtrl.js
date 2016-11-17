@@ -6,6 +6,11 @@ panemApp.controller('clConfirmOrderCtrl', function($scope, $rootScope, $window, 
 
     $scope.firstTimeClicked = false;
 
+    $scope.requestStatus = {};
+    $scope.smartChangeCount = 0;
+	$scope.promoCheck;
+	$scope.promoCode;
+
     // initialise dictionary
     $scope.dict = dictionary.fillClConfirmOrder("nl");
 
@@ -85,7 +90,7 @@ panemApp.controller('clConfirmOrderCtrl', function($scope, $rootScope, $window, 
         tokenManager.getToken().then(function(newToken) {
             $http({
                 method : "GET",
-                url : $rootScope.baseUrl + '/order/current/bill/cash/extraCredit=' + $scope.extraCredit*100 + "&skin=" + skin + "&token=" + newToken + "/"
+                url : $rootScope.baseUrl + '/order/current/bill/cash/extraCredit=' + $scope.extraCredit*100 + "&skin=" + skin +  "&promocode=" + $scope.promoCode + "&token=" + newToken + "/"
             }).then(function(response) {
                 $scope.pyBill = response.data;
             }, function(response) {
@@ -107,10 +112,33 @@ panemApp.controller('clConfirmOrderCtrl', function($scope, $rootScope, $window, 
     function proceedPaymentCredit() {
         url = '/order/current/pay/';
         dataToSend = {};
-        $scope.requestStatus = requestWrapper.init();
         requestWrapper.post(url, dataToSend).then(function (newStatus) {
             // redirect page
             $window.location.href = '#/client/finalisepayment?credit=true&status='+newStatus;
         });
     }
+
+    // promo code functions
+    function checkPromoCode() {
+		// perform endpoint request
+		var url = '/promo/check/code=' + $scope.promoCode;
+	    $scope.requestStatus.promo = requestWrapper.init();
+	    requestWrapper.get(url).then(function ([newStatus,resultData]) {
+	        $scope.requestStatus.promo = newStatus;
+	        $scope.promoCheck = resultData;
+	    });
+	}
+
+    // checks for changes in an input in a smart way
+	$scope.checkChangeSmart = function() {
+		// get my count
+		var myCount = $scope.smartChangeCount +1;
+		$scope.smartChangeCount++;
+
+		// wait for one seconds
+		setTimeout(function(){
+		    if ($scope.smartChangeCount == myCount)
+				checkPromoCode();
+		}, 1000);
+	};
 });

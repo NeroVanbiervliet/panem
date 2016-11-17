@@ -15,7 +15,7 @@ MOBILE_HMAC_KEY = 'f15d5s4f5s7e4fhjk7y5'
 NORMAL_SKIN_CODE = 'Qjdn2DGx'
 NORMAL_HMAC_KEY = 'f15d5s4f5s7e4fhjk7y5'
 
-def getPaymentBill(accountId,bakeryId,orderId,price,shipDateMS,extraCredit,skin):
+def getPaymentBill(accountId,bakeryId,orderId,price,shipDateMS,extraCredit,skin,promoCodeId):
     import FRG.databaseFunctions as dbf
     try:
         account = Account.objects.get(id = accountId)
@@ -23,7 +23,11 @@ def getPaymentBill(accountId,bakeryId,orderId,price,shipDateMS,extraCredit,skin)
         succes = 0
         transactionCosts = 0.
         shipDate = datetime.datetime.fromtimestamp(shipDateMS/1000.).date()
-        paymentId = dbf.add_AdyenPayment(datetime.datetime.now(),orderId,shipDate,accountId,bakeryId,clientPay,transactionCosts,extraCredit,succes)
+
+        # create CreditTopUp instance
+        creditTopUp = bsf.addCreditTopUp(accountId,extraCredit, promoCodeId)
+
+        paymentId = dbf.add_AdyenPayment(datetime.datetime.now(),orderId,shipDate,accountId,bakeryId,clientPay,transactionCosts,creditTopUp,succes)
         order = Order.objects.get(id = orderId)
         order.status = 'Billed Adyen;' + str(paymentId)
         order.save()
@@ -264,14 +268,24 @@ def currentOrderGET(accountId):
     return output
 
 
-def currentOrderBillCash(accountId,extraCredit,skin):
+def currentOrderBillCash(accountId,extraCredit,skin,promocode):
+
+    try:
+        promoCodeObj = PromoCode.objects.get(code=promocode)
+        if not promoCodeObj.isUsed:
+            promoCodeId = promoCodeObj.id
+        else:
+            promoCodeId = 0
+    except ObjectDoesNotExist:
+            promoCodeId = 0
+
     account = Account.objects.get(id=accountId)
     orderId = account.lastOrderId
     if orderId > 0:
         order = Order.objects.get(id=orderId)
         shipDate = order.timePickup
         shipDateMS = int(shipDate.date().strftime("%s")) * 1000
-        output = getPaymentBill(order.accountId,order.bakeryId,orderId,order.totalPrice,shipDateMS,extraCredit,skin)
+        output = getPaymentBill(order.accountId,order.bakeryId,orderId,order.totalPrice,shipDateMS,extraCredit,skin,promoCodeId)
         output = json.dumps(output)
     else:
         output = 'nocurrentorder'
@@ -343,8 +357,12 @@ def currentOrderReceipt(authResult,accountId):
                 order.status = 'payed;0'
                 order.save()
                 account.lastOrderId = 0
-                account.credit += adyenPayment.extraCredit
                 account.save()
+
+                # add credit to account if a topup was included in the payment
+                if adyenPayment.topUpId != -1:
+                    topUpReceipt(accountId,adyenPayment.topUpId,True)
+
                 output = 'success-' + str(adyenId) # NEED als er wel degelijk een adyen payment is, maar hashcode blijkt niet ok te zijn, moet dan ook het adyenId mee geouput worden
 
             else:
@@ -357,9 +375,10 @@ def currentOrderReceipt(authResult,accountId):
 
     return output
 
-def topUpReceipt(accountId, topUpId):
+def topUpReceipt(accountId, topUpId, byPassChecks):
     # NEED check HMAC
     # NEED mark topup as payed
+    # byPassChecks is used to not check HMAC because the topup was part of a larger adyen payment
 
     try:
         account = Account.objects.get(id=accountId)

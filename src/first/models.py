@@ -94,7 +94,6 @@ class CreditTopUp(models.Model):
     accountId =  models.IntegerField(default=0)
     dateOrdered = models.DateTimeField()
     amountToPay = models.IntegerField(default=0) # total to pay
-    amountTopUp = models.IntegerField(default=0) # increase in credit on account, dan differ from amountToPay due to a promotion
     status = models.CharField(max_length=100, default='created')
     promoCodeId = models.IntegerField(default=0)
 
@@ -126,7 +125,7 @@ class AdyenPayment(models.Model):
     bakeryId = models.IntegerField(default=0)
     clientPay = models.DecimalField(max_digits=15, decimal_places=3,default = 0)
     transactionCosts = models.DecimalField(max_digits=15, decimal_places=3,default = 0)
-    extraCredit = models.DecimalField(max_digits=15, decimal_places=3,default = 0)
+    topUpId = models.IntegerField(default = -1) # related CreditTopUp object (if id != -1)
     succes = models.IntegerField(default=0)
     isCreditTopUp = models.BooleanField(default=False)
     

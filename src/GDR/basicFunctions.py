@@ -208,9 +208,9 @@ def add_token(valueIn,accountIdIn,expiryIn):
     b = Token(value = valueIn, accountId = accountIdIn, expiry = expiryIn)
     b.save()
     
-def add_AdyenPayment(date,orderId,shipDate,accountId,bakeryId,clientPay,transactionCosts,extraCredit,succes):
+def add_AdyenPayment(date,orderId,shipDate,accountId,bakeryId,clientPay,transactionCosts,creditTopUp,succes):
     
-    b = AdyenPayment(date=date,orderId=orderId,shipDate=shipDate, accountId=accountId,bakeryId=bakeryId,clientPay=clientPay,transactionCosts=transactionCosts,extraCredit=extraCredit,succes=succes)
+    b = AdyenPayment(date=date,orderId=orderId,shipDate=shipDate, accountId=accountId,bakeryId=bakeryId,clientPay=clientPay,transactionCosts=transactionCosts,topUpId=creditTopUp.id,succes=succes)
     b.save()
     
     return b.id
@@ -218,7 +218,7 @@ def add_AdyenPayment(date,orderId,shipDate,accountId,bakeryId,clientPay,transact
 def addAdyenPaymentForTopUp(account,creditTopUp):
 
     # NEED transactionCosts, wat mee aanvangen?
-    adyenPayment = AdyenPayment(date=creditTopUp.dateOrdered,orderId=creditTopUp.id,shipDate=creditTopUp.dateOrdered,accountId=account.id,bakeryId=0,clientPay=creditTopUp.amountToPay,transactionCosts=0,extraCredit=creditTopUp.amountTopUp,succes=0)
+    adyenPayment = AdyenPayment(date=creditTopUp.dateOrdered,orderId=creditTopUp.id,shipDate=creditTopUp.dateOrdered,accountId=account.id,bakeryId=0,clientPay=creditTopUp.amountToPay,transactionCosts=0,topUpId=-1,succes=0)
     adyenPayment.save()
 
     return adyenPayment.id
@@ -235,11 +235,9 @@ def addCreditTopUp(accountId,amountToPay, promoCodeId):
 
     # date of today
     today = datetime.datetime.now()
-    # promotion : if amountToPay >= 10 euro, then 2 euro is added extra to the top up NEED of enkel de eerste keer?
-    amountTopUp = amountToPay + 200*int((amountToPay >= 1000)) # int(True) = 1 and int(False) = 0
 
     # create new database item
-    newDbItem = CreditTopUp(accountId=accountId, dateOrdered=today, amountToPay=amountToPay, amountTopUp=amountTopUp, promoCodeId=promoCodeId)
+    newDbItem = CreditTopUp(accountId=accountId, dateOrdered=today, amountToPay=amountToPay, promoCodeId=promoCodeId)
     newDbItem.save()
 
     return newDbItem

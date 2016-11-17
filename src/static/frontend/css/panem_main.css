@@ -335,6 +335,11 @@
     background: rgba(255, 255, 255, 0.9);
 }
 
+.fake-disabled {
+	pointer-events: none;
+    opacity: 0.5;
+}
+
 /* printing */
 
 .force-page-break {

@@ -28,7 +28,7 @@ urlpatterns = [
     url(r'^account/password/reset/set/$', views.resetPasswordSet, name='resetPasswordSet'), #POST
     url(r'^order/current/token=(?P<token>[A-Za-z0-9.-]+)/$', views.currentOrderGet, name='currentOrderGet'), #GET working
     url(r'^order/current/$', views.currentOrderPost, name='currentOrderPost'), #POST 
-    url(r'^order/current/bill/cash/extraCredit=(?P<extraCredit>[0-9]+)&skin=(?P<skin>[A-Za-z0-9.-]+)&token=(?P<token>[A-Za-z0-9.-]+)/$', views.currentOrderBillCash, name='currentOrderBillCash'), #GET working
+    url(r'^order/current/bill/cash/extraCredit=(?P<extraCredit>[0-9]+)&skin=(?P<skin>[A-Za-z0-9.-]+)&promocode=(?P<promocode>[A-Za-z0-9.-]+)&token=(?P<token>[A-Za-z0-9.-]+)/$', views.currentOrderBillCash, name='currentOrderBillCash'), #GET working
     url(r'^order/(?P<orderId>[0-9]+)/bill/cash/extraCredit=(?P<extraCredit>[0-9]+)&skin=(?P<skin>[A-Za-z0-9.-]+)&token=(?P<token>[A-Za-z0-9.-]+)/$', views.orderBillCash, name='orderBillCash'), #GET working
     url(r'^order/(?P<orderId>[0-9]+)/cancel/$', views.cancelOrder, name='cancelOrder'), # POST
     url(r'^order/current/bill/credit/token=(?P<token>[A-Za-z0-9.-]+)/$', views.currentOrderBillCredit, name='currentOrderBillCredit'), #GET

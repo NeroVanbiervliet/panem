@@ -426,12 +426,19 @@ panemApp.service('dictionary', function($rootScope) {
                     "toPay" : "Resterend te betalen",
                     "insufficientFunds" : "Je hebt onvoldoende krediet. Om de bestelling te plaatsen kun je doorgaan met online betalen.",
                     "payWithCredits" : "Betaal met krediet",
-                    "addCreditToAccount" : "Voeg krediet toe aan mijn account",
+                    "addCreditToAccount" : "Voeg ook krediet toe aan mijn account",
                     "addCreditToAccountTooltip" : "Krediet kun je later gebruiken om een andere online bestelling te plaatsen zonder opnieuw je bankgegevens te hoeven gebruiken",
                     "bonusCredit" : "Vanaf 10 euro krijg je twee euro extra krediet!",
                     "payOnline" : "Betaal",
                     "looksGreat" : "Ik denk dat de bestelling klopt",
-                    "paymentIsSecure" : "De betaling wordt veilig verwerkt door onze partner Adyen"
+                    "paymentIsSecure" : "De betaling wordt veilig verwerkt door onze partner Adyen",
+                    "promoCode" : "Promotie code",
+                    "promoFeedback" : {
+                        'valid' : "geldige code",
+                        'notfound' : "ongeldige code",
+                        'used' : "is al gebruikt"
+                    },
+                    'promoExplanation' : "Een code geeft je recht op twee euro gratis krediet, bij het opladen van minstens tien euro"
                 };
                 $rootScope.title = 'Panem - Bevestig bestelling';
         }
