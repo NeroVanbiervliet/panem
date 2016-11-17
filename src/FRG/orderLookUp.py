@@ -54,7 +54,7 @@ def get_allDayOrders(bakeryId,firstDay,lastDay):
             dummy['totalPrice'] = 0
             dummy['lockState'] = 0
             output.append(dummy)
-        orders = Order.objects.all()
+        orders = Order.objects.all().exclude(status='cancelled')
 
         for order in orders:
             datePickup = order.timePickup.replace(tzinfo=None).date()
@@ -76,7 +76,7 @@ def get_dayOrder(bakeryId,dateMS):
     try:
         a = Bakery.objects.get(id = bakeryId)
 
-        list1 = Order.objects.all()
+        list1 = Order.objects.all().exclude(status='cancelled')
         categories = Category.objects.all()
         names = {}
         for category in categories:
