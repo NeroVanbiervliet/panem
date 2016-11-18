@@ -87,7 +87,7 @@ def databaseFillStandardProducts():
 def databaseFillBakeries():
 
     ## Generate Bakeries
-    bakerN = 20
+    bakerN = 200
     for lol in range(bakerN):
 
         if lol%5 == 0:
@@ -96,7 +96,8 @@ def databaseFillBakeries():
         firstNames = ['Jan','Piet','Joris','Korneel','Louis','Nero','Michiel','Emiel','Maarten','Helena','Suzy','Martine','Lieven']
         lastNames = ['Kok','Jassens','Peters','Baert','Baerto','VDB','Lesc','VBV','Homo','Kaas','Schoenmaker','De Vroe','Mignolet']
         adressList = [['Jozef van Walleghemstraat 11','8200','Brugge'],['Loppemsestraat 80','8020','Oostkamp'],['Raverschootstraat 62','9900','Eeklo'],['Koolstraat 1','8750','Wingene'],['Diepestraat 50','9200','Dendermonde'],['Fonteinstraat 57','9400','Ninove'],['Zevekotestraat 9','9940','Evergem']]
-
+        bakeryPrefix = ['Krokante','Warme','Verse','Dagelijkse','','Lokale','Lekkere','Gebakken','Bakkers']
+        bakerySuffix = [['Het','Croissantje'],['Het','Brood'],['De','Bakker'],['Het','Huis'],['','Stefaan'],['','Margriet'],['De','Patissier'],['Het','Hok'],['Het','Paleis']]
 
         personInfo = {}
         personInfo['firstName'] = firstNames[random.randint(0,len(firstNames)-1)]
@@ -105,7 +106,8 @@ def databaseFillBakeries():
         personInfo['password'] = 'rosbeiaard'
 
         bakeryInfo = {}
-        bakeryInfo['name'] = personInfo['lastName'] + ' ' + personInfo['firstName'] + ' ' + str(random.randint(0,100)) + ' ' + 'bakerij'
+        suff = bakerySuffix[random.randint(0,len(bakerySuffix)-1)] 
+        bakeryInfo['name'] = suff[0] + ' ' + bakeryPrefix[random.randint(0,len(bakeryPrefix)-1)] + ' ' + suff[1]
         dummy = random.randint(0,len(adressList)-1)
 
         bakeryInfo['street'] = adressList[dummy][0]
@@ -123,13 +125,6 @@ def databaseFillBakeries():
 
         openings = str(openings)
         openings = openings.replace('\'','\"').replace('False','false').replace('True','true')
-
-
-#        # NEED toch dynamische testdata maken maar
-#        # 1. laatste van openings moet true of false zijn, niet True of False
-#        # 2. de str() functie moet er overal strings met dubbele quotes van maken, niet enkele
-#        # voorlopige testdata :
-#        openings = "[[{\"h\": \"5\", \"m\": \"15\"}, {\"h\": \"16\", \"m\": \"28\"}, true], [{\"h\": \"7\", \"m\": \"28\"}, {\"h\": \"18\", \"m\": \"16\"}, false], [{\"h\": \"7\", \"m\": \"32\"}, {\"h\": \"18\", \"m\": \"4\"}, false], [{\"h\": \"5\", \"m\": \"13\"}, {\"h\": \"16\", \"m\": \"40\"}, true], [{\"h\": \"5\", \"m\": \"26\"}, {\"h\": \"17\", \"m\": \"1\"}, true], [{\"h\": \"5\", \"m\": \"35\"}, {\"h\": \"18\", \"m\": \"8\"}, true], [{\"h\": \"5\", \"m\": \"28\"}, {\"h\": \"20\", \"m\": \"6\"}, true]]"
 
         bakeryInfo['openings'] = openings
         bakeryInfo['bankAccount'] = str(random.randint(10**5,10**6))
@@ -196,7 +191,16 @@ def databaseFillProducts():
             for product in category['products']:
                 random.randint(0,1)
                 product['available'] = booleans[random.randint(0,1)]
-                product['price'] = random.randint(50,1000)
+#                product['price'] = random.randint(50,1000)
+                if category['name'] == 'Taarten':
+                    product['price'] = 5*int(random.randint(800,3000)/5)
+                elif category['name'] == 'Broden':
+                    product['price'] = 5*int(random.randint(150,300)/5)
+                elif category['name'] == 'Klein gebak' or category['name'] == 'Koffiekoeken':
+                    product['price'] = 5*int(random.randint(80,200)/5)                
+                else:
+                    product['price'] = 5*int(random.randint(80,100)/5)
+                    
                 product['ingredients'] = []
                 amountOfIngredients = random.randint(1,5)
                 for i in range(amountOfIngredients):

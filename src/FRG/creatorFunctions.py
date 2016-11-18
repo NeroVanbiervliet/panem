@@ -27,7 +27,7 @@ def create_bakery(personInfo, bakeryInfo, sendMail):
             accountId = Account.objects.get(email = personInfo['email']).id
             website = ''
             if not 'openings' in bakeryInfo:
-                bakeryInfo['openings'] = "[[{\"h\": \"5\", \"m\": \"15\"}, {\"h\": \"16\", \"m\": \"28\"}, true], [{\"h\": \"7\", \"m\": \"28\"}, {\"h\": \"18\", \"m\": \"16\"}, false], [{\"h\": \"7\", \"m\": \"32\"}, {\"h\": \"18\", \"m\": \"4\"}, false], [{\"h\": \"5\", \"m\": \"13\"}, {\"h\": \"16\", \"m\": \"40\"}, true], [{\"h\": \"5\", \"m\": \"26\"}, {\"h\": \"17\", \"m\": \"1\"}, true], [{\"h\": \"5\", \"m\": \"35\"}, {\"h\": \"18\", \"m\": \"8\"}, true], [{\"h\": \"5\", \"m\": \"28\"}, {\"h\": \"20\", \"m\": \"6\"}, true]]"
+                bakeryInfo['openings'] = "[[{\"h\": \"6\", \"m\": \"30\"}, {\"h\": \"18\", \"m\": \"00\"}, true],[{\"h\": \"6\", \"m\": \"30\"}, {\"h\": \"18\", \"m\": \"00\"}, true],[{\"h\": \"6\", \"m\": \"30\"}, {\"h\": \"18\", \"m\": \"00\"}, true],[{\"h\": \"6\", \"m\": \"30\"}, {\"h\": \"18\", \"m\": \"00\"}, true],[{\"h\": \"6\", \"m\": \"30\"}, {\"h\": \"18\", \"m\": \"00\"}, true],[{\"h\": \"6\", \"m\": \"30\"}, {\"h\": \"18\", \"m\": \"00\"}, true],[{\"h\": \"6\", \"m\": \"30\"}, {\"h\": \"18\", \"m\": \"00\"}, true]]"
             description = 'lolololololololololololololololol'
             bestelLimitTime = '17:00'
             bakeryObject = bsf.add_bakery(bakeryInfo['name'],bakeryInfo['street'],int(bakeryInfo['postcode']),bakeryInfo['city'],GPSLat,GPSLon,bakeryInfo['telephone'],website,bakeryInfo['openings'],description,bestelLimitTime,bakeryInfo['bankAccount'],bakeryInfo['taxNumber'],1,accountId)
