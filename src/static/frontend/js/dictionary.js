@@ -753,9 +753,8 @@ dictionary.fillClChangePassword = function (lang) {
                             'title' : "Er is geen betaling af te handelen",
                             'description' : "Waarschijnlijk ben je hier per ongeluk terecht gekomen"
                         },
-                        'topUpSuccess' : {
-                            'title' : "Betaling aanvaard",
-                            'description' : "Uw krediet werd aangevuld."
+                        'creditPaymentSuccess' : {
+                            'title' : "Betaling met krediet aanvaard"
                         }
                     },
                     'toHome' : {

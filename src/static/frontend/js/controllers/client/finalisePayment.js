@@ -17,11 +17,11 @@ panemApp.controller('clFinalisePaymentCtrl', function($scope, dictionary, GETUrl
         if(GET.status.split('-')[0] == 'success') {
             GET.status = 'success';
             $scope.paymentCode = 'credit' + $scope.status.split('-')[1];
-            $scope.status = "topUpSuccess";
+            $scope.status = "creditPaymentSuccess";
         }
         else {
             $scope.status = 'refusedPanem';
-            $scope.paymentCode = 'creditnotexecuted';
+            $scope.paymentCode = 'creditNotExecuted';
         }
     }
     else { // credit variable is not present in url => adyen payment
