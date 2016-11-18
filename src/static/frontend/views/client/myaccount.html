@@ -23,7 +23,12 @@
                 </div> <!-- panel body -->
             </div>
 
-            <h3 class="spacer-extended">{{dict.ordersPanel.title}}</h3>
+            <h3 class="spacer-extended">{{dict.changePassword}}</h3>
+            <button type="button" class="btn btn-default spacer-small" ng-click="navigate('#/client/changepassword/')">
+                {{dict.creditPanel.continue}} <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            </button>
+
+            <h3 class="spacer-medium">{{dict.ordersPanel.title}}</h3>
             <p ng-hide="!pyPreviousOrders.length">{{dict.ordersPanel.orderTip}}</p>
             <!-- previous orders -->
             <div class="panel panel-default spacer-medium">

@@ -160,7 +160,8 @@ panemApp.service('dictionary', function($rootScope) {
                     "cancelFeedback" : {
                       'frozen' : 'De bestelling is al doorgegeven aan de bakker en kan daarom niet meer geannuleerd worden.',
                       'error' : 'Er ging iets fout. Contacteer ons om dit samen op te lossen.'
-                    }
+                    },
+                    "changePassword" : "Wachtwoord veranderen"
                 };
                 $rootScope.title = 'Panem - Mijn account';
             }
@@ -169,7 +170,7 @@ panemApp.service('dictionary', function($rootScope) {
     };
 
 
-    // CLIENT BAKERY PAGE
+  // CLIENT BAKERY PAGE
 	dictionary.fillClBakery = function (lang) {
 		var dic = {};
 		switch(lang) {
@@ -316,6 +317,33 @@ panemApp.service('dictionary', function($rootScope) {
 		return dic;
 	};
 
+// CLIENT CONTACT AND CONTACT SUCCESS PAGE
+dictionary.fillClChangePassword = function (lang) {
+  var dic = {};
+
+  switch(lang) {
+      case "en":
+              dic = {};
+          break;
+    default: // NL
+              dic = {
+                'form' : {
+                  'passwordOld' : "Huidige wachtwoord",
+                  'passwordNew' : "Nieuwe wachtwoord",
+                  'passwordHelpText' : "Het wachtwoord moet minimaal 7 karakters bevatten",
+                  'submit' : "Ga verder"
+                },
+                'requestStatus' : {
+                  'backenderror' : 'Er ging iets fout, gelieve de pagina te herladen en opnieuw te proberen.',
+                  'wrongPassword' : 'Het huidige wachtwoord is niet correct.',
+                  'reqsNotMet' : 'Het nieuwe wachtwoord voldoet niet aan de voorwaarden.'
+                }
+              };
+              $rootScope.title = 'Panem - Wachtwoord veranderen';
+        }
+
+  return dic;
+};
 
     // RESET PASSWORD PAGE
 	dictionary.fillClResetPassword = function (lang) {

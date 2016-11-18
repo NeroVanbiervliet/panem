@@ -517,7 +517,7 @@ if t4:
                 printError("unknown error : " + response.content)
 
 
-    # 4.4 /account/password/change/
+    # 4.4 /account/password/change/ NEED moven naar /me/password/change
     print "4.4 /account/password/change/"
     newPass = "rosbeiaard"
     request = {

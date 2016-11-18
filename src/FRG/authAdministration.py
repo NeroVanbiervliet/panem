@@ -27,16 +27,14 @@ def check_login(emailIn,password):
 def change_password(emailIn,passwordOriginal,passwordNew):
     #check if account exists
     #send mail if password is reset?
-    if len(passwordNew) < 7:
-        return 'passwordtooshort'
-    elif not passwordNew.isalnum():
-        return 'notalphanumeric'
+    if len(passwordNew) < 7 or not passwordNew.isalnum():
+        return 'requirements-not-met'
     else:
         try:
             account = Account.objects.get(email = emailIn)
             salt = account.salt
             passwordSalted = passwordOriginal + salt
-            if account.password == hashlib.sha512(passwordSalted).hexdigest():
+            if account.password == hashlib.sha512(passwordSalted).hexdigest(): # given password is correct
                 salt = b64encode(os.urandom(64)).decode('utf-8')
                 passwordSalted = passwordNew + salt
                 hashed = hashlib.sha512(passwordSalted).hexdigest()
@@ -45,7 +43,7 @@ def change_password(emailIn,passwordOriginal,passwordNew):
                 account.save()
                 return 'success'
             else:
-                return 'wrongpassword'
+                return 'wrong-password'
 
         except ObjectDoesNotExist:
             return 'accnotfound'

@@ -23,7 +23,6 @@ urlpatterns = [
     url(r'^account/create/$', views.createAccount, name='createAccount'), #POST working
     url(r'^account/verify/$', views.verifyAccount, name='verifyAccount'), #POST
     url(r'^account/verify/resendmail/email=(?P<emailIn>[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4})&token=(?P<token>[A-Za-z0-9.-]+)/$', views.repeatVerifyMail, name='repeatVerifyMail'), #GET working
-    url(r'^account/password/change/$', views.changePassword, name='changePassword'), #POST working
     url(r'^account/password/reset/mail/$', views.resetPasswordMail, name='resetPasswordMail'), #POST working
     url(r'^account/password/reset/set/$', views.resetPasswordSet, name='resetPasswordSet'), #POST
     url(r'^order/current/token=(?P<token>[A-Za-z0-9.-]+)/$', views.currentOrderGet, name='currentOrderGet'), #GET working
@@ -44,5 +43,6 @@ urlpatterns = [
     url(r'^adyen/notify/$', views.processAdyenNotification, name='processAdyenNotification'), #POST working
     url(r'^contact/$', views.submitContactIssue, name='submitContactIssue'), # POST working
     url(r'^promo/check/code=(?P<code>[A-Za-z0-9.-]+)&token=(?P<token>[A-Za-z0-9.-]+)/$', views.checkPromoCode, name='checkPromoCode'), # GET
+    url(r'^me/password/change/$', views.changePassword, name='changePassword'), #POST working
     url(r'^test/$', views.postTest, name='postTest'), # POST
 ]

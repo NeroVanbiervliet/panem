@@ -1,7 +1,13 @@
 <!-- alert message when request to backend failed -->
-<div class="alert alert-danger alert-custom" role="alert" ng-show="requestStatus == 'error'"> <!-- TODO text-center? -->
+<div class="alert alert-danger alert-custom alert-custom-red" role="alert" ng-show="requestStatus == 'error'"> <!-- TODO text-center? -->
     <button type="button" class="close" data-dismiss="alert">×</button>
     <span class="glyphicon glyphicon-flash"></span> {{dict.alertMessage}} <a href="/#/client/contact/" class="white-link">{{dict.linkToContact}}</a>
+</div>
+
+<!-- feedback message when something succeeded -->
+<div class="alert alert-success alert-custom alert-custom-green" role="alert" ng-show="showFeedbackMessage"> <!-- TODO text-center? -->
+    <button type="button" class="close" data-dismiss="alert">×</button>
+    <span class="glyphicon glyphicon-ok"></span> {{feedbackMessage}}</a>
 </div>
 
 <!-- navbar -->
