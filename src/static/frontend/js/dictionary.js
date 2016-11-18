@@ -222,7 +222,8 @@ panemApp.service('dictionary', function($rootScope) {
                         'btnRegister' : "Registreren",
                         'noBakerMessage' : "Met een bakkersaccount kun je geen bestellingen plaatsen."
                     },
-                    'today' : "Vandaag"
+                    'today' : "Vandaag",
+                    'noProducts' : "Er zijn geen producten in deze categorie"
                 };
                 $rootScope.title = 'Panem - '; // bakery name is added in client/bakery controller
 		}
@@ -337,7 +338,8 @@ dictionary.fillClChangePassword = function (lang) {
                   'backenderror' : 'Er ging iets fout, gelieve de pagina te herladen en opnieuw te proberen.',
                   'wrongPassword' : 'Het huidige wachtwoord is niet correct.',
                   'reqsNotMet' : 'Het nieuwe wachtwoord voldoet niet aan de voorwaarden.'
-                }
+                },
+                'feedbackMessage' : "Wachtwoord is gewijzigd"
               };
               $rootScope.title = 'Panem - Wachtwoord veranderen';
         }
@@ -487,14 +489,11 @@ dictionary.fillClChangePassword = function (lang) {
                 break;
             default: // NL
                 dic = {
-                    "confirmed" : {
-                        "heading" : "Email is bevestigd",
-                        "description" : "U kunt nu aan de slag met Panem! Klik op de knop hieronder om naar de homepagina te gaan. Daar kunt u uw bakker zoeken en een bestelling plaatsen.",
-                        "buttonText" : "Naar Home"
-                    },
+                    "confirmed" : "Je emailadres is bevestigd",
                     "wasAlreadyConfirmed" : {
                         "heading" : "Email was al bevestigd",
-                        "description" : "Uw email adres was al bevestigd."
+                        "description" : "Uw email adres was al bevestigd.",
+                        "buttonText" : "Naar home"
                     },
                     "noCorrectCodeOrEmail" : {
                         "heading" : "Foute gegevens",

@@ -105,17 +105,23 @@ def verify_account(emailIn,code):
     try:
         account = Account.objects.get(email = emailIn)
         if account.confirmed == 0:
-            return 'alreadyverified'
+            return 'already-verified'
         elif int(code) == account.confirmed:
             #if confirmed value is zero, then the account is confirmed
             account.confirmed = 0
             account.save()
-            return 'success'
+
+            # create login token
+            valueIn = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(14))
+            accountId = account.id
+            expiry = datetime.datetime.now() + datetime.timedelta(hours=2)
+            add_token(valueIn,accountId,expiry)
+            return valueIn
         else:
-            return 'wrongcode'
+            return 'wrong-code'
 
     except ObjectDoesNotExist:
-        return 'accnotfound'
+        return 'acc-not-found'
 
 
 def createToken(emailIn,password):

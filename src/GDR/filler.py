@@ -237,7 +237,7 @@ def databaseFillAccounts():
 
 def fillPromoCodesCredit():
 
-    bsf.addPromoCodeCredit('testcode1')
-    slo.usePromoCode('testcode1')
+    bsf.addPromoCodeCredit('TESTCODE1')
+    slo.usePromoCode('TESTCODE1')
     for i in range(2,100):
-        bsf.addPromoCodeCredit('testcode'+str(i))
+        bsf.addPromoCodeCredit('TESTCODE'+str(i))

@@ -24,6 +24,10 @@ panemApp.controller('clConfirmOrderCtrl', function($scope, $rootScope, $window, 
 
     // FUNCTIONS
 
+    function parsedPromoCode() {
+        return $scope.promoCode.toUpperCase().replace(/\W/g, '');
+    }
+
     // load current order from endpoint
     var loadCurrentOrder = function(token) {
         $http({
@@ -90,7 +94,7 @@ panemApp.controller('clConfirmOrderCtrl', function($scope, $rootScope, $window, 
         tokenManager.getToken().then(function(newToken) {
             $http({
                 method : "GET",
-                url : $rootScope.baseUrl + '/order/current/bill/cash/extraCredit=' + $scope.extraCredit*100 + "&skin=" + skin +  "&promocode=" + $scope.promoCode + "&token=" + newToken + "/"
+                url : $rootScope.baseUrl + '/order/current/bill/cash/extraCredit=' + $scope.extraCredit*100 + "&skin=" + skin +  "&promocode=" + parsedPromoCode() + "&token=" + newToken + "/"
             }).then(function(response) {
                 $scope.pyBill = response.data;
             }, function(response) {
@@ -121,7 +125,7 @@ panemApp.controller('clConfirmOrderCtrl', function($scope, $rootScope, $window, 
     // promo code functions
     function checkPromoCode() {
 		// perform endpoint request
-		var url = '/promo/check/code=' + $scope.promoCode;
+		var url = '/promo/check/code=' + parsedPromoCode();
 	    $scope.requestStatus.promo = requestWrapper.init();
 	    requestWrapper.get(url).then(function ([newStatus,resultData]) {
 	        $scope.requestStatus.promo = newStatus;

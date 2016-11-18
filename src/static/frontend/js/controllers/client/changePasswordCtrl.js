@@ -26,7 +26,7 @@ panemApp.controller('clChangePasswordCtrl', function($scope, $rootScope, diction
 			$window.location.href = '#/client/myaccount';
 		}
 		$scope.requestStatus = status;
-		$rootScope.feedbackMessage = "Wachtwoord is gewijzigd";
+		$rootScope.feedbackMessage = $scope.dict.feedbackMessage;
 		$rootScope.showFeedbackMessage = true;
 	}
 });
