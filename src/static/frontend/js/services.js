@@ -16,6 +16,13 @@ panemApp.service('tokenManager', function($cookies, $http, $rootScope, $q) {
         $cookies.put('panemTokenTimer',(new Date()).getTime());
     };
 
+    // check if the token has expired
+    this.isExpired = function() {
+        var lastAccessed = $cookies.get('panemTokenTimer');
+        var currentTime = (new Date()).getTime();
+        return ((currentTime - lastAccessed) > expiryTime || lastAccessed == null);
+    };
+
     // force new token
     this.forceNewToken = function() {
         var deferred = $q.defer();
@@ -29,9 +36,8 @@ panemApp.service('tokenManager', function($cookies, $http, $rootScope, $q) {
     // getter for token
     this.getToken = function() {
         var deferred = $q.defer();
-        var lastAccessed = $cookies.get('panemTokenTimer');
-        var currentTime = (new Date()).getTime();
-        if((currentTime - lastAccessed) > expiryTime || lastAccessed == null)
+
+        if(this.isExpired())
         {
             this.generateGuestToken().then(function(generatedToken) {
                 deferred.resolve(generatedToken);

@@ -39,6 +39,15 @@ loadNavBarLogic = function(userInfo, $rootScope, $location, tokenManager, dictio
     };
 
     // EXECUTED ON ROUTE CHANGE AND ON REFRESH
+
+    // check if logged in still valid
+    console.log('hi');
+    console.log(tokenManager.isExpired());
+    if(tokenManager.isExpired()) {
+        $rootScope.loggedIn = false;
+        tokenManager.forceNewToken();
+    }
+
     $rootScope.$on("$routeChangeSuccess", function($currentRoute, $previousRoute) {
         // used to redirect to the source page after successful log in on login page
         $rootScope.urlPath = $location.absUrl().split("#")[1];

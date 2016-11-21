@@ -318,7 +318,6 @@ panemApp.service('dictionary', function($rootScope) {
 		return dic;
 	};
 
-// CLIENT CONTACT AND CONTACT SUCCESS PAGE
 dictionary.fillClChangePassword = function (lang) {
   var dic = {};
 
@@ -342,6 +341,24 @@ dictionary.fillClChangePassword = function (lang) {
                 'feedbackMessage' : "Wachtwoord is gewijzigd"
               };
               $rootScope.title = 'Panem - Wachtwoord veranderen';
+        }
+
+  return dic;
+};
+
+
+dictionary.fillClListAllergenes = function (lang) {
+  var dic = {};
+
+  switch(lang) {
+      case "en":
+              dic = {};
+          break;
+    default: // NL
+              dic = {
+
+              };
+              $rootScope.title = 'Panem - Allergenen';
         }
 
   return dic;
