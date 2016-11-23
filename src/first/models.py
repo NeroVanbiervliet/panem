@@ -2,6 +2,8 @@ from __future__ import unicode_literals
 
 from django.db import models
 
+import datetime
+
 # Create your models here.
 class Bakery(models.Model):
     name = models.CharField(max_length=50, default='')
@@ -81,8 +83,8 @@ class Order(models.Model):
     accountId =  models.IntegerField(default=0)
     bakeryId = models.IntegerField(default=0)
     status = models.CharField(max_length=10, default='')
-    timePickup =  models.DateTimeField()
-    timeOrdered = models.DateTimeField()
+    timePickup =  models.DateTimeField(default=datetime.datetime.now)
+    timeOrdered = models.DateTimeField(default=datetime.datetime.now)
     comment = models.CharField(max_length=100, default='')
     totalPrice = models.IntegerField(default=0)
     

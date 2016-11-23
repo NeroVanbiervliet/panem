@@ -5,12 +5,13 @@ Created on 22:38:43 2016
 @author: matthias
 """
 import random
+import datetime
 
-from FRG.databaseFunctions import get_allProducts, get_products_category_bakery
+from FRG.databaseFunctions import get_allProducts, get_products_category_bakery,updateFunction
 from FRG.wareHouse import adaptProducts
 from FRG.creatorFunctions import create_bakery,create_account
 from GDR.basicFunctions import add_product,add_category,addBakeryIngredient,updateFunction
-from first.models import Bakery,Category
+from first.models import Bakery,Category,Order,Product_order,Account,HasProduct
 import FRG.salesOffice as slo
 import GDR.basicFunctions as bsf
 
@@ -28,6 +29,8 @@ def databaseFillAll():
     print 'Succes Accounts'
     fillPromoCodesCredit()
     print 'Succes Promo Codes'
+    fillSomeOrders()
+    print 'Succes Orders'
 
 
 
@@ -245,3 +248,41 @@ def fillPromoCodesCredit():
     slo.usePromoCode('testcode1')
     for i in range(2,100):
         bsf.addPromoCodeCredit('testcode'+str(i))
+
+def fillSomeOrders():
+    bakerynero = Bakery.objects.get(name='Bakkermans Nero')
+    accounts = Account.objects.filter(type='normal')
+    account = accounts[random.randint(0,len(accounts)-1)]
+    
+    hasproducts = HasProduct.objects.filter(bakeryId=bakerynero.id, availability=True)
+    
+    for i in range(2):
+        order = Order()
+        order.save()
+        updates = {}
+        updates['accountId'] = account.id
+        updates['bakeryId'] = bakerynero.id
+        updates['status'] = 'progress'
+        updates['timePickup'] = datetime.datetime.now() + datetime.timedelta(days=2)
+        updates['timeOrdered'] = datetime.datetime.now()
+        updateFunction(order, updates)
+        
+        totalPrice = 0.0
+        for i in range(4):
+            hasproduct = hasproducts[random.randint(0,len(hasproducts)-1)]
+            amount = random.randint(1,5)
+            totalPrice += hasproduct.price*amount
+            model = Product_order()
+            model.save()
+            updates2 = {}
+            
+            updates2['orderId'] = order.id
+            updates2['productId'] = hasproduct.productId
+            updates2['amount'] = amount
+            updates2['price'] = hasproduct.price 
+            updateFunction(model, updates2)
+            
+            
+        updates['totalPrice'] = totalPrice
+        updateFunction(order, updates)
+        

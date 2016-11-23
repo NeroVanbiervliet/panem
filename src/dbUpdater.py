@@ -1,5 +1,5 @@
 from first.models import Order,Bakery
-from django.db.models import CharField, Case, Value, When
+from django.db.models import Q
 import time,datetime
 
 
@@ -9,7 +9,7 @@ def runUpdater():
     running = True
     
     updateDeltaT = 60 #s
-    tLast = time.time()
+    tLast = time.time() - 60.
     
     while running:
         
@@ -21,7 +21,7 @@ def runUpdater():
 def runOrderFreezer():
     
     
-    interestingOrders = Order.objects.filter(status != 'freeze')
+    interestingOrders = Order.objects.filter(~Q(status='frozen'))
     for order in interestingOrders:
         
         bakery = Bakery.objects.get(id=order.bakeryId)
@@ -34,6 +34,7 @@ def runOrderFreezer():
         limitTime = time.mktime(limitDate.timetuple())
         
         if limitTime < time.time():
+            
             order.status = 'freeze'
             order.save()
             
