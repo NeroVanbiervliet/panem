@@ -142,12 +142,22 @@
                     <div class="spacer-small btn-toolbar">
 
                         <!-- tomorrow disabled -->
-                        <button ng-if="(pyDisabledDatesInt.indexOf(1) > -1)" ng-click="setCalenderDivDate(1)" class="btn btn-danger btn-sm cursor-not-allowed" data-toggle="tooltip" data-placement="top" title="{{dict.orderLabels.bakeryIsClosed}}" tooltip>
+                        <button ng-if="(pyDisabledDatesIntOriginal.indexOf(1) > -1)" ng-click="setCalenderDivDate(1)" class="btn btn-danger btn-sm cursor-not-allowed" data-toggle="tooltip" data-placement="top" title="{{dict.orderLabels.bakeryIsClosed}}" tooltip>
                             {{dict.nextDays[1]}}
                         </button>
 
-                        <!-- tomorrow is not disabled -->
-                        <button class="btn btn-primary btn-sm" ng-if="!(pyDisabledDatesInt.indexOf(1) > -1)" ng-click="setCalenderDivDate(1)">
+                        <!-- tomorrow is not available due to limit time exceeded -->
+                        <button ng-if="pastLimitTime" ng-click="setCalenderDivDate(1)" class="btn btn-danger btn-sm cursor-not-allowed" data-toggle="tooltip" data-placement="top" title="{{dict.orderLabels.pastLimitTime}}" tooltip>
+                            {{dict.nextDays[1]}}
+                        </button>
+
+                        <!-- tomorrow is not disabled, available and not currently selected -->
+                        <button class="btn btn-default btn-sm" ng-if="!(pyDisabledDatesInt.indexOf(1) > -1) && selectedDateInt != 1" ng-click="setCalenderDivDate(1)">
+                            {{dict.nextDays[1]}}
+                        </button>
+
+                        <!-- tomorrow is not disabled, available and currently selected -->
+                        <button class="btn btn-panem-yellow btn-sm" ng-if="!(pyDisabledDatesInt.indexOf(1) > -1) && selectedDateInt == 1" ng-click="setCalenderDivDate(1)">
                             {{dict.nextDays[1]}}
                         </button>
 
@@ -156,11 +166,15 @@
                             {{getDateName(moreDays)}}
                         </button>
 
-                        <!-- date is not disabled -->
-                        <button ng-if="!(pyDisabledDatesInt.indexOf(moreDays) > -1)" class="btn btn-default btn-sm" ng-click="setCalenderDivDate(moreDays)" ng-repeat-end>
+                        <!-- date is not disabled and not currently selected -->
+                        <button ng-if="!(pyDisabledDatesInt.indexOf(moreDays) > -1) && selectedDateInt != moreDays" class="btn btn-default btn-sm" ng-click="setCalenderDivDate(moreDays)">
                             {{getDateName(moreDays)}}
                         </button>
 
+                        <!-- date is not disabled and currently selected -->
+                        <button ng-if="!(pyDisabledDatesInt.indexOf(moreDays) > -1) && selectedDateInt == moreDays" class="btn btn-panem-yellow btn-sm" ng-click="setCalenderDivDate(moreDays)" ng-repeat-end>
+                            {{getDateName(moreDays)}}
+                        </button>
                     </div>
 
                     <!-- input box with calendar -->
@@ -174,9 +188,16 @@
 
                     <!-- mobile input box with calendar -->
                     <div class="spacer-small device-xs visible-xs">
-                        <input type="date">
+                        <input id="nativeCalendar" type="date">
                     </div>
+            </div>
 
+            <div class="row spacer-small text-danger">
+                <!-- selected date is disabled -->
+                <div ng-if="(pyDisabledDatesIntOriginal.indexOf(selectedDateInt) > -1)">{{dict.orderLabels.bakeryIsClosed}} {{dict.orderLabels.selectOther}}</div>
+
+                <!-- selected date is tomorrow and pastLimitTime -->
+                <div ng-if="(selectedDateInt == 1) && pastLimitTime && (pyDisabledDatesIntOriginal.indexOf(1) == -1)">{{dict.orderLabels.pastLimitTime}} {{dict.orderLabels.selectOther}}</div>
             </div>
 
             <!-- remarks -->
@@ -187,7 +208,7 @@
 
             <!-- submit button -->
             <div class="row spacer-medium">
-                <button type="submit" class="btn btn-default" id="labelSubmitOrder" ng-click="proceedToConfirmOrder()" ng-disabled="order.products.length == 0">
+                <button type="submit" class="btn btn-default" id="labelSubmitOrder" ng-click="proceedToConfirmOrder()" ng-disabled="order.products.length == 0 || pyDisabledDatesInt.indexOf(selectedDateInt) > -1">
                     {{dict.orderLabels.continue}}
                     <span class="glyphicon glyphicon-arrow-right"></span>
                 </button>

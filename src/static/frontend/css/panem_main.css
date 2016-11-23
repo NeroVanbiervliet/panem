@@ -12,6 +12,16 @@
 	margin-top : 16px !important;
 }
 
+.btn-panem-yellow {
+	color : black;
+	border-color : #eec646;
+	background-color : #eec646;
+}
+
+.btn-panem-yellow:hover {
+	color : white;
+}
+
 /* home page layout */
 
 .background-pattern {

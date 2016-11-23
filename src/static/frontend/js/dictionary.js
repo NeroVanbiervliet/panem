@@ -191,7 +191,9 @@ panemApp.service('dictionary', function($rootScope) {
                         "pickupDate" : "Afhaaldatum",
                         "previousOrders" : "Eerdere bestellingen",
                         "currentOrder" : "Huidige bestelling",
-                        "bakeryIsClosed" : "De bakker is deze dag gesloten",
+                        "bakeryIsClosed" : "De bakker is deze dag gesloten.",
+                        "pastLimitTime" : "Het is te laat om nog te bestellen voor morgen.",
+                        "selectOther" : "Gelieve een andere dag te selecteren.",
                         "continue" : "Ga verder"
                     },
                     "nextDays" : ["vandaag","morgen","overmorgen"],

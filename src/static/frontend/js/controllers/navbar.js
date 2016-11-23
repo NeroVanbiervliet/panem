@@ -41,8 +41,6 @@ loadNavBarLogic = function(userInfo, $rootScope, $location, tokenManager, dictio
     // EXECUTED ON ROUTE CHANGE AND ON REFRESH
 
     // check if logged in still valid
-    console.log('hi');
-    console.log(tokenManager.isExpired());
     if(tokenManager.isExpired()) {
         $rootScope.loggedIn = false;
         tokenManager.forceNewToken();
