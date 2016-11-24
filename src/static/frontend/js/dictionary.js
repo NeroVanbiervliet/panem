@@ -263,7 +263,8 @@ panemApp.service('dictionary', function($rootScope) {
                             "readAndConsent" : "gelezen en goedgekeurd."
                         },
                         "passwordHelpText" : "Het wachtwoord moet minimaal 7 karakters bevatten",
-                        "submit" : "Ga verder"
+                        "submit" : "Ga verder",
+                        "working" : "Aan het verwerken"
                     },
                     "requestStatus" : {
                             "inProgress" : "Uw gegevens worden verwerkt, even geduld.",
@@ -565,6 +566,7 @@ dictionary.fillClListAllergenes = function (lang) {
                         'bankAccountPlaceholder' : 'bv. BE46 0016 1525 7336',
                     },
                     'submitText' : 'Ga verder',
+                    'workingText' : 'Aan het verwerken',
                     "checkbox" : {
                             "iHave" : "Ik heb de ",
                             "termsAndConditions" : "algemene voorwaarden ",

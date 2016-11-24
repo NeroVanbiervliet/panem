@@ -1,20 +1,10 @@
-panemApp.controller('clRegisterCtrl', function($scope, dictionary, $http, $rootScope, tokenManager) {
+panemApp.controller('clRegisterCtrl', function($scope, dictionary, $http, $rootScope, tokenManager, $window) {
 
 	// initialize dictionary
 	$scope.dict =  dictionary.fillClRegister("nl");
 
-    $scope.requestInProgress = false;
-
-    $scope.submitForm = function() {
-        if(!$scope.requestInProgress)
-        {
-            $scope.performRequest();
-        }
-    };
-
     $scope.performRequest = function() {
-        $scope.requestInProgress = true;
-        $scope.requestStatus = "inProgress";
+        $scope.requestStatus = "working";
 
         var user = $scope.user;
 
@@ -40,13 +30,17 @@ panemApp.controller('clRegisterCtrl', function($scope, dictionary, $http, $rootS
                .then(
                    function(response){ // successful request to backend
                         $scope.requestStatus = response.data;
+                        // show alert bar and redirect to home
+                        if (response.data == 'success') {
+                            $rootScope.feedbackMessage = $scope.dict.requestStatus.success + ' ' + user.email;
+                    		$rootScope.showFeedbackMessage = true;
+                            $window.location.href = '#/client/home';
+                        }
                    },
                    function(response){ // failed request to backend
                         $scope.requestStatus = "backenderror";
                    }
                 );
-
-            $scope.requestInProgress = false;
         });
     };
 });

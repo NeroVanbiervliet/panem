@@ -4,7 +4,7 @@
     <div class="row">
         <!-- client registration -->
         <div class="col-sm-4 col-sm-offset-1">
-            <form name="userForm" ng-submit="submitForm()" novalidate> <!-- novalidate prevents HTML5 validation -->
+            <form name="userForm" ng-submit="performRequest()" novalidate> <!-- novalidate prevents HTML5 validation -->
                 <div class="form-group" ng-class="{'has-success has-feedback':userForm.firstName.$valid}">
                     <label for="firstName" class="control-label">{{dict.form.firstName}}</label>
                     <input type="text" class="form-control" name="firstName" id="firstName" placeholder="{{dict.form.firstName}}" ng-model="user.firstName" minlength=2 required>
@@ -48,7 +48,8 @@
                         {{dict.form.checkbox.iHave}} <a href="/#/client/termsconditions" target="_blank">{{dict.form.checkbox.termsAndConditions}}</a> {{dict.form.checkbox.readAndConsent}}
                     </label>
                 </div>
-                <button type="submit" ng-disabled="userForm.$invalid || !termsChecked" class="btn btn-default">{{dict.form.submit}}</button>
+                <button type="submit" ng-disabled="userForm.$invalid || !termsChecked || requestStatus == 'working'" class="btn btn-default">{{requestStatus != 'working' ? dict.form.submit : dict.form.working}}</button>
+
                 <!-- info for bakery registration -->
                 <p class="spacer-small">Dit is de registratiepagina voor klanten. Indien je een bakker bent kun je je bakkerij <a href="#/baker/register">hier</a> registreren.</p>
             </form>
@@ -60,10 +61,7 @@
                 <div class="text-danger" ng-switch-when="backenderror">
                     {{dict.requestStatus.backendError}}
                 </div>
-                <div class="text-success" ng-switch-when="success">
-                    {{dict.requestStatus.success}} {{user.email}}.
-                </div>
-                <div class="text-info" ng-switch-when="inProgress">
+                <div class="text-info" ng-switch-when="working">
                     {{dict.requestStatus.inProgress}}
                 </div>
             </div>
