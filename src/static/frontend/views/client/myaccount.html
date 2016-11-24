@@ -54,7 +54,7 @@
                                     {{dict.ordersPanel.replaceOrder}}
                                 </button>
                                 <!-- cancel order button -->
-                                <button type="button" class="btn btn-danger btn-xs" ng-click="toggleCancelMessage(order,$event)" ng-if="order.status != 'cancelled'">
+                                <button type="button" class="btn btn-danger btn-xs" ng-click="toggleCancelMessage(order,$event)" ng-if="(order.status != 'cancelled') && (order.status != 'frozen')">
                                     {{dict.ordersPanel.cancel}}
                                 </button>
                                 <!-- already cancelled label -->

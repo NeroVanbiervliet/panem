@@ -27,6 +27,8 @@ panemApp.service('tokenManager', function($cookies, $http, $rootScope, $q) {
     this.forceNewToken = function() {
         var deferred = $q.defer();
         $cookies.remove('panemTokenTimer');
+        // clear userInfo, userInfo cannot be used because of circular dependency :(
+        $cookies.put('panemUserInfo',JSON.stringify({lastName : "", firstName : ""}));
         this.getToken().then(function(newToken) {
             deferred.resolve(newToken);
         });
@@ -251,6 +253,33 @@ panemApp.service('requestWrapper', function($rootScope, $http, tokenManager, $q)
     };
 
     // performs a get request
+    // TODO must replace the current get function
+    this.getNEW = function(relUrl,scope,reqStatusKey) {
+        if (this.getStatus(scope,reqStatusKey) != 'working') {
+            this.setStatus(scope,reqStatusKey,'working');
+            return this.get(relUrl);
+        }
+        else {
+            // will never be resolved
+            return $q.defer().promise;
+        }
+    };
+
+    this.getStatus = function(scope,reqStatusKey) {
+        if (reqStatusKey == '')
+            return scope.requestStatus;
+        else
+            return scope.requestStatus[reqStatusKey];
+    };
+
+    this.setStatus = function(scope,reqStatusKey,valueToSet) {
+        if (reqStatusKey == '')
+            scope.requestStatus = valueToSet;
+        else
+            scope.requestStatus[reqStatusKey] = valueToSet;
+    };
+
+    // performs a get request
     this.get = function(relUrl) {
         var deferred = $q.defer();
 
@@ -293,6 +322,19 @@ panemApp.service('requestWrapper', function($rootScope, $http, tokenManager, $q)
         });
 
         return deferred.promise;
+    };
+
+    // performs a post request
+    // TODO must replace the current post function
+    this.postNEW = function(relUrl,data,scope,reqStatusKey) {
+        if (this.getStatus(scope,reqStatusKey) != 'working') {
+            this.setStatus(scope,reqStatusKey,'working');
+            return this.post(relUrl,data);
+        }
+        else {
+            // will never be resolved
+            return $q.defer().promise;
+        }
     };
 
     // performs a post request

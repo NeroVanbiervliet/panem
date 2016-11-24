@@ -772,7 +772,8 @@ dictionary.fillClListAllergenes = function (lang) {
                             'description' : "Waarschijnlijk ben je hier per ongeluk terecht gekomen"
                         },
                         'creditPaymentSuccess' : {
-                            'title' : "Betaling met krediet aanvaard"
+                            'title' : "Betaling met krediet aanvaard",
+                            'currentCredit' : "Je resterende krediet bedraagt nu "
                         }
                     },
                     'toHome' : {

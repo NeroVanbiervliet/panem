@@ -1,6 +1,7 @@
 panemApp.controller('clBakeryCtrl', function($scope, $rootScope, dictionary, $window, $cookies, $http, tokenManager, processDate, GETUrl, requestWrapper) {
 
     window.scope = $scope;
+    window.requestWrapper = requestWrapper;
 
 	// define variables
     $scope.pyBakeryInfo;

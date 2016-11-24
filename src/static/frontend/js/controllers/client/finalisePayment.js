@@ -1,4 +1,4 @@
-panemApp.controller('clFinalisePaymentCtrl', function($scope, dictionary, GETUrl, $rootScope, tokenManager, requestWrapper, $window) {
+panemApp.controller('clFinalisePaymentCtrl', function($scope, dictionary, GETUrl, $rootScope, tokenManager, requestWrapper, $window, userInfo) {
     window.scope = $scope; // NEED remove
 
     // initialize dictionary
@@ -18,6 +18,10 @@ panemApp.controller('clFinalisePaymentCtrl', function($scope, dictionary, GETUrl
             GET.status = 'success';
             $scope.paymentCode = 'credit' + $scope.status.split('-')[1];
             $scope.status = "creditPaymentSuccess";
+            // reload userInfo
+            userInfo.updateInfo().then(function (loadedInfo) {
+                $rootScope.userInfo =  loadedInfo;
+            });
         }
         else {
             $scope.status = 'refusedPanem';

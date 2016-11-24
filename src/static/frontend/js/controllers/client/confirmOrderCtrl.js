@@ -25,7 +25,10 @@ panemApp.controller('clConfirmOrderCtrl', function($scope, $rootScope, $window, 
     // FUNCTIONS
 
     function parsedPromoCode() {
-        return $scope.promoCode.toUpperCase().replace(/\W/g, '');
+        if (typeof $scope.promoCode !== 'undefined')
+            return $scope.promoCode.toUpperCase().replace(/\W/g, '');
+        else
+            return "none"
     }
 
     // load current order from endpoint

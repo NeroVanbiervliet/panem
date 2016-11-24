@@ -41,7 +41,7 @@
         </div>
         <div ng-switch-when="creditPaymentSuccess">
             <h4>{{dict.judgment.creditPaymentSuccess.title}}</h4>
-            <p>{{dict.judgment.creditPaymentSuccess.description}}</p>
+            <p>{{dict.judgment.creditPaymentSuccess.currentCredit}} <strong>{{userInfo.credit | moneyFilter}}</strong></p>
         </div>
 
         <!-- link to home -->

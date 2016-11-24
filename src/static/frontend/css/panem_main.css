@@ -126,32 +126,8 @@
 	font-size:40px;
 }
 
-/* miniversie */
-
-.box-mini {
-	max-width:50px;
-	max-height:50px;
-	/*border-bottom:2px solid #fff;
-	border-right:2px solid #fff; */
-	margin:5% auto 0 auto;
-	background-size:contain;
-    background-repeat: no-repeat;
-	border-radius:2px;
-	overflow:hidden;
-}
-
-.overlay-mini {
-    max-height: 100%;
-    max-width: 100%;
-	background:rgba(0,0,0,.65); /* black, slightly transparant */
-	text-align:center;
-	padding:0px 0 0px 0;
-	opacity:0;
-	border-radius:2px;
-}
-
-.box-mini:hover .overlay-mini { /* @ event hover van box -> doe deze layout op overlay */
-	opacity:1;
+.delete-padding {
+	padding-top : 5px !important; 
 }
 
 /* loader animation */
