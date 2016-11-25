@@ -15,16 +15,15 @@
                     <input type="password" class="form-control" name="password" id="password" ng-model="user.password" placeholder="{{dict.form.password}}" minlength=7 required>
                     <span ng-if="userForm.password.$valid" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
                     <span ng-if="userForm.password.$valid" class="sr-only">(success)</span>
-                    <p class="help-block">{{dict.form.passwordHelpText}}</p>
                 </div>
                 <button type="submit" ng-disabled="userForm.$invalid" class="btn btn-default">{{dict.form.submit}}</button>
-            </form> 
-            
+            </form>
+
             
             <div class="spacer-small">
                 <a href="#/client/forgotpassword?email={{user.email}}">{{dict.forgotPassword}}</a>
             </div>
-            
+
             
             <div class="container spacer-small" ng-switch on="requestStatus">
                 <div ng-switch-default></div> 

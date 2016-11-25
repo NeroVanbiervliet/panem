@@ -2,6 +2,8 @@ from __future__ import unicode_literals
 
 from django.db import models
 
+import datetime
+
 # Create your models here.
 class Bakery(models.Model):
     name = models.CharField(max_length=50, default='')
@@ -81,8 +83,8 @@ class Order(models.Model):
     accountId =  models.IntegerField(default=0)
     bakeryId = models.IntegerField(default=0)
     status = models.CharField(max_length=10, default='')
-    timePickup =  models.DateTimeField()
-    timeOrdered = models.DateTimeField()
+    timePickup =  models.DateTimeField(default=datetime.datetime.now)
+    timeOrdered = models.DateTimeField(default=datetime.datetime.now)
     comment = models.CharField(max_length=100, default='')
     totalPrice = models.IntegerField(default=0)
     
@@ -94,7 +96,6 @@ class CreditTopUp(models.Model):
     accountId =  models.IntegerField(default=0)
     dateOrdered = models.DateTimeField()
     amountToPay = models.IntegerField(default=0) # total to pay
-    amountTopUp = models.IntegerField(default=0) # increase in credit on account, dan differ from amountToPay due to a promotion
     status = models.CharField(max_length=100, default='created')
     promoCodeId = models.IntegerField(default=0)
 
@@ -126,7 +127,7 @@ class AdyenPayment(models.Model):
     bakeryId = models.IntegerField(default=0)
     clientPay = models.DecimalField(max_digits=15, decimal_places=3,default = 0)
     transactionCosts = models.DecimalField(max_digits=15, decimal_places=3,default = 0)
-    extraCredit = models.DecimalField(max_digits=15, decimal_places=3,default = 0)
+    topUpId = models.IntegerField(default = -1) # related CreditTopUp object (if id != -1)
     succes = models.IntegerField(default=0)
     isCreditTopUp = models.BooleanField(default=False)
     

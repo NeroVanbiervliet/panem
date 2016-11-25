@@ -55,6 +55,8 @@
     <script src="js/controllers/client/termsConditionsCtrl.js"></script>
     <script src="js/controllers/client/myAccountCtrl.js"></script>
     <script src="js/controllers/client/topUpCreditCtrl.js"></script>
+    <script src="js/controllers/client/changePasswordCtrl.js"></script>
+    <script src="js/controllers/client/listAllergenesCtrl.js"></script>
 
     
     <script src="js/search.js" type="text/javascript"></script>
@@ -76,13 +78,13 @@
 
 <body>
     
-    <div ng-include="'navbar.html'"></div>
+    <div ng-include="'navbar.html'" class="hide-print"></div>
 
     
-    <div ng-view id="ang-main-view" class="top-bot-margin"></div>
+    <div ng-view id="ang-main-view" class="top-bot-margin" autoscroll></div>
 
     
-    <div ng-include="'footer.html'"></div>
+    <div ng-include="'footer.html'" class="hide-print"></div>
 </body>
 
 </html>

@@ -10,6 +10,10 @@ panemApp.controller('clTopUpCreditCtrl', function($scope, dictionary, requestWra
 	$scope.promoCheck;
 	$scope.promoCode;
 
+    function parsedPromoCode() {
+        return $scope.promoCode.toUpperCase().replace(/\W/g, '');
+    }
+
     // proceed to adyen payment
     $scope.proceedPaymentAdyen = function() {
 
@@ -20,7 +24,7 @@ panemApp.controller('clTopUpCreditCtrl', function($scope, dictionary, requestWra
         }
 
         // get bill from endpoint
-        var url = '/me/topup/bill/amount=' + $scope.amountTopUp*100 + '&skin=' + skin + '&promocode=' + $scope.promoCode;
+        var url = '/me/topup/bill/amount=' + $scope.amountTopUp*100 + '&skin=' + skin + '&promocode=' + parsedPromoCode();
         $scope.requestStatus.bill = requestWrapper.init();
         requestWrapper.get(url).then(function ([newStatus,resultData]) {
             $scope.requestStatus.bill = newStatus;
@@ -50,7 +54,7 @@ panemApp.controller('clTopUpCreditCtrl', function($scope, dictionary, requestWra
 
 	function checkPromoCode() {
 		// perform endpoint request
-		var url = '/promo/check/code=' + $scope.promoCode;
+		var url = '/promo/check/code=' + parsedPromoCode();
 	    $scope.requestStatus.promo = requestWrapper.init();
 	    requestWrapper.get(url).then(function ([newStatus,resultData]) {
 	        $scope.requestStatus.promo = newStatus;
