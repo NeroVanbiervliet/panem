@@ -200,8 +200,19 @@
                 <div ng-if="(selectedDateInt == 1) && pastLimitTime && (pyDisabledDatesIntOriginal.indexOf(1) == -1)">{{dict.orderLabels.pastLimitTime}} {{dict.orderLabels.selectOther}}</div>
             </div>
 
-            <!-- remarks -->
+            <!-- pick up hour -->
             <div class="row spacer-small">
+                <div class="col-xs-2">{{dict.timePickup}}</div>
+                <div class="col-xs-4">
+                    <select class="form-control" ng-model="pickUpTime.hour" ng-options='item for item in getValidHourChoices()' ng-change="pickUpTime.minutes = getValidMinuteChoices()[0]"></select>
+                </div>
+                <div class="col-xs-4">
+                    <select class="form-control" ng-model="pickUpTime.minutes" ng-options='item for item in getValidMinuteChoices()'></select>
+                </div>
+            </div>
+
+            <!-- remarks -->
+            <div class="row spacer-medium">
                 <!--<label id="labelRemarks" for="orderRemarks">{{dict.orderLabels.remarks}}</label> -->
                 <textarea class="form-control" rows="2" ng-model="remarks" placeholder="{{dict.orderLabels.remarks}}"></textarea>
             </div>

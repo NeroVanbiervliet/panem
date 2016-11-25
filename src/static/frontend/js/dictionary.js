@@ -225,7 +225,8 @@ panemApp.service('dictionary', function($rootScope) {
                         'noBakerMessage' : "Met een bakkersaccount kun je geen bestellingen plaatsen."
                     },
                     'today' : "Vandaag",
-                    'noProducts' : "Er zijn geen producten in deze categorie"
+                    'noProducts' : "Er zijn geen producten in deze categorie",
+                    'timePickup' : 'om'
                 };
                 $rootScope.title = 'Panem - '; // bakery name is added in client/bakery controller
 		}

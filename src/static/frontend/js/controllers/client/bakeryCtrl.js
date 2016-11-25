@@ -1,7 +1,6 @@
 panemApp.controller('clBakeryCtrl', function($scope, $rootScope, dictionary, $window, $cookies, $http, tokenManager, processDate, GETUrl, requestWrapper) {
 
-    window.scope = $scope;
-    window.requestWrapper = requestWrapper;
+    window.scope = $scope; // NEED weg doen
 
 	// define variables
     $scope.pyBakeryInfo;
@@ -25,6 +24,7 @@ panemApp.controller('clBakeryCtrl', function($scope, $rootScope, dictionary, $wi
     $scope.smallDevices = (document.documentElement.clientWidth < 768);
 
     $scope.pastLimitTime;
+    $scope.pickUpTime = {};
 
     var classNameMinus;
 
@@ -37,6 +37,8 @@ panemApp.controller('clBakeryCtrl', function($scope, $rootScope, dictionary, $wi
 
     // define constants
     $scope.ONE_DAY_MILLISECONDS;
+    var ONE_MIN_MS = 1000*60;
+    var ONE_HOUR_MS = 1000*60*60;
     $scope.SHOP_IMAGE_SOURCE = "images/shops/800x500/"; // TODO larger image for bakery page?
     $scope.IMAGE_EXTENSION = ".png";
     if (document.documentElement.clientWidth < 768) {
@@ -230,6 +232,9 @@ panemApp.controller('clBakeryCtrl', function($scope, $rootScope, dictionary, $wi
                     if ($scope.pyDisabledDatesInt.indexOf(i+1) == -1) {
                         this.pickerProps.defDate = new Date(this.pickerProps.startDate.getTime() + $scope.ONE_DAY_MILLISECONDS*i);
                         $scope.selectedDateInt = i +1;
+                        // set hour default selection
+                        $scope.pickUpTime.hour = $scope.getValidHourChoices()[0];
+                        $scope.pickUpTime.minutes = $scope.getValidMinuteChoices()[0];
                         break;
                     }
                 }
@@ -268,6 +273,7 @@ panemApp.controller('clBakeryCtrl', function($scope, $rootScope, dictionary, $wi
         {
             // parse json data from string
             var inputOpeningHours = JSON.parse($scope.pyBakeryInfo.openingHours);
+            $scope.pyBakeryInfo.parsedOpenings = inputOpeningHours;
             var processedOpeningHours = "";
 
             var dict = $scope.dict;
@@ -359,6 +365,8 @@ panemApp.controller('clBakeryCtrl', function($scope, $rootScope, dictionary, $wi
             var today = (new Date());
             today.setHours(0,0,0,0);
             $scope.selectedDateInt = (newDate - today)/$scope.ONE_DAY_MILLISECONDS; // datepicker initialisation
+            // set hour default selection
+            $scope.pickUpTime.hour = $scope.getValidHourChoices()[0];
             $scope.$apply();
         });
 
@@ -400,6 +408,8 @@ panemApp.controller('clBakeryCtrl', function($scope, $rootScope, dictionary, $wi
             var today = new Date();
             today.setHours(0,0,0,0);
             $scope.selectedDateInt = (newSelectedDate-today)/$scope.ONE_DAY_MILLISECONDS;
+            // set hour default selection
+            $scope.pickUpTime.hour = $scope.getValidHourChoices()[0];
             $scope.$apply();
         });
     }
@@ -549,12 +559,20 @@ panemApp.controller('clBakeryCtrl', function($scope, $rootScope, dictionary, $wi
             productArray.push(productToStore);
         }
 
+        // create the time to pickup
+        var timePickupToStore = new Date((new Date()).getTime() + $scope.ONE_DAY_MILLISECONDS*$scope.selectedDateInt);
+        timePickupToStore.setHours(0,0,0,0);
+        timePickupToStore = timePickupToStore.getTime();
+        timePickupToStore += ONE_HOUR_MS*parseInt($scope.pickUpTime.hour) + ONE_MIN_MS*parseInt($scope.pickUpTime.minutes);
+
+        console.log(timePickupToStore);
+
         // prepare to store order in backend
         var requestData = $.param({
             json: JSON.stringify({
                 productArray: productArray,
                 bakeryId: parseInt($scope.bakeryId),
-                timePickup: new Date((new Date()).getTime() + $scope.ONE_DAY_MILLISECONDS*$scope.selectedDateInt).getTime(),
+                timePickup: timePickupToStore,
                 remarks: $scope.remarks,
                 token : $scope.token
             })
@@ -622,6 +640,55 @@ panemApp.controller('clBakeryCtrl', function($scope, $rootScope, dictionary, $wi
             return spl
     }
 
+    // get valid hour choices
+    $scope.getValidHourChoices = function() {
+        var output = [];
+
+        // get current day of the week
+        var curDayWeek  = (new Date()).getDay(); // 0=sunday, 1=monday, 6=saturday
+        var selectedDayWeek = ((curDayWeek + $scope.selectedDateInt)-1)%7; // 0=monday, 6=sunday
+
+        if (typeof $scope.pyBakeryInfo !== 'undefined' && typeof $scope.selectedDateInt !== 'undefined') {
+            var openingsSelectedDay = $scope.pyBakeryInfo.parsedOpenings[selectedDayWeek];
+            for(var i=0; i<25; i++) {
+                if (i >= parseInt(openingsSelectedDay[0].h) && i <= parseInt(openingsSelectedDay[1].h))
+                    output.push(i);
+            }
+
+            $scope.selectedDayOpenings = openingsSelectedDay;
+        }
+
+        return output;
+    };
+
+    // get valid minute choices
+    $scope.getValidMinuteChoices = function() {
+        output = [];
+
+        var minChoices = ['00','15','30','45'];
+
+        // TODO gaat fout als opening en sluitingsuur in het zelfde uur zijn
+        if (typeof $scope.selectedDayOpenings !== 'undefined') {
+            var openingsSelectedDay = $scope.selectedDayOpenings;
+            if($scope.pickUpTime.hour != openingsSelectedDay[0].h && $scope.pickUpTime.hour != openingsSelectedDay[1].h) // not opening or closing our, so everything is possible
+                output = minChoices;
+            else if ($scope.pickUpTime.hour == openingsSelectedDay[0].h) { // opening hour
+                for(var i=0; i<4; i++) {
+                    if (i*15 >= openingsSelectedDay[0].m)
+                        output.push(minChoices[i]);
+                }
+            }
+            else if ($scope.pickUpTime.hour == openingsSelectedDay[1].h) { // closing hour
+                for(var i=0; i<4; i++) {
+                    if (i*15 <= openingsSelectedDay[1].m)
+                        output.push(minChoices[i]);
+                }
+            }
+        }
+
+        return output;
+    };
+
     /***********
      *  WATCH  *
      ***********/
@@ -640,5 +707,10 @@ panemApp.controller('clBakeryCtrl', function($scope, $rootScope, dictionary, $wi
             $scope.totalPrice = totPrice;
         }
     }, true);
+
+    $scope.$watch('selectedDateInt', function() {
+        $scope.pickUpTime.minutes = $scope.getValidMinuteChoices()[0];
+    },true)
+
 
 });
