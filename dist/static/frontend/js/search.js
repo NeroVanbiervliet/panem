@@ -1,3 +1,5 @@
+var CHAR_COUNT_WEIGHT = 0.5; 
+
 function updateQueryScores(scope, reset) { // TODO te lage scores truncaten naar zero want die betekenen toch niets
 
     // split search query by spaces
@@ -19,6 +21,7 @@ function updateQueryScores(scope, reset) { // TODO te lage scores truncaten naar
         {
             scope.pyBakeries[j].queryScores[i] = 0;
         }
+        scope.pyBakeries[j].queryScoreType = [];
     }
 
     // recalculate score for the last word, or for all words if reset is true
@@ -36,6 +39,7 @@ function updateQueryScores(scope, reset) { // TODO te lage scores truncaten naar
             {
                 var bakery = scope.pyBakeries[i];
                 bakery.queryScores[numWords-1] = stringCorrelation(bakery.postcode.toString(),word);
+                bakery.queryScoreType[numWords-1] = 'number';
             }
 
             scope.locationOverrule = true;
@@ -53,9 +57,13 @@ function updateQueryScores(scope, reset) { // TODO te lage scores truncaten naar
                 // TODO die replaces kunnen eenmalig vooraf gebeuren om sneller te zijn
                 // note : weinig mee te winnen, kijken in chrome profiler waar bottlenecks zitten als je wil optimisen
                 // let op! wel niet de originele data overwriten
-                var nameScore = stringCorrelation(bakery.name.replace(/[',&]/g,''),word);
-                var cityScore = stringCorrelation(bakery.city.replace(/[',&]/g,''),word);
+                var nameScore = stringCorrelation(bakery.name.replace(/[',&]/g,''),word) + CHAR_COUNT_WEIGHT*charCount(bakery.name.replace(/[',&]/g,''),word);
+                var cityScore = stringCorrelation(bakery.city.replace(/[',&]/g,''),word) + CHAR_COUNT_WEIGHT*charCount(bakery.city.replace(/[',&]/g,''),word);;
                 bakery.queryScores[numWords-1] = Math.max(nameScore,cityScore);
+                if(nameScore > cityScore)
+                    bakery.queryScoreType[numWords-1] = 'name';
+                else
+                    bakery.queryScoreType[numWords-1] = 'city';
             }
         }
     }
@@ -118,15 +126,19 @@ function stringCorrelation (completeWord,toMatch) {
     {
         var maxScore = 0;
         var currentScore;
+        var bonusScore = 1;
 
         // shifts the toMatch string while calculating at each shift a new score
         for(var i=-1; i<lCompleteWord+1; i++)
         {
             currentScore = 0;
 
+            //console.log('----- shift ' + i.toString());
+
             // loop over all characters in toMatch
             for(var j=0; j<lToMatch; j++)
             {
+
                 if(completeWord.charAt(i+j) == toMatch.charAt(j))
                 {
                     currentScore++;
@@ -134,14 +146,44 @@ function stringCorrelation (completeWord,toMatch) {
 
                     if(j<2) // bonus voor als de match in het begin van het woord is
                     {
-                        currentScore += 3;
+                        currentScore += bonusScore;
                     }
+
+                    //console.log('char ' + toMatch.charAt(j));
                 }
             }
 
+            //console.log('curscore = ' + currentScore);
             maxScore = Math.max(currentScore,maxScore);
         }
 
+        // if the score is very low, it wil rather be by accident than a real match
+        if (maxScore < (1+bonusScore))
+            maxScore = 0;
+
         return maxScore;
     }
+}
+
+// counts the number of the same characters in two string, indifferent of the order
+function charCount(sOne, sTwo) {
+    sOneList = {}
+    for(var i=0; i<sOne.length; i++) {
+        var curChar = sOne[i];
+        if (sOneList[curChar] != undefined)
+            sOneList[curChar] = sOneList[curChar] +1;
+        else
+            sOneList[curChar] = 1;
+    }
+
+    var score = 0;
+    for(var i=0; i<sTwo.length; i++) {
+        var curChar = sTwo[i];
+        if (sOneList[curChar] != undefined && sOneList[curChar] != 0) {
+            sOneList[curChar] = sOneList[curChar] - 1;
+            score++;
+        }
+    }
+
+    return score;
 }

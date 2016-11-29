@@ -37,10 +37,15 @@ def getLastOrdersClient(accountIdIn,N):
 def get_allDayOrders(bakeryId,firstDay,lastDay):
 
     try:
-        a = Bakery.objects.get(id = bakeryId)
+        bakeryObject = Bakery.objects.get(id = bakeryId)
 
         date1 = datetime.datetime.fromtimestamp(firstDay/1000.).date()
         date2 = datetime.datetime.fromtimestamp(lastDay/1000.).date()
+        today = datetime.date.today()
+        nowHour = datetime.datetime.now().hour
+        nowMinute = datetime.datetime.now().minute
+        bestelLimitTime = bakeryObject.bestelLimitTime.split(":")
+        pastBestelLimitTime = (nowHour >= int(bestelLimitTime[0]) and nowMinute >= int(bestelLimitTime[1]))
         diff = (date1-date2).days
         diff2 = (datetime.datetime.now().date() - date1).days
         output = []
@@ -52,10 +57,13 @@ def get_allDayOrders(bakeryId,firstDay,lastDay):
             dummy['numDaysPast'] = diff2 + i
             dummy['totalOrders'] = 0
             dummy['totalPrice'] = 0
-            dummy['lockState'] = 0
+            diffDays = (today-(datetime.date.fromtimestamp(dummy['date']/1000))).days
+            dummy['frozen'] = diffDays > 0 \
+                                or ((diffDays == 0) and (pastBestelLimitTime))
             output.append(dummy)
-        orders = Order.objects.all()
+        orders = Order.objects.all().exclude(status='cancelled')
 
+        # NEED kan sneller als je in de lijn hierboven gewoon filtert
         for order in orders:
             datePickup = order.timePickup.replace(tzinfo=None).date()
             if order.bakeryId == bakeryId and datePickup >= date2 and datePickup <= date1:
@@ -76,7 +84,7 @@ def get_dayOrder(bakeryId,dateMS):
     try:
         a = Bakery.objects.get(id = bakeryId)
 
-        list1 = Order.objects.all()
+        list1 = Order.objects.all().exclude(status='cancelled')
         categories = Category.objects.all()
         names = {}
         for category in categories:
@@ -225,6 +233,7 @@ def getPreviousOrders(accountId,bakeryId):
 
                         productDict['amount'] = productOrder.amount
                         orderTemp['products'].append(productDict)
+                orderTemp['status'] = order.status
                 xSort.append(orderTemp['numDaysPast'])
                 output.append(orderTemp)
         if len(xSort) > 0:

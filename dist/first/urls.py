@@ -23,14 +23,14 @@ urlpatterns = [
     url(r'^account/create/$', views.createAccount, name='createAccount'), #POST working
     url(r'^account/verify/$', views.verifyAccount, name='verifyAccount'), #POST
     url(r'^account/verify/resendmail/email=(?P<emailIn>[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4})&token=(?P<token>[A-Za-z0-9.-]+)/$', views.repeatVerifyMail, name='repeatVerifyMail'), #GET working
-    url(r'^account/password/change/$', views.changePassword, name='changePassword'), #POST working
     url(r'^account/password/reset/mail/$', views.resetPasswordMail, name='resetPasswordMail'), #POST working
     url(r'^account/password/reset/set/$', views.resetPasswordSet, name='resetPasswordSet'), #POST
     url(r'^order/current/token=(?P<token>[A-Za-z0-9.-]+)/$', views.currentOrderGet, name='currentOrderGet'), #GET working
     url(r'^order/current/$', views.currentOrderPost, name='currentOrderPost'), #POST 
-    url(r'^order/current/bill/cash/extraCredit=(?P<extraCredit>[0-9]+)&skin=(?P<skin>[A-Za-z0-9.-]+)&token=(?P<token>[A-Za-z0-9.-]+)/$', views.currentOrderBillCash, name='currentOrderBillCash'), #GET working
+    url(r'^order/current/bill/cash/extraCredit=(?P<extraCredit>[0-9]+)&skin=(?P<skin>[A-Za-z0-9.-]+)&promocode=(?P<promocode>[A-Za-z0-9.-]+)&token=(?P<token>[A-Za-z0-9.-]+)/$', views.currentOrderBillCash, name='currentOrderBillCash'), #GET working
     url(r'^order/(?P<orderId>[0-9]+)/bill/cash/extraCredit=(?P<extraCredit>[0-9]+)&skin=(?P<skin>[A-Za-z0-9.-]+)&token=(?P<token>[A-Za-z0-9.-]+)/$', views.orderBillCash, name='orderBillCash'), #GET working
-    url(r'^order/current/bill/credit/token=(?P<token>[A-Za-z0-9.-]+)/$', views.currentOrderBillCredit, name='currentOrderBillCredit'), #GET 
+    url(r'^order/(?P<orderId>[0-9]+)/cancel/$', views.cancelOrder, name='cancelOrder'), # POST
+    url(r'^order/current/bill/credit/token=(?P<token>[A-Za-z0-9.-]+)/$', views.currentOrderBillCredit, name='currentOrderBillCredit'), #GET
     url(r'^order/(?P<orderId>[0-9]+)/bill/credit/token=(?P<token>[A-Za-z0-9.-]+)/$', views.orderBillCredit, name='orderBillCredit'), #GET 
     url(r'^order/current/receipt/$', views.currentOrderReceipt, name='currentOrderReceipt'), #POST
     url(r'^order/current/pay/$', views.currentOrderCredit, name='currentOrderCredit'), #POST
@@ -43,5 +43,6 @@ urlpatterns = [
     url(r'^adyen/notify/$', views.processAdyenNotification, name='processAdyenNotification'), #POST working
     url(r'^contact/$', views.submitContactIssue, name='submitContactIssue'), # POST working
     url(r'^promo/check/code=(?P<code>[A-Za-z0-9.-]+)&token=(?P<token>[A-Za-z0-9.-]+)/$', views.checkPromoCode, name='checkPromoCode'), # GET
+    url(r'^me/password/change/$', views.changePassword, name='changePassword'), #POST working
     url(r'^test/$', views.postTest, name='postTest'), # POST
 ]

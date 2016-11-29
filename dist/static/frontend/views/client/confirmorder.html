@@ -52,7 +52,7 @@
                                     <td></td>
                                     <td></td>
                                     <td align="right"><h4>{{dict.total}}</h4></td>
-                                    <td><h4>{{pyOrder.totalPrice | moneyFilter}}</h4></td>
+                                    <td><h4 class="price-euro">{{pyOrder.totalPrice | moneyFilter}}</h4></td>
                                 </tr>
 
                                 
@@ -76,30 +76,80 @@
 
                                 
                                 <div ng-switch-when="true">
-                                    <p><button type="submit" class="btn btn-success" ng-click="proceedPaymentCredit()">{{dict.payWithCredits}}</button></p>
+                                    <p><button type="submit" class="btn" ng-class="firstTimeClicked ? 'btn-success' : 'btn-default'" ng-click="checkDoubleButtonClick($event)">{{firstTimeClicked ? dict.payWithCredits : dict.looksGreat}}</button></p>
                                 </div>
 
                                 
                                 <div ng-switch-when="false">
-                                    <label class="control-label">
-                                        {{dict.addCreditToAccount}}
-                                        <span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="{{dict.addCreditToAccountTooltip}}" tooltip></span>
-                                    </label>
-
-                                    <div class="input-group col-xs-4 col-sm-2">
-                                        <div class="input-group-addon">€</div>
-                                        <input type="text" class="form-control" ng-model="$parent.extraCredit" placeholder="10">
+                                    
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" ng-model="creditEnabled">
+                                            <p class="control-label">
+                                                {{dict.addCreditToAccount}}
+                                                <span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="{{dict.addCreditToAccountTooltip}}" tooltip></span>
+                                            </p>
+                                        </label>
                                     </div>
-                                    <h4 class="text-success" ng-if="extraCredit>=10">
-                                        +2
-                                    </h4>
 
-                                    <span class="label label-success">
-                                        {{dict.bonusCredit}}
-                                    </span>
+                                    <div class="panel panel-default" ng-class="{'fake-disabled': !creditEnabled}">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="form-group col-xs-4 col-sm-2">
+                                                    <div class="input-group">
+                                                        <div class="input-group-addon">€</div>
+                                                        <input type="text" class="form-control" ng-model="$parent.extraCredit" placeholder="10">
+                                                    </div>
+                                                </div>
+                                                <div class="form group col-sm-5">
+                                                    <label for="promocode">{{dict.promoCode}}</label>
+                                                    <input type="text" name="promocode" class="form-control to-caps" ng-model="$parent.promoCode" ng-change="checkChangeSmart()"/>
 
+                                                    
+                                                    <div ng-switch="requestStatus.promo">
+                                                        <div ng-switch-when="working" class="loader-small"></div>
+                                                        <div ng-switch-when="error-message-invalid-used">
+                                                            <span class="label label-danger">
+                                                                <span class="glyphicon glyphicon-flash"></span>
+                                                                {{dict.promoFeedback.used}}
+                                                            </span>
+                                                        </div>
+                                                        <div ng-switch-when="error-message-invalid-notfound">
+                                                            <span class="label label-danger">
+                                                                <span class="glyphicon glyphicon-flash"></span>
+                                                                {{dict.promoFeedback.notfound}}
+                                                            </span>
+                                                        </div>
+                                                        <div ng-switch-when="success-valid">
+                                                            <span class="label label-success">
+                                                                <span class="glyphicon glyphicon-ok"></span>
+                                                                {{dict.promoFeedback.valid}}
+                                                            </span>
+                                                        </div>
+                                                        <div ng-switch-default></div>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="col-xs-12">
+                                                    <div class="spacer-small">
+                                                        <span class="label label-success" ng-show="(extraCredit >= 10) && (requestStatus.promo=='success-valid')">
+                                                            +2
+                                                        </span>
+                                                    </div>
+                                                    <div class="spacer-small">
+                                                        <span class="label label-default">
+                                                            {{dict.promoExplanation}}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    
                                     <div class="spacer-medium">
-                                        <button class="btn btn-default" ng-click="proceedPaymentAdyen()">{{dict.payOnline}}</button>
+                                        <button class="btn btn-default" ng-click="checkDoubleButtonClick($event)">{{firstTimeClicked ? dict.payOnline : dict.looksGreat}}</button>
                                     </div>
                                     <div class="spacer-small">
                                         <span class="fa fa-lock fa-lg"></span>

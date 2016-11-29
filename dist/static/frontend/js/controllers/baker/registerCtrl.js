@@ -1,26 +1,16 @@
-panemApp.controller('bkRegisterCtrl', function($scope, dictionary, requestWrapper) {
+panemApp.controller('bkRegisterCtrl', function($scope, $rootScope, dictionary, requestWrapper, $window) {
 
 	// Initialize dictionary
 	$scope.dict = dictionary.fillBkRegister("nl");
 
     // VARIABLES
-    $scope.requestInProgress = false;
     $scope.person;
     $scope.bakery;
 
     // FUNCTIONS
 
-    // attempts to start a backend request
-    $scope.submitForm = function() {
-        if(!$scope.requestInProgress)
-        {
-            $scope.performRequest();
-        }
-    };
-
     // performs the backend request
     $scope.performRequest = function() {
-        $scope.requestInProgress = true;
         $scope.requestStatus = requestWrapper.init();
 
         var dataToSend = {
@@ -30,7 +20,13 @@ panemApp.controller('bkRegisterCtrl', function($scope, dictionary, requestWrappe
 
         requestWrapper.post('/bakery/create/',dataToSend).then(function (newStatus) {
             $scope.requestStatus = newStatus;
-            $scope.requestInProgress = false;
+
+            // show alert bar and redirect to home
+            if (newStatus == 'success') {
+                $rootScope.feedbackMessage = $scope.dict.status.success;
+                $rootScope.showFeedbackMessage = true;
+                $window.location.href = '#/client/home';
+            }
         });
     };
 });

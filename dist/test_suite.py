@@ -17,7 +17,7 @@ client = Client()
 
 # ACTIVATED TESTS
 t1 = True # 1 TOKEN TESTS
-t2 = True # 2 BAKERY TESTS
+t2 = False # 2 BAKERY TESTS
 t3 = False # 3 ORDER TESTS
 t4 = False # 4 ACCOUNT TESTS
 t5 = False # 5 ME TESTS
@@ -517,7 +517,7 @@ if t4:
                 printError("unknown error : " + response.content)
 
 
-    # 4.4 /account/password/change/
+    # 4.4 /account/password/change/ NEED moven naar /me/password/change
     print "4.4 /account/password/change/"
     newPass = "rosbeiaard"
     request = {

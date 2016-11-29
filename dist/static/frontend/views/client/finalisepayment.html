@@ -39,9 +39,9 @@
             <h4>{{dict.judgment.nocurrentorder.title}}</h4>
             <p>{{dict.judgment.nocurrentorder.description}}</p>
         </div>
-        <div ng-switch-when="topUpSuccess">
-            <h4>{{dict.judgment.topUpSuccess.title}}</h4>
-            <p>{{dict.judgment.topUpSuccess.description}}</p>
+        <div ng-switch-when="creditPaymentSuccess">
+            <h4>{{dict.judgment.creditPaymentSuccess.title}}</h4>
+            <p>{{dict.judgment.creditPaymentSuccess.currentCredit}} <strong>{{userInfo.credit | moneyFilter}}</strong></p>
         </div>
 
         
