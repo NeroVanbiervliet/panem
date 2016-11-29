@@ -67,7 +67,8 @@ def bakery(request, bakeryId,token):
                 #data = serializers.serialize('json', [bakery])
                 data = {}
                 data['name'] = bakery.name
-                data['adress'] = bakery.adress +', '+ str(bakery.postcode) + ' ' + bakery.city 
+                data['completeAddress'] = bakery.adress +', '+ str(bakery.postcode) + ' ' + bakery.city
+                data['adress'] = bakery.adress
                 data['website'] = bakery.website
                 data['openingHours'] = bakery.openings
                 data['bestelLimitTime'] = bakery.bestelLimitTime
@@ -553,14 +554,14 @@ def currentOrderPost(request):
     else:
         return errorMsg
         
-def currentOrderBillCash(request,extraCredit,skin,token):
+def currentOrderBillCash(request,extraCredit,skin,promocode,token):
     [validMethod,errorMsg] = validRequestMethod(request,'GET')
 
     if validMethod:
         info = atm.verifyToken(token)
         if isinstance(info, int ) and (not info == 0):   
             accountId = info
-            output = slo.currentOrderBillCash(int(accountId),int(extraCredit),skin)
+            output = slo.currentOrderBillCash(int(accountId),int(extraCredit),skin,promocode)
             
         else:
             output = info
@@ -640,7 +641,7 @@ def currentOrderReceipt(request):
             if 'merchantReturnData' in parsedData and str(parsedData['merchantReturnData']).split('-')[0] == 'topUp':
                 # credit topup payment
                 topUpId = int(str(parsedData['merchantReturnData']).split('-')[1])
-                output = slo.topUpReceipt(int(accountId),topUpId)
+                output = slo.topUpReceipt(int(accountId),topUpId,False)
             else:
                 # current order payment
                 output = slo.currentOrderReceipt(str(authResult),int(accountId))
@@ -938,3 +939,21 @@ def postTest(request):
 
     else:
         return errorMsg
+
+# cancels a payed order
+def cancelOrder(request, orderId):
+    [validMethod,errorMsg] = validRequestMethod(request,'POST')
+
+    if validMethod:
+
+        parsedData = processJson(request)
+        info = atm.verifyToken(parsedData['token'])
+        if isinstance(info, int ):
+            accountId = info
+            returnMessage = slo.cancelorder(orderId,accountId) # success | no-access | not-payed | order-not-found | frozen
+        else:
+            returnMessage = 'not-logged-in'
+        return HttpResponse(returnMessage)
+    else:
+        return errorMsg
+

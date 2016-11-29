@@ -32,7 +32,9 @@
         <div class="row text-center" ng-repeat="resultRow in [0,1]"> 
 
             
-            <div class="col-md-3 col-xs-6 col-md-offset-0 hero-feature" ng-repeat="bakery in pyBakeries | orderBy: '-totalScore' | limitTo: 4*(resultRow+1)" ng-if="$index > 4*resultRow-1" >
+
+            
+            <div class="col-md-3 col-xs-12 col-md-offset-0 hero-feature" ng-repeat="bakery in pyBakeries | orderBy: '-totalScore' | limitTo: 4*(resultRow+1)" ng-if="$index > 4*resultRow-1 && !smallDevices" >
                 <a href="#/client/bakery?bakeryId={{bakery.id}}">
                     <div class="thumbnail">
                         <img src="{{IMAGE_SOURCE + bakery.photoId + IMAGE_EXTENSION}}" alt="">
@@ -46,6 +48,25 @@
                     </div>
                 </a>
             </div>
+
+            
+            <div class="col-md-3 col-xs-12 col-md-offset-0 hero-feature" ng-repeat="bakery in pyBakeries | orderBy: '-totalScore' | limitTo: 4*(resultRow+1)" ng-if="$index > 4*resultRow-1 && smallDevices">
+                <a href="#/client/bakery?bakeryId={{bakery.id}}">
+                    <div class="row home-small-bakery-box">
+                        <div class="col-xs-3">
+                            <img src="{{IMAGE_SOURCE + bakery.photoId + IMAGE_EXTENSION}}" class="home-small-img-padding img-rounded" alt="" width="75">
+                        </div>
+                        <div class="col-xs-9 home-small-caption">
+                            <h4>{{bakery.name}}</h4>
+                            <h4>
+                                <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+                                {{bakery.city}}
+                            </h4>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
 
         </div>
     </div>

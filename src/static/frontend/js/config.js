@@ -85,6 +85,14 @@ panemApp.config(['$routeProvider', function($routeProvider) {
        templateUrl: 'views/client/topupcredit.html', controller: 'clTopUpCreditCtrl'
    })
 
+   .when('/client/changepassword', {
+       templateUrl: 'views/client/changepassword.html', controller: 'clChangePasswordCtrl'
+   })
+
+   .when('/client/listallergenes', {
+      templateUrl: 'views/client/listallergenes.html', controller: 'clListAllergenesCtrl'
+   })
+
    .otherwise({
       redirectTo: '/client/home'
    });

@@ -4,6 +4,13 @@ panemApp.controller('clConfirmOrderCtrl', function($scope, $rootScope, $window, 
     $scope.pyOrder;
     $scope.pyCreditBill;
 
+    $scope.firstTimeClicked = false;
+
+    $scope.requestStatus = {};
+    $scope.smartChangeCount = 0;
+	$scope.promoCheck;
+	$scope.promoCode;
+
     // initialise dictionary
     $scope.dict = dictionary.fillClConfirmOrder("nl");
 
@@ -17,6 +24,13 @@ panemApp.controller('clConfirmOrderCtrl', function($scope, $rootScope, $window, 
 
     // FUNCTIONS
 
+    function parsedPromoCode() {
+        if (typeof $scope.promoCode !== 'undefined')
+            return $scope.promoCode.toUpperCase().replace(/\W/g, '');
+        else
+            return "none"
+    }
+
     // load current order from endpoint
     var loadCurrentOrder = function(token) {
         $http({
@@ -28,7 +42,7 @@ panemApp.controller('clConfirmOrderCtrl', function($scope, $rootScope, $window, 
         }, function(response) {
             $scope.pyOrder = {};
             // NEED zien wat dit geeft
-        })
+        });
     };
 
     // load credit bill
@@ -42,7 +56,7 @@ panemApp.controller('clConfirmOrderCtrl', function($scope, $rootScope, $window, 
         }, function(response) {
             $scope.pyCreditBill = {};
             // NEED zien wat dit geeft
-        })
+        });
     };
 
     // load data when token is available
@@ -56,20 +70,34 @@ panemApp.controller('clConfirmOrderCtrl', function($scope, $rootScope, $window, 
     processDate.setLang("nl");
     $scope.getQualitative = processDate.getWordDate;
 
+    // checks if the button is twice clicked
+    $scope.checkDoubleButtonClick = function(event) {
+        if(!$scope.firstTimeClicked) {
+            // the button was not clicked before
+            $scope.firstTimeClicked = true;
+            $(event.target).blur(); // lose focus of event.target = button object
+        }
+        else
+            if($scope.credit >= $scope.pyOrder.totalPrice)
+                proceedPaymentCredit();
+            else
+                proceedPaymentAdyen();
+    };
+
     // proceed to adyen payment
-    $scope.proceedPaymentAdyen = function() {
+    function proceedPaymentAdyen() {
 
         skin = 'default';
         // detect if the device is mobile or not
         if(document.documentElement.clientWidth < 768) {
-            skin = 'mobile'
+            skin = 'mobile';
         }
 
         // get bill from endpoint after obtaining a token
         tokenManager.getToken().then(function(newToken) {
             $http({
                 method : "GET",
-                url : $rootScope.baseUrl + '/order/current/bill/cash/extraCredit=' + $scope.extraCredit*100 + "&skin=" + skin + "&token=" + newToken + "/"
+                url : $rootScope.baseUrl + '/order/current/bill/cash/extraCredit=' + $scope.extraCredit*100 + "&skin=" + skin +  "&promocode=" + parsedPromoCode() + "&token=" + newToken + "/"
             }).then(function(response) {
                 $scope.pyBill = response.data;
             }, function(response) {
@@ -85,16 +113,39 @@ panemApp.controller('clConfirmOrderCtrl', function($scope, $rootScope, $window, 
                 $('#hiddenForm').submit();
             }
         });
-    };
+    }
 
     // proceed with credit payment
-    $scope.proceedPaymentCredit = function() {
+    function proceedPaymentCredit() {
         url = '/order/current/pay/';
         dataToSend = {};
-        $scope.requestStatus = requestWrapper.init();
         requestWrapper.post(url, dataToSend).then(function (newStatus) {
             // redirect page
             $window.location.href = '#/client/finalisepayment?credit=true&status='+newStatus;
         });
-    };
+    }
+
+    // promo code functions
+    function checkPromoCode() {
+		// perform endpoint request
+		var url = '/promo/check/code=' + parsedPromoCode();
+	    $scope.requestStatus.promo = requestWrapper.init();
+	    requestWrapper.get(url).then(function ([newStatus,resultData]) {
+	        $scope.requestStatus.promo = newStatus;
+	        $scope.promoCheck = resultData;
+	    });
+	}
+
+    // checks for changes in an input in a smart way
+	$scope.checkChangeSmart = function() {
+		// get my count
+		var myCount = $scope.smartChangeCount +1;
+		$scope.smartChangeCount++;
+
+		// wait for one seconds
+		setTimeout(function(){
+		    if ($scope.smartChangeCount == myCount)
+				checkPromoCode();
+		}, 1000);
+	};
 });

@@ -7,18 +7,18 @@
             <h1>{{pyBakeryInfo.name}}</h1>
             <p> <!-- adress -->
                 <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
-                {{pyBakeryInfo.adress}}
+                {{pyBakeryInfo.completeAddress}}
             </p>
             <!-- website -->
             <p ng-if="pyBakeryInfo.website"> <!-- empty string is evaluated as false -->
                 <span class="glyphicon glyphicon-globe" aria-hidden="true"></span>
                 <a href="http://{{pyBakeryInfo.website}}" target="_blank">{{pyBakeryInfo.website}}</a>
             </p>
-
-            <button type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="bottom" data-content="{{pyBakeryInfo.openingHours}}">
+            <button type="button" class="btn btn-default opening-hours-button" data-container="body" data-toggle="popover" data-placement="bottom" data-content="{{pyBakeryInfo.openingHours}}">
               <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
                 {{dict.bakeryDescription.openingHours}}
             </button>
+            <p class="spacer-small opening-hours-today"><strong>{{dict.today}}</strong>: {{openingsToday}}</p>
         </div>
     </div> <!-- row -->
 
@@ -36,6 +36,7 @@
             <!-- TAB CONTENT -->
             <div class="row tab-content" id="tabsContent">
                 <div class="tab-pane fade" ng-repeat="cat in pyCategories" id="content{{$index}}" ng-class="{'in active':$first}" ng-if="cat.products.length > 0">
+                    <!-- products in tab -->
                     <div class="col-sm-3 col-xs-3" ng-repeat="product in cat.products" ng-if="product.available">
                         <div ng-class="{true: 'box-xs', false: 'box'}[smallDevices]" style="background-image: url('{{PRODUCT_IMAGE_SOURCE + product.photoId + IMAGE_EXTENSION}}');">
                             <div ng-class="{true: 'overlay-xs', false: 'overlay'}[smallDevices]" ng-click="addProductToOrder(product)">
@@ -49,6 +50,20 @@
                             </div>
                             <!-- price -->
                             <span class="badge price-euro">{{product.price | moneyFilter}}</span>
+                        </div>
+                    </div>
+
+                    <!-- message if no products in tab -->
+                    <div ng-if="!cat.noRenderedItems == 0" class="row spacer-large">
+                        <div class="col-md-6 col-md-offset-3">
+                            <div class="row">
+                                <div class="col-md-6 col-md-offset-3">
+                                    <img src="images/brand/no_products.png" width="150"/>
+                                </div>
+                            </div>
+
+                            <h4 class="spacer-extended">{{dict.noProducts}}</h4>
+
                         </div>
                     </div>
                 </div>
@@ -83,8 +98,8 @@
 
                 <!-- thumbnail -->
                 <div class="col-xs-3 vcenter">
-                    <div class="box-mini" style="background-image: url('{{PRODUCT_IMAGE_SOURCE + product.photoId + IMAGE_EXTENSION}}');">
-                        <div class="overlay-mini" data-productid="{{product.id}}" ng-click="removeProductFromOrder(product)">
+                    <div class="box-xs" style="background-image: url('{{PRODUCT_IMAGE_SOURCE + product.photoId + IMAGE_EXTENSION}}');">
+                        <div class="overlay-xs delete-padding" data-productid="{{product.id}}" ng-click="removeProductFromOrder(product)">
                             <span class="glyphicon glyphicon-remove product-remove" aria-hidden="true"></span>
                         </div>
                     </div>
@@ -127,12 +142,22 @@
                     <div class="spacer-small btn-toolbar">
 
                         <!-- tomorrow disabled -->
-                        <button ng-if="(pyDisabledDatesInt.indexOf(1) > -1)" ng-click="setCalenderDivDate(1)" class="btn btn-danger btn-sm cursor-not-allowed" data-toggle="tooltip" data-placement="top" title="{{dict.orderLabels.bakeryIsClosed}}" tooltip>
+                        <button ng-if="(pyDisabledDatesIntOriginal.indexOf(1) > -1)" ng-click="setCalenderDivDate(1)" class="btn btn-danger btn-sm cursor-not-allowed" data-toggle="tooltip" data-placement="top" title="{{dict.orderLabels.bakeryIsClosed}}" tooltip>
                             {{dict.nextDays[1]}}
                         </button>
 
-                        <!-- tomorrow is not disabled -->
-                        <button class="btn btn-primary btn-sm" ng-if="!(pyDisabledDatesInt.indexOf(1) > -1)" ng-click="setCalenderDivDate(1)">
+                        <!-- tomorrow is not available due to limit time exceeded -->
+                        <button ng-if="pastLimitTime" ng-click="setCalenderDivDate(1)" class="btn btn-danger btn-sm cursor-not-allowed" data-toggle="tooltip" data-placement="top" title="{{dict.orderLabels.pastLimitTime}}" tooltip>
+                            {{dict.nextDays[1]}}
+                        </button>
+
+                        <!-- tomorrow is not disabled, available and not currently selected -->
+                        <button class="btn btn-default btn-sm" ng-if="!(pyDisabledDatesInt.indexOf(1) > -1) && selectedDateInt != 1" ng-click="setCalenderDivDate(1)">
+                            {{dict.nextDays[1]}}
+                        </button>
+
+                        <!-- tomorrow is not disabled, available and currently selected -->
+                        <button class="btn btn-panem-yellow btn-sm" ng-if="!(pyDisabledDatesInt.indexOf(1) > -1) && selectedDateInt == 1" ng-click="setCalenderDivDate(1)">
                             {{dict.nextDays[1]}}
                         </button>
 
@@ -141,11 +166,15 @@
                             {{getDateName(moreDays)}}
                         </button>
 
-                        <!-- date is not disabled -->
-                        <button ng-if="!(pyDisabledDatesInt.indexOf(moreDays) > -1)" class="btn btn-default btn-sm" ng-click="setCalenderDivDate(moreDays)" ng-repeat-end>
+                        <!-- date is not disabled and not currently selected -->
+                        <button ng-if="!(pyDisabledDatesInt.indexOf(moreDays) > -1) && selectedDateInt != moreDays" class="btn btn-default btn-sm" ng-click="setCalenderDivDate(moreDays)">
                             {{getDateName(moreDays)}}
                         </button>
 
+                        <!-- date is not disabled and currently selected -->
+                        <button ng-if="!(pyDisabledDatesInt.indexOf(moreDays) > -1) && selectedDateInt == moreDays" class="btn btn-panem-yellow btn-sm" ng-click="setCalenderDivDate(moreDays)" ng-repeat-end>
+                            {{getDateName(moreDays)}}
+                        </button>
                     </div>
 
                     <!-- input box with calendar -->
@@ -159,20 +188,38 @@
 
                     <!-- mobile input box with calendar -->
                     <div class="spacer-small device-xs visible-xs">
-                        <input type="date">
+                        <input id="nativeCalendar" type="date">
                     </div>
+            </div>
 
+            <div class="row spacer-small text-danger">
+                <!-- selected date is disabled -->
+                <div ng-if="(pyDisabledDatesIntOriginal.indexOf(selectedDateInt) > -1)">{{dict.orderLabels.bakeryIsClosed}} {{dict.orderLabels.selectOther}}</div>
+
+                <!-- selected date is tomorrow and pastLimitTime -->
+                <div ng-if="(selectedDateInt == 1) && pastLimitTime && (pyDisabledDatesIntOriginal.indexOf(1) == -1)">{{dict.orderLabels.pastLimitTime}} {{dict.orderLabels.selectOther}}</div>
+            </div>
+
+            <!-- pick up hour -->
+            <div class="row spacer-small">
+                <div class="col-xs-2">{{dict.timePickup}}</div>
+                <div class="col-xs-4">
+                    <select class="form-control" ng-model="pickUpTime.hour" ng-options='item for item in getValidHourChoices()' ng-change="pickUpTime.minutes = getValidMinuteChoices()[0]"></select>
+                </div>
+                <div class="col-xs-4">
+                    <select class="form-control" ng-model="pickUpTime.minutes" ng-options='item for item in getValidMinuteChoices()'></select>
+                </div>
             </div>
 
             <!-- remarks -->
-            <div class="row spacer-small">
+            <div class="row spacer-medium">
                 <!--<label id="labelRemarks" for="orderRemarks">{{dict.orderLabels.remarks}}</label> -->
                 <textarea class="form-control" rows="2" ng-model="remarks" placeholder="{{dict.orderLabels.remarks}}"></textarea>
             </div>
 
             <!-- submit button -->
             <div class="row spacer-medium">
-                <button type="submit" class="btn btn-default" id="labelSubmitOrder" ng-click="proceedToConfirmOrder()" ng-disabled="order.products.length == 0">
+                <button type="submit" class="btn btn-default" id="labelSubmitOrder" ng-click="proceedToConfirmOrder()" ng-disabled="order.products.length == 0 || pyDisabledDatesInt.indexOf(selectedDateInt) > -1">
                     {{dict.orderLabels.continue}}
                     <span class="glyphicon glyphicon-arrow-right"></span>
                 </button>
@@ -180,9 +227,13 @@
 
             <!-- overlay to log in if not logged in -->
             <div class="overlay-no-access" ng-if="!loggedIn">
-            	<p class="overlay-text">{{dict.overlay.message}}</p>
+            	<p class="overlay-text">{{dict.overlay.loginMessage}}</p>
 				<button type="button" class="btn overlay-btn-white" ng-click="navigate('#/client/login?source='+urlPath)">{{dict.overlay.btnLogIn}}</button>
 				<button type="button" class="btn overlay-btn-white" ng-click="navigate('#/client/register/')">{{dict.overlay.btnRegister}}</button>
+            </div>
+
+            <div class="overlay-no-access" ng-if="loggedIn && userInfo.type == 'baker'">
+                <p class="overlay-text">{{dict.overlay.noBakerMessage}}</p>
             </div>
 
         </div> <!-- col-sm-4 -->

@@ -8,7 +8,10 @@
                     <div class="row">
                         <div class="col-md-5 col-md-offset-1">
                             <h2 class="bootstrap-green">{{dict.creditPanel.currentCredit}}</h2>
-                            <p style="font-size: 400%" class="bootstrap-green price-euro">{{userInfo.credit | moneyFilter}}</p>
+                            <p style="font-size: 400%" class="bootstrap-green">{{userInfo.credit | moneyFilter}}</p>
+                            <h4><span class="label label-success" ng-if="creditIncreased">
+                                    + {{ creditAmountIncreased | moneyFilter}} {{dict.creditPanel.added}}
+                            </span></h4>
                         </div>
                         <div class="col-md-6">
                             <p class="spacer-medium">{{dict.creditPanel.description}}</p>
@@ -20,7 +23,12 @@
                 </div> <!-- panel body -->
             </div>
 
-            <h3 class="spacer-extended">{{dict.ordersPanel.title}}</h3>
+            <h3 class="spacer-extended">{{dict.changePassword}}</h3>
+            <button type="button" class="btn btn-default spacer-small" ng-click="navigate('#/client/changepassword/')">
+                {{dict.creditPanel.continue}} <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            </button>
+
+            <h3 class="spacer-medium">{{dict.ordersPanel.title}}</h3>
             <p ng-hide="!pyPreviousOrders.length">{{dict.ordersPanel.orderTip}}</p>
             <!-- previous orders -->
             <div class="panel panel-default spacer-medium">
@@ -35,10 +43,38 @@
                 <table class="table table-hover">
                     <!-- TODO maak markeringen vanaf waar deze week, vorige week, twee weken geleden, ... -->
                     <tbody>
-                        <tr class="cursor-hand" ng-repeat="order in pyPreviousOrders" ng-click="navigateToOrder(order.id, order.bakeryId)">
+                        <tr class="cursor-arrow" ng-repeat-start="order in pyPreviousOrders">
                             <th scope="row">{{order.date}}</th>
                             <td>{{order.bakeryName}}</td>
                             <td class="price-euro">{{order.totalPrice | moneyFilter}}</td>
+                            <td>
+                                <!-- replace order button -->
+                                <button type="button" class="btn btn-default btn-xs" ng-click="navigateToOrder(order.id, order.bakeryId)">
+                                    <i class="fa fa-refresh" aria-hidden="true"></i>
+                                    {{dict.ordersPanel.replaceOrder}}
+                                </button>
+                                <!-- cancel order button -->
+                                <button type="button" class="btn btn-danger btn-xs" ng-click="toggleCancelMessage(order,$event)" ng-if="(order.status != 'cancelled') && (order.status != 'frozen')">
+                                    {{dict.ordersPanel.cancel}}
+                                </button>
+                                <!-- already cancelled label -->
+                                <span class="label label-warning" ng-if="order.status == 'cancelled'">
+                                    {{dict.ordersPanel.cancelled}}
+                                </span>
+                            </td>
+                        </tr>
+                        <!-- confirm order cancelling message -->
+                        <tr ng-repeat-end ng-if="order.showDelete">
+                            <td colspan="4">
+                                {{dict.ordersPanel.confirmCancel}}
+                                <button type="button" class="btn btn-default btn-xs" ng-click="toggleCancelMessage(order,$event)">
+                                    {{dict.ordersPanel.no}}
+                                </button>
+                                <button type="button" class="btn btn-danger btn-xs" ng-click="cancelOrder(order)">
+                                    {{dict.ordersPanel.yes}}
+                                </button>
+                                {{order.cancelFeedbackMessage}}
+                            </td>
                         </tr>
                     </tbody>
                 </table>

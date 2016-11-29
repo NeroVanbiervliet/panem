@@ -4,7 +4,7 @@ panemApp.service('dictionary', function($rootScope) {
 
     // SERVICES
 	dictionary.fillServices = function (lang, serviceName) {
-		var dic = {}
+		var dic = {};
 
 		switch(lang) {
 		    case "en":
@@ -58,7 +58,7 @@ panemApp.service('dictionary', function($rootScope) {
 
     // DIRECTIVES
     dictionary.fillDirectives = function (lang, directiveName) {
-		var dic = {}
+		var dic = {};
 
 		switch(lang) {
 		    case "en":
@@ -87,7 +87,7 @@ panemApp.service('dictionary', function($rootScope) {
 
     // NAVBAR
     dictionary.fillNavbar = function (lang) {
-        var dic = {}
+        var dic = {};
 
         switch(lang) {
             case "en":
@@ -99,8 +99,8 @@ panemApp.service('dictionary', function($rootScope) {
                             "register" : "Registeren",
                             "alertMessage" : "Er is een probleem opgetreden, gelieve de pagina te herladen of ons te",
                             "linkToContact" : "contacteren"
-                        }
-                };
+                        };
+                }
 
         return dic;
     };
@@ -108,7 +108,7 @@ panemApp.service('dictionary', function($rootScope) {
 
     // CLIENT HOME PAGE
 	dictionary.fillClHome = function (lang) {
-		var dic = {}
+		var dic = {};
 
 		switch(lang) {
 		    case "en":
@@ -132,7 +132,7 @@ panemApp.service('dictionary', function($rootScope) {
 
     // CLIENT MYACCOUNT
     dictionary.fillClMyAccount = function (lang) {
-        var dic = {}
+        var dic = {};
 
         switch(lang) {
             case "en":
@@ -143,13 +143,25 @@ panemApp.service('dictionary', function($rootScope) {
                     "creditPanel" : {
                         "currentCredit" : "Huidige krediet",
                         "continue" : "Ga verder",
-                        "description" : "Met krediet kunt u snel en eenvoudig bestellingen plaatsen, zonder uw bankkaart te hoeven gebruiken. Klik hieronder om krediet toe te voegen aan uw account."
+                        "description" : "Met krediet kunt u snel en eenvoudig bestellingen plaatsen, zonder uw bankkaart te hoeven gebruiken. Klik hieronder om krediet toe te voegen aan uw account.",
+                        "added" : "toegevoegd"
                     },
                     "ordersPanel" : {
                         "title" : "Bestellingen",
-                        "orderTip" : "Klik op een bestelling om hem opnieuw te plaatsen.",
-                        "noOrders" : "Bestellingen die je maakt zullen hier getoond worden"
-                    }
+                        "orderTip" : "Je kunt je bestellingen bekijken en ze opnieuw plaatsen.",
+                        "noOrders" : "Bestellingen die je maakt zullen hier getoond worden",
+                        "replaceOrder" : "Bestel nog eens",
+                        "cancel" : "Annuleren",
+                        "confirmCancel" : "Ben je zeker dat je de bestelling wil annuleren?",
+                        "yes" : "Ja",
+                        "no" : "Nee",
+                        "cancelled" : "Geannuleerd"
+                    },
+                    "cancelFeedback" : {
+                      'frozen' : 'De bestelling is al doorgegeven aan de bakker en kan daarom niet meer geannuleerd worden.',
+                      'error' : 'Er ging iets fout. Contacteer ons om dit samen op te lossen.'
+                    },
+                    "changePassword" : "Wachtwoord veranderen"
                 };
                 $rootScope.title = 'Panem - Mijn account';
             }
@@ -158,9 +170,9 @@ panemApp.service('dictionary', function($rootScope) {
     };
 
 
-    // CLIENT BAKERY PAGE
+  // CLIENT BAKERY PAGE
 	dictionary.fillClBakery = function (lang) {
-		var dic = {}
+		var dic = {};
 		switch(lang) {
 		    case "en":
                 dic = {};
@@ -179,7 +191,9 @@ panemApp.service('dictionary', function($rootScope) {
                         "pickupDate" : "Afhaaldatum",
                         "previousOrders" : "Eerdere bestellingen",
                         "currentOrder" : "Huidige bestelling",
-                        "bakeryIsClosed" : "De bakker is deze dag gesloten",
+                        "bakeryIsClosed" : "De bakker is deze dag gesloten.",
+                        "pastLimitTime" : "Het is te laat om nog te bestellen voor morgen.",
+                        "selectOther" : "Gelieve een andere dag te selecteren.",
                         "continue" : "Ga verder"
                     },
                     "nextDays" : ["vandaag","morgen","overmorgen"],
@@ -205,10 +219,14 @@ panemApp.service('dictionary', function($rootScope) {
                         "365": "meer dan een jaar geleden"
                     },
                     'overlay' : {
-                        'message' : "Je moet ingelogd zijn om een bestelling te maken.",
+                        'loginMessage' : "Je moet ingelogd zijn om een bestelling te maken.",
                         'btnLogIn' : "Inloggen",
-                        'btnRegister' : "Registreren"
-                    }
+                        'btnRegister' : "Registreren",
+                        'noBakerMessage' : "Met een bakkersaccount kun je geen bestellingen plaatsen."
+                    },
+                    'today' : "Vandaag",
+                    'noProducts' : "Er zijn geen producten in deze categorie",
+                    'timePickup' : 'om'
                 };
                 $rootScope.title = 'Panem - '; // bakery name is added in client/bakery controller
 		}
@@ -219,7 +237,7 @@ panemApp.service('dictionary', function($rootScope) {
 
     // CLIENT REGISTER PAGE
 	dictionary.fillClRegister = function (lang) {
-		var dic = {}
+		var dic = {};
 
 		switch(lang) {
 		    case "en":
@@ -246,7 +264,8 @@ panemApp.service('dictionary', function($rootScope) {
                             "readAndConsent" : "gelezen en goedgekeurd."
                         },
                         "passwordHelpText" : "Het wachtwoord moet minimaal 7 karakters bevatten",
-                        "submit" : "Ga verder"
+                        "submit" : "Ga verder",
+                        "working" : "Aan het verwerken"
                     },
                     "requestStatus" : {
                             "inProgress" : "Uw gegevens worden verwerkt, even geduld.",
@@ -267,7 +286,7 @@ panemApp.service('dictionary', function($rootScope) {
 
     // CLIENT CONTACT AND CONTACT SUCCESS PAGE
 	dictionary.fillClContact = function (lang) {
-		var dic = {}
+		var dic = {};
 
 		switch(lang) {
         case "en":
@@ -303,10 +322,55 @@ panemApp.service('dictionary', function($rootScope) {
 		return dic;
 	};
 
+dictionary.fillClChangePassword = function (lang) {
+  var dic = {};
+
+  switch(lang) {
+      case "en":
+              dic = {};
+          break;
+    default: // NL
+              dic = {
+                'form' : {
+                  'passwordOld' : "Huidige wachtwoord",
+                  'passwordNew' : "Nieuwe wachtwoord",
+                  'passwordHelpText' : "Het wachtwoord moet minimaal 7 karakters bevatten",
+                  'submit' : "Ga verder"
+                },
+                'requestStatus' : {
+                  'backenderror' : 'Er ging iets fout, gelieve de pagina te herladen en opnieuw te proberen.',
+                  'wrongPassword' : 'Het huidige wachtwoord is niet correct.',
+                  'reqsNotMet' : 'Het nieuwe wachtwoord voldoet niet aan de voorwaarden.'
+                },
+                'feedbackMessage' : "Wachtwoord is gewijzigd"
+              };
+              $rootScope.title = 'Panem - Wachtwoord veranderen';
+        }
+
+  return dic;
+};
+
+
+dictionary.fillClListAllergenes = function (lang) {
+  var dic = {};
+
+  switch(lang) {
+      case "en":
+              dic = {};
+          break;
+    default: // NL
+              dic = {
+
+              };
+              $rootScope.title = 'Panem - Allergenen';
+        }
+
+  return dic;
+};
 
     // RESET PASSWORD PAGE
 	dictionary.fillClResetPassword = function (lang) {
-		var dic = {}
+		var dic = {};
 
 		switch(lang) {
 		    case "en":
@@ -333,7 +397,7 @@ panemApp.service('dictionary', function($rootScope) {
 
     // FORGOT PASSWORD PAGE
 	dictionary.fillClForgotPassword = function (lang) {
-		var dic = {}
+		var dic = {};
 
 		switch(lang) {
 		    case "en":
@@ -359,7 +423,7 @@ panemApp.service('dictionary', function($rootScope) {
 
     // CLIENT LOGIN PAGE
 	dictionary.fillClLogin = function (lang) {
-		var dic = {}
+		var dic = {};
 
 		switch(lang) {
 		    case "en":
@@ -392,7 +456,7 @@ panemApp.service('dictionary', function($rootScope) {
 
     // CLIENT CONFIRM ORDER PAGE
     dictionary.fillClConfirmOrder = function (lang) {
-        var dic = {}
+        var dic = {};
 
         switch(lang) {
             case "en":
@@ -413,11 +477,19 @@ panemApp.service('dictionary', function($rootScope) {
                     "toPay" : "Resterend te betalen",
                     "insufficientFunds" : "Je hebt onvoldoende krediet. Om de bestelling te plaatsen kun je doorgaan met online betalen.",
                     "payWithCredits" : "Betaal met krediet",
-                    "addCreditToAccount" : "Voeg krediet toe aan mijn account",
+                    "addCreditToAccount" : "Voeg ook krediet toe aan mijn account",
                     "addCreditToAccountTooltip" : "Krediet kun je later gebruiken om een andere online bestelling te plaatsen zonder opnieuw je bankgegevens te hoeven gebruiken",
                     "bonusCredit" : "Vanaf 10 euro krijg je twee euro extra krediet!",
                     "payOnline" : "Betaal",
-                    "paymentIsSecure" : "De betaling wordt veilig verwerkt door onze partner Adyen"
+                    "looksGreat" : "Ik denk dat de bestelling klopt",
+                    "paymentIsSecure" : "De betaling wordt veilig verwerkt door onze partner Adyen",
+                    "promoCode" : "Promotie code",
+                    "promoFeedback" : {
+                        'valid' : "geldige code",
+                        'notfound' : "ongeldige code",
+                        'used' : "is al gebruikt"
+                    },
+                    'promoExplanation' : "Een code geeft je recht op twee euro gratis krediet, bij het opladen van minstens tien euro"
                 };
                 $rootScope.title = 'Panem - Bevestig bestelling';
         }
@@ -427,7 +499,7 @@ panemApp.service('dictionary', function($rootScope) {
 
     // CLIENT VERIFY REGISTER PAGE
     dictionary.fillClVerifyAccount = function (lang) {
-        var dic = {}
+        var dic = {};
 
         switch(lang) {
             case "en":
@@ -438,14 +510,11 @@ panemApp.service('dictionary', function($rootScope) {
                 break;
             default: // NL
                 dic = {
-                    "confirmed" : {
-                        "heading" : "Email is bevestigd",
-                        "description" : "U kunt nu aan de slag met Panem! Klik op de knop hieronder om naar de homepagina te gaan. Daar kunt u uw bakker zoeken en een bestelling plaatsen.",
-                        "buttonText" : "Naar Home"
-                    },
+                    "confirmed" : "Je emailadres is bevestigd",
                     "wasAlreadyConfirmed" : {
                         "heading" : "Email was al bevestigd",
-                        "description" : "Uw email adres was al bevestigd."
+                        "description" : "Uw email adres was al bevestigd.",
+                        "buttonText" : "Naar home"
                     },
                     "noCorrectCodeOrEmail" : {
                         "heading" : "Foute gegevens",
@@ -466,7 +535,7 @@ panemApp.service('dictionary', function($rootScope) {
 
     // BAKER REGISTER PAGE
 	dictionary.fillBkRegister = function (lang) {
-		var dic = {}
+		var dic = {};
 
 		switch(lang) {
 		    case "en":
@@ -498,6 +567,7 @@ panemApp.service('dictionary', function($rootScope) {
                         'bankAccountPlaceholder' : 'bv. BE46 0016 1525 7336',
                     },
                     'submitText' : 'Ga verder',
+                    'workingText' : 'Aan het verwerken',
                     "checkbox" : {
                             "iHave" : "Ik heb de ",
                             "termsAndConditions" : "algemene voorwaarden ",
@@ -519,7 +589,7 @@ panemApp.service('dictionary', function($rootScope) {
 
     // BAKER DAY ORDER PAGE
 	dictionary.fillBkDayOrder = function (lang) {
-		var dic = {}
+		var dic = {};
 
 		switch(lang) {
 		    case "en":
@@ -550,7 +620,7 @@ panemApp.service('dictionary', function($rootScope) {
 
     // BAKER MODIFYPRODUCTS PAGE
 	dictionary.fillBkModifyProducts = function (lang) {
-		var dic = {}
+		var dic = {};
 
 		switch(lang) {
 		    case "en":
@@ -589,7 +659,7 @@ panemApp.service('dictionary', function($rootScope) {
 
     // BAKER ALL ORDERS PAGE
 	dictionary.fillBkAllOrders = function (lang) {
-		var dic = {}
+		var dic = {};
 
 		switch(lang) {
 		    case "en":
@@ -616,7 +686,7 @@ panemApp.service('dictionary', function($rootScope) {
 
     // BAKER MANAGE BAKERY PAGE
 	dictionary.fillBkManageBakery = function (lang) {
-		var dic = {}
+		var dic = {};
 
 		switch(lang) {
 		    case "en":
@@ -663,7 +733,7 @@ panemApp.service('dictionary', function($rootScope) {
 
     // CLIENT FINALISE PAYMENT PAGE
 	dictionary.fillClFinalisePayment = function (lang) {
-		var dic = {}
+		var dic = {};
 
 		switch(lang) {
 		    case "en":
@@ -704,9 +774,9 @@ panemApp.service('dictionary', function($rootScope) {
                             'title' : "Er is geen betaling af te handelen",
                             'description' : "Waarschijnlijk ben je hier per ongeluk terecht gekomen"
                         },
-                        'topUpSuccess' : {
-                            'title' : "Betaling aanvaard",
-                            'description' : "Uw krediet werd aangevuld."
+                        'creditPaymentSuccess' : {
+                            'title' : "Betaling met krediet aanvaard",
+                            'currentCredit' : "Je resterende krediet bedraagt nu "
                         }
                     },
                     'toHome' : {
@@ -727,7 +797,7 @@ panemApp.service('dictionary', function($rootScope) {
 
     // CLIENT TOP UP CREDIT PAGE
 	dictionary.fillClTopUpCredit = function (lang) {
-		var dic = {}
+		var dic = {};
 
 		switch(lang) {
 		    case "en":

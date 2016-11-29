@@ -3,7 +3,7 @@
         <div class="col-md-8 col-md-offset-2">
             <!-- TODO show logo on print -->
             <!-- aggregate order -->
-            <div class="panel panel-default force-page-break">
+            <div class="panel panel-default">
                 <div class="panel-heading">{{dict.aggregatePanel.title}} <strong>{{pyOrder.dateString}}</strong></div>
                 <div class="panel-body">
                     <div class="row">
@@ -12,7 +12,7 @@
                             <p>{{dict.aggregatePanel.totalMoney}}: <strong class="price-euro">{{pyOrder.totalMoney | moneyFilter}}</strong></p>
                         </div>
                         <div class="col-md-3">
-                            <button type="button" class="btn btn-default" aria-label="Left Align" ng-click="printPage()">
+                            <button type="button" class="btn btn-default hide-print" aria-label="Left Align" ng-click="printPage()">
                                 {{dict.aggregatePanel.print}}
                                 <span class="glyphicon glyphicon-print" aria-hidden="true"></span>
                             </button>
@@ -21,15 +21,13 @@
                 </div> <!-- panel body -->
                 <table class="table">
                     <tbody id="tableBody">
-                        <tr ng-repeat-start="cat in pyOrder.aggregateOrder" class="active">
+                        <tr ng-repeat-start="cat in pyOrder.aggregateOrder" class="active avoid-page-break">
                             <th>{{cat.categoryName}}</th>
-                            <th>#</th>
-                            <th># liter</th>
+                            <th>totaal #</th>
                         </tr>
                         <tr ng-repeat-end ng-repeat="product in cat.products">
                             <td>{{product.name}}</td>
                             <td>{{product.amount}}</td>
-                            <td>{{product.amount*0.12}} l</td>
                         </tr>
                     </tbody>
                 </table>
@@ -51,12 +49,6 @@
                         <tr ng-repeat-start="order in pyOrder.orders" class="active avoid-page-break">
                             <th>{{order.lastName.toUpperCase()}} {{order.firstName}}</th>
                             <td class="price-euro">{{order.totalPrice | moneyFilter}}</td>
-                            <td ng-if="order.isPayed">
-                                <span class="label label-success">{{dict.individualPanel.payed}}</span>
-                            </td>
-                            <td ng-if="!order.isPayed">
-                                <span class="label label-info">{{dict.individualPanel.notpayed}}</span>
-                            </td>
                         </tr>
                         <tr class="active avoid-page-break" ng-if="remarksNotEmpty(order)">
                             <td colspan="3">

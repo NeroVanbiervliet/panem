@@ -1,6 +1,27 @@
 @charset "UTF-8";
 @charset 'iso-8859-15';
 
+/* bakery page */
+
+.opening-hours-button {
+	float : left;
+}
+
+.opening-hours-today {
+	margin-left : 150px;
+	margin-top : 16px !important;
+}
+
+.btn-panem-yellow {
+	color : black;
+	border-color : #eec646;
+	background-color : #eec646;
+}
+
+.btn-panem-yellow:hover {
+	color : white;
+}
+
 /* home page layout */
 
 .background-pattern {
@@ -19,6 +40,21 @@
 
 .jumbotron {
 	margin-top: 20px;
+}
+
+.home-small-caption {
+	color : black;
+}
+
+.home-small-bakery-box {
+	background : white;
+	margin : 5px;
+	border : 1px solid #ddd;
+	border-radius : 4px;
+}
+
+.home-small-img-padding {
+	padding-top : 13px;
 }
 
 /* tweede versie van image hover */
@@ -90,32 +126,8 @@
 	font-size:40px;
 }
 
-/* miniversie */
-
-.box-mini {
-	max-width:50px;
-	max-height:50px;
-	/*border-bottom:2px solid #fff;
-	border-right:2px solid #fff; */
-	margin:5% auto 0 auto;
-	background-size:contain;
-    background-repeat: no-repeat;
-	border-radius:2px;
-	overflow:hidden;
-}
-
-.overlay-mini {
-    max-height: 100%;
-    max-width: 100%;
-	background:rgba(0,0,0,.65); /* black, slightly transparant */
-	text-align:center;
-	padding:0px 0 0px 0;
-	opacity:0;
-	border-radius:2px;
-}
-
-.box-mini:hover .overlay-mini { /* @ event hover van box -> doe deze layout op overlay */
-	opacity:1;
+.delete-padding {
+	padding-top : 5px !important; 
 }
 
 /* loader animation */
@@ -167,7 +179,14 @@
     border: 0px solid transparent;
     border-radius: 0px;
     color: white; /* text color */
-    background-color: #b30000;
+}
+
+.alert-custom-red {
+	background-color: #b30000;
+}
+
+.alert-custom-green {
+	background-color: #00b342;
 }
 
 .white-link {
@@ -190,7 +209,7 @@
 
 .jumbotron {
 	padding-top : 20px;
-	padding-bottom: 20px; 
+	padding-bottom: 20px;
 }
 
 .spacer { /* to create some whitespace */
@@ -237,7 +256,14 @@
     float: none;
 }
 
+/* 404 */
+
+.red-404 {
+	color : #df3e3e;
+}
+
 /* custom own */
+
 .top-bot-margin {
 	margin-top: 50px;
 	margin-bottom: 50px;
@@ -245,6 +271,10 @@
 
 .cursor-hand {
 	cursor: pointer;
+}
+
+.cursor-arrow {
+	cursor : default;
 }
 
 .to-caps {
@@ -298,6 +328,11 @@
     background: rgba(255, 255, 255, 0.9);
 }
 
+.fake-disabled {
+	pointer-events: none;
+    opacity: 0.5;
+}
+
 /* printing */
 
 .force-page-break {
@@ -306,6 +341,19 @@
 
 .avoid-page-break {
     page-break-after: avoid;
+}
+
+@media only print {
+	/* hide an element on the printout */
+	.hide-print {
+		display : none;
+	}
+
+	@page {
+	    size: auto;   /* auto is the initial value */
+		/* hide the url at the bottom of the print */
+	    margin-bottom: 0;  /* this affects the margin in the printer settings*/
+	}
 }
 
 /* search bar */

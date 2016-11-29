@@ -36,11 +36,24 @@ loadNavBarLogic = function(userInfo, $rootScope, $location, tokenManager, dictio
 
         // redirect to home
         $window.location = '#/client/home/';
-    }
+    };
 
     // EXECUTED ON ROUTE CHANGE AND ON REFRESH
+
+    // check if logged in still valid
+    if(tokenManager.isExpired()) {
+        $rootScope.loggedIn = false;
+        tokenManager.forceNewToken();
+    }
+
     $rootScope.$on("$routeChangeSuccess", function($currentRoute, $previousRoute) {
         // used to redirect to the source page after successful log in on login page
-        $rootScope.urlPath = $location.absUrl().split("#")[1]
+        $rootScope.urlPath = $location.absUrl().split("#")[1];
     });
-}
+
+    // routing
+    // cannot use navigate(someUrl) when the url contains ?somevar, the back function will then be broken
+    $rootScope.changeUrl= function(targetUrl) {
+        $location.url(targetUrl);
+    };
+};
