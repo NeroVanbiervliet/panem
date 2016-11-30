@@ -28,7 +28,7 @@ def create_bakery(personInfo, bakeryInfo, sendMail):
             website = ''
             if not 'openings' in bakeryInfo:
                 bakeryInfo['openings'] = "[[{\"h\": \"6\", \"m\": \"30\"}, {\"h\": \"18\", \"m\": \"00\"}, true],[{\"h\": \"6\", \"m\": \"30\"}, {\"h\": \"18\", \"m\": \"00\"}, true],[{\"h\": \"6\", \"m\": \"30\"}, {\"h\": \"18\", \"m\": \"00\"}, true],[{\"h\": \"6\", \"m\": \"30\"}, {\"h\": \"18\", \"m\": \"00\"}, true],[{\"h\": \"6\", \"m\": \"30\"}, {\"h\": \"18\", \"m\": \"00\"}, true],[{\"h\": \"6\", \"m\": \"30\"}, {\"h\": \"18\", \"m\": \"00\"}, true],[{\"h\": \"6\", \"m\": \"30\"}, {\"h\": \"18\", \"m\": \"00\"}, true]]"
-            description = 'lolololololololololololololololol'
+            description = 'empty'
             bestelLimitTime = '17:00'
             bakeryObject = bsf.add_bakery(bakeryInfo['name'],bakeryInfo['street'],int(bakeryInfo['postcode']),bakeryInfo['city'],GPSLat,GPSLon,bakeryInfo['telephone'],website,bakeryInfo['openings'],description,bestelLimitTime,bakeryInfo['bankAccount'],bakeryInfo['taxNumber'],1,accountId)
             output = 'success'
