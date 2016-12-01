@@ -1,5 +1,8 @@
 import smtplib
 from email.mime.text import MIMEText
+import requests
+
+SERVER_ADDRESS = 'http://localhost'
 
 # NEED wordt niet gebruikt in project
 from first.models import Account
@@ -8,48 +11,44 @@ from first.models import Account
 def resetPasswordSendMail(email,name,code):
 
     msg = "Hallo " + name +", klik op deze link om uw wachtwoord te resetten: " + str(code)
-    me = 'help@panem.be'
     you = email
     subject = 'Reset Password'
 
-    sendMail(me,you,subject,msg)
+    sendMail(you,subject,msg,msg)
 
     return code
 
 
-def sendVerifyMail(receiverEmail,code):
+def sendVerifyMail(destinationMail,code):
 
     # relative from manage.py
     f = open('email_templates/registration.html','r')
     html = f.read()
     html = html.replace('(code_input)',str(code))
-    html = html.replace('(email_input)',str(receiverEmail))
+    html = html.replace('(email_input)',str(destinationMail))
     f.close()
 
-    me = 'help@panem.be'
-    you = receiverEmail
-    subject = 'Verify Code'
+    text = 'Gelieve de volgende link te openen in uw browser: ' + SERVER_ADDRESS + '/#/client/verifyaccount?code=%s&email=%s' % (code,destinationMail)
+    subject = 'Welkom bij Panem!'
 
-    sendMail(me,you,subject,html)
+
+    sendMail(destinationMail,subject,text,html)
 
     return code
 
-# sends an email using the sendgrid API
-def sendMail(senderEmail, receiverEmail, subject, contentHtml):
+# sends an email using the mailgun API
+def sendMail(destinationEmail, subject, contentText, contentHtml):
 
-    msg = MIMEText(contentHtml, 'html')
-    me = senderEmail
-    you = receiverEmail
+    request = requests.post(
+        "https://api.mailgun.net/v3/panem.be/messages",
+        auth=("api", "key-2a2676fbda0ce7bc2aedd5824e341168"),
+        data={"from": "Panem Help <help@panem.be>",
+              "to": [destinationEmail],
+              "subject": subject,
+              "text": contentText,
+              "html": contentHtml})
 
-    msg['Subject'] = subject
-    msg['From'] = me
-    msg['To'] = you
-
-    s = smtplib.SMTP_SSL('smtp.sendgrid.net', 465, timeout=10)
-    s.set_debuglevel(0)
-    s.login('panem_python','rosbeiaard1')
-    s.sendmail(me, [you], msg.as_string())
-    s.quit()
+    # TODO check of request.status_code == 200 (OK)
 
     return "done"
 
