@@ -78,7 +78,6 @@ panemApp.service('tokenManager', function($cookies, $http, $rootScope, $q) {
                 deferred.resolve(response.data);
             },
             function(response){ // failed request to backend
-                console.log("backend request failed");
                 deferred.reject('NOVALIDTOKEN');
             }
         );
@@ -344,7 +343,7 @@ panemApp.service('requestWrapper', function($rootScope, $http, tokenManager, $q)
         tokenManager.getToken().then(function(newToken) {
             // add token to data
             data.token = newToken;
-
+            
             var postData = $.param({
                 json : JSON.stringify(data)
             });

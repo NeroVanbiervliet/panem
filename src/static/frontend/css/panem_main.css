@@ -13,9 +13,10 @@
 }
 
 .btn-panem-yellow {
+	/* panem yellow is now green :) */
 	color : black;
-	border-color : #eec646;
-	background-color : #eec646;
+	border-color : #8bc34a;
+	background-color : #8bc34a;
 }
 
 .btn-panem-yellow:hover {
@@ -127,7 +128,7 @@
 }
 
 .delete-padding {
-	padding-top : 5px !important; 
+	padding-top : 5px !important;
 }
 
 /* loader animation */

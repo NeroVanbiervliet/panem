@@ -481,7 +481,7 @@ dictionary.fillClListAllergenes = function (lang) {
                     "addCreditToAccountTooltip" : "Krediet kun je later gebruiken om een andere online bestelling te plaatsen zonder opnieuw je bankgegevens te hoeven gebruiken",
                     "bonusCredit" : "Vanaf 10 euro krijg je twee euro extra krediet!",
                     "payOnline" : "Betaal",
-                    "looksGreat" : "Ik denk dat de bestelling klopt",
+                    "looksGreat" : "Mijn bestelling is volledig",
                     "paymentIsSecure" : "De betaling wordt veilig verwerkt door onze partner Adyen",
                     "promoCode" : "Promotie code",
                     "promoFeedback" : {

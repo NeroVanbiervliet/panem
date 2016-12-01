@@ -397,12 +397,12 @@ def verifyAccount(request):
     if validMethod:
         parsedData = processJson(request)
         token = str(parsedData['token'])
-        info = atm.verifyToken(token)
+        info = atm.verifyToken(token) # returns 'tokennotexist' | 'expired'
         
         if isinstance(info, int ):
             email = str(parsedData['email'])
             code = str(parsedData['code'])
-            output = atm.verify_account(email,code)
+            output = atm.verify_account(email,code) # returns 'already-verified' | 'wrong-code' | 'acc-not-found' | a token string
         else:
             output = info
             
