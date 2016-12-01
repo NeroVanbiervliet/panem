@@ -122,9 +122,9 @@ def databaseFillBakeries():
         for i in range(len(openings)):
             openings[i][2] = bool(random.getrandbits(1)) # random boolean
             openings[i][0]['h'] = str(random.randint(5,7))
-            openings[i][0]['m'] = str(random.randint(0,40))
+            openings[i][0]['m'] = str(5*int(random.randint(0,59)/5))
             openings[i][1]['h'] = str(random.randint(16,20))
-            openings[i][1]['m'] = str(random.randint(0,40))
+            openings[i][1]['m'] = str(5*int(random.randint(0,59)/5))
 
         openings = str(openings)
         openings = openings.replace('\'','\"').replace('False','false').replace('True','true')
