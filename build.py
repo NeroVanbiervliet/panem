@@ -137,6 +137,7 @@ replaceCodeInFileRegex(distPath + 'FRG/salesOffice.py',r"NORMAL_HMAC_KEY = '.+'"
 
 print 'replacing destination IP in register email'
 replaceCodeInFile(distPath + 'email_templates/registration.html', '<a href="http://localhost/#/','<a href="http://'+serverIp+'/#/')
+replaceCodeInFile(distPath + 'email_templates/registration.html', 'http://localhost/images/','http://'+serverIp+'/images/')
 replaceCodeInFile(distPath + 'FRG/mailHandler.py', 'SERVER_ADDRESS = \'http://localhost\'','SERVER_ADDRESS = \'http://'+serverIp+'\'')
 
 print 'build completed'
