@@ -13,13 +13,32 @@
 }
 
 .btn-panem-yellow {
+	/* panem yellow is now green :) */
 	color : black;
-	border-color : #eec646;
-	background-color : #eec646;
+	border-color : #8bc34a;
+	background-color : #8bc34a;
 }
 
 .btn-panem-yellow:hover {
 	color : white;
+}
+
+/* terms and conditions */
+.btn-terms:hover, .btn-terms:active, .btn-terms:focus, .btn-terms:visited, .btn-focussed{
+	border-color : #eec64c !important;
+	background-color : white !important;
+	outline : 0 none !important;
+	box-shadow : none;
+	-webkit-box-shadow : none;
+}
+
+.btn-terms:hover {
+	border-width : 2px;
+	margin : -1px;
+}
+
+.btn-terms:visited, .btn-terms:focus, .btn-focussed {
+	color : #eec64c !important;
 }
 
 /* home page layout */
@@ -127,7 +146,7 @@
 }
 
 .delete-padding {
-	padding-top : 5px !important; 
+	padding-top : 5px !important;
 }
 
 /* loader animation */

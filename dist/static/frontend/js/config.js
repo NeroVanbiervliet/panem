@@ -50,7 +50,7 @@ panemApp.config(['$routeProvider', function($routeProvider) {
    })
 
    .when('/client/termsconditions', {
-       templateUrl: 'views/client/termsconditions.html', controller: 'clTermsConditionsCtrl'
+       templateUrl: 'views/termsconditions/index.html', controller: 'clTermsConditionsCtrl'
    })
 
    .when('/client/verifyaccount', {

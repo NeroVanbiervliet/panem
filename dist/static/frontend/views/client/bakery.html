@@ -46,7 +46,9 @@
                         <div class="text-center">
                             
                             <div ng-repeat="namePart in product.displayNameTabs">
-                                <p class="label label-default">{{namePart}}</p>
+                                <h4><span class="label label-default">
+                                    {{namePart}}
+                                </span></h4>
                             </div>
                             
                             <span class="badge price-euro">{{product.price | moneyFilter}}</span>
@@ -206,6 +208,7 @@
                 <div class="col-xs-4">
                     <select class="form-control" ng-model="pickUpTime.hour" ng-options='item for item in getValidHourChoices()' ng-change="pickUpTime.minutes = getValidMinuteChoices()[0]"></select>
                 </div>
+                <div class="col-xs-1">{{dict.hourAbbr}}</div>
                 <div class="col-xs-4">
                     <select class="form-control" ng-model="pickUpTime.minutes" ng-options='item for item in getValidMinuteChoices()'></select>
                 </div>

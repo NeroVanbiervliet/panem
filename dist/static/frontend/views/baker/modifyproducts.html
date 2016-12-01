@@ -129,30 +129,30 @@
                             </div>
                         </div>
                     </div>
-
-                    
-                    <div class="row spacer-medium">
-                        <div class="col-xs-3">
-                            <button class="btn btn-default" ng-click="saveAllData()">{{dict.saveChanges}}</button>
-                        </div>
-
-                        
-                        <div class="col-xs-1" ng-show="requestStatus.updateBakery=='working' || requestStatus.adaptProducts=='working'">
-                            <div class="loader-small"></div>
-                        </div>
-                        
-                        <div class="col-xs-6 text-success" ng-show="requestStatus.updateBakery=='success' && requestStatus.adaptProducts=='success'">
-                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                            {{dict.status.success}}
-                        </div>
-                        
-                        <div class="col-xs-6 text-danger" ng-show="!(requestStatus.updateBakery=='success' && requestStatus.adaptProducts=='success') && !(requestStatus.updateBakery=='working' || requestStatus.adaptProducts=='working') && (requestStatus.adaptProducts != 'init' && requestStatus.updateBakery != 'init')">
-                            <span class="glyphicon glyphicon-flash" aria-hidden="true"></span>
-                            {{dict.status.failure}}
-                        </div>
-                    </div>
                 </div> 
             </div> 
+
+            
+            <div class="row spacer-medium">
+                <div class="col-xs-3">
+                    <button class="btn btn-default" ng-click="saveAllData()">{{dict.saveChanges}}</button>
+                </div>
+
+                
+                <div class="col-xs-1" ng-show="requestStatus.updateBakery=='working' || requestStatus.adaptProducts=='working'">
+                    <div class="loader-small"></div>
+                </div>
+                
+                <div class="col-xs-6 text-success" ng-show="requestStatus.updateBakery=='success' && requestStatus.adaptProducts=='success'">
+                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                    {{dict.status.success}}
+                </div>
+                
+                <div class="col-xs-6 text-danger" ng-show="!(requestStatus.updateBakery=='success' && requestStatus.adaptProducts=='success') && !(requestStatus.updateBakery=='working' || requestStatus.adaptProducts=='working') && (requestStatus.adaptProducts != 'init' && requestStatus.updateBakery != 'init')">
+                    <span class="glyphicon glyphicon-flash" aria-hidden="true"></span>
+                    {{dict.status.failure}}
+                </div>
+            </div>
 
         </div>
         <div class="col-md-2"></div>

@@ -46,12 +46,7 @@
 
                         <div class="col-xs-12">
                             <div class="spacer-small">
-                                <span class="label label-success" ng-show="(amountTopUp >= 10) && (requestStatus.promo=='success-valid')">
-                                    +2
-                                </span>
-                            </div>
-                            <div class="spacer-small">
-                                <span class="label label-default">
+                                <span class="label" ng-class="((amountTopUp >= 10) && (requestStatus.promo=='success-valid')) ? 'label-success' : 'label-default'">
                                     {{dict.promoExplanation}}
                                 </span>
                             </div>
