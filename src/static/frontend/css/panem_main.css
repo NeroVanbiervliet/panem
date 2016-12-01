@@ -23,6 +23,24 @@
 	color : white;
 }
 
+/* terms and conditions */
+.btn-terms:hover, .btn-terms:active, .btn-terms:focus, .btn-terms:visited, .btn-focussed{
+	border-color : #eec64c !important;
+	background-color : white !important;
+	outline : 0 none !important;
+	box-shadow : none;
+	-webkit-box-shadow : none;
+}
+
+.btn-terms:hover {
+	border-width : 2px;
+	margin : -1px;
+}
+
+.btn-terms:visited, .btn-terms:focus, .btn-focussed {
+	color : #eec64c !important;
+}
+
 /* home page layout */
 
 .background-pattern {

@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+
+            <h1>Algemene Voorwaarden en Privacy Panem.be</h1>
+
+            <p>Selecteer hieronder of u algemene informatie, specifiek voor gebruikers of specifiek voor winkels wil bekijken. Alle opmerkingen, vragen en verzoeken zijn welkom. Onze contactgegevens vindt u <a href="/#/client/contact/">hier</a>.</p>
+
+            <!-- navigation buttons-->
+            <div class="row spacer-extended">
+                <div class="col-md-8 col-md-offset-3">
+                    <button type="button" class="btn btn-default btn-terms" ng-click="section='general'" id="btn-general" ng-class="{'btn-focussed' : section=='general'}">Algemeen</button>
+                    <button type="button" class="btn btn-default btn-terms" ng-click="section='users'" ng-class="{'btn-focussed' : section=='users'}">Gebruikers</button>
+                    <button type="button" class="btn btn-default btn-terms" ng-click="section='shops'" ng-class="{'btn-focussed' : section=='shops'}">Winkels</button>
+                </div>
+            </div>
+
+            <!-- different sections in terms -->
+            <div class="row spacer-medium">
+                <div ng-if="section=='users'" class="col-md-12">
+                    <ng-include src="'/views/termsconditions/users.html'"></ng-include>
+                </div>
+                <div ng-if="section=='shops'" class="col-md-12">
+                    <ng-include src="'/views/termsconditions/shops.html'"></ng-include>
+                </div>
+                <div ng-if="section=='general'" class="col-md-12">
+                    <ng-include src="'/views/termsconditions/general.html'"></ng-include>
+                </div>
+            </div>
+
+
+
+        </div> <!-- col -->
+    </div> <!-- row -->
+</div> <!-- container -->
