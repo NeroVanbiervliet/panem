@@ -246,7 +246,7 @@ def getGpsFromAdress(adress):
 
 
 def asanaLink(assigneeEmail,taskName,notes):
-    a={'name':taskName,'projects':'151047700474054','workspace':'97640907304377','notes':notes,'assignee':assigneeEmail}
+    a={'name':taskName,'projects':'223725291660179','workspace':'97640907304377','notes':notes,'assignee':assigneeEmail}
     client.tasks.create(a)
 
 def logVisit(accountId,bakeryId):
