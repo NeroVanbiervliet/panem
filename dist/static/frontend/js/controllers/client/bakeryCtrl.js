@@ -651,10 +651,11 @@ panemApp.controller('clBakeryCtrl', function($scope, $rootScope, dictionary, $wi
         if (typeof $scope.pyBakeryInfo !== 'undefined' && typeof $scope.selectedDateInt !== 'undefined') {
             var openingsSelectedDay = $scope.pyBakeryInfo.parsedOpenings[selectedDayWeek];
             for(var i=0; i<25; i++) {
-                if (i >= parseInt(openingsSelectedDay[0].h) && i <= parseInt(openingsSelectedDay[1].h))
+                if (i >= parseInt(openingsSelectedDay[0].h) && // hour i larger of equal to opening hour
+                i <= parseInt(openingsSelectedDay[1].h) && // hour i smaller or equal to closing hour
+                !((i == parseInt(openingsSelectedDay[0].h)) && (parseInt(openingsSelectedDay[0].m) > 45))) // not equal to openinghour and opening minutes larger then 45 minutes
                     output.push(i);
             }
-
             $scope.selectedDayOpenings = openingsSelectedDay;
         }
 
@@ -665,6 +666,7 @@ panemApp.controller('clBakeryCtrl', function($scope, $rootScope, dictionary, $wi
     $scope.getValidMinuteChoices = function() {
         output = [];
 
+        // possible choices for the minutes
         var minChoices = ['00','15','30','45'];
 
         // TODO gaat fout als opening en sluitingsuur in het zelfde uur zijn
@@ -685,7 +687,6 @@ panemApp.controller('clBakeryCtrl', function($scope, $rootScope, dictionary, $wi
                 }
             }
         }
-
         return output;
     };
 
