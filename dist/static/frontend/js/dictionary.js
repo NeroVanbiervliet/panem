@@ -381,11 +381,15 @@ dictionary.fillClListAllergenes = function (lang) {
                         "heading" : "Nieuw wachtwoord kiezen",
                         "form" : {
                             "code" : "Code",
+                            'email' : "Emailadres",
                             "codeHelpText" : "De code werd je gestuurd via email.",
                             "password" : "Nieuw wachtwoord",
                             "repeatPassword" : "Herhaal wachtwoord",
                             "passwordHelpText" : "Het wachtwoord moet minimaal 7 karakters bevatten",
                             "submit" : "Ga verder"
+                        },
+                        'status' : {
+                          'success' : "Je nieuw wachtwoord werd ingesteld. Je kunt nu inloggen."
                         }
                 };
                 $rootScope.title = 'Panem - Reset wachtwoord';

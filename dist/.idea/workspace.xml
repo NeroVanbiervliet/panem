@@ -21,12 +21,58 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="databaseFunctions.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/FRG/databaseFunctions.py">
+      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/first/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.36037442">
-              <caret line="248" column="50" selection-start-line="248" selection-start-column="50" selection-end-line="248" selection-end-column="50" />
+            <state vertical-scroll-proportion="-8.645162">
+              <caret line="26" column="53" selection-start-line="26" selection-start-column="53" selection-end-line="26" selection-end-column="53" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/first/views.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.3322933">
+              <caret line="449" column="65" selection-start-line="449" selection-start-column="65" selection-end-line="449" selection-end-column="65" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="authAdministration.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/FRG/authAdministration.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-4.225806">
+              <caret line="52" column="13" selection-start-line="52" selection-start-column="13" selection-end-line="52" selection-end-column="13" />
+              <folding>
+                <element signature="e#0#40#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/first/models.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-6.548387">
+              <caret line="64" column="13" selection-start-line="64" selection-start-column="6" selection-end-line="64" selection-end-column="13" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="mailHandler.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/FRG/mailHandler.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-9.290322">
+              <caret line="16" column="37" selection-start-line="16" selection-start-column="26" selection-end-line="16" selection-end-column="37" />
+              <folding>
+                <element signature="e#0#14#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -46,14 +92,14 @@
         <option value="$PROJECT_DIR$/GDR/basicFunctions.py" />
         <option value="$PROJECT_DIR$/first/models.py" />
         <option value="$PROJECT_DIR$/FRG/salesOffice.py" />
-        <option value="$PROJECT_DIR$/test_suite.py" />
         <option value="$PROJECT_DIR$/GDR/filler.py" />
         <option value="$PROJECT_DIR$/FRG/orderLookUp.py" />
         <option value="$PROJECT_DIR$/first/urls.py" />
+        <option value="$PROJECT_DIR$/FRG/databaseFunctions.py" />
+        <option value="$PROJECT_DIR$/test_suite.py" />
+        <option value="$PROJECT_DIR$/FRG/mailHandler.py" />
         <option value="$PROJECT_DIR$/FRG/authAdministration.py" />
         <option value="$PROJECT_DIR$/first/views.py" />
-        <option value="$PROJECT_DIR$/FRG/mailHandler.py" />
-        <option value="$PROJECT_DIR$/FRG/databaseFunctions.py" />
       </list>
     </option>
   </component>
@@ -61,7 +107,7 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="45" />
+    <option name="x" value="-1321" />
     <option name="y" value="24" />
     <option name="width" value="1321" />
     <option name="height" value="744" />
@@ -106,7 +152,7 @@
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="FullScreen" value="false" />
-    <property name="SearchEverywhereHistoryKey" value="asana&#9;null&#9;null" />
+    <property name="SearchEverywhereHistoryKey" value="models&#9;FILE&#9;file:///home/nero/GIT/panem/src/first/models.py&#10;test&#9;FILE&#9;file:///home/nero/GIT/panem/src/test_suite.py&#10;urls&#9;FILE&#9;file:///home/nero/GIT/panem/src/first/urls.py&#10;asana&#9;null&#9;null" />
   </component>
   <component name="RunManager">
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
@@ -246,7 +292,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="45" y="24" width="1321" height="744" extended-state="6" />
+    <frame x="-1321" y="24" width="1321" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24905375" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -571,27 +617,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test_suite.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="519" column="71" selection-start-line="519" selection-start-column="71" selection-end-line="519" selection-end-column="71" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/GDR/basicFunctions.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="205" column="4" selection-start-line="205" selection-start-column="4" selection-end-line="205" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/first/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="18" column="19" selection-start-line="18" selection-start-column="19" selection-end-line="18" selection-end-column="19" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -616,41 +645,64 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/first/urls.py">
+    <entry file="file://$PROJECT_DIR$/FRG/databaseFunctions.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="23" column="40" selection-start-line="23" selection-start-column="40" selection-end-line="23" selection-end-column="40" />
+          <caret line="248" column="50" selection-start-line="248" selection-start-column="50" selection-end-line="248" selection-end-column="50" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/FRG/authAdministration.py">
+    <entry file="file://$PROJECT_DIR$/test_suite.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="153" column="4" selection-start-line="153" selection-start-column="4" selection-end-line="153" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/first/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="399" column="27" selection-start-line="399" selection-start-column="27" selection-end-line="399" selection-end-column="27" />
+        <state vertical-scroll-proportion="0.14040561">
+          <caret line="118" column="43" selection-start-line="118" selection-start-column="43" selection-end-line="118" selection-end-column="43" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/FRG/mailHandler.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="6" column="32" selection-start-line="6" selection-start-column="30" selection-end-line="6" selection-end-column="32" />
+        <state vertical-scroll-proportion="-9.290322">
+          <caret line="16" column="37" selection-start-line="16" selection-start-column="26" selection-end-line="16" selection-end-column="37" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/FRG/databaseFunctions.py">
+    <entry file="file://$PROJECT_DIR$/first/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.36037442">
-          <caret line="248" column="50" selection-start-line="248" selection-start-column="50" selection-end-line="248" selection-end-column="50" />
+        <state vertical-scroll-proportion="-8.645162">
+          <caret line="26" column="53" selection-start-line="26" selection-start-column="53" selection-end-line="26" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/first/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.548387">
+          <caret line="64" column="13" selection-start-line="64" selection-start-column="6" selection-end-line="64" selection-end-column="13" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FRG/authAdministration.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.225806">
+          <caret line="52" column="13" selection-start-line="52" selection-start-column="13" selection-end-line="52" selection-end-column="13" />
+          <folding>
+            <element signature="e#0#40#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/first/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3322933">
+          <caret line="449" column="65" selection-start-line="449" selection-start-column="65" selection-end-line="449" selection-end-column="65" />
           <folding />
         </state>
       </provider>

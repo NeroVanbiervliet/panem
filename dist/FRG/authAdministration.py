@@ -1,4 +1,5 @@
 from GDR.basicFunctions import add_token
+import FRG.mailHandler as mhl
 from first.models import Account, Token, Bakery
 from django.core.exceptions import ObjectDoesNotExist
 import hashlib
@@ -49,11 +50,11 @@ def change_password(emailIn,passwordOriginal,passwordNew):
             return 'accnotfound'
 
 
-def resetPasswordSet(code,accountId, passwordNew):
+def resetPasswordSet(code, passwordNew, email):
     try:
-        account = Account.objects.get(id = accountId)
+        account = Account.objects.get(email = email)
         if account.password == code:
-            return storeNewPassword(accountId,passwordNew)
+            return storeNewPassword(account.id,passwordNew)
 
         else:
             return 'wrongcode'
@@ -62,16 +63,14 @@ def resetPasswordSet(code,accountId, passwordNew):
         return 'accnotfound'
 
 
-def resetPassword(emailIn,token):
+def resetPassword(emailIn):
     #check if account exists
     #send mail if password is reset?
     try:
         account = Account.objects.get(email = emailIn)
-        name = account.firstname
         code = random.randint(10**5,10**7)
         account.password = code
-        link = 'localhost:9000/#/client/resetpassword?code=' + str(code) + '&token=' + token + '/' # NEED: zorg dat link goed is
-        resetPasswordSendMail(emailIn,name,link)
+        mhl.resetPasswordSendMail(emailIn,code)
 
         account.save()
         return 'success'

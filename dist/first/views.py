@@ -442,13 +442,12 @@ def resetPasswordSet(request):
         parsedData = processJson(request)
         token = str(parsedData['token'])
         code = str(parsedData['code'])
+        email = str(parsedData['email'])
         passwordNew = str(parsedData['passwordNew'])
 
         info = atm.verifyToken(token)
-        if isinstance(info, int ):
-            accountId = info
-            output = atm.resetPasswordSet(code,accountId,passwordNew)
-            output = json.dumps(output)
+        if isinstance(info, int):
+            output = atm.resetPasswordSet(code,passwordNew,email)
         else:
             output = info
     
@@ -466,8 +465,8 @@ def resetPasswordMail(request):
         emailIn = str(parsedData['email'])
         token = str(parsedData['token'])
         info = atm.verifyToken(token)
-        if isinstance(info, int ):
-            output = atm.resetPassword(emailIn,token)
+        if isinstance(info, int):
+            output = atm.resetPassword(emailIn)
         else:
             output = info
 
