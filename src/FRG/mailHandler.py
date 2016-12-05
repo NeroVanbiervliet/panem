@@ -8,13 +8,19 @@ SERVER_ADDRESS = 'http://localhost'
 from first.models import Account
 
 
-def resetPasswordSendMail(email,name,code):
+def resetPasswordSendMail(email,code):
 
-    msg = "Hallo " + name +", klik op deze link om uw wachtwoord te resetten: " + str(code)
-    you = email
-    subject = 'Reset Password'
+    # relative from manage.py
+    f = open('email_templates/forgotpassword.html','r')
+    html = f.read()
+    html = html.replace('(code_input)',str(code))
+    html = html.replace('(email_input)',str(email))
+    f.close()
 
-    sendMail(you,subject,msg,msg)
+    text = 'Gelieve de volgende link te openen in uw browser om een nieuw wachtwoord te kiezen: ' + SERVER_ADDRESS + '/#/client/resetpassword?code=%s&email=%s' % (code,email)
+    subject = 'Wachtwoord vergeten'
+
+    sendMail(email,subject,text,html)
 
     return code
 

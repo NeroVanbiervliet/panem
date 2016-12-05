@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <title>Page not found at bakery/151/ingredients/</title>
+  <title>Page not found at /token/verify/token=&lt;none&gt;/</title>
   <meta name="robots" content="NONE,NOARCHIVE">
   <style type="text/css">
     html * { padding:0; margin:0; }
@@ -29,18 +29,442 @@
     <table class="meta">
       <tr>
         <th>Request Method:</th>
-        <td>POST</td>
+        <td>GET</td>
       </tr>
       <tr>
         <th>Request URL:</th>
-        <td>http://testserver/bakery151/ingredients/</td>
+        <td>http://testserver/token/verify/token%3D%3Cnone%3E/</td>
       </tr>
       
     </table>
   </div>
   <div id="info">
     
-      <p>{u&#39;path&#39;: u&#39;bakery/151/ingredients/&#39;}</p>
+      <p>
+      Using the URLconf defined in <code>panem_project.urls</code>,
+      Django tried these URL patterns, in this order:
+      </p>
+      <ol>
+        
+          <li>
+            
+                ^admin/
+                
+            
+          </li>
+        
+          <li>
+            
+                ^
+                
+            
+                ^bakery/(?P&lt;bakeryId&gt;[0-9]+)/token=(?P&lt;token&gt;[A-Za-z0-9.-]+)/$
+                [name='bakery']
+            
+          </li>
+        
+          <li>
+            
+                ^
+                
+            
+                ^bakery/token=(?P&lt;token&gt;[A-Za-z0-9.-]+)/$
+                [name='allBakeries']
+            
+          </li>
+        
+          <li>
+            
+                ^
+                
+            
+                ^bakery/search/GPSLon=(?P&lt;GPSLon&gt;\d+\.\d+)&amp;GPSLat=(?P&lt;GPSLat&gt;\d+\.\d+)&amp;token=(?P&lt;token&gt;[A-Za-z0-9.-]+)/$
+                [name='bakerySearch']
+            
+          </li>
+        
+          <li>
+            
+                ^
+                
+            
+                ^bakery/search/postcode=(?P&lt;postcode&gt;[0-9]+)&amp;token=(?P&lt;token&gt;[A-Za-z0-9.-]+)/$
+                [name='bakerySearchPostcode']
+            
+          </li>
+        
+          <li>
+            
+                ^
+                
+            
+                ^bakery/(?P&lt;bakeryId&gt;[0-9]+)/offer/token=(?P&lt;token&gt;[A-Za-z0-9.-]+)/$
+                [name='bakeryOffer']
+            
+          </li>
+        
+          <li>
+            
+                ^
+                
+            
+                ^bakery/(?P&lt;bakeryId&gt;[0-9]+)/products/token=(?P&lt;token&gt;[A-Za-z0-9.-]+)/$
+                [name='bakeryProducts']
+            
+          </li>
+        
+          <li>
+            
+                ^
+                
+            
+                ^bakery/(?P&lt;bakeryId&gt;[0-9]+)/products/categories/token=(?P&lt;token&gt;[A-Za-z0-9.-]+)/$
+                [name='bakeryProductsCategories']
+            
+          </li>
+        
+          <li>
+            
+                ^
+                
+            
+                ^bakery/(?P&lt;bakeryId&gt;[0-9]+)/allDayOrders/firstDay=(?P&lt;firstDay&gt;[0-9]+)&amp;lastDay=(?P&lt;lastDay&gt;[0-9]+)&amp;token=(?P&lt;token&gt;[A-Za-z0-9.-]+)/$
+                [name='allDayOrders']
+            
+          </li>
+        
+          <li>
+            
+                ^
+                
+            
+                ^bakery/(?P&lt;bakeryId&gt;[0-9]+)/dayOrder/date=(?P&lt;date&gt;[0-9]+)&amp;token=(?P&lt;token&gt;[A-Za-z0-9.-]+)/$
+                [name='dayOrder']
+            
+          </li>
+        
+          <li>
+            
+                ^
+                
+            
+                ^bakery/(?P&lt;bakeryId&gt;[0-9]+)/ingredients/token=(?P&lt;token&gt;[A-Za-z0-9.-]+)/$
+                [name='ingredientsGet']
+            
+          </li>
+        
+          <li>
+            
+                ^
+                
+            
+                ^bakery/(?P&lt;bakeryId&gt;[0-9]+)/ingredients/$
+                [name='ingredientsInsert']
+            
+          </li>
+        
+          <li>
+            
+                ^
+                
+            
+                ^bakery/create/$
+                [name='createBakery']
+            
+          </li>
+        
+          <li>
+            
+                ^
+                
+            
+                ^bakery/update/$
+                [name='adaptBakery']
+            
+          </li>
+        
+          <li>
+            
+                ^
+                
+            
+                ^bakery/update/emailnotifications/$
+                [name='updateEmailNotifications']
+            
+          </li>
+        
+          <li>
+            
+                ^
+                
+            
+                ^bakery/adaptProducts/$
+                [name='adaptProducts']
+            
+          </li>
+        
+          <li>
+            
+                ^
+                
+            
+                ^bakery/(?P&lt;bakeryId&gt;[0-9]+)/disabledates/token=(?P&lt;token&gt;[A-Za-z0-9.-]+)/$
+                [name='disableDates']
+            
+          </li>
+        
+          <li>
+            
+                ^
+                
+            
+                ^account/create/$
+                [name='createAccount']
+            
+          </li>
+        
+          <li>
+            
+                ^
+                
+            
+                ^account/verify/$
+                [name='verifyAccount']
+            
+          </li>
+        
+          <li>
+            
+                ^
+                
+            
+                ^account/verify/resendmail/email=(?P&lt;emailIn&gt;[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4})&amp;token=(?P&lt;token&gt;[A-Za-z0-9.-]+)/$
+                [name='repeatVerifyMail']
+            
+          </li>
+        
+          <li>
+            
+                ^
+                
+            
+                ^account/password/reset/mail/$
+                [name='resetPasswordMail']
+            
+          </li>
+        
+          <li>
+            
+                ^
+                
+            
+                ^account/password/reset/set/$
+                [name='resetPasswordSet']
+            
+          </li>
+        
+          <li>
+            
+                ^
+                
+            
+                ^order/current/token=(?P&lt;token&gt;[A-Za-z0-9.-]+)/$
+                [name='currentOrderGet']
+            
+          </li>
+        
+          <li>
+            
+                ^
+                
+            
+                ^order/current/$
+                [name='currentOrderPost']
+            
+          </li>
+        
+          <li>
+            
+                ^
+                
+            
+                ^order/current/bill/cash/extraCredit=(?P&lt;extraCredit&gt;[0-9]+)&amp;skin=(?P&lt;skin&gt;[A-Za-z0-9.-]+)&amp;promocode=(?P&lt;promocode&gt;[A-Za-z0-9.-]+)&amp;token=(?P&lt;token&gt;[A-Za-z0-9.-]+)/$
+                [name='currentOrderBillCash']
+            
+          </li>
+        
+          <li>
+            
+                ^
+                
+            
+                ^order/(?P&lt;orderId&gt;[0-9]+)/bill/cash/extraCredit=(?P&lt;extraCredit&gt;[0-9]+)&amp;skin=(?P&lt;skin&gt;[A-Za-z0-9.-]+)&amp;token=(?P&lt;token&gt;[A-Za-z0-9.-]+)/$
+                [name='orderBillCash']
+            
+          </li>
+        
+          <li>
+            
+                ^
+                
+            
+                ^order/(?P&lt;orderId&gt;[0-9]+)/cancel/$
+                [name='cancelOrder']
+            
+          </li>
+        
+          <li>
+            
+                ^
+                
+            
+                ^order/current/bill/credit/token=(?P&lt;token&gt;[A-Za-z0-9.-]+)/$
+                [name='currentOrderBillCredit']
+            
+          </li>
+        
+          <li>
+            
+                ^
+                
+            
+                ^order/(?P&lt;orderId&gt;[0-9]+)/bill/credit/token=(?P&lt;token&gt;[A-Za-z0-9.-]+)/$
+                [name='orderBillCredit']
+            
+          </li>
+        
+          <li>
+            
+                ^
+                
+            
+                ^order/current/receipt/$
+                [name='currentOrderReceipt']
+            
+          </li>
+        
+          <li>
+            
+                ^
+                
+            
+                ^order/current/pay/$
+                [name='currentOrderCredit']
+            
+          </li>
+        
+          <li>
+            
+                ^
+                
+            
+                ^me/previousOrders/bakeryId=(?P&lt;bakeryId&gt;[0-9]+)&amp;token=(?P&lt;token&gt;[A-Za-z0-9.-]+)/$
+                [name='previousOrders']
+            
+          </li>
+        
+          <li>
+            
+                ^
+                
+            
+                ^me/allPreviousOrders/token=(?P&lt;token&gt;[A-Za-z0-9.-]+)/$
+                [name='previousOrdersAcrossBakeries']
+            
+          </li>
+        
+          <li>
+            
+                ^
+                
+            
+                ^me/token=(?P&lt;token&gt;[A-Za-z0-9.-]+)/$
+                [name='token2account']
+            
+          </li>
+        
+          <li>
+            
+                ^
+                
+            
+                ^me/topup/bill/amount=(?P&lt;amount&gt;[0-9]+)&amp;skin=(?P&lt;skin&gt;[A-Za-z0-9.-]+)&amp;promocode=(?P&lt;promocode&gt;[A-Za-z0-9.-]+)&amp;token=(?P&lt;token&gt;[A-Za-z0-9.-]+)/$
+                [name='topUpAccountBill']
+            
+          </li>
+        
+          <li>
+            
+                ^
+                
+            
+                ^token/create/$
+                [name='createToken']
+            
+          </li>
+        
+          <li>
+            
+                ^
+                
+            
+                ^token/verify/token=(?P&lt;token&gt;[A-Za-z0-9.-]+)/$
+                [name='verifyToken']
+            
+          </li>
+        
+          <li>
+            
+                ^
+                
+            
+                ^adyen/notify/$
+                [name='processAdyenNotification']
+            
+          </li>
+        
+          <li>
+            
+                ^
+                
+            
+                ^contact/$
+                [name='submitContactIssue']
+            
+          </li>
+        
+          <li>
+            
+                ^
+                
+            
+                ^promo/check/code=(?P&lt;code&gt;[A-Za-z0-9.-]+)&amp;token=(?P&lt;token&gt;[A-Za-z0-9.-]+)/$
+                [name='checkPromoCode']
+            
+          </li>
+        
+          <li>
+            
+                ^
+                
+            
+                ^me/password/change/$
+                [name='changePassword']
+            
+          </li>
+        
+          <li>
+            
+                ^
+                
+            
+                ^test/$
+                [name='postTest']
+            
+          </li>
+        
+      </ol>
+      <p>The current URL, <code>token/verify/token=&lt;none&gt;/</code>, didn't match any of these.</p>
     
   </div>
 
